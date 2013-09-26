@@ -11,7 +11,7 @@ import bu.edu.cs673.edukid.learn.LearnContentView;
 import bu.edu.cs673.edukid.learn.LearnType;
 import bu.edu.cs673.edukid.settings.SettingsView;
 
-public class MainView extends Activity implements OnClickListener {
+public class EDUkid extends Activity implements OnClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

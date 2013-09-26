@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import bu.edu.cs673.edukid.MainView;
+import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
 
 public class LearnContentView extends Activity {
@@ -27,7 +27,7 @@ public class LearnContentView extends Activity {
 	}
 	
 	public void onBackClick(View view) {
-		Intent intent = new Intent(this, MainView.class);
+		Intent intent = new Intent(this, EDUkid.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
 	}
