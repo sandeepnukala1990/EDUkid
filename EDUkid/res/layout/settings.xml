@@ -28,8 +28,25 @@
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_alignLeft="@+id/backButton"
         android:layout_below="@+id/backButton" >
 </ListView>
+
+    <Button
+        android:id="@+id/accountDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/backButton"
+        android:layout_alignRight="@android:id/list"
+        android:onClick="onAccountDetailsClick"
+        android:text="Account Details" />
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_marginLeft="163dp"
+        android:layout_toRightOf="@+id/backButton" >
+    </ListView>
 
 </RelativeLayout>

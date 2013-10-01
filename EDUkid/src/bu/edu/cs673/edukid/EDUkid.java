@@ -17,21 +17,21 @@ public class EDUkid extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
+
 		setupLearnButtons();
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		LearnType learnType;
-		
+
 		switch (v.getId()) {
 		case R.id.learnAlphabetButton:
 			learnType = LearnType.ALPHABET;
@@ -50,22 +50,22 @@ public class EDUkid extends Activity implements OnClickListener {
 			learnType = LearnType.CUSTOM;
 			break;
 		}
-		
+
 		Intent intent = new Intent(this, LearnContentView.class);
 		intent.putExtra("LearnType", learnType);
 		startActivity(intent);
 	}
-	
+
 	private void setupLearnButtons() {
 		ImageButton learnAlphabetButton = (ImageButton) findViewById(R.id.learnAlphabetButton);
 		learnAlphabetButton.setOnClickListener(this);
-		
+
 		ImageButton learnNumbersButton = (ImageButton) findViewById(R.id.learnNumbersButton);
 		learnNumbersButton.setOnClickListener(this);
-		
+
 		ImageButton learnShapesButton = (ImageButton) findViewById(R.id.learnShapesButton);
 		learnShapesButton.setOnClickListener(this);
-		
+
 		ImageButton learnColorsButton = (ImageButton) findViewById(R.id.learnColorsButton);
 		learnColorsButton.setOnClickListener(this);
 	}
@@ -73,8 +73,16 @@ public class EDUkid extends Activity implements OnClickListener {
 	public void onExitClick(View view) {
 		finish();
 	}
-	
+
 	public void onSettingsClick(View view) {
-		startActivity(new Intent(this, SettingsView.class));
+		
+		// TODO: Sandeep, put your stuff here...
+		boolean correctAnswer = true;
+
+		if (correctAnswer) {
+			startActivity(new Intent(this, SettingsView.class));
+		} else {
+			System.out.println("display message to child...");
+		}
 	}
 }
