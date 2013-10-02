@@ -1,34 +1,34 @@
 package bu.edu.cs673.edukid.learn;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
-import bu.edu.cs673.edukid.EDUkid;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import bu.edu.cs673.edukid.R;
 
-public class LearnContentView extends Activity {
-	
+public class LearnContentView extends FragmentActivity {
+
 	private LearnType learnType;
+
+	private LearnContentViewPagerAdapter learnContentViewPagerAdapter;
+
+	private ViewPager learnContentViewPager;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.learn_content);
-		
+
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
-		
+
 		learnType = (LearnType) extras.get("LearnType");
-		
-		TextView name = (TextView) findViewById(R.id.learnContentName);
-		name.setText(learnType.getName());
-	}
-	
-	public void onBackClick(View view) {
-		Intent intent = new Intent(this, EDUkid.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intent);
+
+		// Setup view pager
+		learnContentViewPagerAdapter = new LearnContentViewPagerAdapter(
+				getSupportFragmentManager(), learnType);
+
+		learnContentViewPager = (ViewPager) findViewById(R.id.learnContentViewPager);
+		learnContentViewPager.setAdapter(learnContentViewPagerAdapter);
 	}
 }

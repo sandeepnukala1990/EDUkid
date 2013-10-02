@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+    
+    <ImageButton
+        android:id="@+id/learnContentImage"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="100dp"
+        android:src="@android:drawable/ic_menu_gallery" />
+    
+    <TextView
+        android:id="@+id/learnContentWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/learnContentImage"
+        android:layout_alignRight="@+id/learnContentImage"
+        android:layout_below="@+id/learnContentImage"
+        android:gravity="center"
+        android:text="Apple"
+        android:textSize="48sp" />
+
+    <TextView
+        android:id="@+id/learnContentItem"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="100dp"
+        android:gravity="center"
+        android:text="A"
+        android:textSize="128sp" />
+
+</RelativeLayout>

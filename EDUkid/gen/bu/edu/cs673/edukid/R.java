@@ -27,28 +27,33 @@ public final class R {
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int edukidicon=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
+        public static final int apple=0x7f020000;
+        public static final int edukidicon=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
     }
     public static final class id {
-        public static final int accountDetails=0x7f090009;
-        public static final int action_settings=0x7f09000b;
-        public static final int backButton=0x7f090002;
-        public static final int exitButton=0x7f090003;
-        public static final int learnAlphabetButton=0x7f090005;
-        public static final int learnColorsButton=0x7f090008;
-        public static final int learnContentName=0x7f090001;
-        public static final int learnNumbersButton=0x7f090006;
-        public static final int learnShapesButton=0x7f090007;
-        public static final int listView1=0x7f09000a;
-        public static final int settingsButton=0x7f090004;
+        public static final int accountDetails=0x7f09000c;
+        public static final int action_settings=0x7f09000e;
+        public static final int backButton=0x7f09000b;
+        public static final int exitButton=0x7f090005;
+        public static final int learnAlphabetButton=0x7f090007;
+        public static final int learnColorsButton=0x7f09000a;
+        public static final int learnContentImage=0x7f090002;
+        public static final int learnContentItem=0x7f090004;
+        public static final int learnContentViewPager=0x7f090001;
+        public static final int learnContentWord=0x7f090003;
+        public static final int learnNumbersButton=0x7f090008;
+        public static final int learnShapesButton=0x7f090009;
+        public static final int listView1=0x7f09000d;
+        public static final int settingsButton=0x7f090006;
         public static final int textView1=0x7f090000;
     }
     public static final class layout {
         public static final int account_creation=0x7f030000;
         public static final int learn_content=0x7f030001;
-        public static final int main=0x7f030002;
-        public static final int settings=0x7f030003;
+        public static final int learn_content_fragment=0x7f030002;
+        public static final int main=0x7f030003;
+        public static final int settings=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f080000;
