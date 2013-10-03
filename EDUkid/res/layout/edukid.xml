@@ -8,6 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".EDUkid" >
     
+    <ImageView
+        android:id="@+id/edukidImage"
+        android:layout_width="312dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/edukid" />
+    
     <Button
         android:id="@+id/exitButton"
         android:layout_width="wrap_content"
