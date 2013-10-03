@@ -35,6 +35,7 @@ public class LearnContentViewFragment extends Fragment implements
 		// Set content image
 		ImageButton learnContentButton = (ImageButton) view
 				.findViewById(R.id.learnContentImage);
+		learnContentButton.setOnClickListener(this);
 		learnContentButton.setImageResource(arguments.getInt(ARG_IMAGE));
 
 		// Set content word
@@ -58,6 +59,7 @@ public class LearnContentViewFragment extends Fragment implements
 		String text = "";
 
 		switch (view.getId()) {
+		case R.id.learnContentImage:
 		case R.id.learnContentWord:
 			text = arguments.getString(ARG_WORD);
 			break;
