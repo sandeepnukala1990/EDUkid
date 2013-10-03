@@ -44,28 +44,32 @@
             android:id="@+id/learnAlphabetButton"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:src="@android:drawable/btn_star" />
 
         <ImageButton
             android:id="@+id/learnNumbersButton"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:src="@android:drawable/btn_star" />
 
         <ImageButton
             android:id="@+id/learnShapesButton"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:src="@android:drawable/btn_star" />
 
         <ImageButton
             android:id="@+id/learnColorsButton"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:src="@android:drawable/btn_star" />
     </LinearLayout>
 

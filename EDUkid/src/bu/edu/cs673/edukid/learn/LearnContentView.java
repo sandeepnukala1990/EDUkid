@@ -36,7 +36,7 @@ public class LearnContentView extends FragmentActivity {
 		learnContentViewPager.setCurrentItem(position);
 	}
 
-	public void onShowAllItemsClick(View view) {
+	public void onShowGridClick(View view) {
 		Intent intent = new Intent(this, LearnContentGridView.class);
 		intent.putExtra("LearnType", learnType);
 		startActivity(intent);

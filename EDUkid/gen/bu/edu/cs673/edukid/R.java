@@ -40,9 +40,9 @@ public final class R {
         public static final int learnAlphabetButton=0x7f080004;
         public static final int learnColorsButton=0x7f080007;
         public static final int learnContentGrid=0x7f08000d;
+        public static final int learnContentGridButton=0x7f08000c;
         public static final int learnContentImage=0x7f080009;
         public static final int learnContentItem=0x7f08000b;
-        public static final int learnContentShowAll=0x7f08000c;
         public static final int learnContentViewPager=0x7f080008;
         public static final int learnContentWord=0x7f08000a;
         public static final int learnNumbersButton=0x7f080005;
