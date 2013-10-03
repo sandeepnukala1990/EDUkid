@@ -38,4 +38,13 @@
         android:text="A"
         android:textSize="128sp" />
 
+    <ImageButton
+        android:id="@+id/learnContentShowAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:onClick="onShowAllItemsClick"
+        android:src="@android:drawable/ic_dialog_dialer" />
+
 </RelativeLayout>
