@@ -42,64 +42,64 @@ public enum LearnType {
 		}
 	}
 
-	public String getDefaultWord(int index) {
+	public String[] getDefaultWords(int index) {
 
 		// TODO: These need to be changed. Just trying these out.
 		switch (index) {
 		case 0:
-			return "Apple";
+			return new String[] { "Apple" };
 		case 1:
-			return "Book";
+			return new String[] { "Book" };
 		case 2:
-			return "Caterpillar";
+			return new String[] { "Caterpillar" };
 		case 3:
-			return "Drive";
+			return new String[] { "Drive" };
 		case 4:
-			return "Elephant";
+			return new String[] { "Elephant" };
 		case 5:
-			return "Fox";
+			return new String[] { "Fox" };
 		case 6:
-			return "Giraffe";
+			return new String[] { "Giraffe" };
 		case 7:
-			return "Hippo";
+			return new String[] { "Hippo" };
 		case 8:
-			return "Igloo";
+			return new String[] { "Igloo" };
 		case 9:
-			return "Jupiter";
+			return new String[] { "Jupiter" };
 		case 10:
-			return "Key";
+			return new String[] { "Key" };
 		case 11:
-			return "Lion";
+			return new String[] { "Lion" };
 		case 12:
-			return "Monkey";
+			return new String[] { "Monkey" };
 		case 13:
-			return "Nose";
+			return new String[] { "Nose" };
 		case 14:
-			return "Office";
+			return new String[] { "Office" };
 		case 15:
-			return "Pencil";
+			return new String[] { "Pencil" };
 		case 16:
-			return "Quick";
+			return new String[] { "Quick" };
 		case 17:
-			return "River";
+			return new String[] { "River" };
 		case 18:
-			return "Snake";
+			return new String[] { "Snake" };
 		case 19:
-			return "Tiger";
+			return new String[] { "Tiger" };
 		case 20:
-			return "Umbrella";
+			return new String[] { "Umbrella" };
 		case 21:
-			return "Violin";
+			return new String[] { "Violin" };
 		case 22:
-			return "Wagon";
+			return new String[] { "Wagon" };
 		case 23:
-			return "Xylophone";
+			return new String[] { "Xylophone" };
 		case 24:
-			return "Yo-yo";
+			return new String[] { "Yo-yo" };
 		case 25:
-			return "Zebra";
+			return new String[] { "Zebra" };
 		default:
-			return "";
+			return new String[] { };
 		}
 	}
 
