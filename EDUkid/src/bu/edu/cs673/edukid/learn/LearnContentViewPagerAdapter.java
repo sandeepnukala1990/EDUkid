@@ -23,8 +23,8 @@ public class LearnContentViewPagerAdapter extends FragmentStatePagerAdapter {
 		bundle.putInt(LearnContentViewFragment.ARG_IMAGE,
 				learnType.getDefaultImage(i));
 
-		bundle.putString(LearnContentViewFragment.ARG_WORD,
-				learnType.getDefaultWord(i));
+		bundle.putStringArray(LearnContentViewFragment.ARG_WORDS,
+				learnType.getDefaultWords(i));
 
 		bundle.putString(LearnContentViewFragment.ARG_ITEM,
 				learnType.getItem(i));

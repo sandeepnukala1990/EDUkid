@@ -17,7 +17,7 @@ public class LearnContentViewFragment extends Fragment implements
 		OnClickListener, TextToSpeech.OnInitListener {
 
 	public static final String ARG_IMAGE = "Image";
-	public static final String ARG_WORD = "Word";
+	public static final String ARG_WORDS = "Words";
 	public static final String ARG_ITEM = "Item";
 	public static final String ARG_PHONETIC_SOUND = "PhoneticSound";
 
@@ -42,14 +42,15 @@ public class LearnContentViewFragment extends Fragment implements
 		TextView learnContentWord = (TextView) view
 				.findViewById(R.id.learnContentWord);
 		learnContentWord.setOnClickListener(this);
-		learnContentWord.setText(arguments.getString(ARG_WORD));
+		String firstItemWord = arguments.getStringArray(ARG_WORDS)[0];
+		learnContentWord.setText(firstItemWord);
 
 		// Set content item
 		TextView learnContentItem = (TextView) view
 				.findViewById(R.id.learnContentItem);
 		learnContentItem.setOnClickListener(this);
 		learnContentItem.setText(arguments.getString(ARG_ITEM));
-		
+
 		return view;
 	}
 
@@ -61,7 +62,8 @@ public class LearnContentViewFragment extends Fragment implements
 		switch (view.getId()) {
 		case R.id.learnContentImage:
 		case R.id.learnContentWord:
-			text = arguments.getString(ARG_WORD);
+			// TODO: first one for now...
+			text = arguments.getStringArray(ARG_WORDS)[0];
 			break;
 		case R.id.learnContentItem:
 			text = arguments.getString(ARG_PHONETIC_SOUND);
