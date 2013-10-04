@@ -43,7 +43,7 @@ public final class R {
     public static final class id {
         public static final int accountDetails=0x7f080012;
         public static final int backButton=0x7f080011;
-        public static final int editText1=0x7f080000;
+        public static final int editChildName=0x7f080000;
         public static final int exitButton=0x7f080003;
         public static final int learnAlphabetButton=0x7f080006;
         public static final int learnColorsButton=0x7f080009;
