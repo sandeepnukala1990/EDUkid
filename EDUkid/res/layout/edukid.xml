@@ -44,7 +44,7 @@
                 android:layout_height="200dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/abc1"
+                android:background="@drawable/powder_puff_girls"
                 android:src="@color/transparent" />
 
             <ImageButton
