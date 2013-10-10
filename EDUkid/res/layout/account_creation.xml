@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
-=======
     style="@drawable/mickey_mouse"
->>>>>>> 3c0c1ab6b58e37335e1913be21176d3cdf80f76b
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/basicback" >
