@@ -6,21 +6,21 @@
     android:background="@drawable/basicback" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/createSaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="23dp"
         android:layout_marginTop="220dp"
-        android:layout_toRightOf="@+id/editChildName"
-        android:text="Create" />
+        android:layout_toRightOf="@+id/createEditChildName"
+        android:text="Save" />
 
     <EditText
-        android:id="@+id/editChildName"
+        android:id="@+id/createEditChildName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/button1"
+        android:layout_alignTop="@+id/createSaveButton"
         android:layout_marginLeft="323dp"
         android:ems="10"
         android:inputType="textPersonName" />
