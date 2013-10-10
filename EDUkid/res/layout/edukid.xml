@@ -75,9 +75,8 @@
         android:id="@+id/userPicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/exitButton"
         android:layout_alignLeft="@+id/linearLayout1"
-        android:layout_alignRight="@+id/linearLayout1"
+        android:layout_alignParentBottom="true"
         android:adjustViewBounds="true"
         android:src="@drawable/bottombanner" />
 

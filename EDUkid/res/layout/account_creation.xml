@@ -1,42 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@drawable/mickey_mouse-1096"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/basicback" >
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="220dp"
+        android:layout_toRightOf="@+id/editChildName"
+        android:text="Create" />
 
     <EditText
         android:id="@+id/editChildName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="173dp"
-        android:layout_marginLeft="61dp"
+        android:layout_alignTop="@+id/button1"
+        android:layout_marginLeft="323dp"
         android:ems="10"
-        android:inputType="textPersonName" >
-
-        <requestFocus />
-    </EditText>
+        android:inputType="textPersonName" />
 
     <ImageView
         android:id="@+id/userPicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editChildName"
-        android:layout_alignLeft="@+id/editChildName"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/editChildName"
-        android:layout_marginTop="85dp"
-        android:src="@drawable/ic_launcher" />
-
-    <Button
-        android:id="@+id/saveButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="28dp"
-        android:layout_marginRight="97dp"
-        android:text="Save" />
+        android:adjustViewBounds="true"
+        android:src="@drawable/bottombanner" />
 
 </RelativeLayout>
