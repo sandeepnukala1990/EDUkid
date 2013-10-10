@@ -10,15 +10,6 @@
     tools:context=".EDUkid" >
 
     <Button
-        android:id="@+id/exitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:onClick="onExitClick"
-        android:text="Exit" />
-
-    <Button
         android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
