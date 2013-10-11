@@ -10,15 +10,6 @@
     tools:context=".EDUkid" >
 
     <Button
-        android:id="@+id/exitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:onClick="onExitClick"
-        android:text="Exit" />
-
-    <Button
         android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,57 +18,62 @@
         android:onClick="onSettingsClick"
         android:text="Settings" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+    <ImageView
+        android:id="@+id/userPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:adjustViewBounds="true"
+        android:src="@drawable/bottombanner" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" >
 
-        <ImageButton
-            android:id="@+id/learnAlphabetButton"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/abc1"
-            android:src="@color/transparent" />
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
-        <ImageButton
-            android:id="@+id/learnNumbersButton"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/numb1"
-            android:src="@color/transparent" />
+            <ImageButton
+                android:id="@+id/learnAlphabetButton"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/abc1"
+                android:src="@color/transparent" />
 
-        <ImageButton
-            android:id="@+id/learnShapesButton"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/shapes"
-            android:src="@color/transparent" />
+            <ImageButton
+                android:id="@+id/learnNumbersButton"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/numb1"
+                android:src="@color/transparent" />
 
-        <ImageButton
-            android:id="@+id/learnColorsButton"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/colors"
-            android:src="@color/transparent" />
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/learnShapesButton"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shapes"
+                android:src="@color/transparent" />
 
-    <ImageView
-        android:id="@+id/userPicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/linearLayout1"
-        android:layout_alignParentBottom="true"
-        android:adjustViewBounds="true"
-        android:src="@drawable/bottombanner" />
+            <ImageButton
+                android:id="@+id/learnColorsButton"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/colors"
+                android:src="@color/transparent" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
 </RelativeLayout>

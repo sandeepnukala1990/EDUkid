@@ -8,26 +8,16 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="This is the settings view" />
-    
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/backButton" >
-</ListView>
+        android:layout_height="fill_parent" >
+    </ListView>
 
     <Button
         android:id="@+id/accountDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/backButton"
         android:layout_alignRight="@android:id/list"
         android:onClick="onAccountDetailsClick"
         android:text="Account Details" />
@@ -36,19 +26,8 @@
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_marginLeft="163dp"
-        android:layout_toRightOf="@+id/backButton" >
-    </ListView>
-
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignLeft="@android:id/list"
-        android:layout_below="@+id/textView1"
-        android:onClick="onBackClick"
-        android:overScrollMode="always"
-        android:text="Back" />
+        android:layout_marginLeft="163dp" >
+    </ListView>
 
 </RelativeLayout>
