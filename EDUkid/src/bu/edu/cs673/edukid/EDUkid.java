@@ -67,7 +67,7 @@ public class EDUkid extends Activity implements OnClickListener {
 	}
 
 	public void onSettingsClick(View view) {
-		
+
 		// TODO: Sandeep, put your stuff here...
 		boolean correctAnswer = true;
 
