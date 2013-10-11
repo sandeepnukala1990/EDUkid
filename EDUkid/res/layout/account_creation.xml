@@ -34,4 +34,22 @@
         android:adjustViewBounds="true"
         android:src="@drawable/bottombanner" />
 
+    <ImageView
+        android:id="@+id/createUserImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="54dp"
+        android:layout_marginTop="90dp"
+        android:src="@drawable/mickey_mouse" />
+
+    <Button
+        android:id="@+id/createUploadPhotoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/createUserImage"
+        android:layout_below="@+id/createUserImage"
+        android:text="Take Photo" />
+
 </RelativeLayout>
