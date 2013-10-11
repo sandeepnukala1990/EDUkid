@@ -43,7 +43,8 @@ public final class R {
     public static final class id {
         public static final int accountDetails=0x7f080012;
         public static final int backButton=0x7f080011;
-        public static final int editChildName=0x7f080000;
+        public static final int button1=0x7f080000;
+        public static final int editChildName=0x7f080001;
         public static final int exitButton=0x7f080003;
         public static final int learnAlphabetButton=0x7f080006;
         public static final int learnColorsButton=0x7f080009;
@@ -57,10 +58,9 @@ public final class R {
         public static final int learnShapesButton=0x7f080008;
         public static final int linearLayout1=0x7f080005;
         public static final int listView1=0x7f080013;
-        public static final int saveButton=0x7f080002;
         public static final int settingsButton=0x7f080004;
         public static final int textView1=0x7f080010;
-        public static final int userPicture=0x7f080001;
+        public static final int userPicture=0x7f080002;
     }
     public static final class layout {
         public static final int account_creation=0x7f030000;
