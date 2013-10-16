@@ -25,7 +25,7 @@ import android.view.View.OnClickListener;
 import android.widget.*;
 import android.media.*;
 
-
+//testcommit
 public class AccountCreationView extends Activity implements OnClickListener{
 	private static final int TAKE_PICTURE = 0;
 	private String childName;
