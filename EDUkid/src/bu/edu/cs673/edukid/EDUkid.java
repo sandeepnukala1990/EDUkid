@@ -1,16 +1,22 @@
 package bu.edu.cs673.edukid;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import bu.edu.cs673.edukid.learn.LearnContentView;
 import bu.edu.cs673.edukid.learn.LearnType;
 import bu.edu.cs673.edukid.settings.SettingsView;
+import bu.edu.cs673.edukid.settings.utils.MathProblem;
+import bu.edu.cs673.edukid.settings.utils.MathProblemGenerator;
 
-public class EDUkid extends Activity implements OnClickListener {
+public class EDUkid extends Activity implements OnClickListener,
+		DialogInterface.OnClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +74,57 @@ public class EDUkid extends Activity implements OnClickListener {
 
 	public void onSettingsClick(View view) {
 
-		// TODO: Sandeep, put your stuff here...
-		boolean correctAnswer = true;
+		final MathProblem mathProblem = MathProblemGenerator
+				.generateMathProblem();
 
-		if (correctAnswer) {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Answer this question for the settings page!!");
+		alert.setMessage(mathProblem.getQuestion());
+		final EditText input = new EditText(this);
+		alert.setView(input);
+		alert.setPositiveButton("submit", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				int userAnswer = Integer.MAX_VALUE;
+
+				try {
+					userAnswer = Integer.parseInt(input.getText().toString());
+				} catch (Exception e) {
+					// TODO: call alert here too
+					return;
+				}
+				if (userAnswer == mathProblem.getAnswer()) {
+
+					startActivity(new Intent(EDUkid.this, SettingsView.class));
+				} else {
+					System.out.print("call your mommmy");
+				}
+			}
+		});
+		alert.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+			}
+		});
+
+		alert.create();
+		alert.show();
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		// TODO Auto-generated method stub
+		switch (which) {
+		case DialogInterface.BUTTON_POSITIVE:
 			startActivity(new Intent(this, SettingsView.class));
-		} else {
-			System.out.println("display message to child...");
+			break;
+		case DialogInterface.BUTTON_NEGATIVE:
+			System.out.print("Go call your mommy");
+			break;
 		}
 	}
+
 }
