@@ -15,7 +15,7 @@ public class EDUsplash extends Activity {
 		{
 			public void run(){
 				try{
-					sleep(4000);
+					sleep(3000);
 					Intent intent = new Intent(EDUsplash.this, EDUkid.class);
 					startActivity(intent);
 				}
