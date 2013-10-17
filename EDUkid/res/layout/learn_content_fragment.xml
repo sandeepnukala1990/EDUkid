@@ -30,22 +30,30 @@
 
     <ImageButton
         android:id="@+id/learnContentImage"
-        android:layout_width="250dp"
+        android:layout_width="450dp"
         android:layout_height="250dp"
-        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="119dp"
+        android:background="@drawable/cloud"
         android:src="@android:drawable/ic_menu_gallery" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="450dp"
+        android:layout_height="300dp"
+        android:layout_above="@+id/learnContentWord"
+        android:layout_alignRight="@+id/learnContentGridButton"
+        android:src="@drawable/cloud" />
 
     <TextView
         android:id="@+id/learnContentItem"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_alignTop="@+id/learnContentImage"
-        android:layout_marginRight="26dp"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_marginRight="36dp"
+        android:layout_marginTop="24dp"
         android:layout_toLeftOf="@+id/learnContentGridButton"
         android:gravity="center"
         android:text="A"
-        android:textSize="128sp" />
+        android:textSize="120sp" />
 
 </RelativeLayout>
