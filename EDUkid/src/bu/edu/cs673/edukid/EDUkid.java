@@ -78,11 +78,11 @@ public class EDUkid extends Activity implements OnClickListener,
 				.generateMathProblem();
 
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		alert.setTitle("Answer this question for the settings page!!");
+		alert.setTitle("Please answer this question to access the Settings:");
 		alert.setMessage(mathProblem.getQuestion());
 		final EditText input = new EditText(this);
 		alert.setView(input);
-		alert.setPositiveButton("submit", new DialogInterface.OnClickListener() {
+		alert.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -102,7 +102,7 @@ public class EDUkid extends Activity implements OnClickListener,
 				}
 			}
 		});
-		alert.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
