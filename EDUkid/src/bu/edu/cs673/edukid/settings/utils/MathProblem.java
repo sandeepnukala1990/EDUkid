@@ -2,7 +2,7 @@ package bu.edu.cs673.edukid.settings.utils;
 
 public enum MathProblem {
 
-	MATH_PROBLEM_1("What is 2 + 2 ?", 4), MATH_PROBLEM_2("What is 2 - 2 ?", 0);
+	MATH_PROBLEM_1("What is 13 + 72 ?", 85), MATH_PROBLEM_2("What is 2 - 2 ?", 0);
 
 	private String question;
 
