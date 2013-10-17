@@ -37,7 +37,7 @@
                 android:layout_height="200dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/abc1"
+                android:background="@drawable/tiletry"
                 android:src="@color/transparent" />
 
             <ImageButton
@@ -46,7 +46,7 @@
                 android:layout_height="200dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/numb1"
+                android:background="@drawable/numbersnew"
                 android:src="@color/transparent" />
 
             <ImageButton
@@ -55,7 +55,7 @@
                 android:layout_height="200dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/shapes"
+                android:background="@drawable/shapesnew"
                 android:src="@color/transparent" />
 
             <ImageButton
@@ -64,7 +64,7 @@
                 android:layout_height="200dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/colors"
+                android:background="@drawable/colorsnew"
                 android:src="@color/transparent" />
         </LinearLayout>
     </HorizontalScrollView>
