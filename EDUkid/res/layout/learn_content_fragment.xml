@@ -37,21 +37,12 @@
         android:layout_marginLeft="119dp"
         android:src="@android:drawable/ic_menu_gallery" />
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/learnContentItem"
-        android:layout_marginBottom="96dp"
-        android:src="@drawable/powder_puff_girls" />
-
     <TextView
         android:id="@+id/learnContentItem"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_alignBottom="@+id/learnContentWord"
-        android:layout_marginRight="32dp"
+        android:layout_alignTop="@+id/learnContentImage"
+        android:layout_marginRight="26dp"
         android:layout_toLeftOf="@+id/learnContentGridButton"
         android:gravity="center"
         android:text="A"

@@ -9,12 +9,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".EDUkid" >
 
-    <Button
+    <ImageButton
         android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:background="@drawable/settingsbutton"
         android:onClick="onSettingsClick"
         android:text="Settings" />
 
@@ -67,14 +68,5 @@
                 android:src="@color/transparent" />
         </LinearLayout>
     </HorizontalScrollView>
-
-    <ImageView
-        android:id="@+id/userPicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/settingsButton"
-        android:layout_alignParentLeft="true"
-        android:adjustViewBounds="true"
-        android:src="@drawable/bottombanner" />
 
 </RelativeLayout>
