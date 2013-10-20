@@ -4,9 +4,9 @@ import bu.edu.cs673.edukid.R;
 
 public enum LearnType {
 
-	ALPHABET("Alphabet", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
+	ALPHABET("ALPHABET", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
 			"L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X",
-			"Y", "Z"), NUMBERS("Numbers"), SHAPES("Shapes"), COLORS("Colors"), CUSTOM(
+			"Y", "Z"), NUMBERS("NUMBERS"), SHAPES("SHAPES"), COLORS("COLORS"), CUSTOM(
 			"");
 
 	private String name;
@@ -99,7 +99,7 @@ public enum LearnType {
 		case 25:
 			return new String[] { "Zebra" };
 		default:
-			return new String[] { };
+			return new String[] {};
 		}
 	}
 
