@@ -30,7 +30,7 @@ public class LearnContentViewPagerAdapter extends FragmentStatePagerAdapter {
 				learnType.getItem(i));
 
 		bundle.putString(LearnContentViewFragment.ARG_PHONETIC_SOUND,
-				learnType.getItemPhoneticSound(i));
+				learnType.getDefaultSound(i));
 
 		fragment.setArguments(bundle);
 
