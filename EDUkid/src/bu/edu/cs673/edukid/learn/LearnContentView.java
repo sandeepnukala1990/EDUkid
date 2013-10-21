@@ -27,7 +27,7 @@ public class LearnContentView extends FragmentActivity {
 		learnType = (LearnType) extras.get("LearnType");
 		int position = extras.getInt("Position");
 		
-		// SetupBundle extras = intent.getExtras() view pager
+		// Setup view pager
 		learnContentViewPagerAdapter = new LearnContentViewPagerAdapter(
 				getSupportFragmentManager(), learnType);
 
