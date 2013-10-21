@@ -6,7 +6,7 @@ public enum LearnType {
 
 	ALPHABET("ALPHABET", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
 			"L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X",
-			"Y", "Z"), NUMBERS("NUMBERS"), SHAPES("SHAPES"), COLORS("COLORS"), CUSTOM(
+			"Y", "Z"), NUMBERS("Numbers", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"), SHAPES("Shapes"), COLORS("Colors"), CUSTOM(
 			"");
 
 	private String name;
@@ -30,8 +30,77 @@ public enum LearnType {
 		return items[index];
 	}
 
+	public String[] getDefaultWords(int index) {
+
+		switch (this) {
+		case ALPHABET:
+			return getAlphabetWords(index);
+		case NUMBERS:
+			return getNumbersWords(index);
+		case SHAPES:
+			return getShapeWords(index);
+		case COLORS:
+			return getColorWords(index);
+		 
+			// TODO: Fix this. Just temporary.
+		default:
+			return new String[] { };
+		}
+	}
+	public String getDefaultSound(int index)
+	{
+		switch (this)
+		{
+		case ALPHABET:
+			return getWordPhoneticSound( index);
+		case NUMBERS:
+			return getNumberPhoneticSound(index);
+		case SHAPES:
+			return getShapePhoneticSound(index);
+		case COLORS:
+			return getColorPhoneticSound(index);
+		default:
+			return "";
+		}
+	}
 	public int getDefaultImage(int index) {
 
+		switch (this) {
+		case ALPHABET:
+			return getAlphabetImage(index);
+		case NUMBERS:
+			return getNumbersImage(index);
+		case SHAPES:
+			return getShapeImage(index);
+		case COLORS:
+			return getColorImage(index);
+			// TODO: Fix this. Just temporary.
+		default:
+			return R.drawable.edukidicon;
+		}
+	}
+	private int getShapeImage(int index)
+	{
+		switch (index) {
+		
+
+			// TODO: Fix this. Just temporary.
+		default:
+			return R.drawable.edukidicon;
+		}
+	}
+	private int getColorImage(int index)
+	{
+		switch (index) {
+		
+
+			// TODO: Fix this. Just temporary.
+		default:
+			return R.drawable.edukidicon;
+		}
+	}
+	private int getAlphabetImage(int index)
+	{
 		switch (index) {
 		case 0:
 			return R.drawable.apple;
@@ -41,8 +110,105 @@ public enum LearnType {
 			return R.drawable.edukidicon;
 		}
 	}
+	
+	private int getNumbersImage(int index)
+	{
+		switch (index) {
+		case 0:
+			return R.drawable.mickey_mouse;
 
-	public String[] getDefaultWords(int index) {
+			// TODO: Fix this. Just temporary.
+		default:
+			return R.drawable.edukidicon;
+		}
+	}
+
+	public String[] getShapeWords(int index) {
+
+		// TODO: These need to be changed. Just trying these out.
+		switch (index) {
+		case 0:
+			return new String[] { "Circle" };
+		case 1:
+			return new String[] { "Oval" };
+		case 2:
+			return new String[] {  "Triangle"};
+		case 3:
+			return new String[] { "Diamond" };
+		case 4:
+			return new String[] { "Square" };
+		case 5:
+			return new String[] { "Rectangle" };
+		case 6:
+			return new String[] {  "Star" };
+		case 7:
+			return new String[] {"Pentagon"};
+		case 8:
+			return new String[] {  "Hexagon" };
+	
+		default:
+			return new String[] { };
+		}
+	}
+	public String[] getColorWords(int index) {
+
+		// TODO: These need to be changed. Just trying these out.
+		switch (index) {
+		case 0:
+			return new String[] { "White" };
+		case 1:
+			return new String[] { "Black" };
+		case 2:
+			return new String[] { "Red" };
+		case 3:
+			return new String[] { "Orange" };
+		case 4:
+			return new String[] { "Yellow"};
+		case 5:
+			return new String[] { "Green" };
+		case 6:
+			return new String[] { "Blue" };
+		case 7:
+			return new String[] { "Indigo" };
+		case 8:
+			return new String[] { "Violet" };
+	
+		
+		default:
+			return new String[] { };
+		}
+	}
+	public String[] getNumbersWords(int index) {
+
+		// TODO: These need to be changed. Just trying these out.
+		switch (index) {
+		case 0:
+			return new String[] { "Zero" };
+		case 1:
+			return new String[] { "One" };
+		case 2:
+			return new String[] { "Two" };
+		case 3:
+			return new String[] { "Three" };
+		case 4:
+			return new String[] { "Four" };
+		case 5:
+			return new String[] { "Five" };
+		case 6:
+			return new String[] { "Six" };
+		case 7:
+			return new String[] { "Seven" };
+		case 8:
+			return new String[] { "Eight" };
+		case 9:
+			return new String[] { "Nine" };
+		
+		default:
+			return new String[] { };
+		}
+	}
+	
+	public String[] getAlphabetWords(int index) {
 
 		// TODO: These need to be changed. Just trying these out.
 		switch (index) {
@@ -103,7 +269,7 @@ public enum LearnType {
 		}
 	}
 
-	public String getItemPhoneticSound(int index) {
+	public String getWordPhoneticSound(int index) {
 
 		// TODO: These need to be changed. Just trying these out.
 		switch (index) {
@@ -159,6 +325,89 @@ public enum LearnType {
 			return "why";
 		case 25:
 			return "zee";
+		default:
+			return "";
+		}
+	}
+	public String getShapePhoneticSound(int index) {
+
+		// TODO: These need to be changed. Just trying these out.
+		switch (index) {
+		case 0:
+			return "circle";
+		case 1:
+			return "oval";
+		case 2:
+			return "triangle";
+		case 3:
+			return "diamond";
+		case 4:
+			return "square";
+		case 5:
+			return "rectangle";
+		case 6:
+			return "star";
+		case 7:
+			return "pentagon";
+		case 8:
+			return "hexagon";
+		
+		default:
+			return "";
+		}
+	}
+	public String getColorPhoneticSound(int index) {
+
+		// TODO: These need to be changed. Just trying these out.
+		switch (index) {
+		case 0:
+			return "white";
+		case 1:
+			return "Black";
+		case 2:
+			return "red";
+		case 3:
+			return "orange";
+		case 4:
+			return "yellow";
+		case 5:
+			return "green";
+		case 6:
+			return "blue";
+		case 7:
+			return "indigo";
+		case 8:
+			return "violet";
+		
+		default:
+			return "";
+		}
+	}
+	public String getNumberPhoneticSound(int index) {
+
+		// TODO: These need to be changed. Just trying these out.
+		switch (index) {
+		case 0:
+			return "zero";
+		case 1:
+			return "one";
+		case 2:
+			return "two";
+		case 3:
+			return "three";
+		case 4:
+			return "four";
+		case 5:
+			return "five";
+		case 6:
+			return "six";
+		case 7:
+			return "seven";
+		case 8:
+			return "eight";
+		case 9:
+			return "nine";
+		
 		default:
 			return "";
 		}
