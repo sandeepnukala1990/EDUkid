@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String EDUKID_DATABASE = "EDUkid.db";
-	private static final int EDUKID_DATABASE_VERSION = 4;
+	private static final int EDUKID_DATABASE_VERSION = 5;
 
 	public static final String TABLE_CATEGORIES = "categories";
 	public static final String COLUMN_ID = "_id";

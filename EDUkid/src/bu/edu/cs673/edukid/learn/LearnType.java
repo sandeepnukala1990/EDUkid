@@ -4,10 +4,10 @@ import bu.edu.cs673.edukid.R;
 
 public enum LearnType {
 
-	ALPHABET("ALPHABET", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
+	ALPHABET("Alphabet", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
 			"L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X",
-			"Y", "Z"), NUMBERS("NUMBERS", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"), SHAPES("SHAPES"), COLORS("COLORS"), CUSTOM(
-			"");
+			"Y", "Z"), NUMBERS("Numbers", "0", "1", "2", "3", "4", "5", "6",
+			"7", "8", "9"), SHAPES("Shapes"), COLORS("Colors"), CUSTOM("");
 
 	private String name;
 
@@ -41,18 +41,17 @@ public enum LearnType {
 			return getShapeWords(index);
 		case COLORS:
 			return getColorWords(index);
-		 
+
 			// TODO: Fix this. Just temporary.
 		default:
-			return new String[] { };
+			return new String[] {};
 		}
 	}
-	public String getDefaultSound(int index)
-	{
-		switch (this)
-		{
+
+	public String getDefaultSound(int index) {
+		switch (this) {
 		case ALPHABET:
-			return getWordPhoneticSound( index);
+			return getWordPhoneticSound(index);
 		case NUMBERS:
 			return getNumberPhoneticSound(index);
 		case SHAPES:
@@ -63,6 +62,7 @@ public enum LearnType {
 			return "";
 		}
 	}
+
 	public int getDefaultImage(int index) {
 
 		switch (this) {
@@ -79,28 +79,26 @@ public enum LearnType {
 			return R.drawable.edukidicon;
 		}
 	}
-	private int getShapeImage(int index)
-	{
-		switch (index) {
-		
 
-			// TODO: Fix this. Just temporary.
+	private int getShapeImage(int index) {
+		switch (index) {
+
+		// TODO: Fix this. Just temporary.
 		default:
 			return R.drawable.edukidicon;
 		}
 	}
-	private int getColorImage(int index)
-	{
-		switch (index) {
-		
 
-			// TODO: Fix this. Just temporary.
+	private int getColorImage(int index) {
+		switch (index) {
+
+		// TODO: Fix this. Just temporary.
 		default:
 			return R.drawable.edukidicon;
 		}
 	}
-	private int getAlphabetImage(int index)
-	{
+
+	private int getAlphabetImage(int index) {
 		switch (index) {
 		case 0:
 			return R.drawable.apple;
@@ -110,9 +108,8 @@ public enum LearnType {
 			return R.drawable.edukidicon;
 		}
 	}
-	
-	private int getNumbersImage(int index)
-	{
+
+	private int getNumbersImage(int index) {
 		switch (index) {
 		case 0:
 			return R.drawable.mickey_mouse;
@@ -132,7 +129,7 @@ public enum LearnType {
 		case 1:
 			return new String[] { "Oval" };
 		case 2:
-			return new String[] {  "Triangle"};
+			return new String[] { "Triangle" };
 		case 3:
 			return new String[] { "Diamond" };
 		case 4:
@@ -140,16 +137,17 @@ public enum LearnType {
 		case 5:
 			return new String[] { "Rectangle" };
 		case 6:
-			return new String[] {  "Star" };
+			return new String[] { "Star" };
 		case 7:
-			return new String[] {"Pentagon"};
+			return new String[] { "Pentagon" };
 		case 8:
-			return new String[] {  "Hexagon" };
-	
+			return new String[] { "Hexagon" };
+
 		default:
-			return new String[] { };
+			return new String[] {};
 		}
 	}
+
 	public String[] getColorWords(int index) {
 
 		// TODO: These need to be changed. Just trying these out.
@@ -163,7 +161,7 @@ public enum LearnType {
 		case 3:
 			return new String[] { "Orange" };
 		case 4:
-			return new String[] { "Yellow"};
+			return new String[] { "Yellow" };
 		case 5:
 			return new String[] { "Green" };
 		case 6:
@@ -172,12 +170,12 @@ public enum LearnType {
 			return new String[] { "Indigo" };
 		case 8:
 			return new String[] { "Violet" };
-	
-		
+
 		default:
-			return new String[] { };
+			return new String[] {};
 		}
 	}
+
 	public String[] getNumbersWords(int index) {
 
 		// TODO: These need to be changed. Just trying these out.
@@ -202,12 +200,12 @@ public enum LearnType {
 			return new String[] { "Eight" };
 		case 9:
 			return new String[] { "Nine" };
-		
+
 		default:
-			return new String[] { };
+			return new String[] {};
 		}
 	}
-	
+
 	public String[] getAlphabetWords(int index) {
 
 		// TODO: These need to be changed. Just trying these out.
@@ -329,6 +327,7 @@ public enum LearnType {
 			return "";
 		}
 	}
+
 	public String getShapePhoneticSound(int index) {
 
 		// TODO: These need to be changed. Just trying these out.
@@ -351,11 +350,12 @@ public enum LearnType {
 			return "pentagon";
 		case 8:
 			return "hexagon";
-		
+
 		default:
 			return "";
 		}
 	}
+
 	public String getColorPhoneticSound(int index) {
 
 		// TODO: These need to be changed. Just trying these out.
@@ -378,11 +378,12 @@ public enum LearnType {
 			return "indigo";
 		case 8:
 			return "violet";
-		
+
 		default:
 			return "";
 		}
 	}
+
 	public String getNumberPhoneticSound(int index) {
 
 		// TODO: These need to be changed. Just trying these out.
@@ -407,7 +408,7 @@ public enum LearnType {
 			return "eight";
 		case 9:
 			return "nine";
-		
+
 		default:
 			return "";
 		}

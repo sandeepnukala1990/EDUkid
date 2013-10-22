@@ -41,13 +41,13 @@ public class EDUsplash extends Activity {
 		if (database.getAllCategories().size() == 0) {
 			Resources resources = getResources();
 
-			database.addCategory(LearnType.ALPHABET.getName(),
+			database.addCategory(LearnType.ALPHABET.toString(),
 					resources.getDrawable(R.drawable.tiletry));
-			database.addCategory(LearnType.NUMBERS.getName(),
+			database.addCategory(LearnType.NUMBERS.toString(),
 					resources.getDrawable(R.drawable.numbersnew));
-			database.addCategory(LearnType.SHAPES.getName(),
+			database.addCategory(LearnType.SHAPES.toString(),
 					resources.getDrawable(R.drawable.shapesnew));
-			database.addCategory(LearnType.COLORS.getName(),
+			database.addCategory(LearnType.COLORS.toString(),
 					resources.getDrawable(R.drawable.colorsnew));
 		}
 	}

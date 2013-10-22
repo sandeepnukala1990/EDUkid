@@ -56,10 +56,9 @@ public class EDUkid extends Activity implements OnClickListener {
 			ImageButton categoryButton = new ImageButton(this);
 			categoryButton.setLayoutParams(layoutParams);
 			categoryButton.setBackground(ImageUtils
-				.byteArrayToDrawable(category.getImageData()));
-//			categoryButton.setId(LearnType.valueOf(category.getName())
-//					.ordinal());
-			categoryButton.setId(LearnType.ALPHABET.ordinal());
+					.byteArrayToDrawable(category.getImageData()));
+			categoryButton.setId(LearnType.valueOf(category.getName())
+					.ordinal());
 			categoryButton.setOnClickListener(this);
 			linearLayout.addView(categoryButton);
 		}
