@@ -27,7 +27,9 @@ public class LearnContentViewFragment extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		textToSpeech = new TextToSpeech(getActivity(), this);
+		if (textToSpeech == null) {
+			textToSpeech = new TextToSpeech(getActivity(), this);
+		}
 
 		View view = inflater.inflate(R.layout.learn_content_fragment,
 				container, false);
@@ -92,5 +94,16 @@ public class LearnContentViewFragment extends Fragment implements
 	@Override
 	public void onInit(int status) {
 		textToSpeech.setLanguage(Locale.getDefault());
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+
+		if (textToSpeech != null) {
+
+			textToSpeech.stop();
+			textToSpeech.shutdown();
+		}
 	}
 }
