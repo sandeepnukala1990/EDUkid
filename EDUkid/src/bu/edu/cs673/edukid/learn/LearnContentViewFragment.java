@@ -16,6 +16,7 @@ import bu.edu.cs673.edukid.R;
 public class LearnContentViewFragment extends Fragment implements
 		OnClickListener, TextToSpeech.OnInitListener {
 
+	public static final String ARG_LEARN_TYPE = "LearnType";
 	public static final String ARG_IMAGE = "Image";
 	public static final String ARG_WORDS = "Words";
 	public static final String ARG_ITEM = "Item";
@@ -50,6 +51,14 @@ public class LearnContentViewFragment extends Fragment implements
 				.findViewById(R.id.learnContentItem);
 		learnContentItem.setOnClickListener(this);
 		learnContentItem.setText(arguments.getString(ARG_ITEM));
+
+		// Get the learn type
+		LearnType learnType = LearnType.values()[arguments
+				.getInt(ARG_LEARN_TYPE)];
+
+		if (learnType == LearnType.ALPHABET || learnType == LearnType.NUMBERS) {
+			learnContentItem.setTextSize(128);
+		}
 
 		return view;
 	}

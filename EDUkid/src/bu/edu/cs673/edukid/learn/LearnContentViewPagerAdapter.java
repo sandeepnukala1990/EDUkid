@@ -20,6 +20,9 @@ public class LearnContentViewPagerAdapter extends FragmentStatePagerAdapter {
 		Fragment fragment = new LearnContentViewFragment();
 		Bundle bundle = new Bundle();
 
+		bundle.putInt(LearnContentViewFragment.ARG_LEARN_TYPE,
+				learnType.ordinal());
+
 		bundle.putInt(LearnContentViewFragment.ARG_IMAGE,
 				learnType.getDefaultImage(i));
 

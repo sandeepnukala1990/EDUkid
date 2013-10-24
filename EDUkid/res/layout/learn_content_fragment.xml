@@ -54,6 +54,6 @@
         android:layout_toLeftOf="@+id/learnContentGridButton"
         android:gravity="center"
         android:text="A"
-        android:textSize="120sp" />
+        android:textSize="50sp" />
 
 </RelativeLayout>
