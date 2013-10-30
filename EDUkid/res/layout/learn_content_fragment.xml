@@ -7,17 +7,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
-    
-    <TextView
-        android:id="@+id/learnContentWord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/learnContentImage"
-        android:layout_alignRight="@+id/learnContentImage"
-        android:layout_below="@+id/learnContentImage"
-        android:gravity="center"
-        android:text="Apple"
-        android:textSize="48sp" />
 
     <ImageButton
         android:id="@+id/learnContentGridButton"
@@ -28,20 +17,20 @@
         android:onClick="onShowGridClick"
         android:src="@android:drawable/ic_dialog_dialer" />
 
-    <ImageButton
-        android:id="@+id/learnContentImage"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/wordViewPager"
         android:layout_width="450dp"
-        android:layout_height="250dp"
+        android:layout_height="375dp"
         android:layout_centerVertical="true"
-        android:background="@drawable/cloud"
-        android:src="@android:drawable/ic_menu_gallery" />
+        android:layout_marginRight="17dp"
+        android:background="@drawable/cloud" />
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="450dp"
         android:layout_height="300dp"
-        android:layout_above="@+id/learnContentWord"
         android:layout_alignRight="@+id/learnContentGridButton"
+        android:layout_below="@+id/learnContentGridButton"
         android:src="@drawable/cloud" />
 
     <TextView
@@ -49,8 +38,8 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_alignTop="@+id/imageView1"
-        android:layout_marginRight="36dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginRight="48dp"
+        android:layout_marginTop="19dp"
         android:layout_toLeftOf="@+id/learnContentGridButton"
         android:gravity="center"
         android:text="A"

@@ -212,7 +212,7 @@ public enum LearnType {
 		// TODO: These need to be changed. Just trying these out.
 		switch (index) {
 		case 0:
-			return new String[] { "Apple" };
+			return new String[] { "Apple", "Alligator", "Ant" };
 		case 1:
 			return new String[] { "Book" };
 		case 2:

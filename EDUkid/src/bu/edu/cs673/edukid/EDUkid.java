@@ -15,6 +15,7 @@ import android.widget.Toast;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.Category;
+import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.learn.LearnContentView;
 import bu.edu.cs673.edukid.learn.LearnType;
 import bu.edu.cs673.edukid.settings.SettingsView;
@@ -63,6 +64,10 @@ public class EDUkid extends Activity implements OnClickListener {
 			categoryButton.setOnClickListener(this);
 			linearLayout.addView(categoryButton);
 		}
+
+		UserAccount userAccount = database.getUserAccounts().get(0);
+		Toast.makeText(this, "Hi " + userAccount.getUserName() + "!",
+				Toast.LENGTH_LONG).show();
 	}
 
 	public void onSettingsClick(View view) {
