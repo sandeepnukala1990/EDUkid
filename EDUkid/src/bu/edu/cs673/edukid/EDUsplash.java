@@ -37,9 +37,14 @@ public class EDUsplash extends Activity {
 	private void setupDatabse() {
 		Database database = Database.getInstance(this);
 		database.open();
+		Resources resources = getResources();
+
+		if (database.getUserAccounts().size() == 0) {
+			database.addUserAccount("Jasjot",
+					resources.getDrawable(R.drawable.mickey_mouse));
+		}
 
 		if (database.getAllCategories().size() == 0) {
-			Resources resources = getResources();
 
 			database.addCategory(LearnType.ALPHABET.toString(),
 					resources.getDrawable(R.drawable.tiletry));

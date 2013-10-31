@@ -1,24 +1,28 @@
 package bu.edu.cs673.edukid.settings.utils;
 
-public enum MathProblem {
+public class MathProblem {
 
-	MATH_PROBLEM_1("What is 13 + 72 ?", 85), MATH_PROBLEM_2("What is 2 - 2 ?", 0);
+	private int operand1;
+	private int operand2;
 
-	private String question;
+	private Operator operator;
 
-	private int answer;
-
-	private MathProblem(String question, int answer) {
-		this.question = question;
-		this.answer = answer;
+	public MathProblem(int operand1, int operand2, Operator operator) {
+		this.operand1 = operand1;
+		this.operand2 = operand2;
+		this.operator = operator;
 	}
 
 	public String getQuestion() {
-		return question;
+		return "What is " + operand1 + operator.getOperatorString() + operand2
+				+ "?";
 	}
 
 	public int getAnswer() {
-		return answer;
-	}
+		if (operator == Operator.ADD) {
+			return operand1 + operand2;
+		}
 
+		return operand1 - operand2;
+	}
 }

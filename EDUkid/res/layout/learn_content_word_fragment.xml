@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageButton
+        android:id="@+id/learnContentImage"
+        android:layout_width="450dp"
+        android:layout_height="250dp"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:src="@drawable/cloud" />
+
+    <TextView
+        android:id="@+id/learnContentWord"
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/learnContentImage"
+        android:gravity="center"
+        android:text="Apple"
+        android:textSize="48sp" />
+
+</RelativeLayout>

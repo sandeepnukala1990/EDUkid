@@ -18,21 +18,23 @@ public class LearnContentViewPagerAdapter extends FragmentStatePagerAdapter {
 	@Override
 	public Fragment getItem(int i) {
 		Fragment fragment = new LearnContentViewFragment();
-		Bundle bundle = new Bundle();
+		Bundle arguments = new Bundle();
 
-		bundle.putInt(LearnContentViewFragment.ARG_IMAGE,
-				learnType.getDefaultImage(i));
+		arguments.putInt(LearnContentViewFragment.ARG_INDEX, i);
 
-		bundle.putStringArray(LearnContentViewFragment.ARG_WORDS,
-				learnType.getDefaultWords(i));
+		// TODO: should be a database query
+		arguments.putInt(LearnContentViewFragment.ARG_LEARN_TYPE,
+				learnType.ordinal());
 
-		bundle.putString(LearnContentViewFragment.ARG_ITEM,
+		// TODO: should be a database query
+		arguments.putString(LearnContentViewFragment.ARG_ITEM,
 				learnType.getItem(i));
 
-		bundle.putString(LearnContentViewFragment.ARG_PHONETIC_SOUND,
+		// TODO: should be a database query
+		arguments.putString(LearnContentViewFragment.ARG_PHONETIC_SOUND,
 				learnType.getDefaultSound(i));
 
-		fragment.setArguments(bundle);
+		fragment.setArguments(arguments);
 
 		return fragment;
 	}

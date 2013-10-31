@@ -7,7 +7,8 @@ public enum LearnType {
 	ALPHABET("Alphabet", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
 			"L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X",
 			"Y", "Z"), NUMBERS("Numbers", "0", "1", "2", "3", "4", "5", "6",
-			"7", "8", "9"), SHAPES("Shapes"), COLORS("Colors"), CUSTOM("");
+			"7", "8", "9"), SHAPES("Shapes", "Square", "Triangle", "Circle"), COLORS(
+			"Colors", "Red", "Blue", "Black"), CUSTOM("");
 
 	private String name;
 
@@ -211,7 +212,7 @@ public enum LearnType {
 		// TODO: These need to be changed. Just trying these out.
 		switch (index) {
 		case 0:
-			return new String[] { "Apple" };
+			return new String[] { "Apple", "Alligator", "Ant" };
 		case 1:
 			return new String[] { "Book" };
 		case 2:

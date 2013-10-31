@@ -11,9 +11,11 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.Category;
+import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.learn.LearnContentView;
 import bu.edu.cs673.edukid.learn.LearnType;
 import bu.edu.cs673.edukid.settings.SettingsView;
@@ -62,6 +64,10 @@ public class EDUkid extends Activity implements OnClickListener {
 			categoryButton.setOnClickListener(this);
 			linearLayout.addView(categoryButton);
 		}
+
+		UserAccount userAccount = database.getUserAccounts().get(0);
+		Toast.makeText(this, "Hi " + userAccount.getUserName() + "!",
+				Toast.LENGTH_LONG).show();
 	}
 
 	public void onSettingsClick(View view) {
@@ -72,11 +78,12 @@ public class EDUkid extends Activity implements OnClickListener {
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		alert.setTitle("Please answer this question to access the Settings:");
 		alert.setMessage(mathProblem.getQuestion());
+
 		final EditText input = new EditText(this);
 		alert.setView(input);
+
 		alert.setPositiveButton("Submit",
 				new DialogInterface.OnClickListener() {
-
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						int userAnswer = Integer.MAX_VALUE;
@@ -85,7 +92,7 @@ public class EDUkid extends Activity implements OnClickListener {
 							userAnswer = Integer.parseInt(input.getText()
 									.toString());
 						} catch (Exception e) {
-							// TODO: call alert here too
+							showSettingsToast();
 							return;
 						}
 						if (userAnswer == mathProblem.getAnswer()) {
@@ -93,21 +100,19 @@ public class EDUkid extends Activity implements OnClickListener {
 							startActivity(new Intent(EDUkid.this,
 									SettingsView.class));
 						} else {
-							System.out.print("call your mommmy");
+							showSettingsToast();
 						}
 					}
 				});
 
-		alert.setNegativeButton("Cancel",
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-					}
-				});
+		alert.setNegativeButton("Cancel", null);
 
 		alert.create();
 		alert.show();
+	}
+
+	public void showSettingsToast() {
+		Toast.makeText(this, "Incorrect answer. Please try again.",
+				Toast.LENGTH_LONG).show();
 	}
 }
