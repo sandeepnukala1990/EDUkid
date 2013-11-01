@@ -3,7 +3,7 @@
     style="@drawable/mickey_mouse"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/basicback" >
+    android:background="@drawable/mainback" >
 
     <Button
         android:id="@+id/createSaveButton"
