@@ -45,4 +45,15 @@
         android:text="A"
         android:textSize="50sp" />
 
+    <LinearLayout
+        android:id="@+id/wordViewPagerCircles"
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/wordViewPager"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
 </RelativeLayout>
