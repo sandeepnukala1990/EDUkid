@@ -8,13 +8,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.model.CategoryType;
 import bu.edu.cs673.edukid.learn.LearnContentView;
-import bu.edu.cs673.edukid.learn.LearnType;
 
 public class LearnContentGridView extends Activity implements
 		OnItemClickListener {
 
-	private LearnType learnType;
+	private CategoryType categoryType;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -24,10 +24,10 @@ public class LearnContentGridView extends Activity implements
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
 
-		learnType = (LearnType) extras.get("LearnType");
+		categoryType = (CategoryType) extras.get("CategoryType");
 
 		GridView gridview = (GridView) findViewById(R.id.learnContentGrid);
-		gridview.setAdapter(new LearnContentItemAdapter(this, learnType));
+		gridview.setAdapter(new LearnContentItemAdapter(this, categoryType));
 		gridview.setOnItemClickListener(this);
 	}
 
@@ -36,8 +36,8 @@ public class LearnContentGridView extends Activity implements
 			long id) {
 		Intent intent = new Intent(this, LearnContentView.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		intent.putExtra("LearnType", learnType);
-		intent.putExtra("Position", position);
+		intent.putExtra("CategoryType", categoryType);
+		intent.putExtra("ItemIndex", position);
 		startActivity(intent);
 	}
 }

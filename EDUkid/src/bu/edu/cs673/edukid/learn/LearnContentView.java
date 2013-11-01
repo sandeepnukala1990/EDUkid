@@ -6,14 +6,15 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.model.CategoryType;
 import bu.edu.cs673.edukid.learn.grid.LearnContentGridView;
 
 public class LearnContentView extends FragmentActivity {
 
-	private LearnType learnType;
+	private CategoryType categoryType;
 
 	private LearnContentViewPagerAdapter learnContentViewPagerAdapter;
-	
+
 	private ViewPager learnContentViewPager;
 
 	@Override
@@ -24,21 +25,21 @@ public class LearnContentView extends FragmentActivity {
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
 
-		learnType = (LearnType) extras.get("LearnType");
-		int position = extras.getInt("Position");
-		
+		categoryType = (CategoryType) extras.get("CategoryType");
+		int itemIndex = extras.getInt("ItemIndex");
+
 		// Setup view pager
 		learnContentViewPagerAdapter = new LearnContentViewPagerAdapter(
-				getSupportFragmentManager(), learnType);
+				getSupportFragmentManager(), categoryType);
 
 		learnContentViewPager = (ViewPager) findViewById(R.id.learnContentViewPager);
 		learnContentViewPager.setAdapter(learnContentViewPagerAdapter);
-		learnContentViewPager.setCurrentItem(position);
+		learnContentViewPager.setCurrentItem(itemIndex);
 	}
 
 	public void onShowGridClick(View view) {
 		Intent intent = new Intent(this, LearnContentGridView.class);
-		intent.putExtra("LearnType", learnType);
+		intent.putExtra("CategoryType", categoryType);
 		startActivity(intent);
 	}
 }

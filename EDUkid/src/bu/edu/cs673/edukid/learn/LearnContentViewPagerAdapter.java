@@ -4,35 +4,35 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import bu.edu.cs673.edukid.db.Database;
+import bu.edu.cs673.edukid.db.model.CategoryType;
 
 public class LearnContentViewPagerAdapter extends FragmentStatePagerAdapter {
 
-	private LearnType learnType;
+	private CategoryType categoryType;
 
 	public LearnContentViewPagerAdapter(FragmentManager fragmentManager,
-			LearnType learnType) {
+			CategoryType categoryType) {
 		super(fragmentManager);
-		this.learnType = learnType;
+		this.categoryType = categoryType;
 	}
 
 	@Override
-	public Fragment getItem(int i) {
+	public Fragment getItem(int itemIndex) {
 		Fragment fragment = new LearnContentViewFragment();
 		Bundle arguments = new Bundle();
+		Database database = Database.getInstance();
 
-		arguments.putInt(LearnContentViewFragment.ARG_INDEX, i);
+		arguments.putInt(LearnContentViewFragment.ARG_ITEM_INDEX, itemIndex);
 
-		// TODO: should be a database query
-		arguments.putInt(LearnContentViewFragment.ARG_LEARN_TYPE,
-				learnType.ordinal());
+		arguments.putInt(LearnContentViewFragment.ARG_CATEGORY_TYPE,
+				categoryType.ordinal());
 
-		// TODO: should be a database query
 		arguments.putString(LearnContentViewFragment.ARG_ITEM,
-				learnType.getItem(i));
+				database.getItem(categoryType, itemIndex));
 
-		// TODO: should be a database query
 		arguments.putString(LearnContentViewFragment.ARG_PHONETIC_SOUND,
-				learnType.getDefaultSound(i));
+				database.getPhoneticSound(categoryType, itemIndex));
 
 		fragment.setArguments(arguments);
 
@@ -41,6 +41,6 @@ public class LearnContentViewPagerAdapter extends FragmentStatePagerAdapter {
 
 	@Override
 	public int getCount() {
-		return learnType.getItems().length;
+		return Database.getInstance().getItemCount(categoryType);
 	}
 }

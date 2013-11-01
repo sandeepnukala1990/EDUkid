@@ -11,25 +11,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.Database;
+import bu.edu.cs673.edukid.db.model.CategoryType;
 
 public class LearnContentViewFragment extends Fragment implements
 		OnClickListener, TextToSpeech.OnInitListener, OnPageChangeListener {
 
-	public static final String ARG_INDEX = "Index";
-	public static final String ARG_LEARN_TYPE = "LearnType";
+	public static final String ARG_ITEM_INDEX = "ItemIndex";
+	public static final String ARG_CATEGORY_TYPE = "CategoryType";
 	public static final String ARG_ITEM = "Item";
 	public static final String ARG_PHONETIC_SOUND = "PhoneticSound";
 
 	private TextToSpeech textToSpeech;
 
-	private LearnType learnType;
+	private CategoryType categoryType;
 
-	private int index;
+	private int itemIndex;
 
 	private LinearLayout wordViewPagerCircles;
 
@@ -46,8 +47,8 @@ public class LearnContentViewFragment extends Fragment implements
 				container, false);
 		Bundle arguments = getArguments();
 
-		// Get the index
-		index = arguments.getInt(ARG_INDEX);
+		// Get the item index
+		itemIndex = arguments.getInt(ARG_ITEM_INDEX);
 
 		// Set content item
 		TextView learnContentItem = (TextView) view
@@ -55,17 +56,20 @@ public class LearnContentViewFragment extends Fragment implements
 		learnContentItem.setOnClickListener(this);
 		learnContentItem.setText(arguments.getString(ARG_ITEM));
 
-		// Get the learn type
-		learnType = LearnType.values()[arguments.getInt(ARG_LEARN_TYPE)];
+		// Get the category type
+		categoryType = CategoryType.values()[arguments
+				.getInt(ARG_CATEGORY_TYPE)];
 
-		if (learnType == LearnType.ALPHABET || learnType == LearnType.NUMBERS) {
+		if (categoryType == CategoryType.ALPHABET
+				|| categoryType == CategoryType.NUMBERS) {
 			learnContentItem.setTextSize(128);
 		}
 
 		// Set the word circles
 		wordViewPagerCircles = (LinearLayout) view
 				.findViewById(R.id.wordViewPagerCircles);
-		numberOfCircles = learnType.getAlphabetWords(index).length;
+		numberOfCircles = Database.getInstance().getItemWordCount(categoryType,
+				itemIndex);
 		setCircleIndex(0);
 
 		return view;
@@ -78,7 +82,7 @@ public class LearnContentViewFragment extends Fragment implements
 		ViewPager wordViewPager = (ViewPager) view
 				.findViewById(R.id.wordViewPager);
 		wordViewPager.setAdapter(new WordFragmentPagerAdapter(
-				getChildFragmentManager(), learnType, index));
+				getChildFragmentManager(), categoryType, itemIndex));
 		wordViewPager.setOnPageChangeListener(this);
 	}
 

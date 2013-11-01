@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.learn.LearnType;
+import bu.edu.cs673.edukid.db.model.CategoryType;
 
 public class EDUsplash extends Activity {
 
@@ -36,7 +36,6 @@ public class EDUsplash extends Activity {
 
 	private void setupDatabse() {
 		Database database = Database.getInstance(this);
-		database.open();
 		Resources resources = getResources();
 
 		if (database.getUserAccounts().size() == 0) {
@@ -45,14 +44,13 @@ public class EDUsplash extends Activity {
 		}
 
 		if (database.getAllCategories().size() == 0) {
-
-			database.addCategory(LearnType.ALPHABET.toString(),
+			database.addCategory(CategoryType.ALPHABET.toString(),
 					resources.getDrawable(R.drawable.tiletry));
-			database.addCategory(LearnType.NUMBERS.toString(),
+			database.addCategory(CategoryType.NUMBERS.toString(),
 					resources.getDrawable(R.drawable.numbersnew));
-			database.addCategory(LearnType.SHAPES.toString(),
+			database.addCategory(CategoryType.SHAPES.toString(),
 					resources.getDrawable(R.drawable.shapesnew));
-			database.addCategory(LearnType.COLORS.toString(),
+			database.addCategory(CategoryType.COLORS.toString(),
 					resources.getDrawable(R.drawable.colorsnew));
 		}
 	}
