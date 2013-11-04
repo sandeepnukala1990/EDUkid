@@ -35,7 +35,6 @@ public class EDUkid extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		LearnType learnType = LearnType.values()[v.getId()];
-
 		Intent intent = new Intent(this, LearnContentView.class);
 		intent.putExtra("LearnType", learnType);
 		startActivity(intent);
@@ -44,7 +43,6 @@ public class EDUkid extends Activity implements OnClickListener {
 	private void setupLearnButtons() {
 		Database database = Database.getInstance(this);
 		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.categoryLinearLayout);
-
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		layoutParams.width = 275;
@@ -53,7 +51,6 @@ public class EDUkid extends Activity implements OnClickListener {
 		layoutParams.rightMargin = 10;
 		layoutParams.bottomMargin = 10;
 		layoutParams.leftMargin = 10;
-
 		for (Category category : database.getAllCategories()) {
 			ImageButton categoryButton = new ImageButton(this);
 			categoryButton.setLayoutParams(layoutParams);
@@ -64,7 +61,6 @@ public class EDUkid extends Activity implements OnClickListener {
 			categoryButton.setOnClickListener(this);
 			linearLayout.addView(categoryButton);
 		}
-
 		UserAccount userAccount = database.getUserAccounts().get(0);
 		Toast.makeText(this, "Hi " + userAccount.getUserName() + "!",
 				Toast.LENGTH_LONG).show();
