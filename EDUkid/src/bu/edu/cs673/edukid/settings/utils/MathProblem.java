@@ -18,6 +18,18 @@ public class MathProblem {
 				+ "?";
 	}
 
+	public int getOperand1() {
+		return operand1;
+	}
+
+	public int getOperand2() {
+		return operand2;
+	}
+
+	public Operator getOperator() {
+		return operator;
+	}
+
 	public int getAnswer() {
 		if (operator == Operator.ADD) {
 			return operand1 + operand2;
