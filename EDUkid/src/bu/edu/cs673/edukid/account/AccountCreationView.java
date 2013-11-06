@@ -7,9 +7,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Collection;
 import java.util.List;
 
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.Database;
+import bu.edu.cs673.edukid.db.model.UserAccount;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +33,7 @@ public class AccountCreationView extends Activity implements OnClickListener{
 	private static final int TAKE_PICTURE = 0;
 	private String childName;
 	public boolean accountExists;
+	Database database = Database.getInstance(this);
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,12 +47,11 @@ public class AccountCreationView extends Activity implements OnClickListener{
 	}
 	public void onClick(View view){
 		if(view.getId()==R.id.createSaveButton){
-			childName=readFromFile();
-			System.out.println(childName);
 			childName=((EditText) findViewById(R.id.createEditChildName)).getText().toString();
-			writeToFile(childName);
-			childName="foobar";
-			childName=readFromFile();
+			Collection<UserAccount> blah = database.getUserAccounts().values();
+			UserAccount userAccount=(UserAccount)blah.toArray()[0];
+			userAccount.setUserName(childName);
+			database.editUserAccount(userAccount);
 		}
 		else if(view.getId()==R.id.createUploadPhotoButton){
 			

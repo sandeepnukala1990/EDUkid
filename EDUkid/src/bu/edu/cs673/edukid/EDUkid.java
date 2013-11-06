@@ -1,5 +1,7 @@
 package bu.edu.cs673.edukid;
 
+import java.util.Collection;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -64,10 +66,18 @@ public class EDUkid extends Activity implements OnClickListener {
 			categoryButton.setOnClickListener(this);
 			categoryLayout.addView(categoryButton);
 		}
-
-		UserAccount userAccount = database.getUserAccounts().get(0);
+		Collection<UserAccount> blah = database.getUserAccounts().values();
+		UserAccount userAccount=(UserAccount)blah.toArray()[0];
 		Toast.makeText(this, "Hi " + userAccount.getUserName() + "!",
 				Toast.LENGTH_LONG).show();
+//		System.out.println("setting username");
+//		userAccount.setUserName("Peter");
+//		database.editUserAccount(userAccount);
+//		blah = database.getUserAccounts().values();
+//		userAccount=(UserAccount)blah.toArray()[0];
+//		Toast.makeText(this, "Hi " + userAccount.getUserName() + "!",
+//				Toast.LENGTH_LONG).show();
+//		System.out.println(userAccount.getUserName());
 	}
 
 	public void onSettingsClick(View view) {

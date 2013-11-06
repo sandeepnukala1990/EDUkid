@@ -2,8 +2,11 @@ package bu.edu.cs673.edukid.db;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -193,23 +196,26 @@ public class Database {
 		}
 	}
 
-	public List<UserAccount> getUserAccounts() {
-		List<UserAccount> userAccounts = new ArrayList<UserAccount>();
-
+	@SuppressLint("UseSparseArrays")
+	public Map<Long, UserAccount> getUserAccounts() {
+		Map<Long, UserAccount> userAccounts= new HashMap <Long, UserAccount>();
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_USER_ACCOUNT,
 				userAccountColumns, null, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			userAccounts.add(DatabaseUtils.convertCursorToUserAccount(cursor));
+			UserAccount userAccount = DatabaseUtils.convertCursorToUserAccount(cursor);
+			userAccounts.put(userAccount.getId(), userAccount);
 			cursor.moveToNext();
 		}
-
+		
 		cursor.close();
 
 		return userAccounts;
 	}
-
+	public UserAccount getUserAccount(long id){
+		return getUserAccounts().get(id);
+	}
 	public void addUserAccount(String userName, Drawable userImage) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_USER_NAME, userName);
@@ -218,5 +224,10 @@ public class Database {
 		contentValues.put(DatabaseHelper.COLUMN_USER_SOUND, userName);
 		sqlDatabase.insert(DatabaseHelper.TABLE_USER_ACCOUNT, null,
 				contentValues);
+	}
+	public void editUserAccount(UserAccount account){
+		getUserAccount(account.getId());
+		sqlDatabase.delete(DatabaseHelper.TABLE_USER_ACCOUNT, DatabaseHelper.COLUMN_USER_ID+" = ?", new String[] { String.valueOf(account.getId()) });
+		addUserAccount(account.getUserName(), ImageUtils.byteArrayToDrawable(account.getUserImage()));
 	}
 }
