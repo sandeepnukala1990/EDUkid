@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,89 +30,55 @@ import android.widget.*;
 import android.media.*;
 
 //testcommit
-public class AccountCreationView extends Activity implements OnClickListener{
-	private static final int TAKE_PICTURE = 0;
+public class AccountCreationView extends Activity implements OnClickListener {
+	private static final int TAKE_PICTURE = 1888;
 	private String childName;
+	private ImageView imageView;
 	public boolean accountExists;
 	Database database = Database.getInstance(this);
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.account_creation);
-
+		imageView = (ImageView) findViewById(R.id.createUserImage);
 		Button createSaveButton = (Button) findViewById(R.id.createSaveButton);
 		createSaveButton.setOnClickListener(this);
-		ImageView createUserImage = (ImageView) findViewById(R.id.createUserImage); 
-		Button createUploadPhotoButton = (Button)findViewById(R.id.createUploadPhotoButton);
+		ImageView createUserImage = (ImageView) findViewById(R.id.createUserImage);
+		Button createUploadPhotoButton = (Button) findViewById(R.id.createUploadPhotoButton);
 		createUploadPhotoButton.setOnClickListener(this);
 	}
-	public void onClick(View view){
-		if(view.getId()==R.id.createSaveButton){
-			childName=((EditText) findViewById(R.id.createEditChildName)).getText().toString();
+
+	public void onClick(View view) {
+		if (view.getId() == R.id.createSaveButton) {
+			childName = ((EditText) findViewById(R.id.createEditChildName))
+					.getText().toString();
 			Collection<UserAccount> blah = database.getUserAccounts().values();
-			UserAccount userAccount=(UserAccount)blah.toArray()[0];
+			UserAccount userAccount = (UserAccount) blah.toArray()[0];
 			userAccount.setUserName(childName);
 			database.editUserAccount(userAccount);
-		}
-		else if(view.getId()==R.id.createUploadPhotoButton){
-			
+		} else if (view.getId() == R.id.createUploadPhotoButton) {
+
 			imageFromCamera();
 		}
 	}
-	private void writeToFile(String data) {
-		try {
-			OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("username.txt", Context.MODE_PRIVATE));
-			outputStreamWriter.write(data);
-			outputStreamWriter.close();
-		}
-		catch (IOException e) {
-			Log.e("Exception", "File write failed: " + e.toString());
-		} 
+
+	public void imageFromCamera() {
+		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+		// File mImageFile = new
+		// File(Environment.getExternalStorageDirectory()+File.separator+"MyApp",
+		// "PIC"+System.currentTimeMillis()+".jpg");
+		// String mSelectedImagePath = mImageFile.getAbsolutePath();
+		// intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mImageFile));
+		startActivityForResult(intent, TAKE_PICTURE);
 	}
-	private String readFromFile() {
 
-		String ret = "";
-
-		try {
-			InputStream inputStream = openFileInput("username.txt");
-
-			if ( inputStream != null ) {
-				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-				String receiveString = "";
-				StringBuilder stringBuilder = new StringBuilder();
-
-				while ( (receiveString = bufferedReader.readLine()) != null ) {
-					stringBuilder.append(receiveString);
-				}
-
-				inputStream.close();
-				ret = stringBuilder.toString();
-				if(ret.compareTo("")!=0){
-					accountExists=true;
-				}
-				else
-					accountExists=false;
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == TAKE_PICTURE && resultCode == RESULT_OK) {
+			Bitmap photo = (Bitmap) data.getExtras().get("data");
+			if (photo != null) {
+				imageView.setImageBitmap(photo);
 			}
 		}
-		catch (FileNotFoundException e) {
-			Log.e("login activity", "File not found: " + e.toString());
-		} catch (IOException e) {
-			Log.e("login activity", "Can not read file: " + e.toString());
-		}
-
-		return ret;
-	}
-	public boolean userExists(){
-		readFromFile();
-		return accountExists;
-	}
-	public void imageFromCamera() {
-	    Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-	    File mImageFile = new File(Environment.getExternalStorageDirectory()+File.separator+"MyApp",  
-	            "PIC"+System.currentTimeMillis()+".jpg");
-	    String mSelectedImagePath = mImageFile.getAbsolutePath();
-	    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mImageFile));
-	    startActivityForResult(intent, TAKE_PICTURE);
 	}
 }
