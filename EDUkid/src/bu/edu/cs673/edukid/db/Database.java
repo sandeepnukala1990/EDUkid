@@ -241,13 +241,13 @@ public class Database {
 		sqlDatabase.insert(DatabaseHelper.TABLE_USER_ACCOUNT, null,
 				contentValues);
 	}
-<<<<<<< 8679ec80b0440afb04104d68f6e8f7505c5ab433
+
 	public void editUserAccount(UserAccount account){
 		getUserAccount(account.getId());
 		sqlDatabase.delete(DatabaseHelper.TABLE_USER_ACCOUNT, DatabaseHelper.COLUMN_USER_ID+" = ?", new String[] { String.valueOf(account.getId()) });
 		addUserAccount(account.getUserName(), ImageUtils.byteArrayToDrawable(account.getUserImage()));
 	}
-=======
+
 	
 	public List<Letters> getLetters() {
 		List<Letters> letters = new ArrayList<Letters>();
@@ -321,12 +321,12 @@ public class Database {
 		return theme;
 	}
 	
-	public void addThemes(String theme) {
+	void addThemes(String theme) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_THEME_NAME, theme);
 		sqlDatabase.insert(DatabaseHelper.TABLE_THEME, null,
 				contentValues);
 	}
 	
->>>>>>> d6ace6df62a15761605bdf87971a25110f3bdf12
+
 }

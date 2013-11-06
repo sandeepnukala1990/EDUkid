@@ -84,7 +84,7 @@ public class EDUsplash extends Activity {
 		}
 		if (database.getThemes().size()==0)
 		{
-			database.addThemes("FRUITS");
+			//database.addThemes("FRUITS");
 			database.addLetters("ANIMALS");
 			
 			

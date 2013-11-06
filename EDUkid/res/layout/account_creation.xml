@@ -9,47 +9,38 @@
         android:id="@+id/createSaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="220dp"
+        android:layout_alignTop="@+id/createEditChildName"
+        android:layout_marginLeft="32dp"
         android:layout_toRightOf="@+id/createEditChildName"
         android:text="Save" />
-
-    <EditText
-        android:id="@+id/createEditChildName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/createSaveButton"
-        android:layout_marginLeft="323dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <ImageView
-        android:id="@+id/userPicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:adjustViewBounds="true"
-        android:src="@drawable/bottombanner" />
 
     <ImageView
         android:id="@+id/createUserImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="54dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginBottom="105dp"
+        android:layout_marginLeft="169dp"
         android:src="@drawable/mickey_mouse" />
+
+    <EditText
+        android:id="@+id/createEditChildName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/createUserImage"
+        android:layout_marginLeft="82dp"
+        android:layout_toRightOf="@+id/createUserImage"
+        android:ems="10"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/createUploadPhotoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/createUserImage"
-        android:layout_below="@+id/createUserImage"
+        android:layout_alignLeft="@+id/createEditChildName"
+        android:layout_below="@+id/createEditChildName"
+        android:layout_marginTop="74dp"
         android:text="Take Photo" />
 
 </RelativeLayout>
