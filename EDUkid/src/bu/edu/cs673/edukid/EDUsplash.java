@@ -53,5 +53,42 @@ public class EDUsplash extends Activity {
 			database.addCategory(CategoryType.COLORS.toString(),
 					resources.getDrawable(R.drawable.colorsnew));
 		}
+	if (database.getLetters().size()==0)
+		{
+			database.addLetters("A");
+			database.addLetters("tst");
+			database.addLetters("C");
+			database.addLetters("D");
+			database.addLetters("E");
+			database.addLetters("F");
+			database.addLetters("G");
+			database.addLetters("H");
+			database.addLetters("I");
+			database.addLetters("J");
+			database.addLetters("K");
+			database.addLetters("L");
+			database.addLetters("M");
+			database.addLetters("N");
+			database.addLetters("O");
+			database.addLetters("P");
+			database.addLetters("Q");
+			database.addLetters("R");
+			database.addLetters("S");
+			database.addLetters("T");
+			database.addLetters("U");
+			database.addLetters("V");
+			database.addLetters("W");
+			database.addLetters("X");
+			database.addLetters("Y");
+			database.addLetters("Z");
+		}
+		if (database.getThemes().size()==0)
+		{
+			database.addThemes("FRUITS");
+			database.addLetters("ANIMALS");
+			
+			
+		}
+		
 	}
 }

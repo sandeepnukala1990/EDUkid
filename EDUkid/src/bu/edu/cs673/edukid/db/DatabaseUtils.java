@@ -1,8 +1,13 @@
 package bu.edu.cs673.edukid.db;
 
+import java.util.concurrent.CountDownLatch;
+
 import android.database.Cursor;
 import bu.edu.cs673.edukid.db.model.Category;
 import bu.edu.cs673.edukid.db.model.UserAccount;
+import bu.edu.cs673.edukid.db.model.Alphabets;
+import bu.edu.cs673.edukid.db.model.Letters;
+import bu.edu.cs673.edukid.db.model.Themes;
 
 /**
  * Database utility class. Provides static helper methods to convert database
@@ -55,5 +60,31 @@ public class DatabaseUtils {
 		userAccount.setUserSound(cursor.getString(3));
 
 		return userAccount;
+	}
+	
+	public static Letters convertCursorToLetters(Cursor cursor){
+		Letters letter=new Letters();
+		letter.setLetterid(cursor.getLong(0));
+		letter.setLetter(cursor.getString(1));
+		letter.setLettersound(cursor.getString(2));
+		return letter;
+		
+	}
+	public static Themes convertCursorToThemes(Cursor cursor){
+		Themes theme=new Themes();
+		theme.setThemeid(cursor.getLong(0));
+		theme.setTheme(cursor.getString(1));
+		return theme;
+	}
+	public static Alphabets convertCursorToAlphabets(Cursor cursor)
+	{
+		Alphabets alpha=new Alphabets();
+		alpha.setLid(cursor.getLong(0));
+		alpha.setTid(cursor.getLong(1));
+		alpha.setWords(cursor.getString(2));
+		alpha.setWordsound(cursor.getString(3));
+		alpha.setWordimg(cursor.getBlob(4));
+		
+		return alpha;
 	}
 }

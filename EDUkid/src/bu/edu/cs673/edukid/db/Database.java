@@ -15,6 +15,9 @@ import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.db.model.Category;
 import bu.edu.cs673.edukid.db.model.CategoryType;
 import bu.edu.cs673.edukid.db.model.UserAccount;
+import bu.edu.cs673.edukid.db.model.Letters;
+import bu.edu.cs673.edukid.db.model.Alphabets;
+import bu.edu.cs673.edukid.db.model.Themes;
 
 public class Database {
 
@@ -31,6 +34,16 @@ public class Database {
 	private String[] userAccountColumns = { DatabaseHelper.COLUMN_USER_ID,
 			DatabaseHelper.COLUMN_USER_NAME, DatabaseHelper.COLUMN_USER_IMAGE,
 			DatabaseHelper.COLUMN_USER_SOUND };
+	
+	private String[] letterscolumns={DatabaseHelper.COLUMN_LETTERS_ID,
+			DatabaseHelper.COLUMN_LETTERS_WORD, DatabaseHelper.COLUMN_LETTERS_SOUND};
+	
+	private String[] themecolumns={DatabaseHelper.COLUMN_THEME_ID,
+			DatabaseHelper.COLUMN_THEME_NAME};
+	
+	private String[] alphabetscolumns={DatabaseHelper.COLUMN_LID,
+			DatabaseHelper.COLUMN_TID,DatabaseHelper.COLUMN_WORDS,DatabaseHelper.COLUMN_WORDS_SOUND,
+			DatabaseHelper.COLUMN_WORDS_IMAGE};
 
 	/**
 	 * Gets the database singleton instance.
@@ -102,7 +115,8 @@ public class Database {
 	public String getItem(CategoryType categoryType, int itemIndex) {
 		switch (categoryType) {
 		case ALPHABET:
-			return DatabaseDefaults.getAlphabet()[itemIndex];
+			Letters let= getLetters().get(itemIndex);
+			return let.getLetter();
 		case NUMBERS:
 		case SHAPES:
 		case COLORS:
@@ -184,7 +198,9 @@ public class Database {
 		case ALPHABET:
 			// TODO: check the database first, then use the defaults if we get
 			// nothing back from the query (voice recording from user).
-			return DatabaseDefaults.getDefaultAlphabetPhoneticSounds(itemIndex);
+			//return DatabaseDefaults.getDefaultAlphabetPhoneticSounds(itemIndex);
+			Letters let= getLetters().get(itemIndex);
+			return let.getLettersound();
 		case NUMBERS:
 		case SHAPES:
 		case COLORS:
@@ -225,9 +241,92 @@ public class Database {
 		sqlDatabase.insert(DatabaseHelper.TABLE_USER_ACCOUNT, null,
 				contentValues);
 	}
+<<<<<<< 8679ec80b0440afb04104d68f6e8f7505c5ab433
 	public void editUserAccount(UserAccount account){
 		getUserAccount(account.getId());
 		sqlDatabase.delete(DatabaseHelper.TABLE_USER_ACCOUNT, DatabaseHelper.COLUMN_USER_ID+" = ?", new String[] { String.valueOf(account.getId()) });
 		addUserAccount(account.getUserName(), ImageUtils.byteArrayToDrawable(account.getUserImage()));
 	}
+=======
+	
+	public List<Letters> getLetters() {
+		List<Letters> letters = new ArrayList<Letters>();
+
+		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_LETTERS,
+				letterscolumns, null, null,null, null, null);
+		cursor.moveToFirst();
+
+		while (!cursor.isAfterLast()) {
+			letters.add(DatabaseUtils.convertCursorToLetters(cursor));
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+
+		return letters;
+	}
+	
+	public void addLetters(String letter) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_LETTERS_WORD, letter);
+		contentValues.put(DatabaseHelper.COLUMN_LETTERS_SOUND, letter);
+		sqlDatabase.insert(DatabaseHelper.TABLE_LETTERS, null,
+				contentValues);
+	}
+	
+	public List<Alphabets> getAlphabets() {
+		List<Alphabets> alpha = new ArrayList<Alphabets>();
+
+		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_ALPHABET,
+				alphabetscolumns, null, null,null, null, null);
+		cursor.moveToFirst();
+
+		while (!cursor.isAfterLast()) {
+			alpha.add(DatabaseUtils.convertCursorToAlphabets(cursor));
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+
+		return alpha;
+	}
+	
+	public void addAlphabets(int lid,int tid,String alphaWord,String alphaSound,Drawable alphaImage) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_LID, lid);
+		contentValues.put(DatabaseHelper.COLUMN_TID, tid);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS, alphaWord);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND, alphaSound);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
+				ImageUtils.drawableToByteArray(alphaImage));
+		
+		sqlDatabase.insert(DatabaseHelper.TABLE_ALPHABET, null,
+				contentValues);
+	}
+	
+	public List<Themes> getThemes() {
+		List<Themes> theme = new ArrayList<Themes>();
+
+		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_THEME,
+				themecolumns, null, null,null, null, null);
+		cursor.moveToFirst();
+
+		while (!cursor.isAfterLast()) {
+			theme.add(DatabaseUtils.convertCursorToThemes(cursor));
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+
+		return theme;
+	}
+	
+	public void addThemes(String theme) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_THEME_NAME, theme);
+		sqlDatabase.insert(DatabaseHelper.TABLE_THEME, null,
+				contentValues);
+	}
+	
+>>>>>>> d6ace6df62a15761605bdf87971a25110f3bdf12
 }
