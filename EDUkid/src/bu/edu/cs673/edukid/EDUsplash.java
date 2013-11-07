@@ -51,66 +51,27 @@ public class EDUsplash extends Activity {
 		Database database = Database.getInstance(this);
 		Resources resources = getResources();
 
-		if (database.getUserAccounts().size() == 0) {
-			database.addUserAccount("Jasjot",
-					resources.getDrawable(R.drawable.mickey_mouse));
-		}
-
-		if (database.getAllCategories().size() == 0) {
-			database.addCategory(CategoryType.ALPHABET.toString(),
+		if (database.getCategories().size() == 0) {
+			database.addCategory(CategoryType.ALPHABET.getName(),
 					resources.getDrawable(R.drawable.tiletry));
-			database.addCategory(CategoryType.NUMBERS.toString(),
+			database.addCategory(CategoryType.NUMBERS.getName(),
 					resources.getDrawable(R.drawable.numbersnew));
-			database.addCategory(CategoryType.SHAPES.toString(),
+			database.addCategory(CategoryType.SHAPES.getName(),
 					resources.getDrawable(R.drawable.shapesnew));
-			database.addCategory(CategoryType.COLORS.toString(),
+			database.addCategory(CategoryType.COLORS.getName(),
 					resources.getDrawable(R.drawable.colorsnew));
 		}
-	if (database.getLetters().size()==0)
-		{
-			database.addLetters("A");
-			database.addLetters("B");
-			database.addLetters("C");
-			database.addLetters("D");
-			database.addLetters("E");
-			database.addLetters("F");
-			database.addLetters("G");
-			database.addLetters("H");
-			database.addLetters("I");
-			database.addLetters("J");
-			database.addLetters("K");
-			database.addLetters("L");
-			database.addLetters("M");
-			database.addLetters("N");
-			database.addLetters("O");
-			database.addLetters("P");
-			database.addLetters("Q");
-			database.addLetters("R");
-			database.addLetters("S");
-			database.addLetters("T");
-			database.addLetters("U");
-			database.addLetters("V");
-			database.addLetters("W");
-			database.addLetters("X");
-			database.addLetters("Y");
-			database.addLetters("Z");
+
+		if (database.getLetters().size() == 0) {
+			for (String letter : DatabaseDefaults.getAlphabet()) {
+				database.addLetter(letter);
+			}
 		}
-	
-		if (database.getThemes().size()==0)
-		{
-			database.addThemes("FRUITS");
-			database.addThemes("ANIMALS");
-			database.addThemes("INSECTS");
+
+		if (database.getThemes().size() == 0) {
+			// TODO: implement this more
+			database.addTheme("ANIMALS");
 		}
-		/*if(database.getAlphabets().size()==0)
-		{
-			database.addAlphabets(0, 0, "micky", 
-					resources.getDrawable(R.drawable.mickey_mouse));
-			database.addAlphabets(0, 2, "micky", 
-					resources.getDrawable(R.drawable.mickey_mouse));
-			database.addAlphabets(2, 0, "micky", 
-					resources.getDrawable(R.drawable.mickey_mouse));
-		}*/
 		
 	}
 }

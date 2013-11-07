@@ -15,9 +15,9 @@ import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.db.model.Category;
 import bu.edu.cs673.edukid.db.model.CategoryType;
 import bu.edu.cs673.edukid.db.model.UserAccount;
-import bu.edu.cs673.edukid.db.model.Letters;
+import bu.edu.cs673.edukid.db.model.Letter;
 import bu.edu.cs673.edukid.db.model.Alphabets;
-import bu.edu.cs673.edukid.db.model.Themes;
+import bu.edu.cs673.edukid.db.model.Theme;
 
 /**
  * The main database class which provides "access" to the database via accessor
@@ -253,9 +253,9 @@ public class Database {
 					
 					if(alp.getLid()==itemIndex)
 					{
-						if(alp.getTid()==wordIndex)
+						if(alp.getThemeId()==wordIndex)
 						{
-							return alp.getWords();
+							return alp.getWord();
 						}
 						else
 							listIndex++;
@@ -359,8 +359,8 @@ public class Database {
 	 * 
 	 * @return a list of the user accounts in the database.
 	 */
-	public Map<Long, UserAccount> getUserAccounts() {
-		Map<Long, UserAccount> userAccounts= new HashMap <Long, UserAccount>();
+	public List<UserAccount> getUserAccounts() {
+		List<UserAccount> userAccounts = new ArrayList<UserAccount>();
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_USER_ACCOUNT,
 				userAccountColumns, null, null, null, null, null);
 		cursor.moveToFirst();
@@ -376,9 +376,16 @@ public class Database {
 
 		return userAccounts;
 	}
-	public UserAccount getUserAccount(long id){
-		return getUserAccounts().get(id);
-	}
+
+	/**
+	 * Adds a user account to the database.
+	 * 
+	 * @param userName
+	 *            the user name.
+	 * @param userImage
+	 *            the user image.
+	 * @return the row ID of the newly inserted row, or -1 if an error occurred
+	 */
 	public long addUserAccount(String userName, Drawable userImage) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_USER_NAME, userName);
