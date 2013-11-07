@@ -13,6 +13,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.ImageUtils;
@@ -44,7 +45,7 @@ public class EDUkid extends Activity implements OnClickListener {
 		setContentView(R.layout.edukid);
 
 		setupCategoryButtons();
-		welcomeUserBack();
+		welcomeUserBack(true);
 	}
 
 	/**
@@ -57,6 +58,12 @@ public class EDUkid extends Activity implements OnClickListener {
 		Intent intent = new Intent(this, LearnContentView.class);
 		intent.putExtra("CategoryType", categoryType);
 		startActivity(intent);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		welcomeUserBack(false);
 	}
 
 	/**
@@ -92,7 +99,7 @@ public class EDUkid extends Activity implements OnClickListener {
 	/**
 	 * Welcomes the user back upon application startup (if one exists).
 	 */
-	private void welcomeUserBack() {
+	private void welcomeUserBack(boolean toast) {
 		Database database = Database.getInstance(this);
 		List<UserAccount> userAccounts = database.getUserAccounts();
 
@@ -100,10 +107,16 @@ public class EDUkid extends Activity implements OnClickListener {
 		if (userAccounts.size() == 1) {
 			UserAccount userAccount = userAccounts.get(0);
 
+			TextView userNameTextView = (TextView) findViewById(R.id.mainPageUserName);
+			userNameTextView.setText("Hi " + userAccount.getUserName());
+
 			// Say hello
-			Toast.makeText(this,
-					"Hello " + userAccount.getUserName() + ", Welcome Back!",
-					Toast.LENGTH_LONG).show();
+			if (toast) {
+				Toast.makeText(
+						this,
+						"Hello " + userAccount.getUserName()
+								+ ", Welcome Back!", Toast.LENGTH_LONG).show();
+			}
 		}
 	}
 
