@@ -51,8 +51,8 @@ public class EDUkid extends Activity implements OnClickListener {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onClick(View v) {
-		CategoryType categoryType = CategoryType.values()[v.getId()];
+	public void onClick(View view) {
+		CategoryType categoryType = CategoryType.values()[view.getId()];
 
 		Intent intent = new Intent(this, LearnContentView.class);
 		intent.putExtra("CategoryType", categoryType);
@@ -78,8 +78,9 @@ public class EDUkid extends Activity implements OnClickListener {
 
 		for (Category category : database.getCategories()) {
 			ImageButton categoryButton = new ImageButton(this);
-			categoryButton.setId(CategoryType.valueOf(category.getName())
-					.ordinal());
+			// TODO: need to fix this for custom types
+			categoryButton.setId(CategoryType.valueOf(
+					category.getName().toUpperCase()).ordinal());
 			categoryButton.setLayoutParams(layoutParams);
 			categoryButton.setBackground(ImageUtils
 					.byteArrayToDrawable(category.getImageData()));

@@ -8,34 +8,40 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/button1"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText1"
-        android:layout_alignBottom="@+id/editText1"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="419dp"
-        android:text="Button" />
-
     <Button
         android:id="@+id/accountDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:onClick="onAccountDetailsClick"
-        android:text="Account Details" />
+        android:onClick="onUserAccountClick"
+        android:text="User Account" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="100dp"
+        android:drawSelectorOnTop="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/accountDetails"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Categories"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/addCategoryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/accountDetails"
+        android:layout_toLeftOf="@+id/accountDetails"
+        android:onClick="onAddCategoryClick"
+        android:text="Add Category" />
 
 </RelativeLayout>

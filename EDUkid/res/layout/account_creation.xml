@@ -3,44 +3,60 @@
     style="@drawable/mickey_mouse"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/mainback" >
+    android:background="@drawable/mainback"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
 
     <Button
         android:id="@+id/createSaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/createEditChildName"
-        android:layout_marginLeft="32dp"
-        android:layout_toRightOf="@+id/createEditChildName"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:text="Save" />
 
     <ImageView
         android:id="@+id/createUserImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="105dp"
-        android:layout_marginLeft="169dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="125dp"
+        android:adjustViewBounds="true"
+        android:maxHeight="500dp"
+        android:maxWidth="500dp"
+        android:minHeight="200dp"
+        android:minWidth="300dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/mickey_mouse" />
 
     <EditText
         android:id="@+id/createEditChildName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/createUserImage"
-        android:layout_marginLeft="82dp"
-        android:layout_toRightOf="@+id/createUserImage"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="75dp"
+        android:layout_toLeftOf="@+id/createSaveButton"
         android:ems="10"
         android:inputType="textPersonName" />
 
-    <Button
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/createEditChildName"
+        android:layout_alignLeft="@+id/createEditChildName"
+        android:layout_marginBottom="5dp"
+        android:text="User Name:" />
+
+    <ImageButton
         android:id="@+id/createUploadPhotoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/createEditChildName"
-        android:layout_below="@+id/createEditChildName"
-        android:layout_marginTop="74dp"
-        android:text="Take Photo" />
+        android:layout_alignRight="@+id/createUserImage"
+        android:layout_alignTop="@+id/createUserImage"
+        android:background="@null"
+        android:src="@android:drawable/ic_menu_camera" />
 
 </RelativeLayout>

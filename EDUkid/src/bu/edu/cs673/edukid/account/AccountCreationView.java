@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.R;
@@ -65,7 +66,7 @@ public class AccountCreationView extends Activity implements OnClickListener {
 		// Add listeners
 		Button createSaveButton = (Button) findViewById(R.id.createSaveButton);
 		createSaveButton.setOnClickListener(this);
-		Button createUploadPhotoButton = (Button) findViewById(R.id.createUploadPhotoButton);
+		ImageButton createUploadPhotoButton = (ImageButton) findViewById(R.id.createUploadPhotoButton);
 		createUploadPhotoButton.setOnClickListener(this);
 	}
 
