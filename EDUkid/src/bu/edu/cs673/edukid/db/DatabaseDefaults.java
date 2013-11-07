@@ -12,10 +12,12 @@ public class DatabaseDefaults {
 
 	// TODO: fill these in with real values
 	private static Things A_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple), new Thing("Alligator", R.drawable.edukidicon),
-			new Thing("Ant", R.drawable.edukidicon));
-	private static Things B_THINGS = new Things();
-	private static Things C_THINGS = new Things();
+			R.drawable.apple), new Thing("Alligator", R.drawable.alligator),
+			new Thing("Avocado", R.drawable.avocado));
+	private static Things B_THINGS = new Things(new Thing("Balloons",
+			R.drawable.balloons));
+	private static Things C_THINGS = new Things(
+			new Thing("Cow", R.drawable.cow));
 	private static Things D_THINGS = new Things();
 	private static Things E_THINGS = new Things();
 	private static Things F_THINGS = new Things();
@@ -28,8 +30,10 @@ public class DatabaseDefaults {
 	private static Things M_THINGS = new Things();
 	private static Things N_THINGS = new Things();
 	private static Things O_THINGS = new Things();
-	private static Things P_THINGS = new Things();
-	private static Things Q_THINGS = new Things();
+	private static Things P_THINGS = new Things(
+			new Thing("Pig", R.drawable.pig));
+	private static Things Q_THINGS = new Things(new Thing("Quail",
+			R.drawable.quail));
 	private static Things R_THINGS = new Things();
 	private static Things S_THINGS = new Things();
 	private static Things T_THINGS = new Things();
