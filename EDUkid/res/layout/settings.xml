@@ -14,8 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:onClick="onUserAccountClick"
-        android:text="User Account" />
+        android:background="@drawable/useraccount"
+        android:onClick="onUserAccountClick" />
 
     <ListView
         android:id="@android:id/list"
@@ -26,22 +26,24 @@
         android:layout_marginTop="100dp"
         android:drawSelectorOnTop="false" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/accountDetails"
+        android:layout_alignTop="@+id/addCategoryButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="Categories"
-        android:textSize="30sp" />
+        android:layout_marginTop="25dp"
+        android:src="@drawable/categories" />
 
     <Button
         android:id="@+id/addCategoryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/accountDetails"
         android:layout_alignBottom="@+id/accountDetails"
+        android:layout_marginRight="21dp"
         android:layout_toLeftOf="@+id/accountDetails"
-        android:onClick="onAddCategoryClick"
-        android:text="Add Category" />
+        android:background="@drawable/add"
+        android:onClick="onAddCategoryClick" />
 
 </RelativeLayout>

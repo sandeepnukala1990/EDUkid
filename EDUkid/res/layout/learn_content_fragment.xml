@@ -21,10 +21,10 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/wordViewPager"
         android:layout_width="450dp"
-        android:layout_height="300dp"
+        android:layout_height="325dp"
         android:layout_centerVertical="true"
         android:layout_marginRight="17dp"
-        android:background="@drawable/cloud" />
+        android:background="@color/transparent" />
 
     <ImageView
         android:id="@+id/imageView1"
@@ -49,9 +49,8 @@
         android:id="@+id/learnContentItem"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_above="@+id/wordViewPagerCircles"
-        android:layout_alignRight="@+id/imageView1"
-        android:layout_marginRight="96dp"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_toLeftOf="@+id/learnContentGridButton"
         android:gravity="center"
         android:text="A"
         android:textSize="50sp" />
