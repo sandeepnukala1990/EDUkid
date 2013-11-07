@@ -1,16 +1,17 @@
 package bu.edu.cs673.edukid.db.model;
 
-public class Themes {
-	private long themeid;
+public class Theme {
+
+	private long themeId;
 
 	private String theme;
 
-	public long getThemeid() {
-		return themeid;
+	public long getThemeId() {
+		return themeId;
 	}
 
-	public void setThemeid(long themeid) {
-		this.themeid = themeid;
+	public void setThemeId(long themeId) {
+		this.themeId = themeId;
 	}
 
 	public String getTheme() {

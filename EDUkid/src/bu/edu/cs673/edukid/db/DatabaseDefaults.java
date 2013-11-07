@@ -47,6 +47,11 @@ public class DatabaseDefaults {
 		// Static class.
 	}
 
+	/**
+	 * Gets the alphabet in string form.
+	 * 
+	 * @return the alphabet in string form.
+	 */
 	public static String[] getAlphabet() {
 		return new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
 				"K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",

@@ -2,23 +2,29 @@ package bu.edu.cs673.edukid.db;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
+import bu.edu.cs673.edukid.db.model.Alphabets;
 import bu.edu.cs673.edukid.db.model.Category;
 import bu.edu.cs673.edukid.db.model.CategoryType;
+import bu.edu.cs673.edukid.db.model.Letter;
+import bu.edu.cs673.edukid.db.model.Theme;
 import bu.edu.cs673.edukid.db.model.UserAccount;
-import bu.edu.cs673.edukid.db.model.Letters;
-import bu.edu.cs673.edukid.db.model.Alphabets;
-import bu.edu.cs673.edukid.db.model.Themes;
 
+/**
+ * The main database class which provides "access" to the database via accessor
+ * and mutator methods. This class is a singleton.
+ * 
+ * @author Kevin Graue
+ * 
+ * @see DatabaseHelper
+ * 
+ */
 public class Database {
 
 	private static Database DATABASE_INSTANCE = null;
@@ -35,14 +41,14 @@ public class Database {
 			DatabaseHelper.COLUMN_USER_NAME, DatabaseHelper.COLUMN_USER_IMAGE,
 			DatabaseHelper.COLUMN_USER_SOUND };
 
-	private String[] letterscolumns = { DatabaseHelper.COLUMN_LETTERS_ID,
+	private String[] lettersColumns = { DatabaseHelper.COLUMN_LETTERS_ID,
 			DatabaseHelper.COLUMN_LETTERS_WORD,
 			DatabaseHelper.COLUMN_LETTERS_SOUND };
 
-	private String[] themecolumns = { DatabaseHelper.COLUMN_THEME_ID,
+	private String[] themesColumns = { DatabaseHelper.COLUMN_THEME_ID,
 			DatabaseHelper.COLUMN_THEME_NAME };
 
-	private String[] alphabetscolumns = { DatabaseHelper.COLUMN_LID,
+	private String[] alphabetsColumns = { DatabaseHelper.COLUMN_LID,
 			DatabaseHelper.COLUMN_TID, DatabaseHelper.COLUMN_WORDS,
 			DatabaseHelper.COLUMN_WORDS_SOUND,
 			DatabaseHelper.COLUMN_WORDS_IMAGE };
@@ -83,12 +89,24 @@ public class Database {
 		return DATABASE_INSTANCE;
 	}
 
+	/**
+	 * Singleton class. Prevents instantiation from others.
+	 * 
+	 * @param context
+	 *            the context.
+	 */
 	private Database(Context context) {
 		databaseHelper = new DatabaseHelper(context);
 		sqlDatabase = databaseHelper.getWritableDatabase();
 	}
 
-	public List<Category> getAllCategories() {
+	/**
+	 * Gets a list of all the categories (the 4 main categories plus any
+	 * additional categories added by the user).
+	 * 
+	 * @return a list of all categories.
+	 */
+	public List<Category> getCategories() {
 		List<Category> categories = new ArrayList<Category>();
 
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_CATEGORIES,
@@ -105,6 +123,14 @@ public class Database {
 		return categories;
 	}
 
+	/**
+	 * Adds a category to the database.
+	 * 
+	 * @param name
+	 *            the category name.
+	 * @param image
+	 *            the category image.
+	 */
 	public void addCategory(String name, Drawable image) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_CATEGORY_NAME, name);
@@ -114,11 +140,26 @@ public class Database {
 				.insert(DatabaseHelper.TABLE_CATEGORIES, null, contentValues);
 	}
 
+	/**
+	 * Gets an item from the database based on the {@link CategoryType} and its
+	 * index.
+	 * 
+	 * <p>
+	 * Note: an item in this context could be represented by a letter in the
+	 * alphabet (0 is A, 1 is B, 2 is C, and so on).
+	 * </p>
+	 * 
+	 * @param categoryType
+	 *            the category type.
+	 * @param itemIndex
+	 *            the item index.
+	 * @return the item in string form.
+	 */
 	public String getItem(CategoryType categoryType, int itemIndex) {
 		switch (categoryType) {
 		case ALPHABET:
-			Letters let = getLetters().get(itemIndex);
-			return let.getLetter();
+			Letter letter = getLetters().get(itemIndex);
+			return letter.getLetter();
 		case NUMBERS:
 		case SHAPES:
 		case COLORS:
@@ -131,6 +172,13 @@ public class Database {
 		}
 	}
 
+	/**
+	 * Returns the number of items in a given category.
+	 * 
+	 * @param categoryType
+	 *            the category type.
+	 * @return the number of items in a given category.
+	 */
 	public int getItemCount(CategoryType categoryType) {
 		switch (categoryType) {
 		case ALPHABET:
@@ -148,6 +196,15 @@ public class Database {
 		}
 	}
 
+	/**
+	 * Gets the associated words for a given item.
+	 * 
+	 * @param categoryType
+	 *            the category type.
+	 * @param itemIndex
+	 *            the item index.
+	 * @return the words for a given item.
+	 */
 	private List<String> getItemWords(CategoryType categoryType, int itemIndex) {
 		switch (categoryType) {
 		case ALPHABET:
@@ -166,15 +223,46 @@ public class Database {
 		}
 	}
 
+	/**
+	 * Gets the specific word given an item index, word index, and category.
+	 * 
+	 * @param categoryType
+	 *            the category type.
+	 * @param itemIndex
+	 *            the item index.
+	 * @param wordIndex
+	 *            the word index.
+	 * @return the specific word given an item index, word index, and category.
+	 */
 	public String getItemWord(CategoryType categoryType, int itemIndex,
 			int wordIndex) {
 		return getItemWords(categoryType, itemIndex).get(wordIndex);
 	}
 
+	/**
+	 * Gets the item word count for a given category.
+	 * 
+	 * @param categoryType
+	 *            the category type.
+	 * @param itemIndex
+	 *            the item index.
+	 * @return the item word count for a given category.
+	 */
 	public int getItemWordCount(CategoryType categoryType, int itemIndex) {
 		return getItemWords(categoryType, itemIndex).size();
 	}
 
+	/**
+	 * Gets the item image given an item index, an image index, and category.
+	 * 
+	 * @param categoryType
+	 *            the category type.
+	 * @param itemIndex
+	 *            the item index.
+	 * @param imageIndex
+	 *            the image index.
+	 * @return the item image given an item index, an image index, and category.
+	 */
 	public int getItemImage(CategoryType categoryType, int itemIndex,
 			int imageIndex) {
 		switch (categoryType) {
@@ -195,6 +283,15 @@ public class Database {
 		}
 	}
 
+	/**
+	 * Gets the phonetic sound given an item index and a category.
+	 * 
+	 * @param categoryType
+	 *            the category type.
+	 * @param itemIndex
+	 *            the item index.
+	 * @return the phonetic sound given an item index and a category.
+	 */
 	public String getPhoneticSound(CategoryType categoryType, int itemIndex) {
 		switch (categoryType) {
 		case ALPHABET:
@@ -202,8 +299,8 @@ public class Database {
 			// nothing back from the query (voice recording from user).
 			// return
 			// DatabaseDefaults.getDefaultAlphabetPhoneticSounds(itemIndex);
-			Letters let = getLetters().get(itemIndex);
-			return let.getLettersound();
+			Letter letter = getLetters().get(itemIndex);
+			return letter.getLetterSound();
 		case NUMBERS:
 		case SHAPES:
 		case COLORS:
@@ -215,9 +312,13 @@ public class Database {
 		}
 	}
 
-	@SuppressLint("UseSparseArrays")
-	public Map<Long, UserAccount> getUserAccounts() {
-		Map<Long, UserAccount> userAccounts = new HashMap<Long, UserAccount>();
+	/**
+	 * Gets a list of the user accounts in the database.
+	 * 
+	 * @return a list of the user accounts in the database.
+	 */
+	public List<UserAccount> getUserAccounts() {
+		List<UserAccount> userAccounts = new ArrayList<UserAccount>();
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_USER_ACCOUNT,
 				userAccountColumns, null, null, null, null, null);
 		cursor.moveToFirst();
@@ -225,7 +326,7 @@ public class Database {
 		while (!cursor.isAfterLast()) {
 			UserAccount userAccount = DatabaseUtils
 					.convertCursorToUserAccount(cursor);
-			userAccounts.put(userAccount.getId(), userAccount);
+			userAccounts.add(userAccount);
 			cursor.moveToNext();
 		}
 
@@ -234,38 +335,55 @@ public class Database {
 		return userAccounts;
 	}
 
-	public UserAccount getUserAccount(long id) {
-		return getUserAccounts().get(id);
-	}
-
+	/**
+	 * Adds a user account to the database.
+	 * 
+	 * @param userName
+	 *            the user name.
+	 * @param userImage
+	 *            the user image.
+	 * @return the row ID of the newly inserted row, or -1 if an error occurred
+	 */
 	public long addUserAccount(String userName, Drawable userImage) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_USER_NAME, userName);
 		contentValues.put(DatabaseHelper.COLUMN_USER_IMAGE,
 				ImageUtils.drawableToByteArray(userImage));
+		// TODO: need to add the user sound here
 		contentValues.put(DatabaseHelper.COLUMN_USER_SOUND, userName);
 		return sqlDatabase.insert(DatabaseHelper.TABLE_USER_ACCOUNT, null,
 				contentValues);
 	}
 
-	public long editUserAccount(UserAccount account) {
-		getUserAccount(account.getId());
+	/**
+	 * Edits a user account in the already in the database.
+	 * 
+	 * @param userAccount
+	 *            the user account.
+	 * @return the row ID of the newly inserted row, or -1 if an error occurred
+	 */
+	public long editUserAccount(UserAccount userAccount) {
 		sqlDatabase.delete(DatabaseHelper.TABLE_USER_ACCOUNT,
 				DatabaseHelper.COLUMN_USER_ID + " = ?",
-				new String[] { String.valueOf(account.getId()) });
-		return addUserAccount(account.getUserName(),
-				ImageUtils.byteArrayToDrawable(account.getUserImage()));
+				new String[] { String.valueOf(userAccount.getId()) });
+		return addUserAccount(userAccount.getUserName(),
+				ImageUtils.byteArrayToDrawable(userAccount.getUserImage()));
 	}
 
-	public List<Letters> getLetters() {
-		List<Letters> letters = new ArrayList<Letters>();
+	/**
+	 * Gets a list of the letters in the database.
+	 * 
+	 * @return a list of the letters in the database.
+	 */
+	public List<Letter> getLetters() {
+		List<Letter> letters = new ArrayList<Letter>();
 
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_LETTERS,
-				letterscolumns, null, null, null, null, null);
+				lettersColumns, null, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			letters.add(DatabaseUtils.convertCursorToLetters(cursor));
+			letters.add(DatabaseUtils.convertCursorToLetter(cursor));
 			cursor.moveToNext();
 		}
 
@@ -274,18 +392,29 @@ public class Database {
 		return letters;
 	}
 
-	public void addLetters(String letter) {
+	/**
+	 * Adds a letter to the database.
+	 * 
+	 * @param letter
+	 *            the letter to add.
+	 */
+	public void addLetter(String letter) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_LETTERS_WORD, letter);
 		contentValues.put(DatabaseHelper.COLUMN_LETTERS_SOUND, letter);
 		sqlDatabase.insert(DatabaseHelper.TABLE_LETTERS, null, contentValues);
 	}
 
+	/**
+	 * Gets a list of the alphabets in the database.
+	 * 
+	 * @return a list of the alphabets in the database.
+	 */
 	public List<Alphabets> getAlphabets() {
 		List<Alphabets> alpha = new ArrayList<Alphabets>();
 
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_ALPHABET,
-				alphabetscolumns, null, null, null, null, null);
+				alphabetsColumns, null, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
@@ -298,40 +427,64 @@ public class Database {
 		return alpha;
 	}
 
-	public void addAlphabets(int lid, int tid, String alphaWord,
-			String alphaSound, Drawable alphaImage) {
+	/**
+	 * Adds an alphabets to the database.
+	 * 
+	 * @param letterId
+	 *            the letter id.
+	 * @param themeId
+	 *            the the theme id.
+	 * @param alphabetWord
+	 *            the alphabet word.
+	 * @param alphabetSound
+	 *            the alphabet sound.
+	 * @param alphabetImage
+	 *            the alphabet image.
+	 */
+	public void addAlphabets(int letterId, int themeId, String alphabetWord,
+			String alphabetSound, Drawable alphabetImage) {
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(DatabaseHelper.COLUMN_LID, lid);
-		contentValues.put(DatabaseHelper.COLUMN_TID, tid);
-		contentValues.put(DatabaseHelper.COLUMN_WORDS, alphaWord);
-		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND, alphaSound);
+		contentValues.put(DatabaseHelper.COLUMN_LID, letterId);
+		contentValues.put(DatabaseHelper.COLUMN_TID, themeId);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS, alphabetWord);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND, alphabetSound);
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
-				ImageUtils.drawableToByteArray(alphaImage));
+				ImageUtils.drawableToByteArray(alphabetImage));
 
 		sqlDatabase.insert(DatabaseHelper.TABLE_ALPHABET, null, contentValues);
 	}
 
-	public List<Themes> getThemes() {
-		List<Themes> theme = new ArrayList<Themes>();
+	/**
+	 * Gets a list of the themes in the database.
+	 * 
+	 * @return a list of the themes in the database.
+	 */
+	public List<Theme> getThemes() {
+		List<Theme> themes = new ArrayList<Theme>();
 
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_THEME,
-				themecolumns, null, null, null, null, null);
+				themesColumns, null, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			theme.add(DatabaseUtils.convertCursorToThemes(cursor));
+			themes.add(DatabaseUtils.convertCursorToTheme(cursor));
 			cursor.moveToNext();
 		}
 
 		cursor.close();
 
-		return theme;
+		return themes;
 	}
 
-	void addThemes(String theme) {
+	/**
+	 * Adds a theme to the database.
+	 * 
+	 * @param theme
+	 *            the theme to add.
+	 */
+	public void addTheme(String theme) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_THEME_NAME, theme);
 		sqlDatabase.insert(DatabaseHelper.TABLE_THEME, null, contentValues);
 	}
-
 }

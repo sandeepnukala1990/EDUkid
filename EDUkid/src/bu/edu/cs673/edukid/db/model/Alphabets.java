@@ -4,53 +4,54 @@ import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.db.ImageUtils;
 
 public class Alphabets {
-	private long lid;
-	
-	private long tid;
 
-	private String words;
-	
-	private String wordsound;
-	
-	private Drawable wordimg;
+	private long letterId;
+
+	private long themeId;
+
+	private String word;
+
+	private String wordSound;
+
+	private Drawable wordImage;
 
 	public long getLid() {
-		return lid;
+		return letterId;
 	}
 
-	public void setLid(long lid) {
-		this.lid = lid;
+	public void setLetterId(long letterId) {
+		this.letterId = letterId;
 	}
 
-	public long getTid() {
-		return tid;
+	public long getThemeId() {
+		return themeId;
 	}
 
-	public void setTid(long tid) {
-		this.tid = tid;
+	public void setThemeId(long themeId) {
+		this.themeId = themeId;
 	}
 
-	public String getWords() {
-		return words;
+	public String getWord() {
+		return word;
 	}
 
-	public void setWords(String words) {
-		this.words = words;
+	public void setWord(String word) {
+		this.word = word;
 	}
 
-	public String getWordsound() {
-		return wordsound;
+	public String getWordSound() {
+		return wordSound;
 	}
 
-	public void setWordsound(String wordsound) {
-		this.wordsound = wordsound;
+	public void setWordSound(String wordSound) {
+		this.wordSound = wordSound;
 	}
 
-	public byte[] getWordimg() {
-		return ImageUtils.drawableToByteArray(wordimg);
+	public byte[] getWordImage() {
+		return ImageUtils.drawableToByteArray(wordImage);
 	}
 
-	public void setWordimg(byte[] imageData) {
-		this.wordimg = ImageUtils.byteArrayToDrawable(imageData);;
+	public void setWordImage(byte[] imageData) {
+		wordImage = ImageUtils.byteArrayToDrawable(imageData);
 	}
 }

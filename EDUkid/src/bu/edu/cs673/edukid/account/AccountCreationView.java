@@ -1,6 +1,6 @@
 package bu.edu.cs673.edukid.account;
 
-import java.util.Collection;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +17,15 @@ import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.UserAccount;
 
+/**
+ * The view which contains the user account information. The user account can be
+ * seen and edited here.
+ * 
+ * @author Peter Trevino
+ * 
+ * @see UserAccount
+ * 
+ */
 public class AccountCreationView extends Activity implements OnClickListener {
 
 	private static final int TAKE_PICTURE = 1888;
@@ -39,11 +48,10 @@ public class AccountCreationView extends Activity implements OnClickListener {
 		userImage = (ImageView) findViewById(R.id.createUserImage);
 
 		// Populate user account info from database (if any)
-		Collection<UserAccount> userAccounts = database.getUserAccounts()
-				.values();
+		List<UserAccount> userAccounts = database.getUserAccounts();
 
 		if (userAccounts.size() == 1) {
-			UserAccount userAccount = (UserAccount) userAccounts.toArray()[0];
+			UserAccount userAccount = userAccounts.get(0);
 
 			// Set user name
 			EditText userNameTextField = ((EditText) findViewById(R.id.createEditChildName));
@@ -98,14 +106,13 @@ public class AccountCreationView extends Activity implements OnClickListener {
 	private void saveUserAccount() {
 		userName = ((EditText) findViewById(R.id.createEditChildName))
 				.getText().toString();
-		Collection<UserAccount> userAccounts = database.getUserAccounts()
-				.values();
+		List<UserAccount> userAccounts = database.getUserAccounts();
 		long result = DATABASE_ERROR;
 
 		if (userAccounts.size() == 0) {
 			result = database.addUserAccount(userName, userImage.getDrawable());
 		} else if (userAccounts.size() == 1) {
-			UserAccount userAccount = (UserAccount) userAccounts.toArray()[0];
+			UserAccount userAccount = userAccounts.get(0);
 			userAccount.setUserName(userName);
 			userAccount.setUserImage(ImageUtils.drawableToByteArray(userImage
 					.getDrawable()));
