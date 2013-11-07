@@ -2,19 +2,22 @@ package bu.edu.cs673.edukid.db;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
-import bu.edu.cs673.edukid.db.model.Alphabets;
 import bu.edu.cs673.edukid.db.model.Category;
 import bu.edu.cs673.edukid.db.model.CategoryType;
-import bu.edu.cs673.edukid.db.model.Letter;
-import bu.edu.cs673.edukid.db.model.Theme;
 import bu.edu.cs673.edukid.db.model.UserAccount;
+import bu.edu.cs673.edukid.db.model.Letters;
+import bu.edu.cs673.edukid.db.model.Alphabets;
+import bu.edu.cs673.edukid.db.model.Themes;
 
 /**
  * The main database class which provides "access" to the database via accessor
@@ -236,7 +239,46 @@ public class Database {
 	 */
 	public String getItemWord(CategoryType categoryType, int itemIndex,
 			int wordIndex) {
+		switch(categoryType){
+		case ALPHABET:
+			{int listIndex=itemIndex;
+			
+			
+			if(getAlphabets().size()!=0)
+			{
+				Alphabets alp=null;
+				do
+				{
+					alp=getAlphabets().get(listIndex);
+					
+					if(alp.getLid()==itemIndex)
+					{
+						if(alp.getTid()==wordIndex)
+						{
+							return alp.getWords();
+						}
+						else
+							listIndex++;
+					}
+					else
+						listIndex++;
+				}while(alp.getLid()<=itemIndex);
+				return getItemWords(categoryType, itemIndex).get(wordIndex);
+			}
+			else
+				//return null;
 		return getItemWords(categoryType, itemIndex).get(wordIndex);
+			}
+			
+		case NUMBERS:
+		case SHAPES:
+		case COLORS:
+		default:
+			// Should never get here.
+			break;
+		}
+		return null;
+		//return getItemWords(categoryType, itemIndex).get(wordIndex);
 	}
 
 	/**
@@ -317,8 +359,8 @@ public class Database {
 	 * 
 	 * @return a list of the user accounts in the database.
 	 */
-	public List<UserAccount> getUserAccounts() {
-		List<UserAccount> userAccounts = new ArrayList<UserAccount>();
+	public Map<Long, UserAccount> getUserAccounts() {
+		Map<Long, UserAccount> userAccounts= new HashMap <Long, UserAccount>();
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_USER_ACCOUNT,
 				userAccountColumns, null, null, null, null, null);
 		cursor.moveToFirst();
@@ -334,16 +376,9 @@ public class Database {
 
 		return userAccounts;
 	}
-
-	/**
-	 * Adds a user account to the database.
-	 * 
-	 * @param userName
-	 *            the user name.
-	 * @param userImage
-	 *            the user image.
-	 * @return the row ID of the newly inserted row, or -1 if an error occurred
-	 */
+	public UserAccount getUserAccount(long id){
+		return getUserAccounts().get(id);
+	}
 	public long addUserAccount(String userName, Drawable userImage) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_USER_NAME, userName);
