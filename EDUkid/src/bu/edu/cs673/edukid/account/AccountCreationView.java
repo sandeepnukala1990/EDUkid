@@ -1,84 +1,132 @@
 package bu.edu.cs673.edukid.account;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.Collection;
-import java.util.List;
 
-import bu.edu.cs673.edukid.R;
-import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.model.UserAccount;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.*;
-import android.media.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
+import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.Database;
+import bu.edu.cs673.edukid.db.ImageUtils;
+import bu.edu.cs673.edukid.db.model.UserAccount;
 
-//testcommit
 public class AccountCreationView extends Activity implements OnClickListener {
-	private static final int TAKE_PICTURE = 1888;
-	private String childName;
-	private ImageView imageView;
-	public boolean accountExists;
-	Database database = Database.getInstance(this);
 
+	private static final int TAKE_PICTURE = 1888;
+
+	private static final long DATABASE_ERROR = -1;
+
+	private String userName;
+
+	private ImageView userImage;
+
+	private Database database = Database.getInstance(this);
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.account_creation);
-		imageView = (ImageView) findViewById(R.id.createUserImage);
+		userImage = (ImageView) findViewById(R.id.createUserImage);
+
+		// Populate user account info from database (if any)
+		Collection<UserAccount> userAccounts = database.getUserAccounts()
+				.values();
+
+		if (userAccounts.size() == 1) {
+			UserAccount userAccount = (UserAccount) userAccounts.toArray()[0];
+
+			// Set user name
+			EditText userNameTextField = ((EditText) findViewById(R.id.createEditChildName));
+			userNameTextField.setText(userAccount.getUserName());
+
+			// Set user image
+			userImage.setImageDrawable(ImageUtils
+					.byteArrayToDrawable(userAccount.getUserImage()));
+		}
+
+		// Add listeners
 		Button createSaveButton = (Button) findViewById(R.id.createSaveButton);
 		createSaveButton.setOnClickListener(this);
-		ImageView createUserImage = (ImageView) findViewById(R.id.createUserImage);
 		Button createUploadPhotoButton = (Button) findViewById(R.id.createUploadPhotoButton);
 		createUploadPhotoButton.setOnClickListener(this);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void onClick(View view) {
-		if (view.getId() == R.id.createSaveButton) {
-			childName = ((EditText) findViewById(R.id.createEditChildName))
-					.getText().toString();
-			Collection<UserAccount> blah = database.getUserAccounts().values();
-			UserAccount userAccount = (UserAccount) blah.toArray()[0];
-			userAccount.setUserName(childName);
-			database.editUserAccount(userAccount);
-		} else if (view.getId() == R.id.createUploadPhotoButton) {
-
-			imageFromCamera();
+		switch (view.getId()) {
+		case R.id.createSaveButton:
+			saveUserAccount();
+			break;
+		case R.id.createUploadPhotoButton:
+			// TODO: we should have other options other than the camera like
+			// picking from the camera roll
+			startCamera();
+			break;
 		}
 	}
 
-	public void imageFromCamera() {
-		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-		// File mImageFile = new
-		// File(Environment.getExternalStorageDirectory()+File.separator+"MyApp",
-		// "PIC"+System.currentTimeMillis()+".jpg");
-		// String mSelectedImagePath = mImageFile.getAbsolutePath();
-		// intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mImageFile));
-		startActivityForResult(intent, TAKE_PICTURE);
-	}
-
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == TAKE_PICTURE && resultCode == RESULT_OK) {
 			Bitmap photo = (Bitmap) data.getExtras().get("data");
+
 			if (photo != null) {
-				imageView.setImageBitmap(photo);
+				userImage.setImageBitmap(photo);
 			}
 		}
+	}
+
+	/**
+	 * Saves the user account in the database.
+	 */
+	private void saveUserAccount() {
+		userName = ((EditText) findViewById(R.id.createEditChildName))
+				.getText().toString();
+		Collection<UserAccount> userAccounts = database.getUserAccounts()
+				.values();
+		long result = DATABASE_ERROR;
+
+		if (userAccounts.size() == 0) {
+			result = database.addUserAccount(userName, userImage.getDrawable());
+		} else if (userAccounts.size() == 1) {
+			UserAccount userAccount = (UserAccount) userAccounts.toArray()[0];
+			userAccount.setUserName(userName);
+			userAccount.setUserImage(ImageUtils.drawableToByteArray(userImage
+					.getDrawable()));
+			result = database.editUserAccount(userAccount);
+		} else {
+			// TODO: implement more than 1 user. Should not get here now.
+		}
+
+		if (result != DATABASE_ERROR) {
+			Toast.makeText(this, "User account saved successfully!",
+					Toast.LENGTH_LONG).show();
+		} else {
+			// TODO: inform user of error
+		}
+	}
+
+	/**
+	 * Starts the front facing camera to take a picture.
+	 */
+	private void startCamera() {
+		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+		startActivityForResult(intent, TAKE_PICTURE);
 	}
 }

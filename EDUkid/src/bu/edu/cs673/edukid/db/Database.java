@@ -34,16 +34,18 @@ public class Database {
 	private String[] userAccountColumns = { DatabaseHelper.COLUMN_USER_ID,
 			DatabaseHelper.COLUMN_USER_NAME, DatabaseHelper.COLUMN_USER_IMAGE,
 			DatabaseHelper.COLUMN_USER_SOUND };
-	
-	private String[] letterscolumns={DatabaseHelper.COLUMN_LETTERS_ID,
-			DatabaseHelper.COLUMN_LETTERS_WORD, DatabaseHelper.COLUMN_LETTERS_SOUND};
-	
-	private String[] themecolumns={DatabaseHelper.COLUMN_THEME_ID,
-			DatabaseHelper.COLUMN_THEME_NAME};
-	
-	private String[] alphabetscolumns={DatabaseHelper.COLUMN_LID,
-			DatabaseHelper.COLUMN_TID,DatabaseHelper.COLUMN_WORDS,DatabaseHelper.COLUMN_WORDS_SOUND,
-			DatabaseHelper.COLUMN_WORDS_IMAGE};
+
+	private String[] letterscolumns = { DatabaseHelper.COLUMN_LETTERS_ID,
+			DatabaseHelper.COLUMN_LETTERS_WORD,
+			DatabaseHelper.COLUMN_LETTERS_SOUND };
+
+	private String[] themecolumns = { DatabaseHelper.COLUMN_THEME_ID,
+			DatabaseHelper.COLUMN_THEME_NAME };
+
+	private String[] alphabetscolumns = { DatabaseHelper.COLUMN_LID,
+			DatabaseHelper.COLUMN_TID, DatabaseHelper.COLUMN_WORDS,
+			DatabaseHelper.COLUMN_WORDS_SOUND,
+			DatabaseHelper.COLUMN_WORDS_IMAGE };
 
 	/**
 	 * Gets the database singleton instance.
@@ -115,7 +117,7 @@ public class Database {
 	public String getItem(CategoryType categoryType, int itemIndex) {
 		switch (categoryType) {
 		case ALPHABET:
-			Letters let= getLetters().get(itemIndex);
+			Letters let = getLetters().get(itemIndex);
 			return let.getLetter();
 		case NUMBERS:
 		case SHAPES:
@@ -198,8 +200,9 @@ public class Database {
 		case ALPHABET:
 			// TODO: check the database first, then use the defaults if we get
 			// nothing back from the query (voice recording from user).
-			//return DatabaseDefaults.getDefaultAlphabetPhoneticSounds(itemIndex);
-			Letters let= getLetters().get(itemIndex);
+			// return
+			// DatabaseDefaults.getDefaultAlphabetPhoneticSounds(itemIndex);
+			Letters let = getLetters().get(itemIndex);
 			return let.getLettersound();
 		case NUMBERS:
 		case SHAPES:
@@ -214,46 +217,51 @@ public class Database {
 
 	@SuppressLint("UseSparseArrays")
 	public Map<Long, UserAccount> getUserAccounts() {
-		Map<Long, UserAccount> userAccounts= new HashMap <Long, UserAccount>();
+		Map<Long, UserAccount> userAccounts = new HashMap<Long, UserAccount>();
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_USER_ACCOUNT,
 				userAccountColumns, null, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			UserAccount userAccount = DatabaseUtils.convertCursorToUserAccount(cursor);
+			UserAccount userAccount = DatabaseUtils
+					.convertCursorToUserAccount(cursor);
 			userAccounts.put(userAccount.getId(), userAccount);
 			cursor.moveToNext();
 		}
-		
+
 		cursor.close();
 
 		return userAccounts;
 	}
-	public UserAccount getUserAccount(long id){
+
+	public UserAccount getUserAccount(long id) {
 		return getUserAccounts().get(id);
 	}
-	public void addUserAccount(String userName, Drawable userImage) {
+
+	public long addUserAccount(String userName, Drawable userImage) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_USER_NAME, userName);
 		contentValues.put(DatabaseHelper.COLUMN_USER_IMAGE,
 				ImageUtils.drawableToByteArray(userImage));
 		contentValues.put(DatabaseHelper.COLUMN_USER_SOUND, userName);
-		sqlDatabase.insert(DatabaseHelper.TABLE_USER_ACCOUNT, null,
+		return sqlDatabase.insert(DatabaseHelper.TABLE_USER_ACCOUNT, null,
 				contentValues);
 	}
 
-	public void editUserAccount(UserAccount account){
+	public long editUserAccount(UserAccount account) {
 		getUserAccount(account.getId());
-		sqlDatabase.delete(DatabaseHelper.TABLE_USER_ACCOUNT, DatabaseHelper.COLUMN_USER_ID+" = ?", new String[] { String.valueOf(account.getId()) });
-		addUserAccount(account.getUserName(), ImageUtils.byteArrayToDrawable(account.getUserImage()));
+		sqlDatabase.delete(DatabaseHelper.TABLE_USER_ACCOUNT,
+				DatabaseHelper.COLUMN_USER_ID + " = ?",
+				new String[] { String.valueOf(account.getId()) });
+		return addUserAccount(account.getUserName(),
+				ImageUtils.byteArrayToDrawable(account.getUserImage()));
 	}
 
-	
 	public List<Letters> getLetters() {
 		List<Letters> letters = new ArrayList<Letters>();
 
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_LETTERS,
-				letterscolumns, null, null,null, null, null);
+				letterscolumns, null, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
@@ -265,20 +273,19 @@ public class Database {
 
 		return letters;
 	}
-	
+
 	public void addLetters(String letter) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_LETTERS_WORD, letter);
 		contentValues.put(DatabaseHelper.COLUMN_LETTERS_SOUND, letter);
-		sqlDatabase.insert(DatabaseHelper.TABLE_LETTERS, null,
-				contentValues);
+		sqlDatabase.insert(DatabaseHelper.TABLE_LETTERS, null, contentValues);
 	}
-	
+
 	public List<Alphabets> getAlphabets() {
 		List<Alphabets> alpha = new ArrayList<Alphabets>();
 
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_ALPHABET,
-				alphabetscolumns, null, null,null, null, null);
+				alphabetscolumns, null, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
@@ -290,8 +297,9 @@ public class Database {
 
 		return alpha;
 	}
-	
-	public void addAlphabets(int lid,int tid,String alphaWord,String alphaSound,Drawable alphaImage) {
+
+	public void addAlphabets(int lid, int tid, String alphaWord,
+			String alphaSound, Drawable alphaImage) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_LID, lid);
 		contentValues.put(DatabaseHelper.COLUMN_TID, tid);
@@ -299,16 +307,15 @@ public class Database {
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND, alphaSound);
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
 				ImageUtils.drawableToByteArray(alphaImage));
-		
-		sqlDatabase.insert(DatabaseHelper.TABLE_ALPHABET, null,
-				contentValues);
+
+		sqlDatabase.insert(DatabaseHelper.TABLE_ALPHABET, null, contentValues);
 	}
-	
+
 	public List<Themes> getThemes() {
 		List<Themes> theme = new ArrayList<Themes>();
 
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_THEME,
-				themecolumns, null, null,null, null, null);
+				themecolumns, null, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
@@ -320,13 +327,11 @@ public class Database {
 
 		return theme;
 	}
-	
+
 	void addThemes(String theme) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_THEME_NAME, theme);
-		sqlDatabase.insert(DatabaseHelper.TABLE_THEME, null,
-				contentValues);
+		sqlDatabase.insert(DatabaseHelper.TABLE_THEME, null, contentValues);
 	}
-	
 
 }

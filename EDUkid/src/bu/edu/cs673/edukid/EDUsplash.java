@@ -11,6 +11,9 @@ public class EDUsplash extends Activity {
 
 	private long SPLASH_DURATION = 3000;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,11 +41,6 @@ public class EDUsplash extends Activity {
 		Database database = Database.getInstance(this);
 		Resources resources = getResources();
 
-		if (database.getUserAccounts().size() == 0) {
-			database.addUserAccount("Jasjot",
-					resources.getDrawable(R.drawable.mickey_mouse));
-		}
-
 		if (database.getAllCategories().size() == 0) {
 			database.addCategory(CategoryType.ALPHABET.toString(),
 					resources.getDrawable(R.drawable.tiletry));
@@ -53,10 +51,10 @@ public class EDUsplash extends Activity {
 			database.addCategory(CategoryType.COLORS.toString(),
 					resources.getDrawable(R.drawable.colorsnew));
 		}
-	if (database.getLetters().size()==0)
-		{
+
+		if (database.getLetters().size() == 0) {
 			database.addLetters("A");
-			database.addLetters("tst");
+			database.addLetters("B");
 			database.addLetters("C");
 			database.addLetters("D");
 			database.addLetters("E");
@@ -82,13 +80,9 @@ public class EDUsplash extends Activity {
 			database.addLetters("Y");
 			database.addLetters("Z");
 		}
-		if (database.getThemes().size()==0)
-		{
-			//database.addThemes("FRUITS");
+		if (database.getThemes().size() == 0) {
+			// database.addThemes("FRUITS");
 			database.addLetters("ANIMALS");
-			
-			
 		}
-		
 	}
 }

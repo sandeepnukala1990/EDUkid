@@ -29,7 +29,7 @@
         <activity android:name=".EDUkid" android:screenOrientation="landscape">
         </activity><activity android:name=".learn.LearnContentView" android:screenOrientation="landscape"></activity><activity android:name=".learn.grid.LearnContentGridView" android:screenOrientation="landscape"></activity><activity android:name=".settings.SettingsView" android:screenOrientation="landscape"></activity>
         
-        <activity android:name=".account.AccountCreationView" android:screenOrientation="landscape"></activity>
+        <activity android:name="bu.edu.cs673.edukid.account.AccountCreationView" android:screenOrientation="landscape"></activity>
         
         
     </application>

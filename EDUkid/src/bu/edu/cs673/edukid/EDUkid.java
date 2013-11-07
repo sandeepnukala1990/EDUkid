@@ -26,6 +26,9 @@ import bu.edu.cs673.edukid.settings.utils.MathProblemGenerator;
 
 public class EDUkid extends Activity implements OnClickListener {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,6 +37,9 @@ public class EDUkid extends Activity implements OnClickListener {
 		setupCategoryButtons();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onClick(View v) {
 		CategoryType categoryType = CategoryType.values()[v.getId()];
@@ -66,18 +72,19 @@ public class EDUkid extends Activity implements OnClickListener {
 			categoryButton.setOnClickListener(this);
 			categoryLayout.addView(categoryButton);
 		}
-		Collection<UserAccount> blah = database.getUserAccounts().values();
-		UserAccount userAccount=(UserAccount)blah.toArray()[0];
-		Toast.makeText(this, "Hi " + userAccount.getUserName() + "!",
-				Toast.LENGTH_LONG).show();
-//		System.out.println("setting username");
-//		userAccount.setUserName("Peter");
-//		database.editUserAccount(userAccount);
-//		blah = database.getUserAccounts().values();
-//		userAccount=(UserAccount)blah.toArray()[0];
-//		Toast.makeText(this, "Hi " + userAccount.getUserName() + "!",
-//				Toast.LENGTH_LONG).show();
-//		System.out.println(userAccount.getUserName());
+
+		Collection<UserAccount> userAccounts = database.getUserAccounts()
+				.values();
+
+		// There should only be 1 user account
+		if (userAccounts.size() == 1) {
+			UserAccount userAccount = (UserAccount) userAccounts.toArray()[0];
+
+			// Say hello
+			Toast.makeText(this,
+					"Hello " + userAccount.getUserName() + ", Welcome Back!",
+					Toast.LENGTH_LONG).show();
+		}
 	}
 
 	public void onSettingsClick(View view) {
