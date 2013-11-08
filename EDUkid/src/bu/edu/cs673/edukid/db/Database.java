@@ -139,7 +139,7 @@ public class Database {
 		sqlDatabase
 				.insert(DatabaseHelper.TABLE_CATEGORIES, null, contentValues);
 	}
-
+	
 	/**
 	 * Gets an item from the database based on the {@link CategoryType} and its
 	 * index.

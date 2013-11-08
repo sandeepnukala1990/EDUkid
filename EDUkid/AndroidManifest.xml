@@ -49,6 +49,10 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
+            android:name="bu.edu.cs673.edukid.account.AccountCreationView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
             android:name="bu.edu.cs673.edukid.settings.CategoriesView"
             android:screenOrientation="landscape" >
         </activity>
@@ -57,7 +61,7 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name="bu.edu.cs673.edukid.account.AccountCreationView"
+            android:name="bu.edu.cs673.edukid.settings.CategoryItemsView"
             android:screenOrientation="landscape" >
         </activity>
     </application>

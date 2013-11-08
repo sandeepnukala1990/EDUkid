@@ -10,16 +10,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.model.Category;
 import bu.edu.cs673.edukid.db.model.CategoryType;
+import bu.edu.cs673.edukid.db.model.Letter;
 
-public class CategoriesView extends ListActivity implements OnItemClickListener {
+public class CategoryItemsView extends ListActivity implements
+		OnItemClickListener {
 
 	private List<String> listItems = new ArrayList<String>();
 
 	private ArrayAdapter<String> arrayAdapter;
+
+	private CategoryType categoryType;
 
 	/**
 	 * {@inheritDoc}
@@ -27,12 +31,20 @@ public class CategoriesView extends ListActivity implements OnItemClickListener 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.categories);
+		setContentView(R.layout.category_items);
+
+		Intent intent = getIntent();
+		Bundle extras = intent.getExtras();
+
+		categoryType = (CategoryType) extras.get("CategoryType");
 
 		Database database = Database.getInstance(this);
 
-		for (Category category : database.getCategories()) {
-			listItems.add(category.getName());
+		// TODO: add other types smarter
+		if (categoryType == CategoryType.ALPHABET) {
+			for (Letter letter : database.getLetters()) {
+				listItems.add(letter.getLetter());
+			}
 		}
 
 		arrayAdapter = new ArrayAdapter<String>(this,
@@ -50,15 +62,11 @@ public class CategoriesView extends ListActivity implements OnItemClickListener 
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		String listItem = listItems.get(position);
-		CategoryType categoryType = CategoryType
-				.valueOf(listItem.toUpperCase());
-
-		Intent intent = new Intent(this, CategoryItemsView.class);
-		intent.putExtra("CategoryType", categoryType);
-		startActivity(intent);
+		// TODO
 	}
 
-	public void onAddCategoryClick(View view) {
-		startActivity(new Intent(this, AddCategoryView.class));
+	public void onAddCategoryItemClick(View view) {
+		// TODO
+		Toast.makeText(this, "Add Category Item", Toast.LENGTH_LONG).show();
 	}
 }
