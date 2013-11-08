@@ -2,5 +2,6 @@
 <lint>
     <issue id="DefaultLocale">
         <ignore path="src/bu/edu/cs673/edukid/EDUkid.java" />
+        <ignore path="src/bu/edu/cs673/edukid/settings/CategoriesView.java" />
     </issue>
 </lint>
