@@ -51,12 +51,26 @@ public class SettingsView extends Activity implements OnItemClickListener {
 	}
 
 	/**
+	 * Tags on click callback.
+	 * 
+	 * @param view
+	 *            the view.
+	 */
+	public void onTagsClick(View view) {
+		// TODO: implement this
+		// startActivity(new Intent(this, TagsView.class));
+		Toast.makeText(this, "Tags view coming soon...", Toast.LENGTH_SHORT)
+				.show();
+	}
+
+	/**
 	 * Timer on click callback.
 	 * 
 	 * @param view
 	 *            the view.
 	 */
 	public void onTimerClick(View view) {
-		Toast.makeText(this, "Timer coming soon...", Toast.LENGTH_LONG).show();
+		// TODO: implement this
+		Toast.makeText(this, "Timer coming soon...", Toast.LENGTH_SHORT).show();
 	}
 }

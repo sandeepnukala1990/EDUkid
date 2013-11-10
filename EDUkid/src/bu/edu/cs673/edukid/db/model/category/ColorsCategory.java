@@ -62,23 +62,42 @@ public class ColorsCategory implements CategoryType {
 		return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).size();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Integer> getItemImages(int itemIndex) {
+		// TODO
+		return DatabaseDefaults.getDefaultAlphabetDrawableIds(itemIndex);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int getItemImage(int itemIndex, int imageIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultAlphabetDrawableIds(itemIndex).get(
-				imageIndex);
+		return getItemImages(itemIndex).get(imageIndex);
 	}
 
 	@Override
 	public int getItemTextSize() {
 		return 50;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean canAddItems() {
 		return true;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean canDeleteCategory() {
+		return false;
 	}
 }

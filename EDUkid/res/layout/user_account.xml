@@ -20,7 +20,7 @@
         android:inputType="textPersonName" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/categoryImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/createEditChildName"
@@ -31,10 +31,10 @@
         android:id="@+id/createUploadPhotoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView1"
+        android:layout_alignBottom="@+id/categoryImage"
         android:layout_marginBottom="28dp"
         android:layout_marginRight="199dp"
-        android:layout_toLeftOf="@+id/imageView1"
+        android:layout_toLeftOf="@+id/categoryImage"
         android:background="@null"
         android:src="@drawable/camera" />
 
@@ -42,7 +42,7 @@
         android:id="@+id/createUserImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageView1"
+        android:layout_alignTop="@+id/categoryImage"
         android:layout_toLeftOf="@+id/createUploadPhotoButton"
         android:adjustViewBounds="true"
         android:maxHeight="500dp"

@@ -27,7 +27,7 @@
         android:background="@color/transparent" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/categoryImage"
         android:layout_width="450dp"
         android:layout_height="300dp"
         android:layout_alignRight="@+id/learnContentGridButton"
@@ -49,7 +49,7 @@
         android:id="@+id/learnContentItem"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_alignBottom="@+id/imageView1"
+        android:layout_alignBottom="@+id/categoryImage"
         android:layout_toLeftOf="@+id/learnContentGridButton"
         android:gravity="center"
         android:text="A"

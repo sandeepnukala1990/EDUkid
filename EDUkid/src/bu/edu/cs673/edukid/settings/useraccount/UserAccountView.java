@@ -45,7 +45,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.account_creation);
+		setContentView(R.layout.user_account);
 		userImage = (ImageView) findViewById(R.id.createUserImage);
 
 		// Populate user account info from database (if any)

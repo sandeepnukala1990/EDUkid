@@ -1,5 +1,6 @@
 package bu.edu.cs673.edukid.db.model;
 
+import java.util.Collections;
 import java.util.List;
 
 import android.content.Context;
@@ -92,6 +93,14 @@ public class Category implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public List<Integer> getItemImages(int itemIndex) {
+		return Collections.emptyList();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public int getItemImage(int itemIndex, int imageIndex) {
 		return 0;
 	}
@@ -109,6 +118,14 @@ public class Category implements CategoryType {
 	 */
 	@Override
 	public boolean canAddItems() {
+		return true;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean canDeleteCategory() {
 		return true;
 	}
 

@@ -91,6 +91,15 @@ public interface CategoryType extends Serializable {
 	int getItemWordCount(int itemIndex);
 
 	/**
+	 * Gets the item images given the item index.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @return the item images given the item index.
+	 */
+	List<Integer> getItemImages(int itemIndex);
+
+	/**
 	 * Gets the item image given the item index and image index.
 	 * 
 	 * @param itemIndex
@@ -114,4 +123,11 @@ public interface CategoryType extends Serializable {
 	 * @return true if this category type is able to add items, false otherwise.
 	 */
 	boolean canAddItems();
+
+	/**
+	 * Returns true if this category type can be deleted, false otherwise.
+	 * 
+	 * @return true if this category type can be deleted, false otherwise.
+	 */
+	boolean canDeleteCategory();
 }

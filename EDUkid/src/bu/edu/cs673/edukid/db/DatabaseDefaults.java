@@ -23,35 +23,102 @@ public class DatabaseDefaults {
 	private static Things A_THINGS = new Things(new Thing("Apple",
 			R.drawable.apple), new Thing("Alligator", R.drawable.alligator),
 			new Thing("Avocado", R.drawable.avocado));
+
 	private static Things B_THINGS = new Things(new Thing("Balloons",
 			R.drawable.balloons));
+
 	private static Things C_THINGS = new Things(
 			new Thing("Cow", R.drawable.cow));
-	private static Things D_THINGS = new Things();
-	private static Things E_THINGS = new Things();
-	private static Things F_THINGS = new Things();
-	private static Things G_THINGS = new Things();
-	private static Things H_THINGS = new Things();
-	private static Things I_THINGS = new Things();
-	private static Things J_THINGS = new Things();
-	private static Things K_THINGS = new Things();
-	private static Things L_THINGS = new Things();
-	private static Things M_THINGS = new Things();
-	private static Things N_THINGS = new Things();
-	private static Things O_THINGS = new Things();
+
+	// TODO: fix this
+	private static Things D_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things E_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things F_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things G_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things H_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things I_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things J_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things K_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things L_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things M_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things N_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things O_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
 	private static Things P_THINGS = new Things(
 			new Thing("Pig", R.drawable.pig));
+
 	private static Things Q_THINGS = new Things(new Thing("Quail",
 			R.drawable.quail));
-	private static Things R_THINGS = new Things();
-	private static Things S_THINGS = new Things();
-	private static Things T_THINGS = new Things();
-	private static Things U_THINGS = new Things();
-	private static Things V_THINGS = new Things();
-	private static Things W_THINGS = new Things();
-	private static Things X_THINGS = new Things();
-	private static Things Y_THINGS = new Things();
-	private static Things Z_THINGS = new Things();
+
+	// TODO: fix this
+	private static Things R_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things S_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things T_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things U_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things V_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things W_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things X_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things Y_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
+
+	// TODO: fix this
+	private static Things Z_THINGS = new Things(new Thing("Apple",
+			R.drawable.apple));
 
 	/**
 	 * Constructor.

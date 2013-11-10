@@ -123,9 +123,16 @@ public class AlphabetCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public List<Integer> getItemImages(int itemIndex) {
+		return DatabaseDefaults.getDefaultAlphabetDrawableIds(itemIndex);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public int getItemImage(int itemIndex, int imageIndex) {
-		return DatabaseDefaults.getDefaultAlphabetDrawableIds(itemIndex).get(
-				imageIndex);
+		return getItemImages(itemIndex).get(imageIndex);
 	}
 
 	/**
@@ -141,6 +148,14 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public boolean canAddItems() {
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean canDeleteCategory() {
 		return false;
 	}
 }
