@@ -53,6 +53,14 @@ public class EDUsplash extends Activity {
 				database.addLetter(letter);
 			}
 		}
+		
+		if(database.getNums().size()==0)
+		{
+			for(String num : DatabaseDefaults.getNumbers())
+			{
+				database.addNums(num);
+			}
+		}
 
 		if (database.getThemes().size() == 0) {
 			// TODO: implement this more

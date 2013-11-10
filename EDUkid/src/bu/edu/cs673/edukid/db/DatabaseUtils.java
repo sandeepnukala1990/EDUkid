@@ -6,6 +6,9 @@ import bu.edu.cs673.edukid.db.model.Category;
 import bu.edu.cs673.edukid.db.model.Letter;
 import bu.edu.cs673.edukid.db.model.Theme;
 import bu.edu.cs673.edukid.db.model.UserAccount;
+import bu.edu.cs673.edukid.db.model.Num;
+import bu.edu.cs673.edukid.db.model.NumType;
+import bu.edu.cs673.edukid.db.model.Number;
 
 /**
  * Database utility class. Provides static helper methods to convert database
@@ -109,4 +112,56 @@ public class DatabaseUtils {
 
 		return alphabets;
 	}
+	
+	/**
+	 * Converts a cursor object to a number object.
+	 * 
+	 * @param cursor
+	 *            the database cursor object.
+	 * @return a number object.
+	 */
+	public static Num convertCursorToNumber(Cursor cursor) {
+		Num number = new Num();
+		number.setNumberId(cursor.getLong(0));
+		number.setNumber(cursor.getString(1));
+		number.setNumberSound(cursor.getString(2));
+
+		return number;
+
+	}
+
+	/**
+	 * Converts a cursor object to a NumType object.
+	 * 
+	 * @param cursor
+	 *            the database cursor object.
+	 * @return a ntype object.
+	 */
+	public static NumType convertCursorToNumType(Cursor cursor) {
+		NumType ntype = new NumType();
+		ntype.setNumtypeId(cursor.getLong(0));
+		ntype.setNumtype(cursor.getString(1));
+
+		return ntype;
+	}
+
+	/**
+	 * Converts a cursor object to an Numbers object.
+	 * 
+	 * @param cursor
+	 *            the database cursor object.
+	 * @return an num object.
+	 */
+	public static Number convertCursorToNumbers(Cursor cursor) {
+		Number num = new Number();
+		num.setnId(cursor.getLong(0));
+		num.setnTypeId(cursor.getLong(1));
+		num.setNumWord(cursor.getString(2));
+		num.setNumSound(cursor.getString(3));
+		num.setNumImage(cursor.getBlob(4));
+
+		return num;
+	}
+	
+	
 }

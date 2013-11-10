@@ -12,8 +12,10 @@ import bu.edu.cs673.edukid.db.model.Alphabets;
 import bu.edu.cs673.edukid.db.model.Letter;
 import bu.edu.cs673.edukid.db.model.Theme;
 import bu.edu.cs673.edukid.db.model.UserAccount;
+import bu.edu.cs673.edukid.db.model.Num;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
-
+import bu.edu.cs673.edukid.db.model.NumType;
+import bu.edu.cs673.edukid.db.model.Number;
 /**
  * The main database class which provides "access" to the database via accessor
  * and mutator methods. This class is a singleton.
@@ -50,6 +52,18 @@ public class Database {
 			DatabaseHelper.COLUMN_TID, DatabaseHelper.COLUMN_WORDS,
 			DatabaseHelper.COLUMN_WORDS_SOUND,
 			DatabaseHelper.COLUMN_WORDS_IMAGE };
+	
+	private String[] numColumns = { DatabaseHelper.COLUMN_NUMBER_ID,
+			DatabaseHelper.COLUMN_NUMBER_WORD,
+			DatabaseHelper.COLUMN_NUMBER_SOUND };
+
+	private String[] numTypeColumns = { DatabaseHelper.COLUMN_TYPE_ID,
+			DatabaseHelper.COLUMN_TYPE_NAME };
+
+	private String[] nmberColumns = { DatabaseHelper.COLUMN_NID,
+			DatabaseHelper.COLUMN_NTID, DatabaseHelper.COLUMN_NUMBERS,
+			DatabaseHelper.COLUMN_NUMBERS_SOUND,
+			DatabaseHelper.COLUMN_NUMBERS_IMAGE };
 
 	/**
 	 * Gets the database singleton instance.
@@ -334,4 +348,117 @@ public class Database {
 		return addUserAccount(userAccount.getUserName(),
 				ImageUtils.byteArrayToDrawable(userAccount.getUserImage()));
 	}
+	public List<Num> getNums() {
+		List<Num> num = new ArrayList<Num>();
+
+		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_NUMBER,
+				numColumns, null, null, null, null, null);
+		cursor.moveToFirst();
+
+		while (!cursor.isAfterLast()) {
+			num.add(DatabaseUtils.convertCursorToNumber(cursor));
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+
+		return num;
+	}
+
+	/**
+	 * Adds a numbers to the database.
+	 * 
+	 * @param num
+	 *            the number to add.
+	 */
+	public void addNums(String num) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_NUMBER_WORD, num);
+		contentValues.put(DatabaseHelper.COLUMN_NUMBER_SOUND, num);
+		sqlDatabase.insert(DatabaseHelper.TABLE_NUMBER, null, contentValues);
+	}
+
+	/**
+	 * Gets a list of the numbers and images in the database.
+	 * 
+	 * @return a list of the numbers and images in the database.
+	 */
+	public List<Number> getNumbers() {
+		List<Number> number = new ArrayList<Number>();
+
+		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_NUMBERS,
+				nmberColumns, null, null, null, null, null);
+		cursor.moveToFirst();
+
+		while (!cursor.isAfterLast()) {
+			number.add(DatabaseUtils.convertCursorToNumbers(cursor));
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+
+		return number;
+	}
+
+	/**
+	 * Adds an numbers and images to the database.
+	 * 
+	 * @param nId
+	 *            the num id.
+	 * @param ntId
+	 *            the number type id.
+	 * @param numWord
+	 *            the number word.
+	 * @param numSound
+	 *            the number sound.
+	 * @param numImage
+	 *            the number image.
+	 */
+	public void addNumbers(int nId, int ntId, String numberWord,
+			String numberSound, Drawable numberImage) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_NID, nId);
+		contentValues.put(DatabaseHelper.COLUMN_NTID, ntId);
+		contentValues.put(DatabaseHelper.COLUMN_NUMBERS, numberWord);
+		contentValues.put(DatabaseHelper.COLUMN_NUMBERS_SOUND, numberSound);
+		contentValues.put(DatabaseHelper.COLUMN_NUMBERS_IMAGE,
+				ImageUtils.drawableToByteArray(numberImage));
+
+		sqlDatabase.insert(DatabaseHelper.TABLE_NUMBERS, null, contentValues);
+	}
+
+	/**
+	 * Gets a list of the NumTypes in the database.
+	 * 
+	 * @return a list of the NumTypes in the database.
+	 */
+	public List<NumType> getNumTypes() {
+		List<NumType> ntype = new ArrayList<NumType>();
+
+		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_NUM_TYPE,
+			   numTypeColumns, null, null, null, null, null);
+		cursor.moveToFirst();
+
+		while (!cursor.isAfterLast()) {
+			ntype.add(DatabaseUtils.convertCursorToNumType(cursor));
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+
+		return ntype;
+	}
+
+	/**
+	 * Adds a NumTypes to the database.
+	 * 
+	 * @param type
+	 *            the NumTypes to add.
+	 */
+	public void addNumType(String type) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_TYPE_NAME, type);
+		sqlDatabase.insert(DatabaseHelper.TABLE_NUM_TYPE, null, contentValues);
+	}
+}
 }

@@ -143,6 +143,25 @@ public class DatabaseDefaults {
 	}
 
 	/**
+	 * Gets the number in string form.
+	 * 
+	 * @return the number in string form.
+	 */
+	public static String[] getNumbers() {
+		return new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+	}
+	
+	public static String[] getShapes(){
+		return new String[]{"circle","square", "diamond", "oval", "triangle", "pentagon", 
+				"hexagon","star"};
+	}
+	
+	public static String[] getColours(){
+		return new String[]{"red","green", "blue", "orange", "brown", "yellow", 
+				"violet", "black", "white", "grey"};
+	}
+
+	/**
 	 * Gets the default words for the alphabet category.
 	 * 
 	 * <p>
