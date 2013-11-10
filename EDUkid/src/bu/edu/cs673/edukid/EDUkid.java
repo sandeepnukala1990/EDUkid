@@ -16,10 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.Category;
-import bu.edu.cs673.edukid.db.model.CategoryType;
 import bu.edu.cs673.edukid.db.model.UserAccount;
+import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.learn.LearnContentView;
 import bu.edu.cs673.edukid.settings.SettingsView;
 import bu.edu.cs673.edukid.settings.utils.MathProblem;
@@ -35,6 +34,12 @@ import bu.edu.cs673.edukid.settings.utils.MathProblemGenerator;
  * 
  */
 public class EDUkid extends Activity implements OnClickListener {
+
+	public static final String CATEGORY_TYPE = "CategoryType";
+
+	public static final String ITEM_INDEX = "ItemIndex";
+
+	public static final String WORD_INDEX = "WordIndex";
 
 	/**
 	 * {@inheritDoc}
@@ -53,13 +58,17 @@ public class EDUkid extends Activity implements OnClickListener {
 	 */
 	@Override
 	public void onClick(View view) {
-		CategoryType categoryType = CategoryType.values()[view.getId()];
+		CategoryType categoryType = Database.getInstance(this).getCategories()
+				.get(view.getId());
 
 		Intent intent = new Intent(this, LearnContentView.class);
-		intent.putExtra("CategoryType", categoryType);
+		intent.putExtra(CATEGORY_TYPE, categoryType);
 		startActivity(intent);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -71,7 +80,6 @@ public class EDUkid extends Activity implements OnClickListener {
 	 * categories from the database.
 	 */
 	private void setupCategoryButtons() {
-		Database database = Database.getInstance(this);
 		LinearLayout categoryLayout = (LinearLayout) findViewById(R.id.categoryLinearLayout);
 
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -83,14 +91,15 @@ public class EDUkid extends Activity implements OnClickListener {
 		layoutParams.bottomMargin = 10;
 		layoutParams.leftMargin = 10;
 
-		for (Category category : database.getCategories()) {
+		List<CategoryType> categories = Database.getInstance(this)
+				.getCategories();
+
+		for (int i = 0; i < categories.size(); i++) {
+			CategoryType category = categories.get(i);
 			ImageButton categoryButton = new ImageButton(this);
-			// TODO: need to fix this for custom types
-			categoryButton.setId(CategoryType.valueOf(
-					category.getName().toUpperCase()).ordinal());
+			categoryButton.setId(i);
 			categoryButton.setLayoutParams(layoutParams);
-			categoryButton.setBackground(ImageUtils
-					.byteArrayToDrawable(category.getImageData()));
+			categoryButton.setBackground(category.getCategoryImage(this));
 			categoryButton.setOnClickListener(this);
 			categoryLayout.addView(categoryButton);
 		}

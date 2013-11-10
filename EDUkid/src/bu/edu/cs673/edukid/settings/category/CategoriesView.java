@@ -1,4 +1,4 @@
-package bu.edu.cs673.edukid.settings;
+package bu.edu.cs673.edukid.settings.category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.model.Category;
-import bu.edu.cs673.edukid.db.model.CategoryType;
+import bu.edu.cs673.edukid.db.model.category.CategoryType;
 
 public class CategoriesView extends ListActivity implements OnItemClickListener {
 
@@ -29,10 +29,8 @@ public class CategoriesView extends ListActivity implements OnItemClickListener 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.categories);
 
-		Database database = Database.getInstance(this);
-
-		for (Category category : database.getCategories()) {
-			listItems.add(category.getName());
+		for (CategoryType category : Database.getInstance(this).getCategories()) {
+			listItems.add(category.getCategoryName());
 		}
 
 		arrayAdapter = new ArrayAdapter<String>(this,
@@ -49,15 +47,20 @@ public class CategoriesView extends ListActivity implements OnItemClickListener 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		String listItem = listItems.get(position);
-		CategoryType categoryType = CategoryType
-				.valueOf(listItem.toUpperCase());
+		CategoryType categoryType = Database.getInstance(this).getCategories()
+				.get(position);
 
 		Intent intent = new Intent(this, CategoryItemsView.class);
-		intent.putExtra("CategoryType", categoryType);
+		intent.putExtra(EDUkid.CATEGORY_TYPE, categoryType);
 		startActivity(intent);
 	}
 
+	/**
+	 * Add category on click callback.
+	 * 
+	 * @param view
+	 *            the view.
+	 */
 	public void onAddCategoryClick(View view) {
 		startActivity(new Intent(this, AddCategoryView.class));
 	}

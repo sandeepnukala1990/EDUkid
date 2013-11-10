@@ -1,7 +1,6 @@
 package bu.edu.cs673.edukid.db;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -10,11 +9,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.db.model.Alphabets;
-import bu.edu.cs673.edukid.db.model.Category;
-import bu.edu.cs673.edukid.db.model.CategoryType;
 import bu.edu.cs673.edukid.db.model.Letter;
 import bu.edu.cs673.edukid.db.model.Theme;
 import bu.edu.cs673.edukid.db.model.UserAccount;
+import bu.edu.cs673.edukid.db.model.category.CategoryType;
 
 /**
  * The main database class which provides "access" to the database via accessor
@@ -106,13 +104,20 @@ public class Database {
 	 * 
 	 * @return a list of all categories.
 	 */
-	public List<Category> getCategories() {
-		List<Category> categories = new ArrayList<Category>();
+	public List<CategoryType> getCategories() {
+		List<CategoryType> categories = new ArrayList<CategoryType>();
+
+		// Add the default categories (these aren't in the database)
+		for (CategoryType defaultCategory : DatabaseDefaults
+				.getDefaultCategories()) {
+			categories.add(defaultCategory);
+		}
 
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_CATEGORIES,
 				categoriesColumns, null, null, null, null, null);
 		cursor.moveToFirst();
 
+		// Add the user-entered categories from the database
 		while (!cursor.isAfterLast()) {
 			categories.add(DatabaseUtils.convertCursorToCategory(cursor));
 			cursor.moveToNext();
@@ -126,279 +131,19 @@ public class Database {
 	/**
 	 * Adds a category to the database.
 	 * 
-	 * @param name
-	 *            the category name.
-	 * @param image
-	 *            the category image.
+	 * @param categoryType
+	 *            the category type
+	 * @param context
+	 *            the context.
 	 */
-	public void addCategory(String name, Drawable image) {
+	public void addCategory(CategoryType categoryType, Context context) {
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(DatabaseHelper.COLUMN_CATEGORY_NAME, name);
-		contentValues.put(DatabaseHelper.COLUMN_CATEGORY_IMAGE,
-				ImageUtils.drawableToByteArray(image));
+		contentValues.put(DatabaseHelper.COLUMN_CATEGORY_NAME,
+				categoryType.getCategoryName());
+		contentValues.put(DatabaseHelper.COLUMN_CATEGORY_IMAGE, ImageUtils
+				.drawableToByteArray(categoryType.getCategoryImage(context)));
 		sqlDatabase
 				.insert(DatabaseHelper.TABLE_CATEGORIES, null, contentValues);
-	}
-	
-	/**
-	 * Gets an item from the database based on the {@link CategoryType} and its
-	 * index.
-	 * 
-	 * <p>
-	 * Note: an item in this context could be represented by a letter in the
-	 * alphabet (0 is A, 1 is B, 2 is C, and so on).
-	 * </p>
-	 * 
-	 * @param categoryType
-	 *            the category type.
-	 * @param itemIndex
-	 *            the item index.
-	 * @return the item in string form.
-	 */
-	public String getItem(CategoryType categoryType, int itemIndex) {
-		switch (categoryType) {
-		case ALPHABET:
-			Letter letter = getLetters().get(itemIndex);
-			return letter.getLetter();
-		case NUMBERS:
-		case SHAPES:
-		case COLORS:
-		case CUSTOM:
-			// TODO: should be a database query because we can add to these
-			// categories or create new categories (custom)
-			return "";
-		default:
-			return "";
-		}
-	}
-
-	/**
-	 * Returns the number of items in a given category.
-	 * 
-	 * @param categoryType
-	 *            the category type.
-	 * @return the number of items in a given category.
-	 */
-	public int getItemCount(CategoryType categoryType) {
-		switch (categoryType) {
-		case ALPHABET:
-			return DatabaseDefaults.getAlphabet().length;
-		case NUMBERS:
-		case SHAPES:
-		case COLORS:
-		case CUSTOM:
-			// TODO: should be a database query because we can add to these
-			// categories or create new categories (custom)
-			return 0;
-		default:
-			// Should never get here.
-			return 0;
-		}
-	}
-
-	/**
-	 * Gets the associated words for a given item.
-	 * 
-	 * @param categoryType
-	 *            the category type.
-	 * @param itemIndex
-	 *            the item index.
-	 * @return the words for a given item.
-	 */
-	private List<String> getItemWords(CategoryType categoryType, int itemIndex) {
-		switch (categoryType) {
-		case ALPHABET:
-			// TODO: check the database first, then use the defaults if we get
-			// nothing back from the query (custom words from user).
-			return DatabaseDefaults.getDefaultAlphabetWords(itemIndex);
-		case NUMBERS:
-		case SHAPES:
-		case COLORS:
-		case CUSTOM:
-			// TODO: database query then default
-			return Collections.emptyList();
-		default:
-			// Should never get here.
-			return Collections.emptyList();
-		}
-	}
-
-	/**
-	 * Gets the specific word given an item index, word index, and category.
-	 * 
-	 * @param categoryType
-	 *            the category type.
-	 * @param itemIndex
-	 *            the item index.
-	 * @param wordIndex
-	 *            the word index.
-	 * @return the specific word given an item index, word index, and category.
-	 */
-	public String getItemWord(CategoryType categoryType, int itemIndex,
-			int wordIndex) {
-		switch (categoryType) {
-		case ALPHABET: {
-			int listIndex = itemIndex;
-
-			if (getAlphabets().size() != 0) {
-				Alphabets alp = null;
-				do {
-					alp = getAlphabets().get(listIndex);
-
-					if (alp.getLid() == itemIndex) {
-						if (alp.getThemeId() == wordIndex) {
-							return alp.getWord();
-						} else
-							listIndex++;
-					} else
-						listIndex++;
-				} while (alp.getLid() <= itemIndex);
-				return getItemWords(categoryType, itemIndex).get(wordIndex);
-			} else
-				// return null;
-				return getItemWords(categoryType, itemIndex).get(wordIndex);
-		}
-
-		case NUMBERS:
-		case SHAPES:
-		case COLORS:
-		default:
-			// Should never get here.
-			break;
-		}
-		return null;
-		// return getItemWords(categoryType, itemIndex).get(wordIndex);
-	}
-
-	/**
-	 * Gets the item word count for a given category.
-	 * 
-	 * @param categoryType
-	 *            the category type.
-	 * @param itemIndex
-	 *            the item index.
-	 * @return the item word count for a given category.
-	 */
-	public int getItemWordCount(CategoryType categoryType, int itemIndex) {
-		return getItemWords(categoryType, itemIndex).size();
-	}
-
-	/**
-	 * Gets the item image given an item index, an image index, and category.
-	 * 
-	 * @param categoryType
-	 *            the category type.
-	 * @param itemIndex
-	 *            the item index.
-	 * @param imageIndex
-	 *            the image index.
-	 * @return the item image given an item index, an image index, and category.
-	 */
-	public int getItemImage(CategoryType categoryType, int itemIndex,
-			int imageIndex) {
-		switch (categoryType) {
-		case ALPHABET:
-			// TODO: check the database first, then use the defaults if we get
-			// nothing back from the query (voice recording from user).
-			return DatabaseDefaults.getDefaultAlphabetDrawableIds(itemIndex)
-					.get(imageIndex);
-		case NUMBERS:
-		case SHAPES:
-		case COLORS:
-		case CUSTOM:
-			// TODO: database query then default
-			return -1;
-		default:
-			// Should never get here.
-			return -1;
-		}
-	}
-
-	/**
-	 * Gets the phonetic sound given an item index and a category.
-	 * 
-	 * @param categoryType
-	 *            the category type.
-	 * @param itemIndex
-	 *            the item index.
-	 * @return the phonetic sound given an item index and a category.
-	 */
-	public String getPhoneticSound(CategoryType categoryType, int itemIndex) {
-		switch (categoryType) {
-		case ALPHABET:
-			// TODO: check the database first, then use the defaults if we get
-			// nothing back from the query (voice recording from user).
-			// return
-			// DatabaseDefaults.getDefaultAlphabetPhoneticSounds(itemIndex);
-			Letter letter = getLetters().get(itemIndex);
-			return letter.getLetterSound();
-		case NUMBERS:
-		case SHAPES:
-		case COLORS:
-			// TODO: database query then default
-			return "";
-		default:
-			// Should never get here.
-			return "";
-		}
-	}
-
-	/**
-	 * Gets a list of the user accounts in the database.
-	 * 
-	 * @return a list of the user accounts in the database.
-	 */
-	public List<UserAccount> getUserAccounts() {
-		List<UserAccount> userAccounts = new ArrayList<UserAccount>();
-		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_USER_ACCOUNT,
-				userAccountColumns, null, null, null, null, null);
-		cursor.moveToFirst();
-
-		while (!cursor.isAfterLast()) {
-			UserAccount userAccount = DatabaseUtils
-					.convertCursorToUserAccount(cursor);
-			userAccounts.add(userAccount);
-			cursor.moveToNext();
-		}
-
-		cursor.close();
-
-		return userAccounts;
-	}
-
-	/**
-	 * Adds a user account to the database.
-	 * 
-	 * @param userName
-	 *            the user name.
-	 * @param userImage
-	 *            the user image.
-	 * @return the row ID of the newly inserted row, or -1 if an error occurred
-	 */
-	public long addUserAccount(String userName, Drawable userImage) {
-		ContentValues contentValues = new ContentValues();
-		contentValues.put(DatabaseHelper.COLUMN_USER_NAME, userName);
-		contentValues.put(DatabaseHelper.COLUMN_USER_IMAGE,
-				ImageUtils.drawableToByteArray(userImage));
-		// TODO: need to add the user sound here
-		contentValues.put(DatabaseHelper.COLUMN_USER_SOUND, userName);
-		return sqlDatabase.insert(DatabaseHelper.TABLE_USER_ACCOUNT, null,
-				contentValues);
-	}
-
-	/**
-	 * Edits a user account in the already in the database.
-	 * 
-	 * @param userAccount
-	 *            the user account.
-	 * @return the row ID of the newly inserted row, or -1 if an error occurred
-	 */
-	public long editUserAccount(UserAccount userAccount) {
-		sqlDatabase.delete(DatabaseHelper.TABLE_USER_ACCOUNT,
-				DatabaseHelper.COLUMN_USER_ID + " = ?",
-				new String[] { String.valueOf(userAccount.getId()) });
-		return addUserAccount(userAccount.getUserName(),
-				ImageUtils.byteArrayToDrawable(userAccount.getUserImage()));
 	}
 
 	/**
@@ -432,8 +177,21 @@ public class Database {
 	public void addLetter(String letter) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_LETTERS_WORD, letter);
-		contentValues.put(DatabaseHelper.COLUMN_LETTERS_SOUND, letter);
+
+		// By default, do not add a sound. If the user chooses to add a sound
+		// letter then it will be taken care of with the editLetter() method.
+		contentValues.put(DatabaseHelper.COLUMN_LETTERS_SOUND, "");
 		sqlDatabase.insert(DatabaseHelper.TABLE_LETTERS, null, contentValues);
+	}
+
+	/**
+	 * Edits a letter in the database.
+	 * 
+	 * @param letter
+	 *            the letter to edit.
+	 */
+	public void editLetter(Letter letter) {
+		// TODO: implement this
 	}
 
 	/**
@@ -517,5 +275,63 @@ public class Database {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_THEME_NAME, theme);
 		sqlDatabase.insert(DatabaseHelper.TABLE_THEME, null, contentValues);
+	}
+
+	/**
+	 * Gets a list of the user accounts in the database.
+	 * 
+	 * @return a list of the user accounts in the database.
+	 */
+	public List<UserAccount> getUserAccounts() {
+		List<UserAccount> userAccounts = new ArrayList<UserAccount>();
+		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_USER_ACCOUNT,
+				userAccountColumns, null, null, null, null, null);
+		cursor.moveToFirst();
+
+		while (!cursor.isAfterLast()) {
+			UserAccount userAccount = DatabaseUtils
+					.convertCursorToUserAccount(cursor);
+			userAccounts.add(userAccount);
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+
+		return userAccounts;
+	}
+
+	/**
+	 * Adds a user account to the database.
+	 * 
+	 * @param userName
+	 *            the user name.
+	 * @param userImage
+	 *            the user image.
+	 * @return the row ID of the newly inserted row, or -1 if an error occurred
+	 */
+	public long addUserAccount(String userName, Drawable userImage) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_USER_NAME, userName);
+		contentValues.put(DatabaseHelper.COLUMN_USER_IMAGE,
+				ImageUtils.drawableToByteArray(userImage));
+		// TODO: need to add the user sound here
+		contentValues.put(DatabaseHelper.COLUMN_USER_SOUND, userName);
+		return sqlDatabase.insert(DatabaseHelper.TABLE_USER_ACCOUNT, null,
+				contentValues);
+	}
+
+	/**
+	 * Edits a user account in the already in the database.
+	 * 
+	 * @param userAccount
+	 *            the user account.
+	 * @return the row ID of the newly inserted row, or -1 if an error occurred
+	 */
+	public long editUserAccount(UserAccount userAccount) {
+		sqlDatabase.delete(DatabaseHelper.TABLE_USER_ACCOUNT,
+				DatabaseHelper.COLUMN_USER_ID + " = ?",
+				new String[] { String.valueOf(userAccount.getId()) });
+		return addUserAccount(userAccount.getUserName(),
+				ImageUtils.byteArrayToDrawable(userAccount.getUserImage()));
 	}
 }

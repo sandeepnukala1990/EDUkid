@@ -37,7 +37,7 @@ public class DatabaseUtils {
 	public static Category convertCursorToCategory(Cursor cursor) {
 		Category category = new Category();
 		category.setId(cursor.getLong(0));
-		category.setName(cursor.getString(1));
+		category.setCategoryName(cursor.getString(1));
 		category.setImageData(cursor.getBlob(2));
 
 		return category;

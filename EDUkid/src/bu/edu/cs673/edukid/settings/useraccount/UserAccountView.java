@@ -1,4 +1,4 @@
-package bu.edu.cs673.edukid.account;
+package bu.edu.cs673.edukid.settings.useraccount;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ import bu.edu.cs673.edukid.db.model.UserAccount;
  * @see UserAccount
  * 
  */
-public class AccountCreationView extends Activity implements OnClickListener {
+public class UserAccountView extends Activity implements OnClickListener {
 
 	private static final int TAKE_PICTURE = 1888;
 

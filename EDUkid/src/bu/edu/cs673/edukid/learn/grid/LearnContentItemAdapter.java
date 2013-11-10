@@ -7,8 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
-import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.model.CategoryType;
+import bu.edu.cs673.edukid.db.model.category.CategoryType;
 
 public class LearnContentItemAdapter extends BaseAdapter {
 
@@ -16,26 +15,46 @@ public class LearnContentItemAdapter extends BaseAdapter {
 
 	private CategoryType categoryType;
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param context
+	 *            the context.
+	 * @param categoryType
+	 *            the category type.
+	 */
 	public LearnContentItemAdapter(Context context, CategoryType categoryType) {
 		this.context = context;
 		this.categoryType = categoryType;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int getCount() {
-		return Database.getInstance().getItemCount(categoryType);
+		return categoryType.getItemCount();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Object getItem(int index) {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long getItemId(int index) {
 		return 0;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public View getView(int itemIndex, View convertView, ViewGroup parent) {
 		TextView learnContentItem;
@@ -50,8 +69,7 @@ public class LearnContentItemAdapter extends BaseAdapter {
 			learnContentItem = (TextView) convertView;
 		}
 
-		learnContentItem.setText(Database.getInstance().getItem(categoryType,
-				itemIndex));
+		learnContentItem.setText(categoryType.getItem(itemIndex));
 
 		return learnContentItem;
 	}

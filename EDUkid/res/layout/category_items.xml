@@ -25,7 +25,7 @@
         android:layout_marginTop="25dp"
         android:src="@drawable/categories" />
 
-    <Button
+    <ImageButton
         android:id="@+id/addCategoryItemButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

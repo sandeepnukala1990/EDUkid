@@ -7,8 +7,17 @@ import android.speech.tts.TextToSpeech;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.model.Thing;
 import bu.edu.cs673.edukid.db.model.Things;
+import bu.edu.cs673.edukid.db.model.category.AlphabetCategory;
+import bu.edu.cs673.edukid.db.model.category.ColorsCategory;
+import bu.edu.cs673.edukid.db.model.category.CategoryType;
+import bu.edu.cs673.edukid.db.model.category.NumbersCategory;
+import bu.edu.cs673.edukid.db.model.category.ShapesCategory;
 
 public class DatabaseDefaults {
+
+	private static CategoryType[] DEFAULT_CATEGORIES = new CategoryType[] {
+			new AlphabetCategory(), new NumbersCategory(),
+			new ShapesCategory(), new ColorsCategory() };
 
 	// TODO: fill these in with real values
 	private static Things A_THINGS = new Things(new Thing("Apple",
@@ -49,6 +58,10 @@ public class DatabaseDefaults {
 	 */
 	private DatabaseDefaults() {
 		// Static class.
+	}
+
+	public static CategoryType[] getDefaultCategories() {
+		return DEFAULT_CATEGORIES;
 	}
 
 	/**

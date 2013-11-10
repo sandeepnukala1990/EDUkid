@@ -3,6 +3,7 @@ package bu.edu.cs673.edukid.settings.utils;
 public class MathProblem {
 
 	private int operand1;
+	
 	private int operand2;
 
 	private Operator operator;

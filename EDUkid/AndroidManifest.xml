@@ -49,19 +49,19 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name="bu.edu.cs673.edukid.account.AccountCreationView"
+            android:name="bu.edu.cs673.edukid.settings.useraccount.UserAccountView"
             android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name="bu.edu.cs673.edukid.settings.CategoriesView"
+            android:name="bu.edu.cs673.edukid.settings.category.CategoriesView"
             android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name="bu.edu.cs673.edukid.settings.AddCategoryView"
+            android:name="bu.edu.cs673.edukid.settings.category.AddCategoryView"
             android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name="bu.edu.cs673.edukid.settings.CategoryItemsView"
+            android:name="bu.edu.cs673.edukid.settings.category.CategoryItemsView"
             android:screenOrientation="landscape" >
         </activity>
     </application>

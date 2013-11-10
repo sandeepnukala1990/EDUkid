@@ -2,11 +2,9 @@ package bu.edu.cs673.edukid;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.DatabaseDefaults;
-import bu.edu.cs673.edukid.db.model.CategoryType;
 
 /**
  * The splash screen, and the entry point into the application.
@@ -49,18 +47,6 @@ public class EDUsplash extends Activity {
 	 */
 	private void setupDatabse() {
 		Database database = Database.getInstance(this);
-		Resources resources = getResources();
-
-		if (database.getCategories().size() == 0) {
-			database.addCategory(CategoryType.ALPHABET.getName(),
-					resources.getDrawable(R.drawable.tiletry));
-			database.addCategory(CategoryType.NUMBERS.getName(),
-					resources.getDrawable(R.drawable.numbersnew));
-			database.addCategory(CategoryType.SHAPES.getName(),
-					resources.getDrawable(R.drawable.shapesnew));
-			database.addCategory(CategoryType.COLORS.getName(),
-					resources.getDrawable(R.drawable.colorsnew));
-		}
 
 		if (database.getLetters().size() == 0) {
 			for (String letter : DatabaseDefaults.getAlphabet()) {
@@ -72,6 +58,5 @@ public class EDUsplash extends Activity {
 			// TODO: implement this more
 			database.addTheme("ANIMALS");
 		}
-		
 	}
 }
