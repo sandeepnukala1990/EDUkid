@@ -461,4 +461,4 @@ public class Database {
 		sqlDatabase.insert(DatabaseHelper.TABLE_NUM_TYPE, null, contentValues);
 	}
 }
-}
+
