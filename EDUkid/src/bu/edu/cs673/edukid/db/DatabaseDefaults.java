@@ -21,104 +21,81 @@ public class DatabaseDefaults {
 
 	// TODO: fill these in with real values
 	private static Things A_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple), new Thing("Alligator", R.drawable.alligator),
-			new Thing("Avocado", R.drawable.avocado));
+			R.drawable.apple), new Thing("Alligator", R.drawable.aligator),
+			new Thing("Avocado", R.drawable.avocado), new Thing("Abacus", R.drawable.abacus), new Thing("Aeroplane", R.drawable.aeroplane));
 
 	private static Things B_THINGS = new Things(new Thing("Balloons",
-			R.drawable.balloons));
+			R.drawable.balloons), new Thing("Ball", R.drawable.ball), new Thing("Boy", R.drawable.boy));
 
 	private static Things C_THINGS = new Things(
-			new Thing("Cow", R.drawable.cow));
+			new Thing("Cow", R.drawable.cow), new Thing("Camera", R.drawable.camera), new Thing("Cake", R.drawable.cake));
 
-	// TODO: fix this
-	private static Things D_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things D_THINGS = new Things(new Thing("Door", R.drawable.door), new Thing("Duck", R.drawable.duck), new Thing("Dolphin", R.drawable.dolphin), new Thing("Dwarf", R.drawable.dwarf));
 
-	// TODO: fix this
-	private static Things E_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things E_THINGS = new Things(new Thing("Eagle", R.drawable.eagle), new Thing("Earth", R.drawable.earth), new Thing("Elephant", R.drawable.elephant));
 
-	// TODO: fix this
-	private static Things F_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things F_THINGS = new Things(new Thing("Flowers", R.drawable.flowers), new Thing("Fan", R.drawable.fan), new Thing("Fox", R.drawable.fox));
 
-	// TODO: fix this
-	private static Things G_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things G_THINGS = new Things(new Thing("Giraffe", R.drawable.giraffe), new Thing("Girl", R.drawable.girl), new Thing("Goat", R.drawable.goat));
 
-	// TODO: fix this
-	private static Things H_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things H_THINGS = new Things(new Thing("Helicopter", R.drawable.helicopter), new Thing("Horse", R.drawable.horse), new Thing("Hen", R.drawable.hen));
 
-	// TODO: fix this
-	private static Things I_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things I_THINGS = new Things(new Thing("Ice Cream", R.drawable.icecream), new Thing("Igloo", R.drawable.igloo), new Thing("Island", R.drawable.island));
 
-	// TODO: fix this
-	private static Things J_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things J_THINGS = new Things(new Thing("Jacket", R.drawable.jacket), new Thing("Jug", R.drawable.jug), new Thing("Judge", R.drawable.judge));
 
-	// TODO: fix this
-	private static Things K_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things K_THINGS = new Things(new Thing("Kite", R.drawable.kites), new Thing("Kangaroo", R.drawable.kangaroo), new Thing("Key", R.drawable.key));
 
-	// TODO: fix this
-	private static Things L_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things L_THINGS = new Things(new Thing("Leaf", R.drawable.leaf), new Thing("Leopard", R.drawable.leopard), new Thing("Lotus", R.drawable.lotus));
 
-	// TODO: fix this
-	private static Things M_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things M_THINGS = new Things(new Thing("Money", R.drawable.money), new Thing("Monkey", R.drawable.monkey), new Thing("Moon", R.drawable.moon));
 
-	// TODO: fix this
-	private static Things N_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things N_THINGS = new Things(new Thing("Nails", R.drawable.nail), new Thing("Nest", R.drawable.nest), new Thing("Noodles", R.drawable.noodles));
 
-	// TODO: fix this
-	private static Things O_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things O_THINGS = new Things(new Thing("Octopus", R.drawable.octopus), new Thing("Oranges", R.drawable.orange), new Thing("Owl", R.drawable.owl));
 
-	private static Things P_THINGS = new Things(
-			new Thing("Pig", R.drawable.pig));
+	private static Things P_THINGS = new Things(new Thing("Pig", R.drawable.pig), new Thing("Pencil", R.drawable.pencils), new Thing("Pumpkin", R.drawable.pumpkin));
 
 	private static Things Q_THINGS = new Things(new Thing("Quail",
-			R.drawable.quail));
+			R.drawable.quail), new Thing("Queen", R.drawable.queen), new Thing("Question", R.drawable.questionmark), new Thing("Quiet", R.drawable.quiet));
 
-	// TODO: fix this
-	private static Things R_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	private static Things R_THINGS = new Things(new Thing("Rabbit", R.drawable.rabbit), new Thing("Rainbow", R.drawable.rainbow), new Thing("Rocket", R.drawable.rocket));
 
-	// TODO: fix this
-	private static Things S_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things S_THINGS = new Things(new Thing("Shoes", R.drawable.shoes), new Thing("Snake", R.drawable.snake), new Thing("Snail", R.drawable.snail), new Thing("Star", R.drawable.star), new Thing("Sun", R.drawable.sun));
 
-	// TODO: fix this
-	private static Things T_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things T_THINGS = new Things(new Thing("Tiger", R.drawable.tiger), new Thing("Tomato", R.drawable.tomato), new Thing("Train", R.drawable.train), new Thing("Turtle", R.drawable.turtle), new Thing("Tree", R.drawable.tree));
 
-	// TODO: fix this
-	private static Things U_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things U_THINGS = new Things(new Thing("Unicorn", R.drawable.unicorn), new Thing("Umbrella", R.drawable.umbrella), new Thing("UniCycle", R.drawable.unicycle), new Thing("Urchin", R.drawable.urchin));
 
-	// TODO: fix this
-	private static Things V_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things V_THINGS = new Things(new Thing("Vase", R.drawable.vase), new Thing("Violin", R.drawable.violin), new Thing("Volcano", R.drawable.volcano), new Thing("Volleyball", R.drawable.voleyball), new Thing("Vulture", R.drawable.vulture));
 
-	// TODO: fix this
-	private static Things W_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things W_THINGS = new Things(new Thing("Whale", R.drawable.whale), new Thing("Wagon", R.drawable.wagon), new Thing("Wand", R.drawable.wand), new Thing("Watch", R.drawable.watch), new Thing("Wolf", R.drawable.wolf), new Thing("Watermelon", R.drawable.watermelon), new Thing("Wheel", R.drawable.wheel));
 
-	// TODO: fix this
-	private static Things X_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things X_THINGS = new Things(new Thing("X-Ray", R.drawable.xray), new Thing("Xylophone", R.drawable.xylophone));
 
-	// TODO: fix this
-	private static Things Y_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things Y_THINGS = new Things(new Thing("Yatch", R.drawable.yatch), new Thing("Yak", R.drawable.yak), new Thing("Yellow", R.drawable.yellow), new Thing("Yo Yo", R.drawable.yoyo));
 
-	// TODO: fix this
-	private static Things Z_THINGS = new Things(new Thing("Apple",
-			R.drawable.apple));
+	
+	private static Things Z_THINGS = new Things(new Thing("Zebra", R.drawable.zebra), new Thing("Zip", R.drawable.zip), new Thing("Zig Zag", R.drawable.zigzag), new Thing("Zoo", R.drawable.zoo));
 
 	/**
 	 * Constructor.
