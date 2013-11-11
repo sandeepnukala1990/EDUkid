@@ -36,7 +36,7 @@
         android:layout_marginRight="199dp"
         android:layout_toLeftOf="@+id/categoryImage"
         android:background="@null"
-        android:src="@drawable/camera" />
+        android:src="@drawable/camerabutton" />
 
     <ImageView
         android:id="@+id/createUserImage"
