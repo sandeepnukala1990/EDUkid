@@ -2,6 +2,7 @@ package bu.edu.cs673.edukid;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.DatabaseDefaults;
@@ -59,6 +60,22 @@ public class EDUsplash extends Activity {
 			for(String num : DatabaseDefaults.getNumbers())
 			{
 				database.addNums(num);
+			}
+		}
+		if(database.getColours().size()==0)
+		{
+			for(String col : DatabaseDefaults.getColours())
+			{
+				database.addColour(col, null);
+				
+			}
+		}
+		if(database.getShapes().size()==0)
+		{
+			for(String shape : DatabaseDefaults.getShapes())
+			{
+				database.addShape(shape, null);
+				
 			}
 		}
 

@@ -97,6 +97,64 @@ public class DatabaseDefaults {
 	
 	private static Things Z_THINGS = new Things(new Thing("Zebra", R.drawable.zebra), new Thing("Zip", R.drawable.zip), new Thing("Zig Zag", R.drawable.zigzag), new Thing("Zoo", R.drawable.zoo));
 
+	private static Things num0_THINGS = new Things(new Thing("0",R.drawable.edukidicon));
+	
+	private static Things num1_THINGS = new Things(new Thing("1",R.drawable.edukidicon));
+	
+	private static Things num2_THINGS = new Things(new Thing("2",R.drawable.edukidicon));
+	
+	private static Things num3_THINGS = new Things(new Thing("3",R.drawable.edukidicon));
+	
+	private static Things num4_THINGS = new Things(new Thing("4",R.drawable.edukidicon));
+	
+	private static Things num5_THINGS = new Things(new Thing("5",R.drawable.edukidicon));
+	
+	private static Things num6_THINGS = new Things(new Thing("6",R.drawable.edukidicon));
+	
+	private static Things num7_THINGS = new Things(new Thing("7",R.drawable.edukidicon));
+	
+	private static Things num8_THINGS = new Things(new Thing("8",R.drawable.edukidicon));
+	
+	private static Things num9_THINGS = new Things(new Thing("9",R.drawable.edukidicon));
+	
+	private static Things num10_THINGS = new Things(new Thing("10",R.drawable.edukidicon));
+	
+    private static Things col0_THINGS = new Things(new Thing("red",R.drawable.edukidicon));
+	
+	private static Things col1_THINGS = new Things(new Thing("green",R.drawable.edukidicon));
+	
+	private static Things col2_THINGS = new Things(new Thing("blue",R.drawable.edukidicon));
+	
+	private static Things col3_THINGS = new Things(new Thing("orange",R.drawable.edukidicon));
+	
+	private static Things col4_THINGS = new Things(new Thing("brown",R.drawable.edukidicon));
+	
+	private static Things col5_THINGS = new Things(new Thing("yellow",R.drawable.edukidicon));
+	
+	private static Things col6_THINGS = new Things(new Thing("violet",R.drawable.edukidicon));
+	
+	private static Things col7_THINGS = new Things(new Thing("black",R.drawable.edukidicon));
+	
+	private static Things col8_THINGS = new Things(new Thing("white",R.drawable.edukidicon));
+	
+	private static Things col9_THINGS = new Things(new Thing("grey",R.drawable.edukidicon));
+
+	private static Things shape0_THINGS = new Things(new Thing("circle",R.drawable.edukidicon));
+
+	private static Things shape1_THINGS = new Things(new Thing("square",R.drawable.edukidicon));
+	
+	private static Things shape2_THINGS = new Things(new Thing("diamond",R.drawable.edukidicon));
+	
+	private static Things shape3_THINGS = new Things(new Thing("oval",R.drawable.edukidicon));
+	
+	private static Things shape4_THINGS = new Things(new Thing("triangle",R.drawable.edukidicon));
+	
+	private static Things shape5_THINGS = new Things(new Thing("pentagon",R.drawable.edukidicon));
+	
+	private static Things shape6_THINGS = new Things(new Thing("hexagon",R.drawable.edukidicon));
+	
+	private static Things shape7_THINGS = new Things(new Thing("star",R.drawable.edukidicon));
+	
 	/**
 	 * Constructor.
 	 */
@@ -208,6 +266,87 @@ public class DatabaseDefaults {
 			return Collections.emptyList();
 		}
 	}
+	public static List<String> getDefaultnumWords(int itemIndex) {
+		switch (itemIndex) {
+		case 0:
+			return num0_THINGS.getWords();
+		case 1:
+			return num1_THINGS.getWords();
+		case 2:
+			return num2_THINGS.getWords();
+		case 3:
+			return num3_THINGS.getWords();
+		case 4:
+			return num4_THINGS.getWords();
+		case 5:
+			return num5_THINGS.getWords();
+		case 6:
+			return num6_THINGS.getWords();
+		case 7:
+			return num7_THINGS.getWords();
+		case 8:
+			return num8_THINGS.getWords();
+		case 9:
+			return num9_THINGS.getWords();
+		case 10:
+			return num10_THINGS.getWords();
+		
+		default:
+			return Collections.emptyList();
+		}
+	}
+	
+	public static List<String> getDefaultColourWords(int itemIndex) {
+		switch (itemIndex) {
+		case 0:
+			return col0_THINGS.getWords();
+		case 1:
+			return col1_THINGS.getWords();
+		case 2:
+			return col2_THINGS.getWords();
+		case 3:
+			return col3_THINGS.getWords();
+		case 4:
+			return col4_THINGS.getWords();
+		case 5:
+			return col5_THINGS.getWords();
+		case 6:
+			return col6_THINGS.getWords();
+		case 7:
+			return col7_THINGS.getWords();
+		case 8:
+			return col8_THINGS.getWords();
+		case 9:
+			return col9_THINGS.getWords();
+		
+		default:
+			return Collections.emptyList();
+		}
+	}
+	public static List<String> getDefaultShapeWords(int itemIndex) {
+		switch (itemIndex) {
+		case 0:
+			return shape0_THINGS.getWords();
+		case 1:
+			return shape1_THINGS.getWords();
+		case 2:
+			return shape2_THINGS.getWords();
+		case 3:
+			return shape3_THINGS.getWords();
+		case 4:
+			return shape4_THINGS.getWords();
+		case 5:
+			return shape5_THINGS.getWords();
+		case 6:
+			return shape6_THINGS.getWords();
+		case 7:
+			return shape7_THINGS.getWords();
+		
+		
+		default:
+			return Collections.emptyList();
+		}
+	}
 
 	public static List<Integer> getDefaultAlphabetDrawableIds(int itemIndex) {
 		switch (itemIndex) {
@@ -263,6 +402,91 @@ public class DatabaseDefaults {
 			return Y_THINGS.getDrawableIds();
 		case 25:
 			return Z_THINGS.getDrawableIds();
+		default:
+			return Collections.emptyList();
+		}
+	}
+	
+	public static List<Integer> getDefaultnumDrawableIds(int itemIndex) {
+		
+	switch (itemIndex) {
+	case 0:
+		return num0_THINGS.getDrawableIds();
+	case 1:
+		return num1_THINGS.getDrawableIds();
+	case 2:
+		return num2_THINGS.getDrawableIds();
+	case 3:
+		return num3_THINGS.getDrawableIds();
+	case 4:
+		return num4_THINGS.getDrawableIds();
+	case 5:
+		return num5_THINGS.getDrawableIds();
+	case 6:
+		return num6_THINGS.getDrawableIds();
+	case 7:
+		return num7_THINGS.getDrawableIds();
+	case 8:
+		return num8_THINGS.getDrawableIds();
+	case 9:
+		return num9_THINGS.getDrawableIds();
+	case 10:
+		return num10_THINGS.getDrawableIds();
+	
+	default:
+		return Collections.emptyList();
+	}
+}
+	
+	public static List<Integer> getDefaultColourDrawableIds(int itemIndex) {
+		
+		switch (itemIndex) {
+		case 0:
+			return col0_THINGS.getDrawableIds();
+		case 1:
+			return col1_THINGS.getDrawableIds();
+		case 2:
+			return col2_THINGS.getDrawableIds();
+		case 3:
+			return col3_THINGS.getDrawableIds();
+		case 4:
+			return col4_THINGS.getDrawableIds();
+		case 5:
+			return col5_THINGS.getDrawableIds();
+		case 6:
+			return col6_THINGS.getDrawableIds();
+		case 7:
+			return col7_THINGS.getDrawableIds();
+		case 8:
+			return col8_THINGS.getDrawableIds();
+		case 9:
+			return col9_THINGS.getDrawableIds();
+		
+		default:
+			return Collections.emptyList();
+		}
+	}
+	
+public static List<Integer> getDefaultShapeDrawableIds(int itemIndex) {
+		
+		switch (itemIndex) {
+		case 0:
+			return shape0_THINGS.getDrawableIds();
+		case 1:
+			return shape1_THINGS.getDrawableIds();
+		case 2:
+			return shape2_THINGS.getDrawableIds();
+		case 3:
+			return shape3_THINGS.getDrawableIds();
+		case 4:
+			return shape4_THINGS.getDrawableIds();
+		case 5:
+			return shape5_THINGS.getDrawableIds();
+		case 6:
+			return shape6_THINGS.getDrawableIds();
+		case 7:
+			return shape7_THINGS.getDrawableIds();
+		
 		default:
 			return Collections.emptyList();
 		}
@@ -335,6 +559,88 @@ public class DatabaseDefaults {
 			return "why";
 		case 25:
 			return "zee";
+		default:
+			return "";
+		}
+		
+	}
+	public static String getDefaultNumPhoneticSounds(int itemIndex) {
+		switch (itemIndex) {
+		case 0:
+			return "zero";
+		case 1:
+			return "one";
+		case 2:
+			return "two";
+		case 3:
+			return "three";
+		case 4:
+			return "four";
+		case 5:
+			return "five";
+		case 6:
+			return "six";
+		case 7:
+			return "seven";
+		case 8:
+			return "eight";
+		case 9:
+			return "nine";
+		case 10:
+			return "ten";
+	
+		default:
+			return "";
+		}
+	}
+	public static String getDefaultColourPhoneticSounds(int itemIndex) {
+		switch (itemIndex) {
+		case 0:
+			return "red";
+		case 1:
+			return "green";
+		case 2:
+			return "blue";
+		case 3:
+			return "orange";
+		case 4:
+			return "brown";
+		case 5:
+			return "yellow";
+		case 6:
+			return "violet";
+		case 7:
+			return "black";
+		case 8:
+			return "white";
+		case 9:
+			return "grey";
+	
+		default:
+			return "";
+		}
+	}
+	public static String getDefaultShapePhoneticSounds(int itemIndex) {
+		switch (itemIndex) {
+		
+		case 0:
+			return "circle";
+		case 1:
+			return "square";
+		case 2:
+			return "diamond";
+		case 3:
+			return "oval";
+		case 4:
+			return "triangle";
+		case 5:
+			return "pentagon";
+		case 6:
+			return "hexagon";
+		case 7:
+			return "star";
+		
+	
 		default:
 			return "";
 		}

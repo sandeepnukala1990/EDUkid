@@ -5,7 +5,9 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.model.Colour;
 
 @SuppressWarnings("serial")
 public class ColorsCategory implements CategoryType {
@@ -23,43 +25,53 @@ public class ColorsCategory implements CategoryType {
 	@Override
 	public String[] getItems() {
 		// TODO: don't hardcode
-		return new String[] { "Red", "White", "Blue", "Green", "Black" };
+		return DatabaseDefaults.getColours();
 	}
 
 	@Override
 	public String getItem(int itemIndex) {
 		// TODO
-		return "" + itemIndex;
+		return DatabaseDefaults.getColours()[itemIndex];
 	}
 
 	@Override
 	public int getItemCount() {
-		return 5;
+		return DatabaseDefaults.getColours().length;
 	}
 
 	@Override
 	public String getItemPhoneticSound(int itemIndex) {
 		// TODO
-		return "";
+		Colour col = Database.getInstance().getColours().get(itemIndex);
+
+		if (col != null) {
+			String colourSound = col.getColourSound();
+
+			if (colourSound != null && !colourSound.isEmpty()) {
+				return colourSound;
+			}
+		}
+
+		return DatabaseDefaults.getDefaultColourPhoneticSounds(itemIndex);
 	}
 
 	@Override
 	public List<String> getItemWords(int itemIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultAlphabetWords(itemIndex);
+		return DatabaseDefaults.getDefaultColourWords(itemIndex);
 	}
 
 	@Override
 	public String getItemWord(int itemIndex, int wordIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).get(
+		return DatabaseDefaults.getDefaultColourWords(itemIndex).get(
 				wordIndex);
 	}
 
 	@Override
 	public int getItemWordCount(int itemIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).size();
+		return DatabaseDefaults.getDefaultColourWords(itemIndex).size();
 	}
 
 	/**
@@ -68,7 +80,7 @@ public class ColorsCategory implements CategoryType {
 	@Override
 	public List<Integer> getItemImages(int itemIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultAlphabetDrawableIds(itemIndex);
+		return DatabaseDefaults.getDefaultColourDrawableIds(itemIndex);
 	}
 
 	/**

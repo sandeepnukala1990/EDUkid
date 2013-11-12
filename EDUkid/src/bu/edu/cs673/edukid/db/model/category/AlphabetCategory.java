@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.model.Alphabets;
 import bu.edu.cs673.edukid.db.model.Letter;
 
 @SuppressWarnings("serial")
@@ -85,30 +86,27 @@ public class AlphabetCategory implements CategoryType {
 	public String getItemWord(int itemIndex, int wordIndex) {
 		// TODO: Jasjot: this is your code from Database.java. It now belong
 		// here. Uncomment this and fix it please.
-		// int listIndex = itemIndex;
-		//
-		// if (getAlphabets().size() != 0) {
-		// Alphabets alp = null;
-		// do {
-		// alp = getAlphabets().get(listIndex);
-		//
-		// if (alp.getLid() == itemIndex) {
-		// if (alp.getThemeId() == wordIndex) {
-		// return alp.getWord();
-		// } else
-		// listIndex++;
-		// } else
-		// listIndex++;
-		// } while (alp.getLid() <= itemIndex);
-		// return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).get(
-		// wordIndex);
-		// } else
-		// // return null;
-		// return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).get(
-		// wordIndex);
-
-		return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).get(
-				wordIndex);
+		 int listIndex = itemIndex;
+		
+		 if (Database.getInstance().getAlphabets().size() != 0) {
+		 Alphabets alp = null;
+		 do {
+		 alp = Database.getInstance().getAlphabets().get(listIndex);
+		
+		 if (alp.getLid() == itemIndex) {
+		 if (alp.getThemeId() == wordIndex) {
+		 return alp.getWord();
+		 } else
+		 listIndex++;
+		 } else
+		 listIndex++;
+		 } while (alp.getLid() <= itemIndex);
+		 return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).get(
+		 wordIndex);
+		 } else
+		 // return null;
+		 return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).get(
+		 wordIndex);
 	}
 
 	/**

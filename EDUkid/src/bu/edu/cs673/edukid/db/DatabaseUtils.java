@@ -9,6 +9,8 @@ import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.db.model.Num;
 import bu.edu.cs673.edukid.db.model.NumType;
 import bu.edu.cs673.edukid.db.model.Number;
+import bu.edu.cs673.edukid.db.model.Colour;
+import bu.edu.cs673.edukid.db.model.Shape;;
 
 /**
  * Database utility class. Provides static helper methods to convert database
@@ -163,5 +165,38 @@ public class DatabaseUtils {
 		return num;
 	}
 	
+	/**
+	 * Converts a cursor object to a Colour object.
+	 * 
+	 * @param cursor
+	 *            the database cursor object.
+	 * @return a Colour object.
+	 */
+	public static Colour convertCursorToColour(Cursor cursor) {
+		Colour col = new Colour();
+		col.setColourId(cursor.getLong(0));
+		col.setColour(cursor.getString(1));
+		col.setColourImage(cursor.getBlob(2));
+		col.setColourSound(cursor.getString(3));
+
+		return col;
+	}
+	
+	/**
+	 * Converts a cursor object to a user shape object.
+	 * 
+	 * @param cursor
+	 *            the database shape object.
+	 * @return a shape object.
+	 */
+	public static Shape convertCursorToShape(Cursor cursor) {
+		Shape shape = new Shape();
+		shape.setShapeId(cursor.getLong(0));
+		shape.setShape(cursor.getString(1));
+		shape.setShapeImage(cursor.getBlob(2));
+		shape.setShapeSound(cursor.getString(3));
+
+		return shape;
+	}
 	
 }

@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.db.model.Alphabets;
+import bu.edu.cs673.edukid.db.model.Colour;
 import bu.edu.cs673.edukid.db.model.Letter;
 import bu.edu.cs673.edukid.db.model.Theme;
 import bu.edu.cs673.edukid.db.model.UserAccount;
@@ -16,6 +17,8 @@ import bu.edu.cs673.edukid.db.model.Num;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.db.model.NumType;
 import bu.edu.cs673.edukid.db.model.Number;
+import bu.edu.cs673.edukid.db.model.Shape;
+
 /**
  * The main database class which provides "access" to the database via accessor
  * and mutator methods. This class is a singleton.
@@ -64,6 +67,14 @@ public class Database {
 			DatabaseHelper.COLUMN_NTID, DatabaseHelper.COLUMN_NUMBERS,
 			DatabaseHelper.COLUMN_NUMBERS_SOUND,
 			DatabaseHelper.COLUMN_NUMBERS_IMAGE };
+	
+	private String[] colourColumns = { DatabaseHelper.COLUMN_COLOUR_ID,
+			DatabaseHelper.COLUMN_COLOUR_WORD, DatabaseHelper.COLUMN_COLOUR_IMAGE,
+			DatabaseHelper.COLUMN_COLOUR_SOUND };
+	
+	private String[] shapeColumns = { DatabaseHelper.COLUMN_SHAPE_ID,
+			DatabaseHelper.COLUMN_SHAPE_WORD, DatabaseHelper.COLUMN_SHAPE_IMAGE,
+			DatabaseHelper.COLUMN_SHAPE_SOUND };
 
 	/**
 	 * Gets the database singleton instance.
@@ -460,5 +471,88 @@ public class Database {
 		contentValues.put(DatabaseHelper.COLUMN_TYPE_NAME, type);
 		sqlDatabase.insert(DatabaseHelper.TABLE_NUM_TYPE, null, contentValues);
 	}
+	
+	/**
+	 * Gets a list of the colours in the database.
+	 * 
+	 * @return a list of the colours in the database.
+	 */
+	public List<Colour> getColours() {
+		List<Colour> colours = new ArrayList<Colour>();
+		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_COLOUR,
+				colourColumns, null, null, null, null, null);
+		cursor.moveToFirst();
+
+		while (!cursor.isAfterLast()) {
+			colours.add(DatabaseUtils.convertCursorToColour(cursor));
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+
+		return colours;
+	}
+
+	/**
+	 * Adds a colours to the database.
+	 * 
+	 * @param col
+	 *            the colour name.
+	 * @param colImage
+	 *            the colour image.
+	 * @return the row ID of the newly inserted row, or -1 if an error occurred
+	 */
+	public long addColour(String col, Drawable colImage) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_COLOUR_WORD, col);
+		contentValues.put(DatabaseHelper.COLUMN_COLOUR_IMAGE,
+				ImageUtils.drawableToByteArray(colImage));
+		// TODO: need to add the user sound here
+		contentValues.put(DatabaseHelper.COLUMN_COLOUR_SOUND, col);
+		return sqlDatabase.insert(DatabaseHelper.TABLE_COLOUR, null,
+				contentValues);
+	}
+	
+	/**
+	 * Gets a list of the shapes in the database.
+	 * 
+	 * @return a list of the shapes in the database.
+	 */
+	public List<Shape> getShapes() {
+		List<Shape> shape = new ArrayList<Shape>();
+		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_SHAPE,
+				shapeColumns, null, null, null, null, null);
+		cursor.moveToFirst();
+
+		while (!cursor.isAfterLast()) {
+			shape.add(DatabaseUtils.convertCursorToShape(cursor));
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+
+		return shape;
+	}
+
+	/**
+	 * Adds a shape to the database.
+	 * 
+	 * @param shape
+	 *            the shape name.
+	 * @param shapeImage
+	 *            the shape image.
+	 * @return the row ID of the newly inserted row, or -1 if an error occurred
+	 */
+	public long addShape(String shape, Drawable shapeImage) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_SHAPE_WORD, shape);
+		contentValues.put(DatabaseHelper.COLUMN_SHAPE_IMAGE,
+				ImageUtils.drawableToByteArray(shapeImage));
+		// TODO: need to add the user sound here
+		contentValues.put(DatabaseHelper.COLUMN_SHAPE_SOUND, shape);
+		return sqlDatabase.insert(DatabaseHelper.TABLE_SHAPE, null,
+				contentValues);
+	}
+
 }
 

@@ -5,7 +5,9 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.model.Shape;
 
 @SuppressWarnings("serial")
 public class ShapesCategory implements CategoryType {
@@ -23,44 +25,55 @@ public class ShapesCategory implements CategoryType {
 	@Override
 	public String[] getItems() {
 		// TODO: don't hardcode
-		return new String[] { "Circle", "Square", "Rectangle", "Triangle",
-				"Oval" };
+		return DatabaseDefaults.getShapes();
 	}
 
 	@Override
 	public String getItem(int itemIndex) {
 		// TODO
-		return "" + itemIndex;
+		return DatabaseDefaults.getShapes()[itemIndex];
 	}
 
 	@Override
 	public int getItemCount() {
-		return 5;
+		return DatabaseDefaults.getShapes().length;
 	}
 
 	@Override
 	public String getItemPhoneticSound(int itemIndex) {
 		// TODO
-		return "";
+		Shape shape = Database.getInstance().getShapes().get(itemIndex);
+
+		if (shape != null) {
+			String ShapeSound = shape.getShapeSound();
+
+			if (ShapeSound != null && !ShapeSound.isEmpty()) {
+				return ShapeSound;
+			}
+		}
+
+		return DatabaseDefaults.getDefaultShapePhoneticSounds(itemIndex);
+	
+	
 	}
 
 	@Override
 	public List<String> getItemWords(int itemIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultAlphabetWords(itemIndex);
+		return DatabaseDefaults.getDefaultShapeWords(itemIndex);
 	}
 
 	@Override
 	public String getItemWord(int itemIndex, int wordIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).get(
+		return DatabaseDefaults.getDefaultShapeWords(itemIndex).get(
 				wordIndex);
 	}
 
 	@Override
 	public int getItemWordCount(int itemIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).size();
+		return DatabaseDefaults.getDefaultShapeWords(itemIndex).size();
 	}
 
 	/**
@@ -69,7 +82,7 @@ public class ShapesCategory implements CategoryType {
 	@Override
 	public List<Integer> getItemImages(int itemIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultAlphabetDrawableIds(itemIndex);
+		return DatabaseDefaults.getDefaultShapeDrawableIds(itemIndex);
 	}
 
 	/**
