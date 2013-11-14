@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/settingsback"
+    android:background="@drawable/mainback"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -23,7 +23,7 @@
         android:layout_alignTop="@+id/addCategoryButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:src="@drawable/categoriestitle" />
+        android:src="@drawable/categories" />
 
     <ImageButton
         android:id="@+id/addCategoryButton"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/addbutton"
+        android:background="@drawable/add"
         android:onClick="onAddCategoryClick" />
 
 </RelativeLayout>

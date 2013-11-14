@@ -3,7 +3,7 @@
     style="@drawable/mickey_mouse"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/settingsback"
+    android:background="@drawable/mainback"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -27,6 +27,17 @@
         android:layout_alignLeft="@+id/createEditChildName"
         android:src="@drawable/username" />
 
+    <ImageButton
+        android:id="@+id/createUploadPhotoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/categoryImage"
+        android:layout_marginBottom="28dp"
+        android:layout_marginRight="199dp"
+        android:layout_toLeftOf="@+id/categoryImage"
+        android:background="@null"
+        android:src="@drawable/camerabutton" />
+
     <ImageView
         android:id="@+id/createUserImage"
         android:layout_width="wrap_content"
@@ -48,34 +59,23 @@
         android:layout_alignBottom="@+id/createUserImage"
         android:layout_alignParentRight="true"
         android:layout_marginRight="17dp"
-        android:background="@drawable/savebutton" />
-
-    <Button
-        android:id="@+id/accountCreationRecorderButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView2"
-        android:layout_alignTop="@+id/createUploadPhotoButton"
-        android:layout_marginLeft="69dp"
-        android:background="@drawable/mikebutton" />
-
-    <ImageButton
-        android:id="@+id/createUploadPhotoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/createUserImage"
-        android:layout_alignRight="@+id/accountCreationRecorderButton"
-        android:layout_marginRight="90dp"
-        android:background="@null"
-        android:src="@drawable/camerabutton2" />
+        android:background="@drawable/save" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/categoryImage"
-        android:layout_marginRight="93dp"
-        android:src="@drawable/useraccounttitles" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/useraccounttitle" />
+
+    <Button
+        android:id="@+id/accountCreationRecorderButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/createUserImage"
+        android:layout_alignLeft="@+id/createUploadPhotoButton"
+        android:text="RecordName" />
 
 </RelativeLayout>
