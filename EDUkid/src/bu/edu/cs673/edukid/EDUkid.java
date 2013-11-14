@@ -121,25 +121,15 @@ public class EDUkid extends Activity implements OnClickListener {
 	 * {@inheritDoc}
 	 */
 	@Override
-<<<<<<< HEAD
-	public void onClick(View v) {
-		LearnType learnType = LearnType.values()[v.getId()];
-=======
 	public void onClick(View view) {
 		CategoryType categoryType = Database.getInstance(this).getCategories()
 				.get(view.getId());
 
->>>>>>> dev
 		Intent intent = new Intent(this, LearnContentView.class);
 		intent.putExtra(CATEGORY_TYPE, categoryType);
 		startActivity(intent);
 	}
 
-<<<<<<< HEAD
-	private void setupLearnButtons() {
-		Database database = Database.getInstance(this);
-		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.categoryLinearLayout);
-=======
 	/**
 	 * {@inheritDoc}
 	 */
@@ -156,7 +146,6 @@ public class EDUkid extends Activity implements OnClickListener {
 	private void setupCategoryButtons() {
 		LinearLayout categoryLayout = (LinearLayout) findViewById(R.id.categoryLinearLayout);
 
->>>>>>> dev
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		layoutParams.width = 275;
@@ -165,16 +154,12 @@ public class EDUkid extends Activity implements OnClickListener {
 		layoutParams.rightMargin = 10;
 		layoutParams.bottomMargin = 10;
 		layoutParams.leftMargin = 10;
-<<<<<<< HEAD
-		for (Category category : database.getAllCategories()) {
-=======
 
 		List<CategoryType> categories = Database.getInstance(this)
 				.getCategories();
 
 		for (int i = 0; i < categories.size(); i++) {
 			CategoryType category = categories.get(i);
->>>>>>> dev
 			ImageButton categoryButton = new ImageButton(this);
 			categoryButton.setId(i);
 			categoryButton.setLayoutParams(layoutParams);
@@ -182,11 +167,6 @@ public class EDUkid extends Activity implements OnClickListener {
 			categoryButton.setOnClickListener(this);
 			categoryLayout.addView(categoryButton);
 		}
-<<<<<<< HEAD
-		UserAccount userAccount = database.getUserAccounts().get(0);
-		Toast.makeText(this, "Hi " + userAccount.getUserName() + "!",
-				Toast.LENGTH_LONG).show();
-=======
 	}
 
 	/**
@@ -211,7 +191,6 @@ public class EDUkid extends Activity implements OnClickListener {
 								+ ", Welcome Back!", Toast.LENGTH_LONG).show();
 			}
 		}
->>>>>>> dev
 	}
 
 	/**
