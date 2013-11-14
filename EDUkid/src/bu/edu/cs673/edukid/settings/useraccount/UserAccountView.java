@@ -2,14 +2,11 @@ package bu.edu.cs673.edukid.settings.useraccount;
 
 import java.io.IOException;
 import java.util.List;
-
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -97,6 +94,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 			startCamera();
 			break;
 		case R.id.accountCreationRecorderButton:
+			//TODO:have state of button switch between start and stop recording
 			onRecord(mStartRecording);
 			if(mStartRecording)
 				this.setTitle("test123");
