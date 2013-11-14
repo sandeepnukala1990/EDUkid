@@ -1,11 +1,15 @@
 package bu.edu.cs673.edukid.settings.useraccount;
 
+import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.media.*;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.ImageUtils;
@@ -30,6 +35,8 @@ import bu.edu.cs673.edukid.db.model.UserAccount;
 public class UserAccountView extends Activity implements OnClickListener {
 
 	private static final int TAKE_PICTURE = 1888;
+	
+	private boolean mStartRecording = true;
 
 	private static final long DATABASE_ERROR = -1;
 
@@ -38,6 +45,9 @@ public class UserAccountView extends Activity implements OnClickListener {
 	private ImageView userImage;
 
 	private Database database = Database.getInstance(this);
+
+	public MediaRecorder recorder = new MediaRecorder();
+	private String mFileName = "";
 
 	/**
 	 * {@inheritDoc}
@@ -68,6 +78,8 @@ public class UserAccountView extends Activity implements OnClickListener {
 		createSaveButton.setOnClickListener(this);
 		ImageButton createUploadPhotoButton = (ImageButton) findViewById(R.id.createUploadPhotoButton);
 		createUploadPhotoButton.setOnClickListener(this);
+		Button createAudioButton = (Button) findViewById(R.id.accountCreationRecorderButton);
+		createAudioButton.setOnClickListener(this);
 	}
 
 	/**
@@ -83,6 +95,14 @@ public class UserAccountView extends Activity implements OnClickListener {
 			// TODO: we should have other options other than the camera like
 			// picking from the camera roll
 			startCamera();
+			break;
+		case R.id.accountCreationRecorderButton:
+			onRecord(mStartRecording);
+			if(mStartRecording)
+				this.setTitle("test123");
+			else
+				this.setTitle("winning");
+			mStartRecording = !mStartRecording;
 			break;
 		}
 	}
@@ -137,4 +157,38 @@ public class UserAccountView extends Activity implements OnClickListener {
 		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 		startActivityForResult(intent, TAKE_PICTURE);
 	}
+	private void onRecord(boolean start) {
+        if (start) {
+            startRecording();
+            
+        } else {
+            stopRecording();
+        }
+    }
+
+	public void startRecording() {
+		
+		recorder = new MediaRecorder();
+		mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
+		mFileName += "/audiorecordtest.3gp";
+		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+		recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+		recorder.setOutputFile(mFileName);
+		try {
+			recorder.prepare();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		recorder.start();
+	}
+
+	private void stopRecording() {
+		recorder.stop();
+		recorder.release();
+		recorder = null;
+	}
+
 }
