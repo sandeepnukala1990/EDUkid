@@ -2,15 +2,23 @@ package bu.edu.cs673.edukid;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.learn.LearnType;
+import bu.edu.cs673.edukid.db.DatabaseDefaults;
 
+/**
+ * The splash screen, and the entry point into the application.
+ * 
+ * @author Jasjot Singh
+ * 
+ */
 public class EDUsplash extends Activity {
 
 	private long SPLASH_DURATION = 3000;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,26 +42,39 @@ public class EDUsplash extends Activity {
 		setupDatabse();
 	}
 
+	/**
+	 * Sets up the database with its default values if it does not have any.
+	 */
 	private void setupDatabse() {
 		Database database = Database.getInstance(this);
-		database.open();
-		Resources resources = getResources();
 
-		if (database.getUserAccounts().size() == 0) {
-			database.addUserAccount("Jasjot",
-					resources.getDrawable(R.drawable.mickey_mouse));
+		if (database.getLetters().size() == 0) {
+			for (String letter : DatabaseDefaults.getAlphabet()) {
+				database.addLetter(letter);
+			}
 		}
 
-		if (database.getAllCategories().size() == 0) {
+		if (database.getNums().size() == 0) {
+			for (String num : DatabaseDefaults.getNumbers()) {
+				database.addNums(num);
+			}
+		}
 
-			database.addCategory(LearnType.ALPHABET.toString(),
-					resources.getDrawable(R.drawable.tiletry));
-			database.addCategory(LearnType.NUMBERS.toString(),
-					resources.getDrawable(R.drawable.numbersnew));
-			database.addCategory(LearnType.SHAPES.toString(),
-					resources.getDrawable(R.drawable.shapesnew));
-			database.addCategory(LearnType.COLORS.toString(),
-					resources.getDrawable(R.drawable.colorsnew));
+		if (database.getColours().size() == 0) {
+			for (String col : DatabaseDefaults.getColours()) {
+				database.addColour(col, null);
+			}
+		}
+
+		if (database.getShapes().size() == 0) {
+			for (String shape : DatabaseDefaults.getShapes()) {
+				database.addShape(shape, null);
+			}
+		}
+
+		if (database.getThemes().size() == 0) {
+			// TODO: implement this more
+			database.addTheme("ANIMALS");
 		}
 	}
 }

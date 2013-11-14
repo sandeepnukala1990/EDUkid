@@ -7,36 +7,56 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
-import bu.edu.cs673.edukid.learn.LearnType;
+import bu.edu.cs673.edukid.db.model.category.CategoryType;
 
 public class LearnContentItemAdapter extends BaseAdapter {
 
 	private Context context;
 
-	private LearnType learnType;
+	private CategoryType categoryType;
 
-	public LearnContentItemAdapter(Context context, LearnType learnType) {
+	/**
+	 * Constructor.
+	 * 
+	 * @param context
+	 *            the context.
+	 * @param categoryType
+	 *            the category type.
+	 */
+	public LearnContentItemAdapter(Context context, CategoryType categoryType) {
 		this.context = context;
-		this.learnType = learnType;
+		this.categoryType = categoryType;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int getCount() {
-		return learnType.getItems().length;
+		return categoryType.getItemCount();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Object getItem(int index) {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long getItemId(int index) {
 		return 0;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(int itemIndex, View convertView, ViewGroup parent) {
 		TextView learnContentItem;
 
 		if (convertView == null) {
@@ -49,7 +69,7 @@ public class LearnContentItemAdapter extends BaseAdapter {
 			learnContentItem = (TextView) convertView;
 		}
 
-		learnContentItem.setText(learnType.getItem(position));
+		learnContentItem.setText(categoryType.getItem(itemIndex));
 
 		return learnContentItem;
 	}

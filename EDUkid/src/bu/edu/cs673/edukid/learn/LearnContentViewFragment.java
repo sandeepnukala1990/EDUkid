@@ -6,27 +6,34 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.model.category.CategoryType;
 
 public class LearnContentViewFragment extends Fragment implements
-		OnClickListener, TextToSpeech.OnInitListener {
-
-	public static final String ARG_INDEX = "Index";
-	public static final String ARG_LEARN_TYPE = "LearnType";
-	public static final String ARG_ITEM = "Item";
-	public static final String ARG_PHONETIC_SOUND = "PhoneticSound";
+		OnClickListener, TextToSpeech.OnInitListener, OnPageChangeListener {
 
 	private TextToSpeech textToSpeech;
 
-	private LearnType learnType;
+	private CategoryType categoryType;
 
-	private int index;
+	private int itemIndex;
 
+	private LinearLayout wordViewPagerCircles;
+
+	private int numberOfCircles;
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -38,25 +45,33 @@ public class LearnContentViewFragment extends Fragment implements
 				container, false);
 		Bundle arguments = getArguments();
 
-		// Get the index
-		index = arguments.getInt(ARG_INDEX);
+		// Get the category type
+		categoryType = (CategoryType) arguments
+				.getSerializable(EDUkid.CATEGORY_TYPE);
+
+		// Get the item index
+		itemIndex = arguments.getInt(EDUkid.ITEM_INDEX);
 
 		// Set content item
 		TextView learnContentItem = (TextView) view
 				.findViewById(R.id.learnContentItem);
 		learnContentItem.setOnClickListener(this);
-		learnContentItem.setText(arguments.getString(ARG_ITEM));
+		learnContentItem.setText(categoryType.getItem(itemIndex));
 
-		// Get the learn type
-		learnType = LearnType.values()[arguments.getInt(ARG_LEARN_TYPE)];
+		learnContentItem.setTextSize(categoryType.getItemTextSize());
 
-		if (learnType == LearnType.ALPHABET || learnType == LearnType.NUMBERS) {
-			learnContentItem.setTextSize(128);
-		}
+		// Set the word circles
+		wordViewPagerCircles = (LinearLayout) view
+				.findViewById(R.id.wordViewPagerCircles);
+		numberOfCircles = categoryType.getItemWordCount(itemIndex);
+		setCircleIndex(0);
 
 		return view;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -64,17 +79,20 @@ public class LearnContentViewFragment extends Fragment implements
 		ViewPager wordViewPager = (ViewPager) view
 				.findViewById(R.id.wordViewPager);
 		wordViewPager.setAdapter(new WordFragmentPagerAdapter(
-				getChildFragmentManager(), learnType, index));
+				getChildFragmentManager(), categoryType, itemIndex));
+		wordViewPager.setOnPageChangeListener(this);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onClick(View view) {
-		Bundle arguments = getArguments();
 		String text = "";
 
 		switch (view.getId()) {
 		case R.id.learnContentItem:
-			text = arguments.getString(ARG_PHONETIC_SOUND);
+			text = categoryType.getItemPhoneticSound(itemIndex);
 			break;
 		default:
 			return;
@@ -88,11 +106,17 @@ public class LearnContentViewFragment extends Fragment implements
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onInit(int status) {
 		textToSpeech.setLanguage(Locale.getDefault());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
@@ -102,5 +126,68 @@ public class LearnContentViewFragment extends Fragment implements
 			textToSpeech.stop();
 			textToSpeech.shutdown();
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onPageScrollStateChanged(int state) {
+		// NO-OP
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onPageScrolled(int arg0, float arg1, int arg2) {
+		// NO-OP
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onPageSelected(int position) {
+		setCircleIndex(position);
+	}
+
+	/**
+	 * Sets the circle index to inform the user which image they are viewing if
+	 * there is more than 1.
+	 * 
+	 * @param index
+	 *            the circle index.
+	 */
+	private void setCircleIndex(int index) {
+		wordViewPagerCircles.removeAllViews();
+
+		if (numberOfCircles > 1) {
+			for (int i = 0; i < numberOfCircles; i++) {
+				if (i == index) {
+					addFilledCircle();
+				} else {
+					addEmptyCircle();
+				}
+			}
+		}
+	}
+
+	/**
+	 * Adds a filled circle to the row of circles.
+	 */
+	private void addFilledCircle() {
+		ImageView filledCircle = new ImageView(getActivity());
+		filledCircle.setImageResource(R.drawable.filled_circle);
+		wordViewPagerCircles.addView(filledCircle);
+	}
+
+	/**
+	 * Adds an empty circle to the row of circles.
+	 */
+	private void addEmptyCircle() {
+		ImageView filledCircle = new ImageView(getActivity());
+		filledCircle.setImageResource(R.drawable.empty_circle);
+		wordViewPagerCircles.addView(filledCircle);
 	}
 }

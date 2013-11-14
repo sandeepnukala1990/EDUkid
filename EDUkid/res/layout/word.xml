@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainback"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <TextView
+        android:id="@+id/wordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="33dp"
+        android:layout_marginTop="147dp"
+        android:text="Word:" />
+
+    <TextView
+        android:id="@+id/wordImageLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/wordLabel"
+        android:layout_below="@+id/wordLabel"
+        android:layout_marginTop="42dp"
+        android:text="Image:" />
+
+    <ImageView
+        android:id="@+id/wordImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/wordImageLabel"
+        android:layout_marginLeft="48dp"
+        android:layout_toRightOf="@+id/wordImageLabel"
+        android:adjustViewBounds="true"
+        android:maxHeight="175dp"
+        android:maxWidth="200dp" />
+
+    <EditText
+        android:id="@+id/wordName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/wordLabel"
+        android:layout_alignBottom="@+id/wordLabel"
+        android:layout_alignLeft="@+id/wordImage"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/deleteWordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/wordImageLabel"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="42dp"
+        android:onClick="onDeleteWordClick"
+        android:text="Delete Word" />
+
+    <Button
+        android:id="@+id/saveWordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:onClick="onSaveWordClick"
+        android:text="Save" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="100dp"
+        android:layout_toRightOf="@+id/wordName"
+        android:drawSelectorOnTop="false" />
+
+    <TextView
+        android:id="@+id/tagsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/saveWordButton"
+        android:layout_marginRight="169dp"
+        android:layout_marginTop="29dp"
+        android:layout_toLeftOf="@+id/saveWordButton"
+        android:text="Tags" />
+
+    <Button
+        android:id="@+id/addTagButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/saveWordButton"
+        android:layout_toLeftOf="@+id/saveWordButton"
+        android:onClick="onAddTagClick"
+        android:text="Add Tag" />
+
+</RelativeLayout>

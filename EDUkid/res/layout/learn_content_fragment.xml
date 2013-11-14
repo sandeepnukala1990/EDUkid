@@ -10,36 +10,46 @@
 
     <ImageButton
         android:id="@+id/learnContentGridButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:background="@color/transparent"
         android:onClick="onShowGridClick"
-        android:src="@android:drawable/ic_dialog_dialer" />
+        android:src="@drawable/gridbutton2" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/wordViewPager"
         android:layout_width="450dp"
-        android:layout_height="375dp"
+        android:layout_height="350dp"
         android:layout_centerVertical="true"
         android:layout_marginRight="17dp"
-        android:background="@drawable/cloud" />
+        android:background="@color/transparent" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/categoryImage"
         android:layout_width="450dp"
         android:layout_height="300dp"
         android:layout_alignRight="@+id/learnContentGridButton"
         android:layout_below="@+id/learnContentGridButton"
         android:src="@drawable/cloud" />
 
+    <LinearLayout
+        android:id="@+id/wordViewPagerCircles"
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/wordViewPager"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
     <TextView
         android:id="@+id/learnContentItem"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_alignTop="@+id/imageView1"
-        android:layout_marginRight="48dp"
-        android:layout_marginTop="19dp"
+        android:layout_alignBottom="@+id/categoryImage"
         android:layout_toLeftOf="@+id/learnContentGridButton"
         android:gravity="center"
         android:text="A"

@@ -4,39 +4,56 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import bu.edu.cs673.edukid.EDUkid;
+import bu.edu.cs673.edukid.db.model.category.CategoryType;
 
 public class WordFragmentPagerAdapter extends FragmentPagerAdapter {
 
-	private LearnType learnType;
+	private CategoryType categoryType;
 
-	private int index;
+	private int itemIndex;
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param fragmentManager
+	 *            the fragment manager.
+	 * @param categoryType
+	 *            the category type.
+	 * @param itemIndex
+	 *            the item index.
+	 */
 	public WordFragmentPagerAdapter(FragmentManager fragmentManager,
-			LearnType learnType, int index) {
+			CategoryType categoryType, int itemIndex) {
 		super(fragmentManager);
-		this.learnType = learnType;
-		this.index = index;
+		this.categoryType = categoryType;
+		this.itemIndex = itemIndex;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public Fragment getItem(int i) {
+	public Fragment getItem(int wordIndex) {
 		Fragment fragment = new WordFragment();
 		Bundle arguments = new Bundle();
 
-		// TODO: should be a database query
-		arguments.putInt(WordFragment.ARG_IMAGE, learnType.getDefaultImage(i));
+		arguments.putSerializable(EDUkid.CATEGORY_TYPE, categoryType);
 
-		// TODO: should be a database query
-		arguments.putString(WordFragment.ARG_WORD,
-				learnType.getAlphabetWords(index)[i]);
+		arguments.putInt(EDUkid.ITEM_INDEX, itemIndex);
+
+		arguments.putInt(EDUkid.WORD_INDEX, wordIndex);
 
 		fragment.setArguments(arguments);
 
 		return fragment;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int getCount() {
-		return learnType.getAlphabetWords(index).length;
+		return categoryType.getItemWordCount(itemIndex);
 	}
 }

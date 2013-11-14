@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/settingsback"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <TextView
+        android:id="@+id/nameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="33dp"
+        android:layout_marginTop="147dp"
+        android:text="Name:" />
+
+    <TextView
+        android:id="@+id/categoryImageLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nameLabel"
+        android:layout_below="@+id/nameLabel"
+        android:layout_marginTop="42dp"
+        android:text="Image:" />
+
+    <ImageView
+        android:id="@+id/categoryImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/categoryImageLabel"
+        android:layout_marginLeft="48dp"
+        android:layout_toRightOf="@+id/categoryImageLabel"
+        android:onClick="onCategoryImageClick"
+        android:src="@drawable/tiletry" />
+
+    <EditText
+        android:id="@+id/categoryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/nameLabel"
+        android:layout_alignBottom="@+id/nameLabel"
+        android:layout_alignLeft="@+id/categoryImage"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/deleteCategoryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/categoryImageLabel"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="42dp"
+        android:onClick="onDeleteCategoryClick"
+        android:text="Delete Category" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="100dp"
+        android:layout_toRightOf="@+id/categoryName"
+        android:drawSelectorOnTop="false" />
+
+    <Button
+        android:id="@+id/saveCategoryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@android:id/list"
+        android:background="@drawable/savebutton"
+        android:onClick="onSaveCategoryClick" />
+
+    <Button
+        android:id="@+id/addItembutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/saveCategoryButton"
+        android:layout_alignBottom="@+id/saveCategoryButton"
+        android:layout_marginRight="23dp"
+        android:layout_toLeftOf="@+id/saveCategoryButton"
+        android:background="@drawable/addbutton" />
+
+    <TextView
+        android:id="@+id/itemsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/addItembutton"
+        android:layout_alignLeft="@android:id/list"
+        android:layout_marginLeft="136dp"
+        android:text="Items" />
+
+</RelativeLayout>

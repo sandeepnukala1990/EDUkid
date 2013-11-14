@@ -4,43 +4,41 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import bu.edu.cs673.edukid.EDUkid;
+import bu.edu.cs673.edukid.db.model.category.CategoryType;
 
 public class LearnContentViewPagerAdapter extends FragmentStatePagerAdapter {
 
-	private LearnType learnType;
+	private CategoryType categoryType;
 
 	public LearnContentViewPagerAdapter(FragmentManager fragmentManager,
-			LearnType learnType) {
+			CategoryType categoryType) {
 		super(fragmentManager);
-		this.learnType = learnType;
+		this.categoryType = categoryType;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public Fragment getItem(int i) {
+	public Fragment getItem(int itemIndex) {
 		Fragment fragment = new LearnContentViewFragment();
 		Bundle arguments = new Bundle();
 
-		arguments.putInt(LearnContentViewFragment.ARG_INDEX, i);
+		arguments.putSerializable(EDUkid.CATEGORY_TYPE, categoryType);
 
-		// TODO: should be a database query
-		arguments.putInt(LearnContentViewFragment.ARG_LEARN_TYPE,
-				learnType.ordinal());
-
-		// TODO: should be a database query
-		arguments.putString(LearnContentViewFragment.ARG_ITEM,
-				learnType.getItem(i));
-
-		// TODO: should be a database query
-		arguments.putString(LearnContentViewFragment.ARG_PHONETIC_SOUND,
-				learnType.getDefaultSound(i));
+		arguments.putInt(EDUkid.ITEM_INDEX, itemIndex);
 
 		fragment.setArguments(arguments);
 
 		return fragment;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int getCount() {
-		return learnType.getItems().length;
+		return categoryType.getItemCount();
 	}
 }

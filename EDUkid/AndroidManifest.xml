@@ -11,7 +11,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -19,19 +24,52 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <service android:name="net.frakbot.imageviewex.service.ImageViewExService" />
-        <activity android:screenOrientation="landscape" android:name="EDUsplash">
+
+        <activity
+            android:name="EDUsplash"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EDUkid" android:screenOrientation="landscape">
-        </activity><activity android:name=".learn.LearnContentView" android:screenOrientation="landscape"></activity><activity android:name=".learn.grid.LearnContentGridView" android:screenOrientation="landscape"></activity><activity android:name=".settings.SettingsView" android:screenOrientation="landscape"></activity>
-        
-        <activity android:name=".account.AccountCreationView" android:screenOrientation="landscape"></activity>
-        
-        
+        <activity
+            android:name="bu.edu.cs673.edukid.EDUkid"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="bu.edu.cs673.edukid.learn.LearnContentView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="bu.edu.cs673.edukid.learn.grid.LearnContentGridView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="bu.edu.cs673.edukid.settings.SettingsView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="bu.edu.cs673.edukid.settings.useraccount.UserAccountView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="bu.edu.cs673.edukid.settings.category.CategoriesView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="bu.edu.cs673.edukid.settings.category.CategoryView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="bu.edu.cs673.edukid.settings.category.ItemView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="bu.edu.cs673.edukid.settings.category.WordView"
+            android:screenOrientation="landscape" >
+        </activity>
     </application>
 
 </manifest>
