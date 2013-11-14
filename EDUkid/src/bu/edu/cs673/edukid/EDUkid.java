@@ -66,7 +66,7 @@ public class EDUkid extends Activity implements OnClickListener {
 		handler.postDelayed(new Runnable() {
 			public void run() {
 				AlertDialog.Builder alert = new AlertDialog.Builder(EDUkid.this);
-				alert.setTitle("Timed OUT!");
+				alert.setTitle("Timed OUT! Go to bed");
 				alert.setPositiveButton("Ok",
 						new DialogInterface.OnClickListener() {
 							@Override
