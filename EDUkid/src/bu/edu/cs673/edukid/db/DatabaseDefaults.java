@@ -99,25 +99,25 @@ public class DatabaseDefaults {
 
 	private static Things num0_THINGS = new Things(new Thing("0",R.drawable.edukidicon));
 	
-	private static Things num1_THINGS = new Things(new Thing("1",R.drawable.edukidicon));
+	private static Things num1_THINGS = new Things(new Thing("1",R.drawable.onepng));
 	
-	private static Things num2_THINGS = new Things(new Thing("2",R.drawable.edukidicon));
+	private static Things num2_THINGS = new Things(new Thing("2",R.drawable.twopng));
 	
-	private static Things num3_THINGS = new Things(new Thing("3",R.drawable.edukidicon));
+	private static Things num3_THINGS = new Things(new Thing("3",R.drawable.threepng));
 	
-	private static Things num4_THINGS = new Things(new Thing("4",R.drawable.edukidicon));
+	private static Things num4_THINGS = new Things(new Thing("4",R.drawable.fourpng));
 	
-	private static Things num5_THINGS = new Things(new Thing("5",R.drawable.edukidicon));
+	private static Things num5_THINGS = new Things(new Thing("5",R.drawable.fivepng));
 	
-	private static Things num6_THINGS = new Things(new Thing("6",R.drawable.edukidicon));
+	private static Things num6_THINGS = new Things(new Thing("6",R.drawable.sixpng));
 	
-	private static Things num7_THINGS = new Things(new Thing("7",R.drawable.edukidicon));
+	private static Things num7_THINGS = new Things(new Thing("7",R.drawable.sevenpng));
 	
-	private static Things num8_THINGS = new Things(new Thing("8",R.drawable.edukidicon));
+	private static Things num8_THINGS = new Things(new Thing("8",R.drawable.eightpng));
 	
-	private static Things num9_THINGS = new Things(new Thing("9",R.drawable.edukidicon));
+	private static Things num9_THINGS = new Things(new Thing("9",R.drawable.ninepng));
 	
-	private static Things num10_THINGS = new Things(new Thing("10",R.drawable.edukidicon));
+	private static Things num10_THINGS = new Things(new Thing("10",R.drawable.tenpng));
 	
     private static Things col0_THINGS = new Things(new Thing("red",R.drawable.edukidicon));
 	
