@@ -54,7 +54,7 @@ public class CategoryView extends ListActivity implements OnItemClickListener {
 		categoryImage.setImageDrawable(categoryType.getCategoryImage(this));
 
 		// Show/hide add item button
-		Button addItemButton = (Button) findViewById(R.id.addItemButton);
+		Button addItemButton = (Button) findViewById(R.id.addItembutton);
 		addItemButton.setVisibility(categoryType.canAddItems() ? View.VISIBLE
 				: View.INVISIBLE);
 
