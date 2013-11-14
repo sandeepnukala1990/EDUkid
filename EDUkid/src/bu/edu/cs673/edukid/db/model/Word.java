@@ -3,10 +3,11 @@ package bu.edu.cs673.edukid.db.model;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.db.ImageUtils;
 
-public class Alphabets {
+public class Word {
 
 	private long letterId;
 
+	// TODO: rename to wordId;
 	private long themeId;
 
 	private String word;

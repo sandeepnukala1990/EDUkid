@@ -60,7 +60,7 @@ public class WordFragment extends Fragment implements OnClickListener,
 		learnContentImage.setOnClickListener(this);
 		learnContentImage.setImageResource(categoryType.getItemImage(itemIndex,
 				wordIndex));
-
+		
 		// Set content word
 		TextView learnContentWord = (TextView) view
 				.findViewById(R.id.learnContentWord);

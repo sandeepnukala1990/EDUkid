@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:onClick="onSaveCategoryClick"
+        android:onClick="onSaveWordClick"
         android:text="Save" />
 
     <ListView

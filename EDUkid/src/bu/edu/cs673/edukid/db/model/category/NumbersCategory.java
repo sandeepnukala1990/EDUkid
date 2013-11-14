@@ -8,6 +8,7 @@ import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.DatabaseDefaults;
 import bu.edu.cs673.edukid.db.model.Num;
+import bu.edu.cs673.edukid.db.model.Word;
 
 @SuppressWarnings("serial")
 public class NumbersCategory implements CategoryType {
@@ -25,7 +26,7 @@ public class NumbersCategory implements CategoryType {
 	@Override
 	public String[] getItems() {
 		// TODO: don't hardcode
-		return  DatabaseDefaults.getNumbers();
+		return DatabaseDefaults.getNumbers();
 	}
 
 	@Override
@@ -52,7 +53,7 @@ public class NumbersCategory implements CategoryType {
 		}
 
 		return DatabaseDefaults.getDefaultNumPhoneticSounds(itemIndex);
-	
+
 	}
 
 	@Override
@@ -64,8 +65,7 @@ public class NumbersCategory implements CategoryType {
 	@Override
 	public String getItemWord(int itemIndex, int wordIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultnumWords(itemIndex).get(
-				wordIndex);
+		return DatabaseDefaults.getDefaultnumWords(itemIndex).get(wordIndex);
 	}
 
 	@Override
@@ -111,5 +111,10 @@ public class NumbersCategory implements CategoryType {
 	@Override
 	public boolean canDeleteCategory() {
 		return false;
+	}
+
+	@Override
+	public void addItemWord(int itemIndex, int wordIndex, Word word) {
+		Database.getInstance().addNumbers(itemIndex, wordIndex, "", "", null);
 	}
 }

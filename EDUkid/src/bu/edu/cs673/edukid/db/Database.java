@@ -8,7 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
-import bu.edu.cs673.edukid.db.model.Alphabets;
+import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.Colour;
 import bu.edu.cs673.edukid.db.model.Letter;
 import bu.edu.cs673.edukid.db.model.Theme;
@@ -215,7 +215,7 @@ public class Database {
 	 * @param letter
 	 *            the letter to edit.
 	 */
-	public void editLetter(Letter letter) {
+	public void editLetter(int letterIndex, Letter letter) {
 		// TODO: implement this
 	}
 
@@ -224,8 +224,8 @@ public class Database {
 	 * 
 	 * @return a list of the alphabets in the database.
 	 */
-	public List<Alphabets> getAlphabets() {
-		List<Alphabets> alpha = new ArrayList<Alphabets>();
+	public List<Word> getAlphabets() {
+		List<Word> alpha = new ArrayList<Word>();
 
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_ALPHABET,
 				alphabetsColumns, null, null, null, null, null);
@@ -267,7 +267,11 @@ public class Database {
 
 		sqlDatabase.insert(DatabaseHelper.TABLE_ALPHABET, null, contentValues);
 	}
-
+	
+	public void editWord(int itemIndex, int wordIndex, Word word) {
+		// TODO: Jasjot, implement this
+	}
+	
 	/**
 	 * Gets a list of the themes in the database.
 	 * 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import bu.edu.cs673.edukid.db.model.Word;
 
 public interface CategoryType extends Serializable {
 
@@ -89,6 +90,8 @@ public interface CategoryType extends Serializable {
 	 * @return the item word count for this category type.
 	 */
 	int getItemWordCount(int itemIndex);
+	
+	void addItemWord(int itemIndex, int wordIndex, Word word);
 
 	/**
 	 * Gets the item images given the item index.

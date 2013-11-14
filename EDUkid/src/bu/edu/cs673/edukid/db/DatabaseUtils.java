@@ -1,7 +1,7 @@
 package bu.edu.cs673.edukid.db;
 
 import android.database.Cursor;
-import bu.edu.cs673.edukid.db.model.Alphabets;
+import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.Category;
 import bu.edu.cs673.edukid.db.model.Letter;
 import bu.edu.cs673.edukid.db.model.Theme;
@@ -104,8 +104,8 @@ public class DatabaseUtils {
 	 *            the database cursor object.
 	 * @return an alphabets object.
 	 */
-	public static Alphabets convertCursorToAlphabets(Cursor cursor) {
-		Alphabets alphabets = new Alphabets();
+	public static Word convertCursorToAlphabets(Cursor cursor) {
+		Word alphabets = new Word();
 		alphabets.setLetterId(cursor.getLong(0));
 		alphabets.setThemeId(cursor.getLong(1));
 		alphabets.setWord(cursor.getString(2));
