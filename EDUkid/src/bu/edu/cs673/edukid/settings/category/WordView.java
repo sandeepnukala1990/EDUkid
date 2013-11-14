@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,15 +48,63 @@ public class WordView extends ListActivity {
 		wordImage = (ImageView) findViewById(R.id.wordImage);
 		wordImage.setImageDrawable(getResources().getDrawable(
 				categoryType.getItemImage(itemIndex, wordIndex)));
+
+		// TODO: figure out if this is a default word and show/hide the button
+		// based on that. Right now we are hiding it all the time.
+		// Show/hide delete word button
+		Button deleteWordButton = (Button) findViewById(R.id.deleteWordButton);
+		deleteWordButton.setVisibility(View.INVISIBLE);
 	}
 
+	/**
+	 * Save word on click callback.
+	 * 
+	 * @param view
+	 *            the view.
+	 */
 	public void onSaveWordClick(View view) {
-		// TODO: impelement this
+		// TODO: implement this
 		Toast.makeText(this, "Save word coming soon...", Toast.LENGTH_LONG)
 				.show();
 		// Word word = new Word();
 		// word.setWord(wordName.getText().toString());
 		//
 		// categoryType.addItemWord(itemIndex, wordIndex, new Word());
+	}
+
+	/**
+	 * Add tag on click callback.
+	 * 
+	 * @param view
+	 *            the view.
+	 */
+	public void onAddTagClick(View view) {
+		// TODO: implement this
+		Toast.makeText(this, "Add tag coming soon...", Toast.LENGTH_LONG)
+				.show();
+	}
+
+	/**
+	 * Category image on click callback.
+	 * 
+	 * @param view
+	 *            the view.
+	 */
+	public void onCategoryImageClick(View view) {
+		// TODO: implement this
+		Toast.makeText(this, "Category image edit coming soon...",
+				Toast.LENGTH_LONG).show();
+	}
+
+	/**
+	 * Delete word on click callback.
+	 * 
+	 * @param view
+	 *            the view.
+	 */
+	public void onDeleteWordClick(View view) {
+		// TODO: implement this
+		Toast.makeText(this, "Delete word coming soon...", Toast.LENGTH_LONG)
+				.show();
 	}
 }

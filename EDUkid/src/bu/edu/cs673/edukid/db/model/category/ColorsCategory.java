@@ -108,6 +108,14 @@ public class ColorsCategory implements CategoryType {
 	public void addItemWord(int itemIndex, int wordIndex, Word word) {
 		// TODO: Jasjot, implement this
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void editItemWord(int itemIndex, int wordIndex, Word word) {
+		// TODO: Jasjot, implement this
+	}
 
 	/**
 	 * {@inheritDoc}

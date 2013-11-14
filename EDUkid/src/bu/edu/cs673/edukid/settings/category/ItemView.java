@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
@@ -94,12 +95,18 @@ public class ItemView extends ListActivity implements OnItemClickListener,
 		startActivity(intent);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onItemDrag(DragNDropListView parent, View view, int position,
 			long id) {
 		// NO-OP
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void onItemDrop(DragNDropListView parent, View view,
 			int startPosition, int endPosition, long id) {
@@ -114,5 +121,29 @@ public class ItemView extends ListActivity implements OnItemClickListener,
 		}
 
 		System.out.println("-------------------");
+	}
+
+	/**
+	 * Save item on click callback.
+	 * 
+	 * @param view
+	 *            the view.
+	 */
+	public void onSaveItemClick(View view) {
+		// TODO: implement this
+		Toast.makeText(this, "Save item coming soon...", Toast.LENGTH_LONG)
+				.show();
+	}
+
+	/**
+	 * Add word on click callback.
+	 * 
+	 * @param view
+	 *            the view.
+	 */
+	public void onAddWordClick(View view) {
+		// TODO: implement this
+		Toast.makeText(this, "Add word coming soon...", Toast.LENGTH_LONG)
+				.show();
 	}
 }

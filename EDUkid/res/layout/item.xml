@@ -43,14 +43,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/savebutton"
-        android:onClick="onSaveCategoryClick" />
+        android:onClick="onSaveItemClick" />
 
     <com.terlici.dragndroplist.DragNDropListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="100dp"
         android:layout_marginBottom="20dp"
+        android:layout_marginLeft="100dp"
         android:layout_marginTop="100dp"
         android:layout_toRightOf="@+id/itemName"
         android:drawSelectorOnTop="false" />
@@ -71,7 +71,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/saveItemButton"
         android:layout_toLeftOf="@+id/saveItemButton"
-        android:background="@drawable/addbutton" />
+        android:background="@drawable/addbutton"
+        android:onClick="onAddWordClick" />
 
     <EditText
         android:id="@+id/itemName"

@@ -101,8 +101,32 @@ public class CategoryView extends ListActivity implements OnItemClickListener {
 	 *            the view.
 	 */
 	public void onSaveCategoryClick(View view) {
-		// TODO
+		// TODO: implement this
 		Toast.makeText(this, "Save category coming soon...", Toast.LENGTH_LONG)
 				.show();
+	}
+
+	/**
+	 * Category image on click callback.
+	 * 
+	 * @param view
+	 *            the view.
+	 */
+	public void onCategoryImageClick(View view) {
+		// TODO: implement this
+		Toast.makeText(this, "Category image edit coming soon...",
+				Toast.LENGTH_LONG).show();
+	}
+
+	/**
+	 * Delete category on click callback.
+	 * 
+	 * @param view
+	 *            the view.
+	 */
+	public void onDeleteCategoryClick(View view) {
+		// TODO: implement this
+		Toast.makeText(this, "Delete category coming soon...",
+				Toast.LENGTH_LONG).show();
 	}
 }

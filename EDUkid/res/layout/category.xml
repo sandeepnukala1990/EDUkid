@@ -34,6 +34,7 @@
         android:layout_alignTop="@+id/categoryImageLabel"
         android:layout_marginLeft="48dp"
         android:layout_toRightOf="@+id/categoryImageLabel"
+        android:onClick="onCategoryImageClick"
         android:src="@drawable/tiletry" />
 
     <EditText
@@ -52,6 +53,7 @@
         android:layout_alignLeft="@+id/categoryImageLabel"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="42dp"
+        android:onClick="onDeleteCategoryClick"
         android:text="Delete Category" />
 
     <ListView

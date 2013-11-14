@@ -54,6 +54,7 @@
         android:layout_alignLeft="@+id/wordImageLabel"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="42dp"
+        android:onClick="onDeleteWordClick"
         android:text="Delete Word" />
 
     <Button
@@ -69,8 +70,8 @@
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="100dp"
         android:layout_marginBottom="20dp"
+        android:layout_marginLeft="100dp"
         android:layout_marginTop="100dp"
         android:layout_toRightOf="@+id/wordName"
         android:drawSelectorOnTop="false" />
@@ -91,6 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/saveWordButton"
         android:layout_toLeftOf="@+id/saveWordButton"
+        android:onClick="onAddTagClick"
         android:text="Add Tag" />
 
 </RelativeLayout>

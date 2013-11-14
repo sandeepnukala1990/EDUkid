@@ -131,6 +131,14 @@ public class AlphabetCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void editItemWord(int itemIndex, int wordIndex, Word word) {
+		// TODO: Jasjot, implement this
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public List<Integer> getItemImages(int itemIndex) {
 		return DatabaseDefaults.getDefaultAlphabetDrawableIds(itemIndex);
 	}

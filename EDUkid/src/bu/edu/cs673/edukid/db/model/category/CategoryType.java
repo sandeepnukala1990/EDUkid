@@ -90,8 +90,30 @@ public interface CategoryType extends Serializable {
 	 * @return the item word count for this category type.
 	 */
 	int getItemWordCount(int itemIndex);
-	
+
+	/**
+	 * Adds a word to the database.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @param wordIndex
+	 *            the word index.
+	 * @param word
+	 *            the word to add.
+	 */
 	void addItemWord(int itemIndex, int wordIndex, Word word);
+
+	/**
+	 * Edits a word in the database.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @param wordIndex
+	 *            the word index.
+	 * @param word
+	 *            the word to add.
+	 */
+	void editItemWord(int itemIndex, int wordIndex, Word word);
 
 	/**
 	 * Gets the item images given the item index.

@@ -89,9 +89,20 @@ public class Category implements CategoryType {
 		return 0;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void addItemWord(int itemIndex, int wordIndex, Word word) {
 		// TODO
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void editItemWord(int itemIndex, int wordIndex, Word word) {
+		// TODO: Jasjot, implement this
 	}
 
 	/**
