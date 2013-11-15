@@ -36,7 +36,8 @@
         android:layout_toRightOf="@+id/wordImageLabel"
         android:adjustViewBounds="true"
         android:maxHeight="175dp"
-        android:maxWidth="200dp" />
+        android:maxWidth="200dp"
+        android:onClick="onWordImageClick" />
 
     <EditText
         android:id="@+id/wordName"
