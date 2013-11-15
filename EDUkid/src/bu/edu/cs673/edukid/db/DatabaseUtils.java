@@ -10,7 +10,9 @@ import bu.edu.cs673.edukid.db.model.Num;
 import bu.edu.cs673.edukid.db.model.NumType;
 import bu.edu.cs673.edukid.db.model.Number;
 import bu.edu.cs673.edukid.db.model.Colour;
-import bu.edu.cs673.edukid.db.model.Shape;;
+import bu.edu.cs673.edukid.db.model.Shape;
+
+;
 
 /**
  * Database utility class. Provides static helper methods to convert database
@@ -111,10 +113,11 @@ public class DatabaseUtils {
 		alphabets.setWord(cursor.getString(2));
 		alphabets.setWordSound(cursor.getString(3));
 		alphabets.setWordImage(cursor.getBlob(4));
+		alphabets.setDefaultWord(false);
 
 		return alphabets;
 	}
-	
+
 	/**
 	 * Converts a cursor object to a number object.
 	 * 
@@ -164,7 +167,7 @@ public class DatabaseUtils {
 
 		return num;
 	}
-	
+
 	/**
 	 * Converts a cursor object to a Colour object.
 	 * 
@@ -181,7 +184,7 @@ public class DatabaseUtils {
 
 		return col;
 	}
-	
+
 	/**
 	 * Converts a cursor object to a user shape object.
 	 * 
@@ -198,5 +201,5 @@ public class DatabaseUtils {
 
 		return shape;
 	}
-	
+
 }

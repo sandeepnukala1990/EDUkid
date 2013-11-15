@@ -16,6 +16,8 @@ public class Word {
 
 	private Drawable wordImage;
 
+	private boolean defaultWord;
+
 	public long getLid() {
 		return letterId;
 	}
@@ -54,5 +56,13 @@ public class Word {
 
 	public void setWordImage(byte[] imageData) {
 		wordImage = ImageUtils.byteArrayToDrawable(imageData);
+	}
+
+	public void setDefaultWord(boolean defaultWord) {
+		this.defaultWord = defaultWord;
+	}
+
+	public boolean isDefaultWord() {
+		return defaultWord;
 	}
 }
