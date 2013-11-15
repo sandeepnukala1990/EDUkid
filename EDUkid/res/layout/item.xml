@@ -65,15 +65,6 @@
         android:layout_toLeftOf="@+id/saveItemButton"
         android:text="Words" />
 
-    <Button
-        android:id="@+id/addWordButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/saveItemButton"
-        android:layout_toLeftOf="@+id/saveItemButton"
-        android:background="@drawable/addbutton"
-        android:onClick="onAddWordClick" />
-
     <EditText
         android:id="@+id/itemName"
         android:layout_width="wrap_content"
@@ -85,5 +76,15 @@
 
         <requestFocus />
     </EditText>
+
+    <Button
+        android:id="@+id/addWordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/wordsText"
+        android:layout_marginRight="16dp"
+        android:layout_toLeftOf="@+id/saveItemButton"
+        android:background="@drawable/addbutton"
+        android:onClick="onAddWordClick" />
 
 </RelativeLayout>
