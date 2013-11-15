@@ -119,23 +119,23 @@ public class DatabaseDefaults {
 	
 	private static Things num10_THINGS = new Things(new Thing("10",R.drawable.tenpng));
 	
-    private static Things col0_THINGS = new Things(new Thing("red",R.drawable.red));
+    private static Things col0_THINGS = new Things(new Thing("red",R.drawable.edukidicon));
 	
-	private static Things col1_THINGS = new Things(new Thing("green",R.drawable.green));
+	private static Things col1_THINGS = new Things(new Thing("green",R.drawable.edukidicon));
 	
-	private static Things col2_THINGS = new Things(new Thing("blue",R.drawable.blue));
+	private static Things col2_THINGS = new Things(new Thing("blue",R.drawable.edukidicon));
 	
-	private static Things col3_THINGS = new Things(new Thing("orange",R.drawable.orange));
+	private static Things col3_THINGS = new Things(new Thing("orange",R.drawable.edukidicon));
 	
-	private static Things col4_THINGS = new Things(new Thing("brown",R.drawable.brown));
+	private static Things col4_THINGS = new Things(new Thing("brown",R.drawable.edukidicon));
 	
-	private static Things col5_THINGS = new Things(new Thing("yellow",R.drawable.yellow));
+	private static Things col5_THINGS = new Things(new Thing("yellow",R.drawable.edukidicon));
 	
-	private static Things col6_THINGS = new Things(new Thing("violet",R.drawable.black));
+	private static Things col6_THINGS = new Things(new Thing("violet",R.drawable.edukidicon));
 	
 	private static Things col7_THINGS = new Things(new Thing("black",R.drawable.edukidicon));
 	
-	private static Things col8_THINGS = new Things(new Thing("white",R.drawable.white));
+	private static Things col8_THINGS = new Things(new Thing("white",R.drawable.edukidicon));
 	
 	private static Things col9_THINGS = new Things(new Thing("grey",R.drawable.edukidicon));
 
