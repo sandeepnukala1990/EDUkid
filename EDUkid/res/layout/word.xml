@@ -55,8 +55,9 @@
         android:layout_alignLeft="@+id/wordImageLabel"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="42dp"
+        android:background="@drawable/deletebutton"
         android:onClick="onDeleteWordClick"
-        android:text="Delete Word" />
+        android:text="" />
 
     <Button
         android:id="@+id/saveWordButton"
