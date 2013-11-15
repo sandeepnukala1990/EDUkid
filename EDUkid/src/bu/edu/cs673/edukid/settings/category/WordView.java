@@ -85,14 +85,14 @@ public class WordView extends ListActivity {
 	}
 
 	/**
-	 * Category image on click callback.
+	 * Word image on click callback.
 	 * 
 	 * @param view
 	 *            the view.
 	 */
-	public void onCategoryImageClick(View view) {
+	public void onWordImageClick(View view) {
 		// TODO: implement this
-		Toast.makeText(this, "Category image edit coming soon...",
+		Toast.makeText(this, "Word image edit coming soon...",
 				Toast.LENGTH_LONG).show();
 	}
 
