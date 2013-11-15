@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:background="@drawable/useraccount"
+            android:background="@drawable/useraccountile"
             android:onClick="onUserAccountClick" />
 
         <ImageButton
@@ -27,21 +27,21 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/edukidicon"
+            android:background="@drawable/categoriestile"
             android:onClick="onCategoriesClick" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/edukidicon"
+            android:background="@drawable/themetile"
             android:onClick="onTagsClick" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/edukidicon"
+            android:background="@drawable/timertile"
             android:onClick="onTimerClick" />
     </LinearLayout>
 
