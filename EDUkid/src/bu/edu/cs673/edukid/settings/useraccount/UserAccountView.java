@@ -153,7 +153,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 		startActivityForResult(intent, TAKE_PICTURE);
 	}
-	private void onRecord(boolean start) {
+	public void onRecord(boolean start) {
         if (start) {
             startRecording();
             
@@ -162,7 +162,7 @@ public class UserAccountView extends Activity implements OnClickListener {
         }
     }
 
-	public void startRecording() {
+	private void startRecording() {
 		micImage.setBackgroundResource(R.drawable.abacus);
 		recorder = new MediaRecorder();
 		mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
