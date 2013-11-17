@@ -50,11 +50,13 @@
         android:id="@+id/deleteCategoryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@android:id/list"
         android:layout_alignLeft="@+id/categoryImageLabel"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="42dp"
+        android:layout_below="@+id/categoryImage"
+        android:layout_toLeftOf="@+id/categoryName"
+        android:background="@drawable/deletebutton"
         android:onClick="onDeleteCategoryClick"
-        android:text="Delete Category" />
+        android:text=" " />
 
     <ListView
         android:id="@android:id/list"

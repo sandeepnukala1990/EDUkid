@@ -40,6 +40,8 @@ public class UserAccountView extends Activity implements OnClickListener {
 	private String userName;
 
 	private ImageView userImage;
+	
+	private ImageView micImage;
 
 	private Database database = Database.getInstance(this);
 
@@ -54,6 +56,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_account);
 		userImage = (ImageView) findViewById(R.id.createUserImage);
+		micImage = (ImageView) findViewById(R.id.accountCreationRecorderButton);
 
 		// Populate user account info from database (if any)
 		List<UserAccount> userAccounts = database.getUserAccounts();
@@ -75,8 +78,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 		createSaveButton.setOnClickListener(this);
 		ImageButton createUploadPhotoButton = (ImageButton) findViewById(R.id.createUploadPhotoButton);
 		createUploadPhotoButton.setOnClickListener(this);
-		Button createAudioButton = (Button) findViewById(R.id.accountCreationRecorderButton);
-		createAudioButton.setOnClickListener(this);
+		micImage.setOnClickListener(this);
 	}
 
 	/**
@@ -96,10 +98,6 @@ public class UserAccountView extends Activity implements OnClickListener {
 		case R.id.accountCreationRecorderButton:
 			//TODO:have state of button switch between start and stop recording
 			onRecord(mStartRecording);
-			if(mStartRecording)
-				this.setTitle("test123");
-			else
-				this.setTitle("winning");
 			mStartRecording = !mStartRecording;
 			break;
 		}
@@ -155,7 +153,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 		startActivityForResult(intent, TAKE_PICTURE);
 	}
-	private void onRecord(boolean start) {
+	public void onRecord(boolean start) {
         if (start) {
             startRecording();
             
@@ -164,8 +162,8 @@ public class UserAccountView extends Activity implements OnClickListener {
         }
     }
 
-	public void startRecording() {
-		
+	private void startRecording() {
+		micImage.setBackgroundResource(R.drawable.abacus);
 		recorder = new MediaRecorder();
 		mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
 		mFileName += "/audiorecordtest.3gp";
@@ -184,6 +182,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 	}
 
 	private void stopRecording() {
+		micImage.setBackgroundResource(R.drawable.mikebutton);
 		recorder.stop();
 		recorder.release();
 		recorder = null;

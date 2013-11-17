@@ -192,31 +192,31 @@ public class DatabaseDefaults {
 			R.drawable.tenpng) };
 
 	private static Word[] col0_WORDS = new Word[] { new Word("Red",
-			R.drawable.red) };
+			R.drawable.edukidicon) };
 
 	private static Word[] col1_WORDS = new Word[] { new Word("Green",
-			R.drawable.green) };
+			R.drawable.edukidicon) };
 
 	private static Word[] col2_WORDS = new Word[] { new Word("Blue",
-			R.drawable.blue) };
+			R.drawable.edukidicon) };
 
 	private static Word[] col3_WORDS = new Word[] { new Word("Orange",
 			R.drawable.orange) };
 
 	private static Word[] col4_WORDS = new Word[] { new Word("Brown",
-			R.drawable.brown) };
+			R.drawable.edukidicon) };
 
 	private static Word[] col5_WORDS = new Word[] { new Word("Yellow",
 			R.drawable.yellow) };
 
 	private static Word[] col6_WORDS = new Word[] { new Word("Violet",
-			R.drawable.black) };
+			R.drawable.edukidicon) };
 
 	private static Word[] col7_WORDS = new Word[] { new Word("Black",
 			R.drawable.edukidicon) };
 
 	private static Word[] col8_WORDS = new Word[] { new Word("White",
-			R.drawable.white) };
+			R.drawable.edukidicon) };
 
 	private static Word[] col9_WORDS = new Word[] { new Word("Gray",
 			R.drawable.edukidicon) };

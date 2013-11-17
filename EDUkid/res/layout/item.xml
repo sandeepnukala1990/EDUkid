@@ -28,15 +28,6 @@
         android:text="Sound:" />
 
     <Button
-        android:id="@+id/deleteItemButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/itemSoundLabel"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="42dp"
-        android:text="Delete Item" />
-
-    <Button
         android:id="@+id/saveItemButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,5 +77,15 @@
         android:layout_toLeftOf="@+id/saveItemButton"
         android:background="@drawable/addbutton"
         android:onClick="onAddWordClick" />
+
+    <Button
+        android:id="@+id/deleteItemButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@android:id/list"
+        android:layout_alignLeft="@+id/itemSoundLabel"
+        android:layout_marginBottom="21dp"
+        android:background="@drawable/deletebutton"
+        android:text="" />
 
 </RelativeLayout>
