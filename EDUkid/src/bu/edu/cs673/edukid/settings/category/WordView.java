@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 
 public class WordView extends ListActivity {
@@ -40,20 +41,21 @@ public class WordView extends ListActivity {
 		itemIndex = extras.getInt(EDUkid.ITEM_INDEX);
 		wordIndex = extras.getInt(EDUkid.WORD_INDEX);
 
+		Word word = categoryType.getItemWord(itemIndex, wordIndex);
+
 		// Set word name
 		wordName = (TextView) findViewById(R.id.wordName);
-		wordName.setText(categoryType.getItemWord(itemIndex, wordIndex));
+		wordName.setText(word.getWord());
 
 		// Set word image
 		wordImage = (ImageView) findViewById(R.id.wordImage);
 		wordImage.setImageDrawable(getResources().getDrawable(
-				categoryType.getItemImage(itemIndex, wordIndex)));
+				categoryType.getItemDrawableId(itemIndex, wordIndex)));
 
-		// TODO: figure out if this is a default word and show/hide the button
-		// based on that. Right now we are hiding it all the time.
 		// Show/hide delete word button
 		Button deleteWordButton = (Button) findViewById(R.id.deleteWordButton);
-		deleteWordButton.setVisibility(View.INVISIBLE);
+		deleteWordButton.setVisibility(word.isDefaultWord() ? View.INVISIBLE
+				: View.VISIBLE);
 	}
 
 	/**

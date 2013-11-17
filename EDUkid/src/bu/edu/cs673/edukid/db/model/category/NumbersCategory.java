@@ -1,7 +1,5 @@
 package bu.edu.cs673.edukid.db.model.category;
 
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.R;
@@ -71,14 +69,13 @@ public class NumbersCategory implements CategoryType {
 		}
 
 		return DatabaseDefaults.getDefaultNumPhoneticSounds(itemIndex);
-
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> getItemWords(int itemIndex) {
+	public Word[] getItemWords(int itemIndex) {
 		// TODO
 		return DatabaseDefaults.getDefaultnumWords(itemIndex);
 	}
@@ -87,9 +84,9 @@ public class NumbersCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getItemWord(int itemIndex, int wordIndex) {
+	public Word getItemWord(int itemIndex, int wordIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultnumWords(itemIndex).get(wordIndex);
+		return DatabaseDefaults.getDefaultnumWords(itemIndex)[wordIndex];
 	}
 
 	/**
@@ -98,7 +95,7 @@ public class NumbersCategory implements CategoryType {
 	@Override
 	public int getItemWordCount(int itemIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultnumWords(itemIndex).size();
+		return DatabaseDefaults.getDefaultnumWords(itemIndex).length;
 	}
 
 	/**
@@ -121,18 +118,10 @@ public class NumbersCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Integer> getItemImages(int itemIndex) {
+	public int getItemDrawableId(int itemIndex, int imageIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultnumDrawableIds(itemIndex);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getItemImage(int itemIndex, int imageIndex) {
-		// TODO
-		return getItemImages(itemIndex).get(imageIndex);
+		return DatabaseDefaults.getDefaultnumWords(itemIndex)[imageIndex]
+				.getDrawableId();
 	}
 
 	/**

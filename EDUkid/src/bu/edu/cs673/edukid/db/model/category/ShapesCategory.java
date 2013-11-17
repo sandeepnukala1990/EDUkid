@@ -1,7 +1,5 @@
 package bu.edu.cs673.edukid.db.model.category;
 
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.R;
@@ -78,7 +76,7 @@ public class ShapesCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> getItemWords(int itemIndex) {
+	public Word[] getItemWords(int itemIndex) {
 		// TODO
 		return DatabaseDefaults.getDefaultShapeWords(itemIndex);
 	}
@@ -87,9 +85,9 @@ public class ShapesCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getItemWord(int itemIndex, int wordIndex) {
+	public Word getItemWord(int itemIndex, int wordIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultShapeWords(itemIndex).get(wordIndex);
+		return DatabaseDefaults.getDefaultShapeWords(itemIndex)[wordIndex];
 	}
 
 	/**
@@ -98,7 +96,17 @@ public class ShapesCategory implements CategoryType {
 	@Override
 	public int getItemWordCount(int itemIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultShapeWords(itemIndex).size();
+		return DatabaseDefaults.getDefaultShapeWords(itemIndex).length;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getItemDrawableId(int itemIndex, int imageIndex) {
+		// TODO
+		return DatabaseDefaults.getDefaultShapeWords(itemIndex)[imageIndex]
+				.getDrawableId();
 	}
 
 	/**
@@ -115,24 +123,6 @@ public class ShapesCategory implements CategoryType {
 	@Override
 	public void editItemWord(int itemIndex, int wordIndex, Word word) {
 		// TODO: Jasjot, implement this
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<Integer> getItemImages(int itemIndex) {
-		// TODO
-		return DatabaseDefaults.getDefaultShapeDrawableIds(itemIndex);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getItemImage(int itemIndex, int imageIndex) {
-		// TODO
-		return getItemImages(itemIndex).get(imageIndex);
 	}
 
 	/**

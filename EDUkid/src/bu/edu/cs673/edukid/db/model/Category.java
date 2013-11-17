@@ -1,8 +1,5 @@
 package bu.edu.cs673.edukid.db.model;
 
-import java.util.Collections;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.db.ImageUtils;
@@ -69,7 +66,7 @@ public class Category implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> getItemWords(int itemIndex) {
+	public Word[] getItemWords(int itemIndex) {
 		return null;
 	}
 
@@ -77,7 +74,7 @@ public class Category implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getItemWord(int itemIndex, int wordIndex) {
+	public Word getItemWord(int itemIndex, int wordIndex) {
 		return null;
 	}
 
@@ -109,16 +106,8 @@ public class Category implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Integer> getItemImages(int itemIndex) {
-		return Collections.emptyList();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getItemImage(int itemIndex, int imageIndex) {
-		return 0;
+	public int getItemDrawableId(int itemIndex, int imageIndex) {
+		return -1;
 	}
 
 	/**

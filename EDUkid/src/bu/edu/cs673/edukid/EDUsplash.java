@@ -61,7 +61,7 @@ public class EDUsplash extends Activity {
 		}
 
 		if (database.getColours().size() == 0) {
-			for (String col : DatabaseDefaults.getColours()) {
+			for (String col : DatabaseDefaults.getColors()) {
 				database.addColour(col, null);
 			}
 		}

@@ -1,7 +1,5 @@
 package bu.edu.cs673.edukid.db.model.category;
 
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.R;
@@ -35,7 +33,7 @@ public class ColorsCategory implements CategoryType {
 	@Override
 	public String[] getItems() {
 		// TODO: don't hardcode
-		return DatabaseDefaults.getColours();
+		return DatabaseDefaults.getColors();
 	}
 
 	/**
@@ -44,7 +42,7 @@ public class ColorsCategory implements CategoryType {
 	@Override
 	public String getItem(int itemIndex) {
 		// TODO
-		return DatabaseDefaults.getColours()[itemIndex];
+		return DatabaseDefaults.getColors()[itemIndex];
 	}
 
 	/**
@@ -52,7 +50,7 @@ public class ColorsCategory implements CategoryType {
 	 */
 	@Override
 	public int getItemCount() {
-		return DatabaseDefaults.getColours().length;
+		return DatabaseDefaults.getColors().length;
 	}
 
 	/**
@@ -71,25 +69,25 @@ public class ColorsCategory implements CategoryType {
 			}
 		}
 
-		return DatabaseDefaults.getDefaultColourPhoneticSounds(itemIndex);
+		return DatabaseDefaults.getDefaultColorPhoneticSounds(itemIndex);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> getItemWords(int itemIndex) {
+	public Word[] getItemWords(int itemIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultColourWords(itemIndex);
+		return DatabaseDefaults.getDefaultColorWords(itemIndex);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getItemWord(int itemIndex, int wordIndex) {
+	public Word getItemWord(int itemIndex, int wordIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultColourWords(itemIndex).get(wordIndex);
+		return DatabaseDefaults.getDefaultColorWords(itemIndex)[wordIndex];
 	}
 
 	/**
@@ -98,7 +96,7 @@ public class ColorsCategory implements CategoryType {
 	@Override
 	public int getItemWordCount(int itemIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultColourWords(itemIndex).size();
+		return DatabaseDefaults.getDefaultColorWords(itemIndex).length;
 	}
 
 	/**
@@ -108,7 +106,7 @@ public class ColorsCategory implements CategoryType {
 	public void addItemWord(int itemIndex, int wordIndex, Word word) {
 		// TODO: Jasjot, implement this
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -121,18 +119,10 @@ public class ColorsCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Integer> getItemImages(int itemIndex) {
+	public int getItemDrawableId(int itemIndex, int imageIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultColourDrawableIds(itemIndex);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getItemImage(int itemIndex, int imageIndex) {
-		// TODO
-		return getItemImages(itemIndex).get(imageIndex);
+		return DatabaseDefaults.getDefaultColorWords(itemIndex)[imageIndex]
+				.getDrawableId();
 	}
 
 	/**

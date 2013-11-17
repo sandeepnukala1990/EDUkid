@@ -14,9 +14,21 @@ public class Word {
 
 	private String wordSound;
 
+	private int drawableId;
+
 	private Drawable wordImage;
 
 	private boolean defaultWord;
+
+	public Word() {
+
+	}
+
+	public Word(String word, int drawableId) {
+		this.word = word;
+		this.drawableId = drawableId;
+		defaultWord = true;
+	}
 
 	public long getLid() {
 		return letterId;
@@ -52,6 +64,14 @@ public class Word {
 
 	public byte[] getWordImage() {
 		return ImageUtils.drawableToByteArray(wordImage);
+	}
+
+	public int getDrawableId() {
+		return drawableId;
+	}
+
+	public Drawable getWordDrawable() {
+		return wordImage;
 	}
 
 	public void setWordImage(byte[] imageData) {

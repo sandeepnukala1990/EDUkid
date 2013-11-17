@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.settings.SettingsAdapter;
 
@@ -60,18 +60,24 @@ public class ItemView extends ListActivity implements OnItemClickListener,
 						: View.INVISIBLE);
 
 		// Setup items adapter
-		Resources resources = getResources();
-		List<String> listItems = categoryType.getItemWords(itemIndex);
-		List<Drawable> listDrawables = new ArrayList<Drawable>();
+		Word[] words = categoryType.getItemWords(itemIndex);
 
-		for (int i = 0; i < listItems.size(); i++) {
-			int drawableId = categoryType.getItemImage(itemIndex, i);
-			listDrawables.add(resources.getDrawable(drawableId));
+		List<String> listItems = new ArrayList<String>();
+		List<Drawable> listDrawables = new ArrayList<Drawable>();
+		List<Boolean> listCheckBoxes = new ArrayList<Boolean>();
+
+		for (int i = 0; i < words.length; i++) {
+			Word word = words[i];
+
+			listItems.add(word.getWord());
+			listDrawables.add(getResources().getDrawable(
+					categoryType.getItemDrawableId(itemIndex, i)));
+			listCheckBoxes.add(word.isDefaultWord());
 		}
 
 		DragNDropListView wordList = (DragNDropListView) findViewById(android.R.id.list);
 		wordsAdapter = new SettingsAdapter(this, R.layout.settings_row,
-				categoryType.getItemWords(itemIndex), listDrawables);
+				listItems, listDrawables, listCheckBoxes);
 		setListAdapter(wordsAdapter);
 
 		wordList.setDragNDropAdapter(wordsAdapter);

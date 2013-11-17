@@ -1,7 +1,6 @@
 package bu.edu.cs673.edukid.db.model.category;
 
 import java.io.Serializable;
-import java.util.List;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -69,7 +68,7 @@ public interface CategoryType extends Serializable {
 	 *            the item index.
 	 * @return the associated words for a given item.
 	 */
-	List<String> getItemWords(int itemIndex);
+	Word[] getItemWords(int itemIndex);
 
 	/**
 	 * Gets the specific word given an item index and word index.
@@ -80,7 +79,7 @@ public interface CategoryType extends Serializable {
 	 *            the word index.
 	 * @return the specific word given an item index and word index.
 	 */
-	String getItemWord(int itemIndex, int wordIndex);
+	Word getItemWord(int itemIndex, int wordIndex);
 
 	/**
 	 * Gets the item word count for this category type.
@@ -116,16 +115,7 @@ public interface CategoryType extends Serializable {
 	void editItemWord(int itemIndex, int wordIndex, Word word);
 
 	/**
-	 * Gets the item images given the item index.
-	 * 
-	 * @param itemIndex
-	 *            the item index.
-	 * @return the item images given the item index.
-	 */
-	List<Integer> getItemImages(int itemIndex);
-
-	/**
-	 * Gets the item image given the item index and image index.
+	 * Gets the item image id.
 	 * 
 	 * @param itemIndex
 	 *            the item index.
@@ -133,7 +123,7 @@ public interface CategoryType extends Serializable {
 	 *            the image index.
 	 * @return the item image given the item index and image index.
 	 */
-	int getItemImage(int itemIndex, int imageIndex);
+	int getItemDrawableId(int itemIndex, int imageIndex);
 
 	/**
 	 * Gets the item text size that will be used when shown on the screen.

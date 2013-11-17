@@ -1,7 +1,5 @@
 package bu.edu.cs673.edukid.db.model.category;
 
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.R;
@@ -75,7 +73,7 @@ public class AlphabetCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> getItemWords(int itemIndex) {
+	public Word[] getItemWords(int itemIndex) {
 		// TODO: need a database query first
 
 		return DatabaseDefaults.getDefaultAlphabetWords(itemIndex);
@@ -85,7 +83,7 @@ public class AlphabetCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getItemWord(int itemIndex, int wordIndex) {
+	public Word getItemWord(int itemIndex, int wordIndex) {
 		// TODO: Jasjot: this is your code from Database.java. It now belongs
 		// here. Uncomment this and fix it please.
 		int listIndex = itemIndex;
@@ -97,18 +95,16 @@ public class AlphabetCategory implements CategoryType {
 
 				if (alp.getLid() == itemIndex) {
 					if (alp.getThemeId() == wordIndex) {
-						return alp.getWord();
+						return alp;
 					} else
 						listIndex++;
 				} else
 					listIndex++;
 			} while (alp.getLid() <= itemIndex);
-			return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).get(
-					wordIndex);
+			return DatabaseDefaults.getDefaultAlphabetWords(itemIndex)[wordIndex];
 		} else
 			// return null;
-			return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).get(
-					wordIndex);
+			return DatabaseDefaults.getDefaultAlphabetWords(itemIndex)[wordIndex];
 	}
 
 	/**
@@ -116,7 +112,7 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public int getItemWordCount(int itemIndex) {
-		return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).size();
+		return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).length;
 	}
 
 	/**
@@ -139,16 +135,9 @@ public class AlphabetCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Integer> getItemImages(int itemIndex) {
-		return DatabaseDefaults.getDefaultAlphabetDrawableIds(itemIndex);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getItemImage(int itemIndex, int imageIndex) {
-		return getItemImages(itemIndex).get(imageIndex);
+	public int getItemDrawableId(int itemIndex, int imageIndex) {
+		return DatabaseDefaults.getDefaultAlphabetWords(itemIndex)[imageIndex]
+				.getDrawableId();
 	}
 
 	/**

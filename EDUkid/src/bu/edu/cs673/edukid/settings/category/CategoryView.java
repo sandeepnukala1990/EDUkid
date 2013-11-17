@@ -6,7 +6,6 @@ import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -64,14 +63,13 @@ public class CategoryView extends ListActivity implements OnItemClickListener {
 				: View.INVISIBLE);
 
 		// Setup items adapter
-		Resources resources = getResources();
 		List<String> listItems = Arrays.asList(categoryType.getItems());
 		List<Drawable> listDrawables = new ArrayList<Drawable>();
 
 		for (int i = 0; i < listItems.size(); i++) {
 			// Show the first image for each item
-			int drawableId = categoryType.getItemImage(i, 0);
-			listDrawables.add(resources.getDrawable(drawableId));
+			listDrawables.add(getResources().getDrawable(
+					categoryType.getItemDrawableId(i, 0)));
 		}
 
 		itemsAdapter = new SettingsAdapter(this, R.layout.settings_row,
