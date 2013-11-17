@@ -72,6 +72,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_COLOUR_IMAGE = "colourimage";
 	public static final String COLUMN_COLOUR_SOUND = "coloursound";
 	
+	public static final String TABLE_TIMER = "timer";
+	public static final String COLUMN_TIMER_EXPIRED = "expired";
+	public static final String COLUMN_TIMER_ENABLED = "enabled";
+	public static final String COLUMN_TIMER_LEFT = "timeleft";
+	public static final String COLUMN_LEARN_TIME = "learntime";
+	
 	private static final String CREATE_CATEGORIES_TABLE = "create table "
 			+ TABLE_CATEGORIES + "(" + COLUMN_CATEGORY_ID
 			+ " integer primary key autoincrement, " + COLUMN_CATEGORY_NAME
@@ -138,6 +144,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ TABLE_NUMBERS + "(" + COLUMN_NID + " integer, " + COLUMN_NTID
 			+ " integer , " + COLUMN_NUMBERS + " text , " + COLUMN_NUMBERS_SOUND
 			+ " text, " + COLUMN_NUMBERS_IMAGE + " text );";
+	
+	private static final String CREATE_TIMER_TABLE=" create table "
+	+TABLE_TIMER+" ( "
+	+COLUMN_TIMER_ENABLED+" integer,"
+	+COLUMN_TIMER_EXPIRED+" integer,"
+	+COLUMN_TIMER_LEFT+" integer,"
+	+COLUMN_LEARN_TIME+" integer);";
 	/**
 	 * Constructor.
 	 * 
@@ -163,6 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_NUMBERS_TABLE);
 		db.execSQL(CREATE_SHAPE_TABLE);
 		db.execSQL(CREATE_COLOUR_TABLE);
+		db.execSQL(CREATE_TIMER_TABLE);
 	}
 
 	/**
@@ -180,6 +194,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(DROP_TABLE + TABLE_NUMBERS);
 		db.execSQL(DROP_TABLE + TABLE_SHAPE);
 		db.execSQL(DROP_TABLE + TABLE_COLOUR);
+		db.execSQL(DROP_TABLE + TABLE_TIMER);
 
 		onCreate(db);
 	}
