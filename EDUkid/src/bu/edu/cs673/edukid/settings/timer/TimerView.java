@@ -13,5 +13,6 @@ public class TimerView extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.timer);
+		
 	}
 }
