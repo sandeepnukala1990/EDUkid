@@ -70,6 +70,10 @@
             android:name="bu.edu.cs673.edukid.settings.category.WordView"
             android:screenOrientation="landscape" >
         </activity>
+        <activity
+            android:name="bu.edu.cs673.edukid.settings.timer.TimerView"
+            android:screenOrientation="landscape" >
+        </activity>
     </application>
 
 </manifest>
