@@ -40,7 +40,7 @@
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/deleteItemButton"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="100dp"
         android:layout_toRightOf="@+id/itemName"
@@ -82,10 +82,16 @@
         android:id="@+id/deleteItemButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@android:id/list"
-        android:layout_alignLeft="@+id/itemSoundLabel"
-        android:layout_marginBottom="21dp"
-        android:background="@drawable/deletebutton"
-        android:text="" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/itemSoundLabel"
+        android:background="@drawable/deletebutton" />
+
+    <Button
+        android:id="@+id/settingsHomeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/deleteItemButton"
+        android:layout_alignRight="@android:id/list"
+        android:background="@drawable/settingshomebutton" />
 
 </RelativeLayout>
