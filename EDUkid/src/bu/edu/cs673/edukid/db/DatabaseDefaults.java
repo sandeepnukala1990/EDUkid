@@ -15,6 +15,7 @@ public class DatabaseDefaults {
 			new AlphabetCategory(), new NumbersCategory(),
 			new ShapesCategory(), new ColorsCategory() };
 
+	// Alphabet default words
 	private static Word[] A_WORDS = new Word[] {
 			new Word("Apple", R.drawable.apple),
 			new Word("Alligator", R.drawable.aligator),
@@ -158,39 +159,52 @@ public class DatabaseDefaults {
 			new Word("Zig Zag", R.drawable.zigzag),
 			new Word("Zoo", R.drawable.zoo) };
 
-	private static Word[] num0_WORDS = new Word[] { new Word("0",
-			R.drawable.edukidicon) };
+	// Number default words
+	private static Word[] ZERO_WORDS = new Word[] {
+			new Word("Zero", R.drawable.edukidicon),
+			new Word("Zero", R.drawable.edukidicon) };
 
-	private static Word[] num1_WORDS = new Word[] { new Word("1",
-			R.drawable.onepng) };
+	private static Word[] ONE_WORDS = new Word[] {
+			new Word("One", R.drawable.onepng),
+			new Word("One", R.drawable.edukidicon) };
 
-	private static Word[] num2_WORDS = new Word[] { new Word("2",
-			R.drawable.twopng) };
+	private static Word[] TWO_WORDS = new Word[] {
+			new Word("Two", R.drawable.twopng),
+			new Word("Two", R.drawable.edukidicon) };
 
-	private static Word[] num3_WORDS = new Word[] { new Word("3",
-			R.drawable.threepng) };
+	private static Word[] THREE_WORDS = new Word[] {
+			new Word("Three", R.drawable.threepng),
+			new Word("Three", R.drawable.edukidicon) };
 
-	private static Word[] num4_WORDS = new Word[] { new Word("4",
-			R.drawable.fourpng) };
+	private static Word[] FOUR_WORDS = new Word[] {
+			new Word("Four", R.drawable.fourpng),
+			new Word("Four", R.drawable.edukidicon) };
 
-	private static Word[] num5_WORDS = new Word[] { new Word("5",
-			R.drawable.fivepng) };
+	private static Word[] FIVE_WORDS = new Word[] {
+			new Word("Five", R.drawable.fivepng),
+			new Word("Five", R.drawable.edukidicon) };
 
-	private static Word[] num6_WORDS = new Word[] { new Word("6",
-			R.drawable.sixpng) };
+	private static Word[] SIX_WORDS = new Word[] {
+			new Word("Six", R.drawable.sixpng),
+			new Word("Six", R.drawable.edukidicon) };
 
-	private static Word[] num7_WORDS = new Word[] { new Word("7",
-			R.drawable.sevenpng) };
+	private static Word[] SEVEN_WORDS = new Word[] {
+			new Word("Seven", R.drawable.sevenpng),
+			new Word("Seven", R.drawable.edukidicon) };
 
-	private static Word[] num8_WORDS = new Word[] { new Word("8",
-			R.drawable.eightpng) };
+	private static Word[] EIGHT_WORDS = new Word[] {
+			new Word("Eight", R.drawable.eightpng),
+			new Word("Eight", R.drawable.edukidicon) };
 
-	private static Word[] num9_WORDS = new Word[] { new Word("9",
-			R.drawable.ninepng) };
+	private static Word[] NINE_WORDS = new Word[] {
+			new Word("Nine", R.drawable.ninepng),
+			new Word("Nine", R.drawable.edukidicon) };
 
-	private static Word[] num10_WORDS = new Word[] { new Word("10",
-			R.drawable.tenpng) };
+	private static Word[] TEN_WORDS = new Word[] {
+			new Word("Ten", R.drawable.tenpng),
+			new Word("Ten", R.drawable.edukidicon) };
 
+	// Colors default words
 	private static Word[] col0_WORDS = new Word[] { new Word("Red",
 			R.drawable.edukidicon) };
 
@@ -221,6 +235,7 @@ public class DatabaseDefaults {
 	private static Word[] col9_WORDS = new Word[] { new Word("Gray",
 			R.drawable.edukidicon) };
 
+	// Shapes default words
 	private static Word[] shape0_WORDS = new Word[] { new Word("Circle",
 			R.drawable.edukidicon) };
 
@@ -361,27 +376,27 @@ public class DatabaseDefaults {
 	public static Word[] getDefaultnumWords(int itemIndex) {
 		switch (itemIndex) {
 		case 0:
-			return num0_WORDS;
+			return ZERO_WORDS;
 		case 1:
-			return num1_WORDS;
+			return ONE_WORDS;
 		case 2:
-			return num2_WORDS;
+			return TWO_WORDS;
 		case 3:
-			return num3_WORDS;
+			return THREE_WORDS;
 		case 4:
-			return num4_WORDS;
+			return FOUR_WORDS;
 		case 5:
-			return num5_WORDS;
+			return FIVE_WORDS;
 		case 6:
-			return num6_WORDS;
+			return SIX_WORDS;
 		case 7:
-			return num7_WORDS;
+			return SEVEN_WORDS;
 		case 8:
-			return num8_WORDS;
+			return EIGHT_WORDS;
 		case 9:
-			return num9_WORDS;
+			return NINE_WORDS;
 		case 10:
-			return num10_WORDS;
+			return TEN_WORDS;
 
 		default:
 			return new Word[0];
