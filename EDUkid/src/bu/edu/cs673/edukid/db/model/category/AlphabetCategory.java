@@ -1,5 +1,8 @@
 package bu.edu.cs673.edukid.db.model.category;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.R;
@@ -32,6 +35,7 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public String[] getItems() {
+		
 		return DatabaseDefaults.getAlphabet();
 	}
 
@@ -40,6 +44,11 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public String getItem(int itemIndex) {
+		if(Database.getInstance().getLetters().size()!=0)
+		{
+			
+			return Database.getInstance().getLetters().get(itemIndex).getLetter();
+		}
 		return DatabaseDefaults.getAlphabet()[itemIndex];
 	}
 
@@ -48,6 +57,11 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public int getItemCount() {
+		if(Database.getInstance().getLetters().size()!=0)
+		{
+			
+			return Database.getInstance().getLetters().size();
+		}
 		return DatabaseDefaults.getAlphabet().length;
 	}
 
@@ -75,8 +89,30 @@ public class AlphabetCategory implements CategoryType {
 	@Override
 	public Word[] getItemWords(int itemIndex) {
 		// TODO: need a database query first
-
-		return DatabaseDefaults.getDefaultAlphabetWords(itemIndex);
+		List<Word> wordList = new ArrayList<Word>();
+		for(Word defaultWord : DatabaseDefaults.getDefaultAlphabetWords(itemIndex))
+		{
+			wordList.add(defaultWord);
+		}
+		
+		
+		List<Word> dbWords=Database.getInstance().getWords();
+		if(dbWords.size()>0)
+		{
+			wordList.addAll(dbWords);
+			/*word = new Word[5];
+			for(int i=0;i<5;i++)
+			{
+					if(Database.getInstance().getWords().get(i)!=null&&
+							Database.getInstance().getWords().get(i).getLid()==itemIndex)
+						word[i]=Database.getInstance().getWords().get(i);
+			}
+			if(word!=null)
+				return word;*/
+		}
+		return wordList.toArray(new Word[0]);
+		
+		
 	}
 
 	/**
@@ -88,16 +124,16 @@ public class AlphabetCategory implements CategoryType {
 		// here. Uncomment this and fix it please.
 		int listIndex = itemIndex;
 
-		if (Database.getInstance().getAlphabets().size() != 0) {
+		if (Database.getInstance().getWords().size() != 0) {
 			Word alp = null;
 			do {
-				alp = Database.getInstance().getAlphabets().get(listIndex);
+				alp = Database.getInstance().getWords().get(listIndex);
 
 				if (alp.getLid() == itemIndex) {
 					if (alp.getThemeId() == wordIndex) {
 						return alp;
 					} else
-						listIndex++;
+					listIndex++;
 				} else
 					listIndex++;
 			} while (alp.getLid() <= itemIndex);
@@ -121,6 +157,8 @@ public class AlphabetCategory implements CategoryType {
 	@Override
 	public void addItemWord(int itemIndex, int wordIndex, Word word) {
 		// TODO: Jasjot, implement this
+		//Database.getInstance().addWords(itemIndex, wordIndex, word.getWord(), word.getWordSound(), null);
+		
 	}
 
 	/**

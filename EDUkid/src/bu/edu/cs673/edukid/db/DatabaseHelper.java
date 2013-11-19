@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String EDUKID_DATABASE = "EDUkid.db";
-	private static final int EDUKID_DATABASE_VERSION = 30;
+	private static final int EDUKID_DATABASE_VERSION = 32;
 
 	private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
 
@@ -37,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_THEME_ID = "themeid";
 	public static final String COLUMN_THEME_NAME = "themename";
 
-	public static final String TABLE_ALPHABET = "alphabet";
+	public static final String TABLE_WORDS = "alphabet";
 	public static final String COLUMN_LID = "lid";
 	public static final String COLUMN_TID = "tid";
 	public static final String COLUMN_WORDS = "words";
@@ -101,10 +101,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ " text not null);";
 
 	private static final String CREATE_ALPHABET_TABLE = "create table "
-			+ TABLE_ALPHABET + "(" + COLUMN_LID + " integer, " + COLUMN_TID
+			+ TABLE_WORDS + "(" + COLUMN_LID + " integer, " + COLUMN_TID
 			+ " integer , " + COLUMN_WORDS + " text , " + COLUMN_WORDS_SOUND
 			+ " text, " + COLUMN_WORDS_IMAGE + " text );";
-	/*
+	
+			/*
 	 * SHAPES TABLE
 	 * 
 	 */
@@ -188,7 +189,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(DROP_TABLE + TABLE_USER_ACCOUNT);
 		db.execSQL(DROP_TABLE + TABLE_LETTERS);
 		db.execSQL(DROP_TABLE + TABLE_THEME);
-		db.execSQL(DROP_TABLE + TABLE_ALPHABET);
+		db.execSQL(DROP_TABLE + TABLE_WORDS);
 		db.execSQL(DROP_TABLE + TABLE_NUMBER);
 		db.execSQL(DROP_TABLE + TABLE_NUM_TYPE);
 		db.execSQL(DROP_TABLE + TABLE_NUMBERS);
