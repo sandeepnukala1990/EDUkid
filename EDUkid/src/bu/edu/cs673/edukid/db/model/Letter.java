@@ -7,7 +7,15 @@ public class Letter {
 	private String letter;
 
 	private String letterSound;
-
+	
+	public Letter()
+	{
+		
+	}
+	public Letter(String let)
+	{
+		this.letter=let;
+	}
 	public long getLetterId() {
 		return letterId;
 	}

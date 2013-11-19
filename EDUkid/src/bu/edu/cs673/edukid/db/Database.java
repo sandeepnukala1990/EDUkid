@@ -51,7 +51,7 @@ public class Database {
 	private String[] themesColumns = { DatabaseHelper.COLUMN_THEME_ID,
 			DatabaseHelper.COLUMN_THEME_NAME };
 
-	private String[] alphabetsColumns = { DatabaseHelper.COLUMN_LID,
+	private String[] wordColumns = { DatabaseHelper.COLUMN_LID,
 			DatabaseHelper.COLUMN_TID, DatabaseHelper.COLUMN_WORDS,
 			DatabaseHelper.COLUMN_WORDS_SOUND,
 			DatabaseHelper.COLUMN_WORDS_IMAGE };
@@ -205,7 +205,7 @@ public class Database {
 
 		// By default, do not add a sound. If the user chooses to add a sound
 		// letter then it will be taken care of with the editLetter() method.
-		contentValues.put(DatabaseHelper.COLUMN_LETTERS_SOUND, "");
+		contentValues.put(DatabaseHelper.COLUMN_LETTERS_SOUND, letter);
 		sqlDatabase.insert(DatabaseHelper.TABLE_LETTERS, null, contentValues);
 	}
 
@@ -224,11 +224,11 @@ public class Database {
 	 * 
 	 * @return a list of the alphabets in the database.
 	 */
-	public List<Word> getAlphabets() {
+	public List<Word> getWords() {
 		List<Word> alpha = new ArrayList<Word>();
 
-		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_ALPHABET,
-				alphabetsColumns, null, null, null, null, null);
+		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_WORDS,
+				wordColumns, null, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
@@ -255,17 +255,25 @@ public class Database {
 	 * @param alphabetImage
 	 *            the alphabet image.
 	 */
-	public void addAlphabets(int letterId, int themeId, String alphabetWord,
-			String alphabetSound, Drawable alphabetImage) {
+	public void addWords(int letterId, int themeId, String alphabetWord, 
+			Drawable alphabetImage) {
+		/* int themeId=0;
+		for(int i=0;i<getWords().size();i++)
+		{
+			if(getWords().get(i).getLid()==letterId)
+			{
+				themeId++;
+			}
+		}*/
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_LID, letterId);
 		contentValues.put(DatabaseHelper.COLUMN_TID, themeId);
 		contentValues.put(DatabaseHelper.COLUMN_WORDS, alphabetWord);
-		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND, alphabetSound);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND, alphabetWord);
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
 				ImageUtils.drawableToByteArray(alphabetImage));
 
-		sqlDatabase.insert(DatabaseHelper.TABLE_ALPHABET, null, contentValues);
+		sqlDatabase.insert(DatabaseHelper.TABLE_WORDS, null, contentValues);
 	}
 	
 	public void editWord(int itemIndex, int wordIndex, Word word) {

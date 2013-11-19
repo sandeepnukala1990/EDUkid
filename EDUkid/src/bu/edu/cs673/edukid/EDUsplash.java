@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.model.Letter;
 
 /**
  * The splash screen, and the entry point into the application.
@@ -49,8 +50,9 @@ public class EDUsplash extends Activity {
 		Database database = Database.getInstance(this);
 
 		if (database.getLetters().size() == 0) {
+			
 			for (String letter : DatabaseDefaults.getAlphabet()) {
-				database.addLetter(letter);
+				database.addLetter(letter.toString());
 			}
 		}
 

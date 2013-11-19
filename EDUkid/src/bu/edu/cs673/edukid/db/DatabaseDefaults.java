@@ -3,6 +3,7 @@ package bu.edu.cs673.edukid.db;
 import android.speech.tts.TextToSpeech;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.model.Word;
+import bu.edu.cs673.edukid.db.model.Letter;
 import bu.edu.cs673.edukid.db.model.category.AlphabetCategory;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.db.model.category.ColorsCategory;
@@ -259,6 +260,7 @@ public class DatabaseDefaults {
 
 	private static Word[] shape7_WORDS = new Word[] { new Word("Star",
 			R.drawable.edukidicon) };
+
 
 	/**
 	 * Constructor.
