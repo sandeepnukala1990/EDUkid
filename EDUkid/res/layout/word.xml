@@ -49,17 +49,6 @@
         android:ems="10" />
 
     <Button
-        android:id="@+id/deleteWordButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/wordImageLabel"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="42dp"
-        android:background="@drawable/deletebutton"
-        android:onClick="onDeleteWordClick"
-        android:text="" />
-
-    <Button
         android:id="@+id/saveWordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,7 +61,7 @@
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/button1"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="100dp"
         android:layout_toRightOf="@+id/wordName"
@@ -96,5 +85,23 @@
         android:layout_marginRight="99dp"
         android:layout_toLeftOf="@+id/addTagButton"
         android:text="Tags" />
+
+    <Button
+        android:id="@+id/deleteWordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/deletebutton"
+        android:onClick="onDeleteWordClick" />
+
+    <Button
+        android:id="@+id/settingsHomeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/deleteWordButton"
+        android:layout_alignBottom="@+id/deleteWordButton"
+        android:layout_toRightOf="@+id/addTagButton"
+        android:background="@drawable/settingshomebutton" />
 
 </RelativeLayout>

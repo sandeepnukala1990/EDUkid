@@ -27,17 +27,6 @@
         android:layout_alignLeft="@+id/createEditChildName"
         android:src="@drawable/username" />
 
-    <ImageButton
-        android:id="@+id/createUploadPhotoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/categoryImage"
-        android:layout_marginBottom="28dp"
-        android:layout_marginRight="199dp"
-        android:layout_toLeftOf="@+id/categoryImage"
-        android:background="@null"
-        android:src="@drawable/camerabutton2" />
-
     <ImageView
         android:id="@+id/createUserImage"
         android:layout_width="wrap_content"
@@ -51,15 +40,6 @@
         android:minWidth="300dp"
         android:scaleType="centerCrop"
         android:src="@drawable/mickey_mouse" />
-
-    <Button
-        android:id="@+id/createSaveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/createUserImage"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="17dp"
-        android:background="@drawable/savebutton" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -77,5 +57,23 @@
         android:layout_alignTop="@+id/createUploadPhotoButton"
         android:layout_marginLeft="60dp"
         android:background="@drawable/mikebutton" />
+
+    <Button
+        android:id="@+id/createSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/savebutton" />
+
+    <ImageButton
+        android:id="@+id/createUploadPhotoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/createUserImage"
+        android:layout_alignRight="@+id/accountCreationRecorderButton"
+        android:layout_marginRight="85dp"
+        android:background="@null"
+        android:src="@drawable/camerabutton2" />
 
 </RelativeLayout>
