@@ -102,8 +102,8 @@ public class NumbersCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addItemWord(int itemIndex, int wordIndex, Word word) {
-		Database.getInstance().addNumbers(itemIndex, wordIndex, "", "", null);
+	public void addItemWord(int itemIndex, Word word) {
+		//Database.getInstance().addNumbers(itemIndex, "", "", null);
 	}
 
 	/**

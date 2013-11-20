@@ -103,7 +103,7 @@ public class ColorsCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addItemWord(int itemIndex, int wordIndex, Word word) {
+	public void addItemWord(int itemIndex, Word word) {
 		// TODO: Jasjot, implement this
 	}
 

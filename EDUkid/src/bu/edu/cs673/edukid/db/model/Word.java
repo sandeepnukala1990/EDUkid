@@ -70,6 +70,10 @@ public class Word {
 		return drawableId;
 	}
 
+	public void setDrawableId(int drawableId) {
+		this.drawableId = drawableId;
+	}
+
 	public Drawable getWordDrawable() {
 		return wordImage;
 	}

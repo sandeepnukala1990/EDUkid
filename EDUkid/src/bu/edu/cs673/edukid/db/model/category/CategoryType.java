@@ -95,12 +95,10 @@ public interface CategoryType extends Serializable {
 	 * 
 	 * @param itemIndex
 	 *            the item index.
-	 * @param wordIndex
-	 *            the word index.
 	 * @param word
 	 *            the word to add.
 	 */
-	void addItemWord(int itemIndex, int wordIndex, Word word);
+	void addItemWord(int itemIndex, Word word);
 
 	/**
 	 * Edits a word in the database.

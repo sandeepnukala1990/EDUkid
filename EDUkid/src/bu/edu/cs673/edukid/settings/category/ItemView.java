@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.settings.SettingsAdapter;
@@ -148,8 +149,16 @@ public class ItemView extends ListActivity implements OnItemClickListener,
 	 *            the view.
 	 */
 	public void onAddWordClick(View view) {
-		// TODO: implement this
-		Toast.makeText(this, "Add word coming soon...", Toast.LENGTH_LONG)
-				.show();
+		// TODO: do this based on user entry
+		// TODO: hard coding these for now to add a new word.
+		Word word = new Word();
+		word.setWord("Armadillo");
+		word.setWordSound("Armadillo");
+		word.setWordImage(ImageUtils.drawableToByteArray(getResources()
+				.getDrawable(R.drawable.boy)));
+
+		categoryType.addItemWord(itemIndex, word);
+
+		// TODO: refresh list
 	}
 }

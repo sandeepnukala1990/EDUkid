@@ -55,7 +55,7 @@ public class Database {
 			DatabaseHelper.COLUMN_TID, DatabaseHelper.COLUMN_WORDS,
 			DatabaseHelper.COLUMN_WORDS_SOUND,
 			DatabaseHelper.COLUMN_WORDS_IMAGE };
-	
+
 	private String[] numColumns = { DatabaseHelper.COLUMN_NUMBER_ID,
 			DatabaseHelper.COLUMN_NUMBER_WORD,
 			DatabaseHelper.COLUMN_NUMBER_SOUND };
@@ -67,13 +67,15 @@ public class Database {
 			DatabaseHelper.COLUMN_NTID, DatabaseHelper.COLUMN_NUMBERS,
 			DatabaseHelper.COLUMN_NUMBERS_SOUND,
 			DatabaseHelper.COLUMN_NUMBERS_IMAGE };
-	
+
 	private String[] colourColumns = { DatabaseHelper.COLUMN_COLOUR_ID,
-			DatabaseHelper.COLUMN_COLOUR_WORD, DatabaseHelper.COLUMN_COLOUR_IMAGE,
+			DatabaseHelper.COLUMN_COLOUR_WORD,
+			DatabaseHelper.COLUMN_COLOUR_IMAGE,
 			DatabaseHelper.COLUMN_COLOUR_SOUND };
-	
+
 	private String[] shapeColumns = { DatabaseHelper.COLUMN_SHAPE_ID,
-			DatabaseHelper.COLUMN_SHAPE_WORD, DatabaseHelper.COLUMN_SHAPE_IMAGE,
+			DatabaseHelper.COLUMN_SHAPE_WORD,
+			DatabaseHelper.COLUMN_SHAPE_IMAGE,
 			DatabaseHelper.COLUMN_SHAPE_SOUND };
 
 	/**
@@ -255,31 +257,31 @@ public class Database {
 	 * @param alphabetImage
 	 *            the alphabet image.
 	 */
-	public void addWords(int letterId, int themeId, String alphabetWord, 
-			Drawable alphabetImage) {
-		/* int themeId=0;
-		for(int i=0;i<getWords().size();i++)
-		{
-			if(getWords().get(i).getLid()==letterId)
-			{
+	public void addWord(int letterId, Word word) {
+		int themeId = 0;
+
+		for (int i = 0; i < getWords().size(); i++) {
+			if (getWords().get(i).getLid() == letterId) {
 				themeId++;
 			}
-		}*/
+		}
+
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_LID, letterId);
 		contentValues.put(DatabaseHelper.COLUMN_TID, themeId);
-		contentValues.put(DatabaseHelper.COLUMN_WORDS, alphabetWord);
-		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND, alphabetWord);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS, word.getWord());
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND,
+				word.getWordSound());
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
-				ImageUtils.drawableToByteArray(alphabetImage));
+				ImageUtils.drawableToByteArray(word.getWordDrawable()));
 
 		sqlDatabase.insert(DatabaseHelper.TABLE_WORDS, null, contentValues);
 	}
-	
+
 	public void editWord(int itemIndex, int wordIndex, Word word) {
 		// TODO: Jasjot, implement this
 	}
-	
+
 	/**
 	 * Gets a list of the themes in the database.
 	 * 
@@ -371,6 +373,7 @@ public class Database {
 		return addUserAccount(userAccount.getUserName(),
 				ImageUtils.byteArrayToDrawable(userAccount.getUserImage()));
 	}
+
 	public List<Num> getNums() {
 		List<Num> num = new ArrayList<Num>();
 
@@ -459,7 +462,7 @@ public class Database {
 		List<NumType> ntype = new ArrayList<NumType>();
 
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_NUM_TYPE,
-			   numTypeColumns, null, null, null, null, null);
+				numTypeColumns, null, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
@@ -483,7 +486,7 @@ public class Database {
 		contentValues.put(DatabaseHelper.COLUMN_TYPE_NAME, type);
 		sqlDatabase.insert(DatabaseHelper.TABLE_NUM_TYPE, null, contentValues);
 	}
-	
+
 	/**
 	 * Gets a list of the colours in the database.
 	 * 
@@ -524,7 +527,7 @@ public class Database {
 		return sqlDatabase.insert(DatabaseHelper.TABLE_COLOUR, null,
 				contentValues);
 	}
-	
+
 	/**
 	 * Gets a list of the shapes in the database.
 	 * 
@@ -567,4 +570,3 @@ public class Database {
 	}
 
 }
-
