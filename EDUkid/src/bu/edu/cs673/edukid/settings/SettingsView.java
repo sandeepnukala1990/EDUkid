@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Toast;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.settings.category.CategoriesView;
 import bu.edu.cs673.edukid.settings.timer.TimerView;
@@ -49,19 +48,6 @@ public class SettingsView extends Activity implements OnItemClickListener {
 	 */
 	public void onCategoriesClick(View view) {
 		startActivity(new Intent(this, CategoriesView.class));
-	}
-
-	/**
-	 * Tags on click callback.
-	 * 
-	 * @param view
-	 *            the view.
-	 */
-	public void onTagsClick(View view) {
-		// TODO: implement this
-		// startActivity(new Intent(this, TagsView.class));
-		Toast.makeText(this, "Tags view coming soon...", Toast.LENGTH_SHORT)
-				.show();
 	}
 
 	/**

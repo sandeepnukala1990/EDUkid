@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String EDUKID_DATABASE = "EDUkid.db";
-	private static final int EDUKID_DATABASE_VERSION = 37;
+	private static final int EDUKID_DATABASE_VERSION = 38;
 
 	private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
 
@@ -32,10 +32,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	protected static final String COLUMN_LETTERS_ID = "letterid";
 	protected static final String COLUMN_LETTERS_WORD = "letterword";
 	protected static final String COLUMN_LETTERS_SOUND = "lettersound";
-
-	protected static final String TABLE_THEME = "theme";
-	protected static final String COLUMN_THEME_ID = "themeid";
-	protected static final String COLUMN_THEME_NAME = "themename";
 
 	protected static final String TABLE_WORDS = "alphabet";
 	protected static final String COLUMN_LID = "lid";
@@ -94,11 +90,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ " integer primary key autoincrement, " + COLUMN_LETTERS_WORD
 			+ " text , " + COLUMN_LETTERS_SOUND + " text );";
 
-	private static final String CREATE_THEME_TABLE = "create table "
-			+ TABLE_THEME + "(" + COLUMN_THEME_ID
-			+ " integer primary key autoincrement, " + COLUMN_THEME_NAME
-			+ " text not null);";
-
 	private static final String CREATE_ALPHABET_TABLE = "create table "
 			+ TABLE_WORDS + "(" + COLUMN_LID + " integer, " + COLUMN_TID
 			+ " integer , " + COLUMN_WORDS + " text , " + COLUMN_WORDS_SOUND
@@ -155,7 +146,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_CATEGORIES_TABLE);
 		db.execSQL(CREATE_USER_ACCOUNT_TABLE);
 		db.execSQL(CREATE_LETTERS_TABLE);
-		db.execSQL(CREATE_THEME_TABLE);
 		db.execSQL(CREATE_ALPHABET_TABLE);
 		db.execSQL(CREATE_NUMBER_TABLE);
 		db.execSQL(CREATE_NUMTYPE_TABLE);
@@ -173,7 +163,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(DROP_TABLE + TABLE_CATEGORIES);
 		db.execSQL(DROP_TABLE + TABLE_USER_ACCOUNT);
 		db.execSQL(DROP_TABLE + TABLE_LETTERS);
-		db.execSQL(DROP_TABLE + TABLE_THEME);
 		db.execSQL(DROP_TABLE + TABLE_WORDS);
 		db.execSQL(DROP_TABLE + TABLE_NUMBER);
 		db.execSQL(DROP_TABLE + TABLE_NUM_TYPE);

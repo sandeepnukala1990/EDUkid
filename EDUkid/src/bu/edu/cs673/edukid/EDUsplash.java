@@ -72,10 +72,5 @@ public class EDUsplash extends Activity {
 				database.addShape(shape, shape, null);
 			}
 		}
-
-		if (database.getThemes().size() == 0) {
-			// TODO: implement themes
-			database.addTheme("ANIMALS");
-		}
 	}
 }

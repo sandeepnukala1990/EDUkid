@@ -1,6 +1,6 @@
 package bu.edu.cs673.edukid.settings.category;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +14,7 @@ import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.settings.SettingsView;
 
-public class WordView extends ListActivity {
+public class WordView extends Activity {
 
 	private CategoryType categoryType;
 

@@ -57,35 +57,6 @@
         android:background="@drawable/savebutton"
         android:onClick="onSaveWordClick" />
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/button1"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="100dp"
-        android:layout_toRightOf="@+id/wordName"
-        android:drawSelectorOnTop="false" />
-
-    <Button
-        android:id="@+id/addTagButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/saveWordButton"
-        android:layout_marginRight="21dp"
-        android:layout_toLeftOf="@+id/saveWordButton"
-        android:background="@drawable/addbutton"
-        android:onClick="onAddTagClick" />
-
-    <TextView
-        android:id="@+id/tagsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/saveWordButton"
-        android:layout_marginRight="99dp"
-        android:layout_toLeftOf="@+id/addTagButton"
-        android:text="Tags" />
-
     <Button
         android:id="@+id/deleteWordButton"
         android:layout_width="wrap_content"
@@ -99,9 +70,8 @@
         android:id="@+id/settingsHomeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/deleteWordButton"
-        android:layout_alignBottom="@+id/deleteWordButton"
-        android:layout_toRightOf="@+id/addTagButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:background="@drawable/settingshomebutton"
         android:onClick="onSettingsHomeClick" />
 

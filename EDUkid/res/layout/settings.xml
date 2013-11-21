@@ -34,13 +34,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/themetile"
-            android:onClick="onTagsClick" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:background="@drawable/timertile"
             android:onClick="onTimerClick" />
     </LinearLayout>

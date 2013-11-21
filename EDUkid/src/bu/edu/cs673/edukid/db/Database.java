@@ -9,16 +9,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.db.defaults.DatabaseDefaults;
-import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.Color;
 import bu.edu.cs673.edukid.db.model.Letter;
-import bu.edu.cs673.edukid.db.model.Theme;
-import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.db.model.Num;
-import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.db.model.NumType;
 import bu.edu.cs673.edukid.db.model.Number;
 import bu.edu.cs673.edukid.db.model.Shape;
+import bu.edu.cs673.edukid.db.model.UserAccount;
+import bu.edu.cs673.edukid.db.model.Word;
+import bu.edu.cs673.edukid.db.model.category.CategoryType;
 
 /**
  * The main database class which provides "access" to the database via accessor
@@ -48,9 +47,6 @@ public class Database {
 	private String[] lettersColumns = { DatabaseHelper.COLUMN_LETTERS_ID,
 			DatabaseHelper.COLUMN_LETTERS_WORD,
 			DatabaseHelper.COLUMN_LETTERS_SOUND };
-
-	private String[] themesColumns = { DatabaseHelper.COLUMN_THEME_ID,
-			DatabaseHelper.COLUMN_THEME_NAME };
 
 	private String[] wordColumns = { DatabaseHelper.COLUMN_LID,
 			DatabaseHelper.COLUMN_TID, DatabaseHelper.COLUMN_WORDS,
@@ -291,40 +287,6 @@ public class Database {
 	 */
 	public void editWord(int itemIndex, int wordIndex, Word word) {
 		// TODO: Jasjot, implement this
-	}
-
-	/**
-	 * Gets a list of the themes in the database.
-	 * 
-	 * @return a list of the themes in the database.
-	 */
-	public List<Theme> getThemes() {
-		List<Theme> themes = new ArrayList<Theme>();
-
-		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_THEME,
-				themesColumns, null, null, null, null, null);
-		cursor.moveToFirst();
-
-		while (!cursor.isAfterLast()) {
-			themes.add(DatabaseUtils.convertCursorToTheme(cursor));
-			cursor.moveToNext();
-		}
-
-		cursor.close();
-
-		return themes;
-	}
-
-	/**
-	 * Adds a theme to the database.
-	 * 
-	 * @param theme
-	 *            the theme to add.
-	 */
-	public void addTheme(String theme) {
-		ContentValues contentValues = new ContentValues();
-		contentValues.put(DatabaseHelper.COLUMN_THEME_NAME, theme);
-		sqlDatabase.insert(DatabaseHelper.TABLE_THEME, null, contentValues);
 	}
 
 	/**
