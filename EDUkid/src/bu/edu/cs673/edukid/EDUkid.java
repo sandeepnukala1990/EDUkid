@@ -62,8 +62,19 @@ public class EDUkid extends Activity implements OnClickListener {
 	public void onClick(View view) {
 		CategoryType categoryType = Database.getInstance(this).getCategories()[view
 				.getId()];
+		Intent intent;
 
-		Intent intent = new Intent(this, LearnContentView.class);
+		if (categoryType.hasGameMode()) {
+			// TODO: Sweekriti: when you are ready to add your game mode, this
+			// will only be called for the alphabet category type. Here you can
+			// present the user with a new view that gives 2 options (1. Learn
+			// Mode, 2. Game Mode). For now, things will be handled like they
+			// always have been.
+			intent = new Intent(this, LearnContentView.class);
+		} else {
+			intent = new Intent(this, LearnContentView.class);
+		}
+
 		intent.putExtra(CATEGORY_TYPE, categoryType);
 		startActivity(intent);
 	}
