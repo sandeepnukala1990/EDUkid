@@ -20,6 +20,7 @@ import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.model.Category;
 import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
+import bu.edu.cs673.edukid.game.TempGameView;
 import bu.edu.cs673.edukid.learn.LearnContentView;
 import bu.edu.cs673.edukid.settings.SettingsView;
 import bu.edu.cs673.edukid.settings.utils.MathProblem;
@@ -208,5 +209,11 @@ public class EDUkid extends Activity implements OnClickListener {
 	private void showSettingsToast() {
 		Toast.makeText(this, "Incorrect answer. Please try again.",
 				Toast.LENGTH_LONG).show();
+	}
+	
+	public void onTempGameClick(View view) {
+		Intent intent = new Intent(this, TempGameView.class);
+	
+		startActivity(intent);
 	}
 }
