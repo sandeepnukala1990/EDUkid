@@ -8,8 +8,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
+import bu.edu.cs673.edukid.db.defaults.DatabaseDefaults;
 import bu.edu.cs673.edukid.db.model.Word;
-import bu.edu.cs673.edukid.db.model.Colour;
+import bu.edu.cs673.edukid.db.model.Color;
 import bu.edu.cs673.edukid.db.model.Letter;
 import bu.edu.cs673.edukid.db.model.Theme;
 import bu.edu.cs673.edukid.db.model.UserAccount;
@@ -207,7 +208,7 @@ public class Database {
 
 		// By default, do not add a sound. If the user chooses to add a sound
 		// letter then it will be taken care of with the editLetter() method.
-		contentValues.put(DatabaseHelper.COLUMN_LETTERS_SOUND, letter);
+		contentValues.put(DatabaseHelper.COLUMN_LETTERS_SOUND, "");
 		sqlDatabase.insert(DatabaseHelper.TABLE_LETTERS, null, contentValues);
 	}
 
@@ -234,7 +235,7 @@ public class Database {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			alpha.add(DatabaseUtils.convertCursorToAlphabets(cursor));
+			alpha.add(DatabaseUtils.convertCursorToWord(cursor));
 			cursor.moveToNext();
 		}
 
@@ -278,6 +279,16 @@ public class Database {
 		sqlDatabase.insert(DatabaseHelper.TABLE_WORDS, null, contentValues);
 	}
 
+	/**
+	 * Edits a word in the database.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @param wordIndex
+	 *            the word index.
+	 * @param word
+	 *            the new word to replace with the existing one.
+	 */
 	public void editWord(int itemIndex, int wordIndex, Word word) {
 		// TODO: Jasjot, implement this
 	}
@@ -344,17 +355,20 @@ public class Database {
 	 * 
 	 * @param userName
 	 *            the user name.
+	 * @param userSound
+	 *            the user sound.
 	 * @param userImage
 	 *            the user image.
 	 * @return the row ID of the newly inserted row, or -1 if an error occurred
 	 */
-	public long addUserAccount(String userName, Drawable userImage) {
+	public long addUserAccount(String userName, String userSound,
+			Drawable userImage) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_USER_NAME, userName);
 		contentValues.put(DatabaseHelper.COLUMN_USER_IMAGE,
 				ImageUtils.drawableToByteArray(userImage));
-		// TODO: need to add the user sound here
-		contentValues.put(DatabaseHelper.COLUMN_USER_SOUND, userName);
+		contentValues.put(DatabaseHelper.COLUMN_USER_SOUND, userSound);
+
 		return sqlDatabase.insert(DatabaseHelper.TABLE_USER_ACCOUNT, null,
 				contentValues);
 	}
@@ -371,6 +385,7 @@ public class Database {
 				DatabaseHelper.COLUMN_USER_ID + " = ?",
 				new String[] { String.valueOf(userAccount.getId()) });
 		return addUserAccount(userAccount.getUserName(),
+				userAccount.getUserSound(),
 				ImageUtils.byteArrayToDrawable(userAccount.getUserImage()));
 	}
 
@@ -382,7 +397,7 @@ public class Database {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			num.add(DatabaseUtils.convertCursorToNumber(cursor));
+			num.add(DatabaseUtils.convertCursorToNum(cursor));
 			cursor.moveToNext();
 		}
 
@@ -417,7 +432,7 @@ public class Database {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			number.add(DatabaseUtils.convertCursorToNumbers(cursor));
+			number.add(DatabaseUtils.convertCursorToNumber(cursor));
 			cursor.moveToNext();
 		}
 
@@ -488,18 +503,18 @@ public class Database {
 	}
 
 	/**
-	 * Gets a list of the colours in the database.
+	 * Gets a list of the colors in the database.
 	 * 
-	 * @return a list of the colours in the database.
+	 * @return a list of the colors in the database.
 	 */
-	public List<Colour> getColours() {
-		List<Colour> colours = new ArrayList<Colour>();
+	public List<Color> getColors() {
+		List<Color> colours = new ArrayList<Color>();
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_COLOUR,
 				colourColumns, null, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			colours.add(DatabaseUtils.convertCursorToColour(cursor));
+			colours.add(DatabaseUtils.convertCursorToColor(cursor));
 			cursor.moveToNext();
 		}
 
@@ -509,21 +524,22 @@ public class Database {
 	}
 
 	/**
-	 * Adds a colours to the database.
+	 * Adds a color to the database.
 	 * 
-	 * @param col
-	 *            the colour name.
-	 * @param colImage
-	 *            the colour image.
+	 * @param color
+	 *            the color name.
+	 * @param colorSound
+	 *            the color sound.
+	 * @param colorImage
+	 *            the color image.
 	 * @return the row ID of the newly inserted row, or -1 if an error occurred
 	 */
-	public long addColour(String col, Drawable colImage) {
+	public long addColor(String color, String colorSound, Drawable colorImage) {
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(DatabaseHelper.COLUMN_COLOUR_WORD, col);
+		contentValues.put(DatabaseHelper.COLUMN_COLOUR_WORD, color);
 		contentValues.put(DatabaseHelper.COLUMN_COLOUR_IMAGE,
-				ImageUtils.drawableToByteArray(colImage));
-		// TODO: need to add the user sound here
-		contentValues.put(DatabaseHelper.COLUMN_COLOUR_SOUND, col);
+				ImageUtils.drawableToByteArray(colorImage));
+		contentValues.put(DatabaseHelper.COLUMN_COLOUR_SOUND, colorSound);
 		return sqlDatabase.insert(DatabaseHelper.TABLE_COLOUR, null,
 				contentValues);
 	}
@@ -554,17 +570,18 @@ public class Database {
 	 * 
 	 * @param shape
 	 *            the shape name.
+	 * @param shapeSound
+	 *            the shape sound.
 	 * @param shapeImage
 	 *            the shape image.
 	 * @return the row ID of the newly inserted row, or -1 if an error occurred
 	 */
-	public long addShape(String shape, Drawable shapeImage) {
+	public long addShape(String shape, String shapeSound, Drawable shapeImage) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_SHAPE_WORD, shape);
 		contentValues.put(DatabaseHelper.COLUMN_SHAPE_IMAGE,
 				ImageUtils.drawableToByteArray(shapeImage));
-		// TODO: need to add the user sound here
-		contentValues.put(DatabaseHelper.COLUMN_SHAPE_SOUND, shape);
+		contentValues.put(DatabaseHelper.COLUMN_SHAPE_SOUND, shapeSound);
 		return sqlDatabase.insert(DatabaseHelper.TABLE_SHAPE, null,
 				contentValues);
 	}

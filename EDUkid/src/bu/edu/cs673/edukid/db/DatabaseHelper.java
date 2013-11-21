@@ -13,77 +13,76 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String EDUKID_DATABASE = "EDUkid.db";
-	private static final int EDUKID_DATABASE_VERSION = 35;
+	private static final int EDUKID_DATABASE_VERSION = 37;
 
 	private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
 
-	public static final String TABLE_CATEGORIES = "categories";
-	public static final String COLUMN_CATEGORY_ID = "_id";
-	public static final String COLUMN_CATEGORY_NAME = "category";
-	public static final String COLUMN_CATEGORY_IMAGE = "image";
+	protected static final String TABLE_CATEGORIES = "categories";
+	protected static final String COLUMN_CATEGORY_ID = "_id";
+	protected static final String COLUMN_CATEGORY_NAME = "category";
+	protected static final String COLUMN_CATEGORY_IMAGE = "image";
 
-	public static final String TABLE_USER_ACCOUNT = "useraccount";
-	public static final String COLUMN_USER_ID = "uid";
-	public static final String COLUMN_USER_NAME = "username";
-	public static final String COLUMN_USER_IMAGE = "userimage";
-	public static final String COLUMN_USER_SOUND = "usersound";
+	protected static final String TABLE_USER_ACCOUNT = "useraccount";
+	protected static final String COLUMN_USER_ID = "uid";
+	protected static final String COLUMN_USER_NAME = "username";
+	protected static final String COLUMN_USER_IMAGE = "userimage";
+	protected static final String COLUMN_USER_SOUND = "usersound";
 
-	public static final String TABLE_LETTERS = "letter";
-	public static final String COLUMN_LETTERS_ID = "letterid";
-	public static final String COLUMN_LETTERS_WORD = "letterword";
-	public static final String COLUMN_LETTERS_SOUND = "lettersound";
+	protected static final String TABLE_LETTERS = "letter";
+	protected static final String COLUMN_LETTERS_ID = "letterid";
+	protected static final String COLUMN_LETTERS_WORD = "letterword";
+	protected static final String COLUMN_LETTERS_SOUND = "lettersound";
 
-	public static final String TABLE_THEME = "theme";
-	public static final String COLUMN_THEME_ID = "themeid";
-	public static final String COLUMN_THEME_NAME = "themename";
+	protected static final String TABLE_THEME = "theme";
+	protected static final String COLUMN_THEME_ID = "themeid";
+	protected static final String COLUMN_THEME_NAME = "themename";
 
-	public static final String TABLE_WORDS = "alphabet";
-	public static final String COLUMN_LID = "lid";
-	public static final String COLUMN_TID = "tid";
-	public static final String COLUMN_WORDS = "words";
-	public static final String COLUMN_WORDS_SOUND = "wordssound";
-	public static final String COLUMN_WORDS_IMAGE = "wordsimage";
+	protected static final String TABLE_WORDS = "alphabet";
+	protected static final String COLUMN_LID = "lid";
+	protected static final String COLUMN_TID = "tid";
+	protected static final String COLUMN_WORDS = "words";
+	protected static final String COLUMN_WORDS_SOUND = "wordssound";
+	protected static final String COLUMN_WORDS_IMAGE = "wordsimage";
 
-	public static final String TABLE_NUMBER = "number";
-	public static final String COLUMN_NUMBER_ID = "numberid";
-	public static final String COLUMN_NUMBER_WORD = "num";
-	public static final String COLUMN_NUMBER_SOUND = "numbersound";
+	protected static final String TABLE_NUMBER = "number";
+	protected static final String COLUMN_NUMBER_ID = "numberid";
+	protected static final String COLUMN_NUMBER_WORD = "num";
+	protected static final String COLUMN_NUMBER_SOUND = "numbersound";
 
-	public static final String TABLE_NUM_TYPE = "ntype";
-	public static final String COLUMN_TYPE_ID = "ntypeid";
-	public static final String COLUMN_TYPE_NAME = "ntypename";
+	protected static final String TABLE_NUM_TYPE = "ntype";
+	protected static final String COLUMN_TYPE_ID = "ntypeid";
+	protected static final String COLUMN_TYPE_NAME = "ntypename";
 
-	public static final String TABLE_NUMBERS = "numbers";
-	public static final String COLUMN_NID = "nid";
-	public static final String COLUMN_NTID = "ntid";
-	public static final String COLUMN_NUMBERS = "numbers";
-	public static final String COLUMN_NUMBERS_SOUND = "numberssound";
-	public static final String COLUMN_NUMBERS_IMAGE = "numberimage";
+	protected static final String TABLE_NUMBERS = "numbers";
+	protected static final String COLUMN_NID = "nid";
+	protected static final String COLUMN_NTID = "ntid";
+	protected static final String COLUMN_NUMBERS = "numbers";
+	protected static final String COLUMN_NUMBERS_SOUND = "numberssound";
+	protected static final String COLUMN_NUMBERS_IMAGE = "numberimage";
 
-	public static final String TABLE_SHAPE = "shape";
-	public static final String COLUMN_SHAPE_ID = "shapeid";
-	public static final String COLUMN_SHAPE_WORD = "shapeword";
-	public static final String COLUMN_SHAPE_IMAGE = "shapeimage";
-	public static final String COLUMN_SHAPE_SOUND = "shapesound";
+	protected static final String TABLE_SHAPE = "shape";
+	protected static final String COLUMN_SHAPE_ID = "shapeid";
+	protected static final String COLUMN_SHAPE_WORD = "shapeword";
+	protected static final String COLUMN_SHAPE_IMAGE = "shapeimage";
+	protected static final String COLUMN_SHAPE_SOUND = "shapesound";
 
-	public static final String TABLE_COLOUR = "colour";
-	public static final String COLUMN_COLOUR_ID = "colourid";
-	public static final String COLUMN_COLOUR_WORD = "colourword";
-	public static final String COLUMN_COLOUR_IMAGE = "colourimage";
-	public static final String COLUMN_COLOUR_SOUND = "coloursound";
+	protected static final String TABLE_COLOUR = "colour";
+	protected static final String COLUMN_COLOUR_ID = "colourid";
+	protected static final String COLUMN_COLOUR_WORD = "colourword";
+	protected static final String COLUMN_COLOUR_IMAGE = "colourimage";
+	protected static final String COLUMN_COLOUR_SOUND = "coloursound";
 
-	public static final String TABLE_TIMER = "timer";
-	public static final String COLUMN_TIMER_EXPIRED = "expired";
-	public static final String COLUMN_TIMER_ENABLED = "enabled";
-	public static final String COLUMN_TIMER_LEFT = "timeleft";
-	public static final String COLUMN_LEARN_TIME = "learntime";
+	protected static final String TABLE_TIMER = "timer";
+	protected static final String COLUMN_TIMER_EXPIRED = "expired";
+	protected static final String COLUMN_TIMER_ENABLED = "enabled";
+	protected static final String COLUMN_TIMER_LEFT = "timeleft";
+	protected static final String COLUMN_LEARN_TIME = "learntime";
 
 	private static final String CREATE_CATEGORIES_TABLE = "create table "
 			+ TABLE_CATEGORIES + "(" + COLUMN_CATEGORY_ID
 			+ " integer primary key autoincrement, " + COLUMN_CATEGORY_NAME
 			+ " text not null, " + COLUMN_CATEGORY_IMAGE + " text not null);";
 
-	// TODO: sound is text. investigate this.
 	private static final String CREATE_USER_ACCOUNT_TABLE = "create table "
 			+ TABLE_USER_ACCOUNT + "(" + COLUMN_USER_ID
 			+ " integer primary key autoincrement, " + COLUMN_USER_NAME
@@ -105,30 +104,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ " integer , " + COLUMN_WORDS + " text , " + COLUMN_WORDS_SOUND
 			+ " text, " + COLUMN_WORDS_IMAGE + " text );";
 
-	/*
-	 * SHAPES TABLE
-	 */
-
 	private static final String CREATE_SHAPE_TABLE = "create table "
 			+ TABLE_SHAPE + "(" + COLUMN_SHAPE_ID
 			+ " integer primary key autoincrement, " + COLUMN_SHAPE_WORD
 			+ " text , " + COLUMN_SHAPE_IMAGE + " text , " + COLUMN_SHAPE_SOUND
 			+ " text );";
-	/*
-	 * COLOURS TABLE
-	 */
 
 	private static final String CREATE_COLOUR_TABLE = "create table "
 			+ TABLE_COLOUR + "(" + COLUMN_COLOUR_ID
 			+ " integer primary key autoincrement, " + COLUMN_COLOUR_WORD
 			+ " text , " + COLUMN_COLOUR_IMAGE + " text , "
 			+ COLUMN_COLOUR_SOUND + " text );";
-
-	/**
-	 * 
-	 * NUMBERS DATABASE
-	 * 
-	 */
 
 	private static final String CREATE_NUMBER_TABLE = "create table "
 			+ TABLE_NUMBER + "(" + COLUMN_NUMBER_ID

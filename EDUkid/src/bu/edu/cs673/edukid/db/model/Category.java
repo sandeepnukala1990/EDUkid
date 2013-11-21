@@ -130,7 +130,7 @@ public class Category implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean canDeleteCategory() {
+	public boolean canModifyCategory() {
 		return true;
 	}
 

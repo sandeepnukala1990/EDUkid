@@ -9,15 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.Toast;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import bu.edu.cs673.edukid.R;
 
-import com.terlici.dragndroplist.DragNDropAdapter;
-import com.terlici.dragndroplist.DragNDropListView;
-
 public class SettingsAdapter extends ArrayAdapter<String> implements
-		DragNDropAdapter {
+		OnCheckedChangeListener {
 
 	private Context context;
 
@@ -71,10 +71,10 @@ public class SettingsAdapter extends ArrayAdapter<String> implements
 					: View.INVISIBLE);
 		}
 
-		// TODO: set this based on the default status
 		// TODO: then set this based on the new default image database table
-		// Set check box
 		checkBox.setChecked(true);
+		checkBox.setId(position);
+		checkBox.setOnCheckedChangeListener(this);
 
 		return rowView;
 	}
@@ -83,31 +83,9 @@ public class SettingsAdapter extends ArrayAdapter<String> implements
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onItemDrag(DragNDropListView parent, View view, int position,
-			long id) {
-		// NO-OP
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void onItemDrop(DragNDropListView parent, View view,
-			int startPosition, int endPosition, long id) {
-		String item = listItems.remove(startPosition);
-		listItems.add(endPosition, item);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getDragHandler() {
-		// TODO: if we use this, then make a drag icon with 3 horizontal lines
-		return R.id.rowImage;
-	}
-
-	public List<String> getListItems() {
-		return listItems;
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		Toast.makeText(getContext(),
+				buttonView.getId() + " : checked: " + isChecked,
+				Toast.LENGTH_SHORT).show();
 	}
 }

@@ -12,6 +12,7 @@ import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
+import bu.edu.cs673.edukid.settings.SettingsView;
 
 public class WordView extends ListActivity {
 
@@ -56,6 +57,18 @@ public class WordView extends ListActivity {
 		Button deleteWordButton = (Button) findViewById(R.id.deleteWordButton);
 		deleteWordButton.setVisibility(word.isDefaultWord() ? View.INVISIBLE
 				: View.VISIBLE);
+	}
+
+	/**
+	 * Settings home on click callback.
+	 * 
+	 * @param view
+	 *            the view.
+	 */
+	public void onSettingsHomeClick(View view) {
+		Intent intent = new Intent(this, SettingsView.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
 	}
 
 	/**

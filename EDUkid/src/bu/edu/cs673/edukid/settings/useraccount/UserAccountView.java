@@ -32,7 +32,7 @@ import bu.edu.cs673.edukid.db.model.UserAccount;
 public class UserAccountView extends Activity implements OnClickListener {
 
 	private static final int TAKE_PICTURE = 1888;
-	
+
 	private boolean mStartRecording = true;
 
 	private static final long DATABASE_ERROR = -1;
@@ -40,7 +40,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 	private String userName;
 
 	private ImageView userImage;
-	
+
 	private ImageView micImage;
 
 	private Database database = Database.getInstance(this);
@@ -96,7 +96,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 			startCamera();
 			break;
 		case R.id.accountCreationRecorderButton:
-			//TODO:have state of button switch between start and stop recording
+			// TODO:have state of button switch between start and stop recording
 			onRecord(mStartRecording);
 			mStartRecording = !mStartRecording;
 			break;
@@ -127,7 +127,9 @@ public class UserAccountView extends Activity implements OnClickListener {
 		long result = DATABASE_ERROR;
 
 		if (userAccounts.size() == 0) {
-			result = database.addUserAccount(userName, userImage.getDrawable());
+			// TODO: Peter: replace "" with real user sound.
+			result = database.addUserAccount(userName, "",
+					userImage.getDrawable());
 		} else if (userAccounts.size() == 1) {
 			UserAccount userAccount = userAccounts.get(0);
 			userAccount.setUserName(userName);
@@ -153,14 +155,15 @@ public class UserAccountView extends Activity implements OnClickListener {
 		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 		startActivityForResult(intent, TAKE_PICTURE);
 	}
+
 	public void onRecord(boolean start) {
-        if (start) {
-            startRecording();
-            
-        } else {
-            stopRecording();
-        }
-    }
+		if (start) {
+			startRecording();
+
+		} else {
+			stopRecording();
+		}
+	}
 
 	private void startRecording() {
 		micImage.setBackgroundResource(R.drawable.abacus);

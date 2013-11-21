@@ -7,7 +7,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.defaults.DatabaseDefaults;
 import bu.edu.cs673.edukid.db.model.Letter;
 import bu.edu.cs673.edukid.db.model.Word;
 
@@ -79,7 +79,7 @@ public class AlphabetCategory implements CategoryType {
 			}
 		}
 
-		return DatabaseDefaults.getDefaultAlphabetPhoneticSounds(itemIndex);
+		return DatabaseDefaults.getDefaultAlphabetPhoneticSounds()[itemIndex];
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class AlphabetCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean canDeleteCategory() {
+	public boolean canModifyCategory() {
 		return false;
 	}
 }

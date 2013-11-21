@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.defaults.DatabaseDefaults;
 import bu.edu.cs673.edukid.db.model.Shape;
 import bu.edu.cs673.edukid.db.model.Word;
 
@@ -69,7 +69,7 @@ public class ShapesCategory implements CategoryType {
 			}
 		}
 
-		return DatabaseDefaults.getDefaultShapePhoneticSounds(itemIndex);
+		return DatabaseDefaults.getDefaultShapePhoneticSounds()[itemIndex];
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class ShapesCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean canDeleteCategory() {
+	public boolean canModifyCategory() {
 		return false;
 	}
 }

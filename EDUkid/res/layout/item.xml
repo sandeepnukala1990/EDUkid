@@ -36,7 +36,7 @@
         android:background="@drawable/savebutton"
         android:onClick="onSaveItemClick" />
 
-    <com.terlici.dragndroplist.DragNDropListView
+    <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -63,10 +63,7 @@
         android:layout_alignBaseline="@+id/itemLabel"
         android:layout_alignBottom="@+id/itemLabel"
         android:layout_toRightOf="@+id/deleteItemButton"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
+        android:ems="10" />
 
     <Button
         android:id="@+id/addWordButton"
@@ -92,6 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/deleteItemButton"
         android:layout_alignRight="@android:id/list"
-        android:background="@drawable/settingshomebutton" />
+        android:background="@drawable/settingshomebutton"
+        android:onClick="onSettingsHomeClick" />
 
 </RelativeLayout>

@@ -9,7 +9,7 @@ import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.db.model.Num;
 import bu.edu.cs673.edukid.db.model.NumType;
 import bu.edu.cs673.edukid.db.model.Number;
-import bu.edu.cs673.edukid.db.model.Colour;
+import bu.edu.cs673.edukid.db.model.Color;
 import bu.edu.cs673.edukid.db.model.Shape;
 
 ;
@@ -100,38 +100,38 @@ public class DatabaseUtils {
 	}
 
 	/**
-	 * Converts a cursor object to an alphabets object.
+	 * Converts a cursor object to a Word object.
 	 * 
 	 * @param cursor
 	 *            the database cursor object.
-	 * @return an alphabets object.
+	 * @return a Word object.
 	 */
-	public static Word convertCursorToAlphabets(Cursor cursor) {
-		Word alphabets = new Word();
-		alphabets.setLetterId(cursor.getLong(0));
-		alphabets.setThemeId(cursor.getLong(1));
-		alphabets.setWord(cursor.getString(2));
-		alphabets.setWordSound(cursor.getString(3));
-		alphabets.setWordImage(cursor.getBlob(4));
-		alphabets.setDefaultWord(false);
+	public static Word convertCursorToWord(Cursor cursor) {
+		Word word = new Word();
+		word.setLetterId(cursor.getLong(0));
+		word.setThemeId(cursor.getLong(1));
+		word.setWord(cursor.getString(2));
+		word.setWordSound(cursor.getString(3));
+		word.setWordImage(cursor.getBlob(4));
+		word.setDefaultWord(false);
 
-		return alphabets;
+		return word;
 	}
 
 	/**
-	 * Converts a cursor object to a number object.
+	 * Converts a cursor object to a Num object.
 	 * 
 	 * @param cursor
 	 *            the database cursor object.
-	 * @return a number object.
+	 * @return a Num object.
 	 */
-	public static Num convertCursorToNumber(Cursor cursor) {
-		Num number = new Num();
-		number.setNumberId(cursor.getLong(0));
-		number.setNumber(cursor.getString(1));
-		number.setNumberSound(cursor.getString(2));
+	public static Num convertCursorToNum(Cursor cursor) {
+		Num num = new Num();
+		num.setNumberId(cursor.getLong(0));
+		num.setNumber(cursor.getString(1));
+		num.setNumberSound(cursor.getString(2));
 
-		return number;
+		return num;
 
 	}
 
@@ -140,49 +140,49 @@ public class DatabaseUtils {
 	 * 
 	 * @param cursor
 	 *            the database cursor object.
-	 * @return a ntype object.
+	 * @return a NumType object.
 	 */
 	public static NumType convertCursorToNumType(Cursor cursor) {
-		NumType ntype = new NumType();
-		ntype.setNumtypeId(cursor.getLong(0));
-		ntype.setNumtype(cursor.getString(1));
+		NumType numtype = new NumType();
+		numtype.setNumtypeId(cursor.getLong(0));
+		numtype.setNumtype(cursor.getString(1));
 
-		return ntype;
+		return numtype;
 	}
 
 	/**
-	 * Converts a cursor object to an Numbers object.
+	 * Converts a cursor object to an Number object.
 	 * 
 	 * @param cursor
 	 *            the database cursor object.
-	 * @return an num object.
+	 * @return a Number object.
 	 */
-	public static Number convertCursorToNumbers(Cursor cursor) {
-		Number num = new Number();
-		num.setnId(cursor.getLong(0));
-		num.setnTypeId(cursor.getLong(1));
-		num.setNumWord(cursor.getString(2));
-		num.setNumSound(cursor.getString(3));
-		num.setNumImage(cursor.getBlob(4));
+	public static Number convertCursorToNumber(Cursor cursor) {
+		Number number = new Number();
+		number.setnId(cursor.getLong(0));
+		number.setnTypeId(cursor.getLong(1));
+		number.setNumWord(cursor.getString(2));
+		number.setNumSound(cursor.getString(3));
+		number.setNumImage(cursor.getBlob(4));
 
-		return num;
+		return number;
 	}
 
 	/**
-	 * Converts a cursor object to a Colour object.
+	 * Converts a cursor object to a Color object.
 	 * 
 	 * @param cursor
 	 *            the database cursor object.
-	 * @return a Colour object.
+	 * @return a Color object.
 	 */
-	public static Colour convertCursorToColour(Cursor cursor) {
-		Colour col = new Colour();
-		col.setColourId(cursor.getLong(0));
-		col.setColour(cursor.getString(1));
-		col.setColourImage(cursor.getBlob(2));
-		col.setColourSound(cursor.getString(3));
+	public static Color convertCursorToColor(Cursor cursor) {
+		Color color = new Color();
+		color.setColourId(cursor.getLong(0));
+		color.setColour(cursor.getString(1));
+		color.setColourImage(cursor.getBlob(2));
+		color.setColourSound(cursor.getString(3));
 
-		return col;
+		return color;
 	}
 
 	/**
@@ -201,5 +201,4 @@ public class DatabaseUtils {
 
 		return shape;
 	}
-
 }

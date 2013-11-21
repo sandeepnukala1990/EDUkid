@@ -9,13 +9,14 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.settings.SettingsAdapter;
+import bu.edu.cs673.edukid.settings.SettingsView;
 
 public class CategoriesView extends ListActivity implements OnItemClickListener {
 
@@ -56,6 +57,18 @@ public class CategoriesView extends ListActivity implements OnItemClickListener 
 
 		Intent intent = new Intent(this, CategoryView.class);
 		intent.putExtra(EDUkid.CATEGORY_TYPE, categoryType);
+		startActivity(intent);
+	}
+
+	/**
+	 * Settings home on click callback.
+	 * 
+	 * @param view
+	 *            the view.
+	 */
+	public void onSettingsHomeClick(View view) {
+		Intent intent = new Intent(this, SettingsView.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
 	}
 

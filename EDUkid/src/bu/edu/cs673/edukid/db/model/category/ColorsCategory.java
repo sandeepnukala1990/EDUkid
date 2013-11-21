@@ -4,8 +4,8 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.DatabaseDefaults;
-import bu.edu.cs673.edukid.db.model.Colour;
+import bu.edu.cs673.edukid.db.defaults.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.model.Color;
 import bu.edu.cs673.edukid.db.model.Word;
 
 @SuppressWarnings("serial")
@@ -59,7 +59,7 @@ public class ColorsCategory implements CategoryType {
 	@Override
 	public String getItemPhoneticSound(int itemIndex) {
 		// TODO
-		Colour col = Database.getInstance().getColours().get(itemIndex);
+		Color col = Database.getInstance().getColors().get(itemIndex);
 
 		if (col != null) {
 			String colourSound = col.getColourSound();
@@ -69,7 +69,7 @@ public class ColorsCategory implements CategoryType {
 			}
 		}
 
-		return DatabaseDefaults.getDefaultColorPhoneticSounds(itemIndex);
+		return DatabaseDefaults.getDefaultColorPhoneticSounds()[itemIndex];
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class ColorsCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean canDeleteCategory() {
+	public boolean canModifyCategory() {
 		return false;
 	}
 }

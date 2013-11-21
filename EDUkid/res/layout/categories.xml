@@ -39,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@android:id/list"
-        android:background="@drawable/settingshomebutton" />
+        android:background="@drawable/settingshomebutton"
+        android:onClick="onSettingsHomeClick" />
 
 </RelativeLayout>

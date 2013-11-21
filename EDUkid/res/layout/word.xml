@@ -102,6 +102,7 @@
         android:layout_alignBaseline="@+id/deleteWordButton"
         android:layout_alignBottom="@+id/deleteWordButton"
         android:layout_toRightOf="@+id/addTagButton"
-        android:background="@drawable/settingshomebutton" />
+        android:background="@drawable/settingshomebutton"
+        android:onClick="onSettingsHomeClick" />
 
 </RelativeLayout>

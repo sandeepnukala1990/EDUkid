@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.defaults.DatabaseDefaults;
 import bu.edu.cs673.edukid.db.model.Num;
 import bu.edu.cs673.edukid.db.model.Word;
 
@@ -68,7 +68,7 @@ public class NumbersCategory implements CategoryType {
 			}
 		}
 
-		return DatabaseDefaults.getDefaultNumPhoneticSounds(itemIndex);
+		return DatabaseDefaults.getDefaultNumberPhoneticSounds()[itemIndex];
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class NumbersCategory implements CategoryType {
 	 */
 	@Override
 	public void addItemWord(int itemIndex, Word word) {
-		//Database.getInstance().addNumbers(itemIndex, "", "", null);
+		// Database.getInstance().addNumbers(itemIndex, "", "", null);
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class NumbersCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean canDeleteCategory() {
+	public boolean canModifyCategory() {
 		return false;
 	}
 }

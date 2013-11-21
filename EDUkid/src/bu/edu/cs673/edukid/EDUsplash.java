@@ -4,8 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.DatabaseDefaults;
-import bu.edu.cs673.edukid.db.model.Letter;
+import bu.edu.cs673.edukid.db.defaults.DatabaseDefaults;
 
 /**
  * The splash screen, and the entry point into the application.
@@ -50,7 +49,7 @@ public class EDUsplash extends Activity {
 		Database database = Database.getInstance(this);
 
 		if (database.getLetters().size() == 0) {
-			
+
 			for (String letter : DatabaseDefaults.getAlphabet()) {
 				database.addLetter(letter.toString());
 			}
@@ -62,20 +61,20 @@ public class EDUsplash extends Activity {
 			}
 		}
 
-		if (database.getColours().size() == 0) {
-			for (String col : DatabaseDefaults.getColors()) {
-				database.addColour(col, null);
+		if (database.getColors().size() == 0) {
+			for (String color : DatabaseDefaults.getColors()) {
+				database.addColor(color, color, null);
 			}
 		}
 
 		if (database.getShapes().size() == 0) {
 			for (String shape : DatabaseDefaults.getShapes()) {
-				database.addShape(shape, null);
+				database.addShape(shape, shape, null);
 			}
 		}
 
 		if (database.getThemes().size() == 0) {
-			// TODO: implement this more
+			// TODO: implement themes
 			database.addTheme("ANIMALS");
 		}
 	}

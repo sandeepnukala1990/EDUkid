@@ -8,16 +8,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".EDUkid" >
-    
-    <TextView
-        android:id="@+id/timerValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="37dp"
-        android:text="@string/timerVal"
-        android:textColor="#ffffff"
-        android:textSize="40sp" />
 
     <ImageButton
         android:id="@+id/settingsButton"
@@ -49,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:textSize="25sp"
-        android:text="" />
+        android:text=""
+        android:textSize="25sp" />
 
 </RelativeLayout>
