@@ -10,13 +10,14 @@ public class NumbersDefaults {
 
 	// TODO: replace the edukid icon with the real image
 	private static Word[] ZERO_WORDS = new Word[] {
+			new Word("Zero", R.drawable.zeroimage),
 			new Word("Zero", R.drawable.edukidicon),
 			new Word("Zero", R.drawable.edukidicon) };
 
 	// TODO: replace the edukid icon with the real image
 	private static Word[] ONE_WORDS = new Word[] {
 			new Word("One", R.drawable.onepng),
-			new Word("One", R.drawable.edukidicon) };
+			new Word("One", R.drawable.butterflypng) };
 
 	// TODO: replace the edukid icon with the real image
 	private static Word[] TWO_WORDS = new Word[] {
