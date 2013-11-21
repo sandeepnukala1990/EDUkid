@@ -12,24 +12,14 @@
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="100dp"
         android:layout_marginBottom="100dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="125dp"
         android:drawSelectorOnTop="false" />
-
-    <ImageButton
-        android:id="@+id/addCategoryButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/addbutton"
-        android:onClick="onAddCategoryClick" />
 
     <ImageView
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/addCategoryButton"
         android:layout_centerHorizontal="true"
         android:src="@drawable/categoriestitle" />
 

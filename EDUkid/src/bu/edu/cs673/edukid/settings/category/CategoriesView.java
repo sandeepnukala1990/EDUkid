@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Toast;
 import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
@@ -70,17 +69,5 @@ public class CategoriesView extends ListActivity implements OnItemClickListener 
 		Intent intent = new Intent(this, SettingsView.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
-	}
-
-	/**
-	 * Add category on click callback.
-	 * 
-	 * @param view
-	 *            the view.
-	 */
-	public void onAddCategoryClick(View view) {
-		// TODO: implement this
-		Toast.makeText(this, "Add category coming soon...", Toast.LENGTH_SHORT)
-				.show();
 	}
 }
