@@ -184,4 +184,12 @@ public class AlphabetCategory implements CategoryType {
 	public boolean canModifyCategory() {
 		return false;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean hasGameMode() {
+		return true;
+	}
 }

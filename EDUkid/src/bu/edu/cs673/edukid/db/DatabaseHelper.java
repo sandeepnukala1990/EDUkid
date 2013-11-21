@@ -13,14 +13,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String EDUKID_DATABASE = "EDUkid.db";
-	private static final int EDUKID_DATABASE_VERSION = 38;
+	private static final int EDUKID_DATABASE_VERSION = 39;
 
 	private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
-
-	protected static final String TABLE_CATEGORIES = "categories";
-	protected static final String COLUMN_CATEGORY_ID = "_id";
-	protected static final String COLUMN_CATEGORY_NAME = "category";
-	protected static final String COLUMN_CATEGORY_IMAGE = "image";
 
 	protected static final String TABLE_USER_ACCOUNT = "useraccount";
 	protected static final String COLUMN_USER_ID = "uid";
@@ -73,11 +68,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	protected static final String COLUMN_TIMER_ENABLED = "enabled";
 	protected static final String COLUMN_TIMER_LEFT = "timeleft";
 	protected static final String COLUMN_LEARN_TIME = "learntime";
-
-	private static final String CREATE_CATEGORIES_TABLE = "create table "
-			+ TABLE_CATEGORIES + "(" + COLUMN_CATEGORY_ID
-			+ " integer primary key autoincrement, " + COLUMN_CATEGORY_NAME
-			+ " text not null, " + COLUMN_CATEGORY_IMAGE + " text not null);";
 
 	private static final String CREATE_USER_ACCOUNT_TABLE = "create table "
 			+ TABLE_USER_ACCOUNT + "(" + COLUMN_USER_ID
@@ -143,7 +133,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(CREATE_CATEGORIES_TABLE);
 		db.execSQL(CREATE_USER_ACCOUNT_TABLE);
 		db.execSQL(CREATE_LETTERS_TABLE);
 		db.execSQL(CREATE_ALPHABET_TABLE);
@@ -160,7 +149,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL(DROP_TABLE + TABLE_CATEGORIES);
 		db.execSQL(DROP_TABLE + TABLE_USER_ACCOUNT);
 		db.execSQL(DROP_TABLE + TABLE_LETTERS);
 		db.execSQL(DROP_TABLE + TABLE_WORDS);

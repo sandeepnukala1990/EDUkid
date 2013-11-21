@@ -36,10 +36,6 @@ public class Database {
 
 	private DatabaseHelper databaseHelper;
 
-	private String[] categoriesColumns = { DatabaseHelper.COLUMN_CATEGORY_ID,
-			DatabaseHelper.COLUMN_CATEGORY_NAME,
-			DatabaseHelper.COLUMN_CATEGORY_IMAGE };
-
 	private String[] userAccountColumns = { DatabaseHelper.COLUMN_USER_ID,
 			DatabaseHelper.COLUMN_USER_NAME, DatabaseHelper.COLUMN_USER_IMAGE,
 			DatabaseHelper.COLUMN_USER_SOUND };
@@ -123,51 +119,12 @@ public class Database {
 	}
 
 	/**
-	 * Gets a list of all the categories (the 4 main categories plus any
-	 * additional categories added by the user).
+	 * Gets a list of all the categories (Alphabets, Numbers, Colors, Shapes).
 	 * 
 	 * @return a list of all categories.
 	 */
-	public List<CategoryType> getCategories() {
-		List<CategoryType> categories = new ArrayList<CategoryType>();
-
-		// Add the default categories (these aren't in the database)
-		for (CategoryType defaultCategory : DatabaseDefaults
-				.getDefaultCategories()) {
-			categories.add(defaultCategory);
-		}
-
-		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_CATEGORIES,
-				categoriesColumns, null, null, null, null, null);
-		cursor.moveToFirst();
-
-		// Add the user-entered categories from the database
-		while (!cursor.isAfterLast()) {
-			categories.add(DatabaseUtils.convertCursorToCategory(cursor));
-			cursor.moveToNext();
-		}
-
-		cursor.close();
-
-		return categories;
-	}
-
-	/**
-	 * Adds a category to the database.
-	 * 
-	 * @param categoryType
-	 *            the category type
-	 * @param context
-	 *            the context.
-	 */
-	public void addCategory(CategoryType categoryType, Context context) {
-		ContentValues contentValues = new ContentValues();
-		contentValues.put(DatabaseHelper.COLUMN_CATEGORY_NAME,
-				categoryType.getCategoryName());
-		contentValues.put(DatabaseHelper.COLUMN_CATEGORY_IMAGE, ImageUtils
-				.drawableToByteArray(categoryType.getCategoryImage(context)));
-		sqlDatabase
-				.insert(DatabaseHelper.TABLE_CATEGORIES, null, contentValues);
+	public CategoryType[] getCategories() {
+		return DatabaseDefaults.getDefaultCategories();
 	}
 
 	/**

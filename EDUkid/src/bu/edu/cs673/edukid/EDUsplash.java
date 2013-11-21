@@ -49,7 +49,6 @@ public class EDUsplash extends Activity {
 		Database database = Database.getInstance(this);
 
 		if (database.getLetters().size() == 0) {
-
 			for (String letter : DatabaseDefaults.getAlphabet()) {
 				database.addLetter(letter.toString());
 			}

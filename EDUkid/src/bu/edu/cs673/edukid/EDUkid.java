@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.model.Category;
 import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.game.TempGameView;
@@ -32,7 +31,7 @@ import bu.edu.cs673.edukid.settings.utils.MathProblemGenerator;
  * 
  * @author Kevin Graue
  * 
- * @see Category
+ * @see CategoryType
  * 
  */
 public class EDUkid extends Activity implements OnClickListener {
@@ -61,8 +60,8 @@ public class EDUkid extends Activity implements OnClickListener {
 	 */
 	@Override
 	public void onClick(View view) {
-		CategoryType categoryType = Database.getInstance(this).getCategories()
-				.get(view.getId());
+		CategoryType categoryType = Database.getInstance(this).getCategories()[view
+				.getId()];
 
 		Intent intent = new Intent(this, LearnContentView.class);
 		intent.putExtra(CATEGORY_TYPE, categoryType);
@@ -115,11 +114,10 @@ public class EDUkid extends Activity implements OnClickListener {
 		layoutParams.bottomMargin = 10;
 		layoutParams.leftMargin = 10;
 
-		List<CategoryType> categories = Database.getInstance(this)
-				.getCategories();
+		CategoryType[] categories = Database.getInstance(this).getCategories();
 
-		for (int i = 0; i < categories.size(); i++) {
-			CategoryType category = categories.get(i);
+		for (int i = 0; i < categories.length; i++) {
+			CategoryType category = categories[i];
 			ImageButton categoryButton = new ImageButton(this);
 			categoryButton.setId(i);
 			categoryButton.setLayoutParams(layoutParams);
@@ -210,10 +208,10 @@ public class EDUkid extends Activity implements OnClickListener {
 		Toast.makeText(this, "Incorrect answer. Please try again.",
 				Toast.LENGTH_LONG).show();
 	}
-	
+
 	public void onTempGameClick(View view) {
 		Intent intent = new Intent(this, TempGameView.class);
-	
+
 		startActivity(intent);
 	}
 }

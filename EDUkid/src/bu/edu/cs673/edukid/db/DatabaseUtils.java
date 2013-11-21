@@ -1,16 +1,14 @@
 package bu.edu.cs673.edukid.db;
 
 import android.database.Cursor;
-import bu.edu.cs673.edukid.db.model.Word;
-import bu.edu.cs673.edukid.db.model.Category;
+import bu.edu.cs673.edukid.db.model.Color;
 import bu.edu.cs673.edukid.db.model.Letter;
-import bu.edu.cs673.edukid.db.model.Theme;
-import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.db.model.Num;
 import bu.edu.cs673.edukid.db.model.NumType;
 import bu.edu.cs673.edukid.db.model.Number;
-import bu.edu.cs673.edukid.db.model.Color;
 import bu.edu.cs673.edukid.db.model.Shape;
+import bu.edu.cs673.edukid.db.model.UserAccount;
+import bu.edu.cs673.edukid.db.model.Word;
 
 ;
 
@@ -21,8 +19,13 @@ import bu.edu.cs673.edukid.db.model.Shape;
  * 
  * @author Kevin Graue
  * 
- * @see Category
  * @see UserAccount
+ * @see Letter
+ * @see Word
+ * @see Num
+ * @see Number
+ * @see Color
+ * @see Shape
  * 
  */
 public class DatabaseUtils {
@@ -32,22 +35,6 @@ public class DatabaseUtils {
 	 */
 	private DatabaseUtils() {
 		// Static class.
-	}
-
-	/**
-	 * Converts a cursor object to a category object.
-	 * 
-	 * @param cursor
-	 *            the database cursor object.
-	 * @return a category object.
-	 */
-	public static Category convertCursorToCategory(Cursor cursor) {
-		Category category = new Category();
-		category.setId(cursor.getLong(0));
-		category.setCategoryName(cursor.getString(1));
-		category.setImageData(cursor.getBlob(2));
-
-		return category;
 	}
 
 	/**
@@ -82,21 +69,6 @@ public class DatabaseUtils {
 
 		return letter;
 
-	}
-
-	/**
-	 * Converts a cursor object to a theme object.
-	 * 
-	 * @param cursor
-	 *            the database cursor object.
-	 * @return a theme object.
-	 */
-	public static Theme convertCursorToTheme(Cursor cursor) {
-		Theme theme = new Theme();
-		theme.setThemeId(cursor.getLong(0));
-		theme.setTheme(cursor.getString(1));
-
-		return theme;
 	}
 
 	/**

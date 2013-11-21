@@ -51,8 +51,7 @@ public class CategoriesView extends ListActivity implements OnItemClickListener 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		CategoryType categoryType = Database.getInstance(this).getCategories()
-				.get(position);
+		CategoryType categoryType = Database.getInstance(this).getCategories()[position];
 
 		Intent intent = new Intent(this, CategoryView.class);
 		intent.putExtra(EDUkid.CATEGORY_TYPE, categoryType);
