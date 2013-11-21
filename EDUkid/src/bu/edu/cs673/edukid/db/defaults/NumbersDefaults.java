@@ -27,12 +27,12 @@ public class NumbersDefaults {
 	// TODO: replace the edukid icon with the real image
 	private static Word[] THREE_WORDS = new Word[] {
 			new Word("Three", R.drawable.threepng),
-			new Word("Three", R.drawable.edukidicon) };
+			new Word("Three", R.drawable.threeballs) };
 
 	// TODO: replace the edukid icon with the real image
 	private static Word[] FOUR_WORDS = new Word[] {
 			new Word("Four", R.drawable.fourpng),
-			new Word("Four", R.drawable.edukidicon) };
+			new Word("Four", R.drawable.fourballs) };
 
 	// TODO: replace the edukid icon with the real image
 	private static Word[] FIVE_WORDS = new Word[] {
