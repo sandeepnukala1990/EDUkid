@@ -40,14 +40,13 @@ public class CategoryView extends ListActivity implements OnItemClickListener {
 
 		categoryType = (CategoryType) extras
 				.getSerializable(EDUkid.CATEGORY_TYPE);
-		boolean canModifyCategory = categoryType.canModifyCategory();
 
 		// Set category name
 		TextView categoryName = (TextView) findViewById(R.id.categoryName);
 		categoryName.setText(categoryType.getCategoryName());
-		categoryName.setFocusable(canModifyCategory);
-		categoryName.setFocusableInTouchMode(canModifyCategory);
-		categoryName.setClickable(canModifyCategory);
+		categoryName.setFocusable(false);
+		categoryName.setFocusableInTouchMode(false);
+		categoryName.setClickable(false);
 
 		// Set category image
 		ImageView categoryImage = (ImageView) findViewById(R.id.categoryImage);
@@ -56,16 +55,6 @@ public class CategoryView extends ListActivity implements OnItemClickListener {
 		// Show/hide add item button
 		Button addItemButton = (Button) findViewById(R.id.addItembutton);
 		addItemButton.setVisibility(categoryType.canAddItems() ? View.VISIBLE
-				: View.INVISIBLE);
-
-		// Show/hide save category button
-		Button saveCategoryButton = (Button) findViewById(R.id.saveCategoryButton);
-		saveCategoryButton.setVisibility(canModifyCategory ? View.VISIBLE
-				: View.INVISIBLE);
-
-		// Show/hide delete category button
-		Button deleteCategoryButton = (Button) findViewById(R.id.deleteCategoryButton);
-		deleteCategoryButton.setVisibility(canModifyCategory ? View.VISIBLE
 				: View.INVISIBLE);
 
 		// Setup items adapter
@@ -99,6 +88,17 @@ public class CategoryView extends ListActivity implements OnItemClickListener {
 	}
 
 	/**
+	 * Add item on click callback.
+	 * 
+	 * @param view
+	 *            the view.
+	 */
+	public void onAddItemClick(View view) {
+		Toast.makeText(this, "Add item coming soon...", Toast.LENGTH_SHORT)
+				.show();
+	}
+
+	/**
 	 * Settings home on click callback.
 	 * 
 	 * @param view
@@ -108,46 +108,5 @@ public class CategoryView extends ListActivity implements OnItemClickListener {
 		Intent intent = new Intent(this, SettingsView.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
-	}
-
-	/**
-	 * Save category on click callback.
-	 * 
-	 * @param view
-	 *            the view.
-	 */
-	public void onSaveCategoryClick(View view) {
-		// TODO: implement this
-		Toast.makeText(this, "Save category coming soon...", Toast.LENGTH_LONG)
-				.show();
-	}
-
-	/**
-	 * Category image on click callback.
-	 * 
-	 * @param view
-	 *            the view.
-	 */
-	public void onCategoryImageClick(View view) {
-		// Check to see if this image can be modified
-		if (!categoryType.canModifyCategory()) {
-			return;
-		}
-
-		// TODO: implement this if we leave the add category feature
-		Toast.makeText(this, "Category image edit coming soon...",
-				Toast.LENGTH_LONG).show();
-	}
-
-	/**
-	 * Delete category on click callback.
-	 * 
-	 * @param view
-	 *            the view.
-	 */
-	public void onDeleteCategoryClick(View view) {
-		// TODO: implement this
-		Toast.makeText(this, "Delete category coming soon...",
-				Toast.LENGTH_LONG).show();
 	}
 }

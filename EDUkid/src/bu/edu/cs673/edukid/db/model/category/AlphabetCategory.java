@@ -96,7 +96,11 @@ public class AlphabetCategory implements CategoryType {
 
 		List<Word> dbWords = Database.getInstance().getWords();
 		if (dbWords.size() > 0) {
-			wordList.addAll(dbWords);
+			for (Word dbWord : dbWords) {
+				if (dbWord.getLid() == itemIndex) {
+					wordList.add(dbWord);
+				}
+			}
 		}
 
 		return wordList.toArray(new Word[0]);
@@ -174,14 +178,6 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public boolean canAddItems() {
-		return false;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean canModifyCategory() {
 		return false;
 	}
 

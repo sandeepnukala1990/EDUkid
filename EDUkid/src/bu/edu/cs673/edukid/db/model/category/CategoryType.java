@@ -138,15 +138,6 @@ public interface CategoryType extends Serializable {
 	boolean canAddItems();
 
 	/**
-	 * Returns true if this category type can be modified (saved or deleted),
-	 * false otherwise.
-	 * 
-	 * @return true if this category type can be modified (saeved or deleted),
-	 *         false otherwise.
-	 */
-	boolean canModifyCategory();
-
-	/**
 	 * Returns true if this category type has a game mode, false otherwise.
 	 * 
 	 * @return true if this category type has a game mode, false otherwise.

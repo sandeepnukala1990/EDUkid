@@ -34,7 +34,6 @@
         android:layout_alignTop="@+id/categoryImageLabel"
         android:layout_marginLeft="48dp"
         android:layout_toRightOf="@+id/categoryImageLabel"
-        android:onClick="onCategoryImageClick"
         android:src="@drawable/tiletry" />
 
     <EditText
@@ -50,29 +49,11 @@
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/deleteCategoryButton"
+        android:layout_above="@+id/settingsHomeButton"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="100dp"
         android:layout_toRightOf="@+id/categoryName"
         android:drawSelectorOnTop="false" />
-
-    <Button
-        android:id="@+id/saveCategoryButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@android:id/list"
-        android:background="@drawable/savebutton"
-        android:onClick="onSaveCategoryClick" />
-
-    <Button
-        android:id="@+id/addItembutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/saveCategoryButton"
-        android:layout_alignBottom="@+id/saveCategoryButton"
-        android:layout_marginRight="23dp"
-        android:layout_toLeftOf="@+id/saveCategoryButton"
-        android:background="@drawable/addbutton" />
 
     <TextView
         android:id="@+id/itemsText"
@@ -84,22 +65,20 @@
         android:text="Items" />
 
     <Button
-        android:id="@+id/deleteCategoryButton"
+        android:id="@+id/addItembutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/categoryImage"
-        android:background="@drawable/deletebutton"
-        android:onClick="onDeleteCategoryClick"
-        android:text=" " />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/addbutton"
+        android:onClick="onAddItemClick" />
 
     <Button
         android:id="@+id/settingsHomeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/deleteCategoryButton"
-        android:layout_alignBottom="@+id/deleteCategoryButton"
-        android:layout_alignRight="@android:id/list"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:background="@drawable/settingshomebutton"
         android:onClick="onSettingsHomeClick" />
 

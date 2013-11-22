@@ -144,14 +144,6 @@ public class NumbersCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean canModifyCategory() {
-		return false;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public boolean hasGameMode() {
 		return false;
 	}
