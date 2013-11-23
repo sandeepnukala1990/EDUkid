@@ -37,7 +37,7 @@ public class NumbersDefaults {
 	// TODO: replace the edukid icon with the real image
 	private static Word[] FIVE_WORDS = new Word[] {
 			new Word("Five", R.drawable.fivepng),
-			new Word("Five", R.drawable.edukidicon) };
+			new Word("Five", R.drawable.fiveflowers) };
 
 	// TODO: replace the edukid icon with the real image
 	private static Word[] SIX_WORDS = new Word[] {
