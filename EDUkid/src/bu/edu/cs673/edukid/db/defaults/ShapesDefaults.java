@@ -6,7 +6,7 @@ import bu.edu.cs673.edukid.db.model.Word;
 public class ShapesDefaults {
 
 	protected static String[] DEFAULT_SHAPES = new String[] { "Circle",
-			"Square","Triangle", "Rectangle",
+			"Square","Triangle", "Rectangle"
 		 };
 
 	// TODO: replace the edukid icon with the real image
@@ -30,5 +30,5 @@ public class ShapesDefaults {
 
 	protected static Word[][] SHAPES_WORDS = new Word[][] { CIRCLE_WORDS,
 			SQUARE_WORDS, TRIANGLE_WORDS,
-			RECTANGLE_WORDS,  };
+			RECTANGLE_WORDS};
 }
