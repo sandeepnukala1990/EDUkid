@@ -22,7 +22,7 @@ public class NumbersDefaults {
 	// TODO: replace the edukid icon with the real image
 	private static Word[] TWO_WORDS = new Word[] {
 			new Word("Two", R.drawable.twopng),
-			new Word("Two", R.drawable.twobutterflies) };
+			new Word("Two", R.drawable.edukidicon) };
 
 	// TODO: replace the edukid icon with the real image
 	private static Word[] THREE_WORDS = new Word[] {
