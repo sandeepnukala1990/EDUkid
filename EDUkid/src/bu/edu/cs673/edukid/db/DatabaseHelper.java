@@ -13,9 +13,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String EDUKID_DATABASE = "EDUkid.db";
-	private static final int EDUKID_DATABASE_VERSION = 42;
+	private static final int EDUKID_DATABASE_VERSION = 48;
 
 	private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
+
+	private static final String EQUALS = " = ";
+	private static final String AND = " AND ";
 
 	protected static final String TABLE_USER_ACCOUNT = "useraccount";
 	protected static final String COLUMN_USER_ID = "uid";
@@ -34,12 +37,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	protected static final String COLUMN_WORDS_WORD = "wordsword";
 	protected static final String COLUMN_WORDS_SOUND = "wordssound";
 	protected static final String COLUMN_WORDS_IMAGE = "wordsimage";
+	protected static final String COLUMN_WORDS_IMAGE_ID = "wordsimageid";
 	protected static final String COLUMN_WORDS_CHECKED = "wordschecked";
 
 	protected static final String TABLE_DEFAULT_WORD_MAP = "defaultwordmap";
-	protected static final String COLUMN_DEFAULT_WORD_MAP_LID = "lid";
-	protected static final String COLUMN_DEFAULT_WORD_MAP_WID = "wid";
-	protected static final String COLUMN_DEFAULT_WORD_MAP_ENABLED = "defaultwordenabled";
+	protected static final String COLUMN_DEFAULT_WORD_MAP_CATEGORY_ID = "defaultwordmapcategoryid";
+	protected static final String COLUMN_DEFAULT_WORD_MAP_ITEM_ID = "defaultwordmapitemid";
+	protected static final String COLUMN_DEFAULT_WORD_MAP_WORD_ID = "defaultwordmapwordid";
+	protected static final String COLUMN_DEFAULT_WORD_MAP_CHECKED = "defaultwordmapchecked";
 
 	protected static final String TABLE_NUMBER = "number";
 	protected static final String COLUMN_NUMBER_ID = "numberid";
@@ -84,35 +89,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String CREATE_LETTERS_TABLE = "create table "
 			+ TABLE_LETTERS + "(" + COLUMN_LETTERS_ID
 			+ " integer primary key autoincrement, " + COLUMN_LETTERS_WORD
-			+ " text , " + COLUMN_LETTERS_SOUND + " text );";
+			+ " text, " + COLUMN_LETTERS_SOUND + " text );";
 
 	private static final String CREATE_ALPHABET_TABLE = "create table "
 			+ TABLE_WORDS + "(" + COLUMN_WORDS_ITEM_ID + " integer, "
 			+ COLUMN_WORDS_WORD_ID + " integer , " + COLUMN_WORDS_WORD
-			+ " text , " + COLUMN_WORDS_SOUND + " text, " + COLUMN_WORDS_IMAGE
-			+ " text , " + COLUMN_WORDS_CHECKED + " text );";
+			+ " text, " + COLUMN_WORDS_SOUND + " text, " + COLUMN_WORDS_IMAGE
+			+ " text, " + COLUMN_WORDS_IMAGE_ID + " long, "
+			+ COLUMN_WORDS_CHECKED + " text );";
 
 	private static final String CREATE_DEFAUT_WORD_MAP_TABLE = "create table "
-			+ TABLE_DEFAULT_WORD_MAP + "(" + COLUMN_DEFAULT_WORD_MAP_LID
-			+ " integer, " + COLUMN_DEFAULT_WORD_MAP_WID + " integer , "
-			+ COLUMN_DEFAULT_WORD_MAP_ENABLED + " integer );";
+			+ TABLE_DEFAULT_WORD_MAP + "("
+			+ COLUMN_DEFAULT_WORD_MAP_CATEGORY_ID + " integer, "
+			+ COLUMN_DEFAULT_WORD_MAP_ITEM_ID + " integer, "
+			+ COLUMN_DEFAULT_WORD_MAP_WORD_ID + " integer, "
+			+ COLUMN_DEFAULT_WORD_MAP_CHECKED + " integer );";
 
 	private static final String CREATE_SHAPE_TABLE = "create table "
 			+ TABLE_SHAPE + "(" + COLUMN_SHAPE_ID
 			+ " integer primary key autoincrement, " + COLUMN_SHAPE_WORD
-			+ " text , " + COLUMN_SHAPE_IMAGE + " text , " + COLUMN_SHAPE_SOUND
+			+ " text, " + COLUMN_SHAPE_IMAGE + " text, " + COLUMN_SHAPE_SOUND
 			+ " text );";
 
 	private static final String CREATE_COLOUR_TABLE = "create table "
 			+ TABLE_COLOUR + "(" + COLUMN_COLOUR_ID
 			+ " integer primary key autoincrement, " + COLUMN_COLOUR_WORD
-			+ " text , " + COLUMN_COLOUR_IMAGE + " text , "
-			+ COLUMN_COLOUR_SOUND + " text );";
+			+ " text, " + COLUMN_COLOUR_IMAGE + " text, " + COLUMN_COLOUR_SOUND
+			+ " text );";
 
 	private static final String CREATE_NUMBER_TABLE = "create table "
 			+ TABLE_NUMBER + "(" + COLUMN_NUMBER_ID
 			+ " integer primary key autoincrement, " + COLUMN_NUMBER_WORD
-			+ " text , " + COLUMN_NUMBER_SOUND + " text );";
+			+ " text, " + COLUMN_NUMBER_SOUND + " text );";
 
 	private static final String CREATE_NUMTYPE_TABLE = "create table "
 			+ TABLE_NUM_TYPE + "(" + COLUMN_TYPE_ID
@@ -121,9 +129,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String CREATE_NUMBERS_TABLE = "create table "
 			+ TABLE_NUMBERS + "(" + COLUMN_NID + " integer, " + COLUMN_NTID
-			+ " integer , " + COLUMN_NUMBERS + " text , "
-			+ COLUMN_NUMBERS_SOUND + " text, " + COLUMN_NUMBERS_IMAGE
-			+ " text );";
+			+ " integer, " + COLUMN_NUMBERS + " text, " + COLUMN_NUMBERS_SOUND
+			+ " text, " + COLUMN_NUMBERS_IMAGE + " text );";
 
 	private static final String CREATE_TIMER_TABLE = " create table "
 			+ TABLE_TIMER + " ( " + COLUMN_TIMER_ENABLED + " integer,"
@@ -174,5 +181,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(DROP_TABLE + TABLE_TIMER);
 
 		onCreate(db);
+	}
+
+	// TODO
+	public static String generateDefaultMappingSelection(int categoryIndex,
+			int itemIndex) {
+		String categoryIdSelection = COLUMN_DEFAULT_WORD_MAP_CATEGORY_ID
+				+ EQUALS + categoryIndex;
+		String itemIdSelection = COLUMN_DEFAULT_WORD_MAP_ITEM_ID + EQUALS
+				+ itemIndex;
+
+		return categoryIdSelection + AND + itemIdSelection;
+	}
+
+	// TODO
+	public static String generateDefaultMappingSelection(int categoryIndex,
+			int itemIndex, int wordIndex) {
+		String wordIdSelection = COLUMN_DEFAULT_WORD_MAP_WORD_ID + EQUALS
+				+ wordIndex;
+
+		return generateDefaultMappingSelection(categoryIndex, itemIndex) + AND
+				+ wordIdSelection;
 	}
 }

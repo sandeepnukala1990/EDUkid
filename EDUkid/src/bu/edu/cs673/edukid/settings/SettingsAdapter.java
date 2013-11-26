@@ -15,6 +15,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.Database;
 
 public class SettingsAdapter extends ArrayAdapter<String> implements
 		OnCheckedChangeListener {
@@ -29,6 +30,10 @@ public class SettingsAdapter extends ArrayAdapter<String> implements
 
 	private List<Boolean> listCheckBoxes;
 
+	private int categoryIndex;
+
+	private int itemIndex;
+
 	public SettingsAdapter(Context context, int resource,
 			List<String> listItems, List<Drawable> listDrawables) {
 		this(context, resource, listItems, listDrawables, null);
@@ -37,12 +42,21 @@ public class SettingsAdapter extends ArrayAdapter<String> implements
 	public SettingsAdapter(Context context, int resource,
 			List<String> listItems, List<Drawable> listDrawables,
 			List<Boolean> listCheckBoxes) {
+		this(context, resource, listItems, listDrawables, listCheckBoxes, -1,
+				-1);
+	}
+
+	public SettingsAdapter(Context context, int resource,
+			List<String> listItems, List<Drawable> listDrawables,
+			List<Boolean> listCheckBoxes, int categoryIndex, int itemIndex) {
 		super(context, resource, listItems);
 		this.context = context;
 		this.resource = resource;
 		this.listItems = listItems;
 		this.listDrawables = listDrawables;
 		this.listCheckBoxes = listCheckBoxes;
+		this.categoryIndex = categoryIndex;
+		this.itemIndex = itemIndex;
 	}
 
 	/**
@@ -82,8 +96,9 @@ public class SettingsAdapter extends ArrayAdapter<String> implements
 	 */
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		Toast.makeText(getContext(),
-				buttonView.getId() + " : checked: " + isChecked,
-				Toast.LENGTH_SHORT).show();
+		// TODO: if it is a default word update the default mapping, else update
+		// the word table
+		Database.getInstance().updateDefaultWordMapping(categoryIndex,
+				itemIndex, buttonView.getId(), isChecked);
 	}
 }

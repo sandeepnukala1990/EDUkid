@@ -23,6 +23,14 @@ public class NumbersCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public int getCategoryId() {
+		return Category.NUMBERS.ordinal();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Drawable getCategoryImage(Context context) {
 		return context.getResources().getDrawable(R.drawable.numbersnew);
 	}
@@ -77,7 +85,7 @@ public class NumbersCategory implements CategoryType {
 	@Override
 	public Word[] getSettingsItemWords(int itemIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultnumWords(itemIndex);
+		return DatabaseDefaults.getDefaultNumberWords()[itemIndex];
 	}
 
 	/**
@@ -86,7 +94,7 @@ public class NumbersCategory implements CategoryType {
 	@Override
 	public Word getSettingsItemWord(int itemIndex, int wordIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultnumWords(itemIndex)[wordIndex];
+		return DatabaseDefaults.getDefaultNumberWords()[itemIndex][wordIndex];
 	}
 
 	/**
@@ -112,7 +120,7 @@ public class NumbersCategory implements CategoryType {
 	@Override
 	public int getLearnItemWordCount(int itemIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultnumWords(itemIndex).length;
+		return DatabaseDefaults.getDefaultNumberWords()[itemIndex].length;
 	}
 
 	/**
@@ -135,10 +143,19 @@ public class NumbersCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int getItemDrawableId(int itemIndex, int imageIndex) {
+	public int getSettingsItemDrawableId(int itemIndex, int imageIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultnumWords(itemIndex)[imageIndex]
+		return DatabaseDefaults.getDefaultNumberWords()[itemIndex][imageIndex]
 				.getDrawableId();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getLearnItemDrawableId(int itemIndex, int imageIndex) {
+		// TODO
+		return 0;
 	}
 
 	/**

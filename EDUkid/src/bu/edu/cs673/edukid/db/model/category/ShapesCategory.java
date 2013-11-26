@@ -23,6 +23,14 @@ public class ShapesCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public int getCategoryId() {
+		return Category.SHAPES.ordinal();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Drawable getCategoryImage(Context context) {
 		return context.getResources().getDrawable(R.drawable.shapesnew);
 	}
@@ -78,7 +86,7 @@ public class ShapesCategory implements CategoryType {
 	@Override
 	public Word[] getSettingsItemWords(int itemIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultShapeWords(itemIndex);
+		return DatabaseDefaults.getDefaultShapeWords()[itemIndex];
 	}
 
 	/**
@@ -87,7 +95,7 @@ public class ShapesCategory implements CategoryType {
 	@Override
 	public Word getSettingsItemWord(int itemIndex, int wordIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultShapeWords(itemIndex)[wordIndex];
+		return DatabaseDefaults.getDefaultShapeWords()[itemIndex][wordIndex];
 	}
 
 	/**
@@ -113,17 +121,26 @@ public class ShapesCategory implements CategoryType {
 	@Override
 	public int getLearnItemWordCount(int itemIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultShapeWords(itemIndex).length;
+		return DatabaseDefaults.getDefaultShapeWords()[itemIndex].length;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int getItemDrawableId(int itemIndex, int imageIndex) {
+	public int getSettingsItemDrawableId(int itemIndex, int imageIndex) {
 		// TODO
-		return DatabaseDefaults.getDefaultShapeWords(itemIndex)[imageIndex]
+		return DatabaseDefaults.getDefaultShapeWords()[itemIndex][imageIndex]
 				.getDrawableId();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getLearnItemDrawableId(int itemIndex, int imageIndex) {
+		// TODO
+		return 0;
 	}
 
 	/**

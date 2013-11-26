@@ -2,6 +2,7 @@ package bu.edu.cs673.edukid.db;
 
 import android.database.Cursor;
 import bu.edu.cs673.edukid.db.model.Color;
+import bu.edu.cs673.edukid.db.model.DefaultWordMapping;
 import bu.edu.cs673.edukid.db.model.Letter;
 import bu.edu.cs673.edukid.db.model.Num;
 import bu.edu.cs673.edukid.db.model.NumType;
@@ -44,7 +45,7 @@ public class DatabaseUtils {
 	 *            the database cursor object.
 	 * @return a user account object.
 	 */
-	public static UserAccount convertCursorToUserAccount(Cursor cursor) {
+	protected static UserAccount convertCursorToUserAccount(Cursor cursor) {
 		UserAccount userAccount = new UserAccount();
 		userAccount.setId(cursor.getLong(0));
 		userAccount.setUserName(cursor.getString(1));
@@ -61,7 +62,7 @@ public class DatabaseUtils {
 	 *            the database cursor object.
 	 * @return a letter object.
 	 */
-	public static Letter convertCursorToLetter(Cursor cursor) {
+	protected static Letter convertCursorToLetter(Cursor cursor) {
 		Letter letter = new Letter();
 		letter.setLetterId(cursor.getLong(0));
 		letter.setLetter(cursor.getString(1));
@@ -78,17 +79,30 @@ public class DatabaseUtils {
 	 *            the database cursor object.
 	 * @return a Word object.
 	 */
-	public static Word convertCursorToWord(Cursor cursor) {
+	protected static Word convertCursorToWord(Cursor cursor) {
 		Word word = new Word();
-		word.setLetterId(cursor.getLong(0));
+		word.setItemId(cursor.getLong(0));
 		word.setWordId(cursor.getLong(1));
 		word.setWord(cursor.getString(2));
 		word.setWordSound(cursor.getString(3));
 		word.setWordImage(cursor.getBlob(4));
-		word.setChecked(cursor.getInt(5) == 1 ? true : false);
+		word.setDrawableId(cursor.getInt(5));
+		word.setChecked(cursor.getInt(6) == 1 ? true : false);
 		word.setDefaultWord(false);
 
 		return word;
+	}
+
+	// TODO
+	protected static DefaultWordMapping convertCursorToDefaultWordMapping(
+			Cursor cursor) {
+		DefaultWordMapping defaultWordMapping = new DefaultWordMapping();
+		defaultWordMapping.setCategoryId(cursor.getLong(0));
+		defaultWordMapping.setItemId(cursor.getLong(1));
+		defaultWordMapping.setWordId(cursor.getLong(2));
+		defaultWordMapping.setChecked(cursor.getInt(3) == 1 ? true : false);
+
+		return defaultWordMapping;
 	}
 
 	/**
@@ -98,7 +112,7 @@ public class DatabaseUtils {
 	 *            the database cursor object.
 	 * @return a Num object.
 	 */
-	public static Num convertCursorToNum(Cursor cursor) {
+	protected static Num convertCursorToNum(Cursor cursor) {
 		Num num = new Num();
 		num.setNumberId(cursor.getLong(0));
 		num.setNumber(cursor.getString(1));
@@ -115,7 +129,7 @@ public class DatabaseUtils {
 	 *            the database cursor object.
 	 * @return a NumType object.
 	 */
-	public static NumType convertCursorToNumType(Cursor cursor) {
+	protected static NumType convertCursorToNumType(Cursor cursor) {
 		NumType numtype = new NumType();
 		numtype.setNumtypeId(cursor.getLong(0));
 		numtype.setNumtype(cursor.getString(1));
@@ -130,7 +144,7 @@ public class DatabaseUtils {
 	 *            the database cursor object.
 	 * @return a Number object.
 	 */
-	public static Number convertCursorToNumber(Cursor cursor) {
+	protected static Number convertCursorToNumber(Cursor cursor) {
 		Number number = new Number();
 		number.setnId(cursor.getLong(0));
 		number.setnTypeId(cursor.getLong(1));
@@ -148,7 +162,7 @@ public class DatabaseUtils {
 	 *            the database cursor object.
 	 * @return a Color object.
 	 */
-	public static Color convertCursorToColor(Cursor cursor) {
+	protected static Color convertCursorToColor(Cursor cursor) {
 		Color color = new Color();
 		color.setColourId(cursor.getLong(0));
 		color.setColour(cursor.getString(1));
@@ -165,7 +179,7 @@ public class DatabaseUtils {
 	 *            the database shape object.
 	 * @return a shape object.
 	 */
-	public static Shape convertCursorToShape(Cursor cursor) {
+	protected static Shape convertCursorToShape(Cursor cursor) {
 		Shape shape = new Shape();
 		shape.setShapeId(cursor.getLong(0));
 		shape.setShape(cursor.getString(1));

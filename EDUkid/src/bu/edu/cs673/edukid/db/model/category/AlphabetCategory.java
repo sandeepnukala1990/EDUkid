@@ -7,7 +7,9 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
+import bu.edu.cs673.edukid.db.DatabaseHelper;
 import bu.edu.cs673.edukid.db.defaults.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.model.DefaultWordMapping;
 import bu.edu.cs673.edukid.db.model.Letter;
 import bu.edu.cs673.edukid.db.model.Word;
 
@@ -20,6 +22,14 @@ public class AlphabetCategory implements CategoryType {
 	@Override
 	public String getCategoryName() {
 		return "Alphabet";
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getCategoryId() {
+		return Category.ALPHABET.ordinal();
 	}
 
 	/**
@@ -87,18 +97,29 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public Word[] getSettingsItemWords(int itemIndex) {
-		List<Word> wordList = new ArrayList<Word>();
+		Database database = Database.getInstance();
+		List<DefaultWordMapping> defaultWordMappings = database
+				.getDefaultWordMapping(DatabaseHelper
+						.generateDefaultMappingSelection(getCategoryId(),
+								itemIndex));
 
-		for (Word defaultWord : DatabaseDefaults
-				.getDefaultAlphabetWords(itemIndex)) {
+		List<Word> wordList = new ArrayList<Word>();
+		Word[] defaultWords = DatabaseDefaults.getDefaultAlphabetWords()[itemIndex];
+
+		for (int i = 0; i < defaultWords.length; i++) {
+			Word defaultWord = defaultWords[i];
+			defaultWord.setChecked(defaultWordMappings.get(i).isChecked());
 			wordList.add(defaultWord);
 		}
 
-		List<Word> dbWords = Database.getInstance().getWords();
-		if (dbWords.size() > 0) {
-			for (Word dbWord : dbWords) {
-				if (dbWord.getLid() == itemIndex) {
-					wordList.add(dbWord);
+		List<Word> databaseWords = database.getWords();
+
+		if (databaseWords.size() > 0) {
+			for (Word databaseWord : databaseWords) {
+				// TODO: take this check out. put it in getWords()
+				if (databaseWord.getItemId() == itemIndex) {
+					// TODO: databaseWord.setChecked();
+					wordList.add(databaseWord);
 				}
 			}
 		}
@@ -119,11 +140,12 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public Word[] getLearnItemWords(int itemIndex) {
-		// TODO: for now, getting all the words. fix this.
 		List<Word> learnWords = new ArrayList<Word>();
 
 		for (Word settingsItemWord : getSettingsItemWords(itemIndex)) {
-			learnWords.add(settingsItemWord);
+			if (settingsItemWord.isChecked()) {
+				learnWords.add(settingsItemWord);
+			}
 		}
 
 		return learnWords.toArray(new Word[0]);
@@ -142,7 +164,7 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public int getLearnItemWordCount(int itemIndex) {
-		return getSettingsItemWords(itemIndex).length;
+		return getLearnItemWords(itemIndex).length;
 	}
 
 	/**
@@ -165,27 +187,37 @@ public class AlphabetCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int getItemDrawableId(int itemIndex, int imageIndex) {
+	public int getSettingsItemDrawableId(int itemIndex, int imageIndex) {
 		List<Integer> drawableList = new ArrayList<Integer>();
 
-		for (Word defaultWord : DatabaseDefaults
-				.getDefaultAlphabetWords(itemIndex)) {
+		for (Word defaultWord : getSettingsItemWords(itemIndex)) {
 			drawableList.add(defaultWord.getDrawableId());
 		}
 
-		List<Word> dbWords = Database.getInstance().getWords();
+		List<Word> databaseWords = Database.getInstance().getWords();
 
-		if (dbWords.size() > 0) {
-			for (Word dbWord : dbWords) {
-				if (dbWord.getDrawableId() == 0) {
-					drawableList.add(R.drawable.edukidicon);
-				} else {
-					drawableList.add(dbWord.getDrawableId());
+		if (databaseWords.size() > 0) {
+			for (Word databaseWord : databaseWords) {
+				// TODO: take this check out. put it in getWords();
+				if (databaseWord.getItemId() == itemIndex) {
+					if (databaseWord.getDrawableId() == 0) {
+						drawableList.add(R.drawable.edukidicon);
+					} else {
+						drawableList.add(databaseWord.getDrawableId());
+					}
 				}
 			}
 		}
 
 		return drawableList.get(imageIndex);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getLearnItemDrawableId(int itemIndex, int imageIndex) {
+		return getLearnItemWords(itemIndex)[imageIndex].getDrawableId();
 	}
 
 	/**

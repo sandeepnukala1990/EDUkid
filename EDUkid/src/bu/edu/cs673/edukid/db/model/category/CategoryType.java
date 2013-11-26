@@ -8,12 +8,23 @@ import bu.edu.cs673.edukid.db.model.Word;
 
 public interface CategoryType extends Serializable {
 
+	enum Category {
+		ALPHABET, NUMBERS, SHAPES, COLORS
+	};
+
 	/**
 	 * Gets the category name.
 	 * 
 	 * @return the category name.
 	 */
 	String getCategoryName();
+
+	/**
+	 * Gets the category id based on the {@link Category} enum;
+	 * 
+	 * @return the category id.
+	 */
+	int getCategoryId();
 
 	/**
 	 * Gets the category image.
@@ -125,15 +136,26 @@ public interface CategoryType extends Serializable {
 	void editItemWord(int itemIndex, int wordIndex, Word word);
 
 	/**
-	 * Gets the item image id.
+	 * Gets the settings item image id.
 	 * 
 	 * @param itemIndex
 	 *            the item index.
 	 * @param imageIndex
 	 *            the image index.
-	 * @return the item image given the item index and image index.
+	 * @return the settings item image given the item index and image index.
 	 */
-	int getItemDrawableId(int itemIndex, int imageIndex);
+	int getSettingsItemDrawableId(int itemIndex, int imageIndex);
+
+	/**
+	 * Gets the learn item image id.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @param imageIndex
+	 *            the image index.
+	 * @return the learn item image given the item index and image index.
+	 */
+	int getLearnItemDrawableId(int itemIndex, int imageIndex);
 
 	/**
 	 * Gets the item text size that will be used when shown on the screen.

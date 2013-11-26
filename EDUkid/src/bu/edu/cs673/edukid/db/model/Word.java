@@ -5,7 +5,7 @@ import bu.edu.cs673.edukid.db.ImageUtils;
 
 public class Word {
 
-	private long letterId;
+	private long itemId;
 
 	private long wordId;
 
@@ -32,12 +32,12 @@ public class Word {
 		checked = true;
 	}
 
-	public long getLid() {
-		return letterId;
+	public long getItemId() {
+		return itemId;
 	}
 
-	public void setLetterId(long letterId) {
-		this.letterId = letterId;
+	public void setItemId(long itemId) {
+		this.itemId = itemId;
 	}
 
 	public long getWordId() {

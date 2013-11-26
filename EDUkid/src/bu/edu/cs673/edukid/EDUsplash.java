@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.defaults.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.model.Word;
 
 /**
  * The splash screen, and the entry point into the application.
@@ -40,6 +41,7 @@ public class EDUsplash extends Activity {
 
 		Timer.start();
 		setupDatabse();
+		setupDefaultWordMappings();
 	}
 
 	/**
@@ -69,6 +71,31 @@ public class EDUsplash extends Activity {
 		if (database.getShapes().size() == 0) {
 			for (String shape : DatabaseDefaults.getShapes()) {
 				database.addShape(shape, shape, null);
+			}
+		}
+	}
+
+	// TODO
+	private void setupDefaultWordMappings() {
+		if (Database.getInstance(this).getDefaultWordMapping(null).size() == 0) {
+			setupDefaultWordMapping(0,
+					DatabaseDefaults.getDefaultAlphabetWords());
+			setupDefaultWordMapping(1, DatabaseDefaults.getDefaultNumberWords());
+			setupDefaultWordMapping(2, DatabaseDefaults.getDefaultShapeWords());
+			setupDefaultWordMapping(3, DatabaseDefaults.getDefaultColorWords());
+		}
+	}
+
+	// TODO
+	private void setupDefaultWordMapping(int categoryIndex, Word[][] wordsArray) {
+		Database database = Database.getInstance(this);
+
+		for (int itemIndex = 0; itemIndex < wordsArray.length; itemIndex++) {
+			Word[] words = wordsArray[itemIndex];
+
+			for (int wordIndex = 0; wordIndex < words.length; wordIndex++) {
+				database.addDefaultWordMapping(categoryIndex, itemIndex,
+						wordIndex, true);
 			}
 		}
 	}

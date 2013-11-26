@@ -8,8 +8,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
+import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.defaults.DatabaseDefaults;
 import bu.edu.cs673.edukid.db.model.Color;
+import bu.edu.cs673.edukid.db.model.DefaultWordMapping;
 import bu.edu.cs673.edukid.db.model.Letter;
 import bu.edu.cs673.edukid.db.model.Num;
 import bu.edu.cs673.edukid.db.model.NumType;
@@ -49,12 +51,14 @@ public class Database {
 			DatabaseHelper.COLUMN_WORDS_WORD,
 			DatabaseHelper.COLUMN_WORDS_SOUND,
 			DatabaseHelper.COLUMN_WORDS_IMAGE,
+			DatabaseHelper.COLUMN_WORDS_IMAGE_ID,
 			DatabaseHelper.COLUMN_WORDS_CHECKED };
 
 	private String[] defaultWordMapColumns = {
-			DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_LID,
-			DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_WID,
-			DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_ENABLED };
+			DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_CATEGORY_ID,
+			DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_ITEM_ID,
+			DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_WORD_ID,
+			DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_CHECKED };
 
 	private String[] numColumns = { DatabaseHelper.COLUMN_NUMBER_ID,
 			DatabaseHelper.COLUMN_NUMBER_WORD,
@@ -187,6 +191,7 @@ public class Database {
 	 * 
 	 * @return a list of the alphabets in the database.
 	 */
+	// TODO: pass some where statements in here for better efficiency.
 	public List<Word> getWords() {
 		List<Word> alpha = new ArrayList<Word>();
 
@@ -222,7 +227,7 @@ public class Database {
 		int themeId = 0;
 
 		for (int i = 0; i < getWords().size(); i++) {
-			if (getWords().get(i).getLid() == letterId) {
+			if (getWords().get(i).getItemId() == letterId) {
 				themeId++;
 			}
 		}
@@ -233,8 +238,11 @@ public class Database {
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_WORD, word.getWord());
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND,
 				word.getWordSound());
+		// TODO: fix this
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
 				ImageUtils.drawableToByteArray(word.getWordDrawable()));
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE_ID,
+				R.drawable.abacus);
 
 		// New words should be checked when created (1 = true).
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_CHECKED, 1);
@@ -257,17 +265,58 @@ public class Database {
 	}
 
 	// TODO
-	public void addDefaultWordMapping(int itemIndex, int wordIndex,
-			boolean enabled) {
+	public List<DefaultWordMapping> getDefaultWordMapping(String selection) {
+		List<DefaultWordMapping> defaultWordMappings = new ArrayList<DefaultWordMapping>();
+
+		Cursor cursor = sqlDatabase.query(
+				DatabaseHelper.TABLE_DEFAULT_WORD_MAP, defaultWordMapColumns,
+				selection, null, null, null, null);
+		cursor.moveToFirst();
+
+		while (!cursor.isAfterLast()) {
+			defaultWordMappings.add(DatabaseUtils
+					.convertCursorToDefaultWordMapping(cursor));
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+
+		return defaultWordMappings;
+	}
+
+	// TODO
+	public void addDefaultWordMapping(int categoryIndex, int itemIndex,
+			int wordIndex, boolean checked) {
 		ContentValues contentValues = new ContentValues();
-		contentValues
-				.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_LID, itemIndex);
-		contentValues
-				.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_WID, wordIndex);
-//		contentValues.put(DatabaseHelper.COLUMN_WORDS, word.getWord());
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_CATEGORY_ID,
+				categoryIndex);
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_ITEM_ID,
+				itemIndex);
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_WORD_ID,
+				wordIndex);
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_CHECKED,
+				checked ? 1 : 0);
 
 		sqlDatabase.insert(DatabaseHelper.TABLE_DEFAULT_WORD_MAP, null,
 				contentValues);
+	}
+
+	// TODO
+	public void updateDefaultWordMapping(int categoryIndex, int itemIndex,
+			int wordIndex, boolean checked) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_CATEGORY_ID,
+				categoryIndex);
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_ITEM_ID,
+				itemIndex);
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_WORD_ID,
+				wordIndex);
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_CHECKED,
+				checked ? 1 : 0);
+
+		sqlDatabase.update(DatabaseHelper.TABLE_DEFAULT_WORD_MAP,
+				contentValues, DatabaseHelper.generateDefaultMappingSelection(
+						categoryIndex, itemIndex, wordIndex), null);
 	}
 
 	/**

@@ -64,7 +64,7 @@ public class CategoryView extends ListActivity implements OnItemClickListener {
 		for (int i = 0; i < listItems.size(); i++) {
 			// Show the first image for each item
 			listDrawables.add(getResources().getDrawable(
-					categoryType.getItemDrawableId(i, 0)));
+					categoryType.getSettingsItemDrawableId(i, 0)));
 		}
 
 		itemsAdapter = new SettingsAdapter(this, R.layout.settings_row,

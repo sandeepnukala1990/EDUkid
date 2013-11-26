@@ -125,14 +125,12 @@ public class EDUkid extends Activity implements OnClickListener {
 		layoutParams.bottomMargin = 10;
 		layoutParams.leftMargin = 10;
 
-		CategoryType[] categories = Database.getInstance(this).getCategories();
-
-		for (int i = 0; i < categories.length; i++) {
-			CategoryType category = categories[i];
+		for (CategoryType categoryType : Database.getInstance(this)
+				.getCategories()) {
 			ImageButton categoryButton = new ImageButton(this);
-			categoryButton.setId(i);
+			categoryButton.setId(categoryType.getCategoryId());
 			categoryButton.setLayoutParams(layoutParams);
-			categoryButton.setBackground(category.getCategoryImage(this));
+			categoryButton.setBackground(categoryType.getCategoryImage(this));
 			categoryButton.setOnClickListener(this);
 			categoryLayout.addView(categoryButton);
 		}

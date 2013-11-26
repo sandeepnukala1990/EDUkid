@@ -69,24 +69,22 @@ public class DatabaseDefaults {
 	 * to configure a given letter.
 	 * </p>
 	 * 
-	 * @param itemIndex
-	 *            the item index.
 	 * @return the default words for the alphabet category.
 	 */
-	public static Word[] getDefaultAlphabetWords(int itemIndex) {
-		return AlphabetDefaults.ALPHABET_WORDS[itemIndex];
+	public static Word[][] getDefaultAlphabetWords() {
+		return AlphabetDefaults.ALPHABET_WORDS;
 	}
 
-	public static Word[] getDefaultnumWords(int itemIndex) {
-		return NumbersDefaults.NUMBER_WORDS[itemIndex];
+	public static Word[][] getDefaultNumberWords() {
+		return NumbersDefaults.NUMBER_WORDS;
 	}
 
-	public static Word[] getDefaultShapeWords(int itemIndex) {
-		return ShapesDefaults.SHAPES_WORDS[itemIndex];
+	public static Word[][] getDefaultShapeWords() {
+		return ShapesDefaults.SHAPES_WORDS;
 	}
 
-	public static Word[] getDefaultColorWords(int itemIndex) {
-		return ColorsDefaults.COLORS_WORDS[itemIndex];
+	public static Word[][] getDefaultColorWords() {
+		return ColorsDefaults.COLORS_WORDS;
 	}
 
 	/**
