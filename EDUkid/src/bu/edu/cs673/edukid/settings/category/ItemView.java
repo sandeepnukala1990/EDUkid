@@ -133,7 +133,7 @@ public class ItemView extends ListActivity implements OnItemClickListener {
 			listItems.add(word.getWord());
 			listDrawables.add(getResources().getDrawable(
 					categoryType.getItemDrawableId(itemIndex, i)));
-			listCheckBoxes.add(word.isDefaultWord());
+			listCheckBoxes.add(word.isChecked());
 		}
 
 		wordsAdapter = new SettingsAdapter(this, R.layout.settings_row,

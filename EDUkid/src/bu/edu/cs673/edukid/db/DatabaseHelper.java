@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String EDUKID_DATABASE = "EDUkid.db";
-	private static final int EDUKID_DATABASE_VERSION = 39;
+	private static final int EDUKID_DATABASE_VERSION = 42;
 
 	private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
 
@@ -28,12 +28,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	protected static final String COLUMN_LETTERS_WORD = "letterword";
 	protected static final String COLUMN_LETTERS_SOUND = "lettersound";
 
-	protected static final String TABLE_WORDS = "alphabet";
-	protected static final String COLUMN_LID = "lid";
-	protected static final String COLUMN_TID = "tid";
-	protected static final String COLUMN_WORDS = "words";
+	protected static final String TABLE_WORDS = "words";
+	protected static final String COLUMN_WORDS_ITEM_ID = "wordsitemid";
+	protected static final String COLUMN_WORDS_WORD_ID = "wordswordid";
+	protected static final String COLUMN_WORDS_WORD = "wordsword";
 	protected static final String COLUMN_WORDS_SOUND = "wordssound";
 	protected static final String COLUMN_WORDS_IMAGE = "wordsimage";
+	protected static final String COLUMN_WORDS_CHECKED = "wordschecked";
 
 	protected static final String TABLE_NUMBER = "number";
 	protected static final String COLUMN_NUMBER_ID = "numberid";
@@ -81,9 +82,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ " text , " + COLUMN_LETTERS_SOUND + " text );";
 
 	private static final String CREATE_ALPHABET_TABLE = "create table "
-			+ TABLE_WORDS + "(" + COLUMN_LID + " integer, " + COLUMN_TID
-			+ " integer , " + COLUMN_WORDS + " text , " + COLUMN_WORDS_SOUND
-			+ " text, " + COLUMN_WORDS_IMAGE + " text );";
+			+ TABLE_WORDS + "(" + COLUMN_WORDS_ITEM_ID + " integer, "
+			+ COLUMN_WORDS_WORD_ID + " integer , " + COLUMN_WORDS_WORD
+			+ " text , " + COLUMN_WORDS_SOUND + " text, " + COLUMN_WORDS_IMAGE
+			+ " text , " + COLUMN_WORDS_CHECKED + " text );";
 
 	private static final String CREATE_SHAPE_TABLE = "create table "
 			+ TABLE_SHAPE + "(" + COLUMN_SHAPE_ID

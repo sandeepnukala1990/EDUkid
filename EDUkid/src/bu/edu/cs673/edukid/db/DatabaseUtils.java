@@ -81,10 +81,11 @@ public class DatabaseUtils {
 	public static Word convertCursorToWord(Cursor cursor) {
 		Word word = new Word();
 		word.setLetterId(cursor.getLong(0));
-		word.setThemeId(cursor.getLong(1));
+		word.setWordId(cursor.getLong(1));
 		word.setWord(cursor.getString(2));
 		word.setWordSound(cursor.getString(3));
 		word.setWordImage(cursor.getBlob(4));
+		word.setChecked(cursor.getInt(5) == 1 ? true : false);
 		word.setDefaultWord(false);
 
 		return word;

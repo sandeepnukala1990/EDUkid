@@ -7,8 +7,7 @@ public class Word {
 
 	private long letterId;
 
-	// TODO: rename to wordId;
-	private long themeId;
+	private long wordId;
 
 	private String word;
 
@@ -20,6 +19,8 @@ public class Word {
 
 	private boolean defaultWord;
 
+	private boolean checked;
+
 	public Word() {
 
 	}
@@ -28,6 +29,7 @@ public class Word {
 		this.word = word;
 		this.drawableId = drawableId;
 		defaultWord = true;
+		checked = true;
 	}
 
 	public long getLid() {
@@ -38,12 +40,12 @@ public class Word {
 		this.letterId = letterId;
 	}
 
-	public long getThemeId() {
-		return themeId;
+	public long getWordId() {
+		return wordId;
 	}
 
-	public void setThemeId(long themeId) {
-		this.themeId = themeId;
+	public void setWordId(long wordId) {
+		this.wordId = wordId;
 	}
 
 	public String getWord() {
@@ -88,5 +90,13 @@ public class Word {
 
 	public boolean isDefaultWord() {
 		return defaultWord;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
+	public boolean isChecked() {
+		return checked;
 	}
 }

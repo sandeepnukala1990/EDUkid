@@ -67,12 +67,10 @@ public class SettingsAdapter extends ArrayAdapter<String> implements
 		if (listCheckBoxes == null) {
 			checkBox.setVisibility(View.INVISIBLE);
 		} else {
-			checkBox.setVisibility(listCheckBoxes.get(position) ? View.VISIBLE
-					: View.INVISIBLE);
+			checkBox.setChecked(listCheckBoxes.get(position));
 		}
 
 		// TODO: then set this based on the new default image database table
-		checkBox.setChecked(true);
 		checkBox.setId(position);
 		checkBox.setOnCheckedChangeListener(this);
 

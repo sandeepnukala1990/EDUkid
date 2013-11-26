@@ -44,10 +44,12 @@ public class Database {
 			DatabaseHelper.COLUMN_LETTERS_WORD,
 			DatabaseHelper.COLUMN_LETTERS_SOUND };
 
-	private String[] wordColumns = { DatabaseHelper.COLUMN_LID,
-			DatabaseHelper.COLUMN_TID, DatabaseHelper.COLUMN_WORDS,
+	private String[] wordColumns = { DatabaseHelper.COLUMN_WORDS_ITEM_ID,
+			DatabaseHelper.COLUMN_WORDS_WORD_ID,
+			DatabaseHelper.COLUMN_WORDS_WORD,
 			DatabaseHelper.COLUMN_WORDS_SOUND,
-			DatabaseHelper.COLUMN_WORDS_IMAGE };
+			DatabaseHelper.COLUMN_WORDS_IMAGE,
+			DatabaseHelper.COLUMN_WORDS_CHECKED };
 
 	private String[] numColumns = { DatabaseHelper.COLUMN_NUMBER_ID,
 			DatabaseHelper.COLUMN_NUMBER_WORD,
@@ -221,13 +223,16 @@ public class Database {
 		}
 
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(DatabaseHelper.COLUMN_LID, letterId);
-		contentValues.put(DatabaseHelper.COLUMN_TID, themeId);
-		contentValues.put(DatabaseHelper.COLUMN_WORDS, word.getWord());
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_ITEM_ID, letterId);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_WORD_ID, themeId);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_WORD, word.getWord());
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND,
 				word.getWordSound());
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
 				ImageUtils.drawableToByteArray(word.getWordDrawable()));
+
+		// New words should be checked when created (1 = true).
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_CHECKED, 1);
 
 		sqlDatabase.insert(DatabaseHelper.TABLE_WORDS, null, contentValues);
 	}
