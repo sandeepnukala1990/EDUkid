@@ -64,8 +64,8 @@ public class WordFragment extends Fragment implements OnClickListener,
 		// Set content word
 		TextView learnContentWord = (TextView) view
 				.findViewById(R.id.learnContentWord);
-		learnContentWord.setText(categoryType.getItemWord(itemIndex, wordIndex)
-				.getWord());
+		learnContentWord.setText(categoryType.getLearnItemWord(itemIndex,
+				wordIndex).getWord());
 
 		learnContentWord.setOnClickListener(this);
 	}
@@ -80,7 +80,8 @@ public class WordFragment extends Fragment implements OnClickListener,
 		switch (view.getId()) {
 		case R.id.learnContentImage:
 		case R.id.learnContentWord:
-			text = categoryType.getItemWord(itemIndex, wordIndex).getWord();
+			text = categoryType.getLearnItemWord(itemIndex, wordIndex)
+					.getWord();
 			break;
 		default:
 			return;

@@ -51,6 +51,11 @@ public class Database {
 			DatabaseHelper.COLUMN_WORDS_IMAGE,
 			DatabaseHelper.COLUMN_WORDS_CHECKED };
 
+	private String[] defaultWordMapColumns = {
+			DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_LID,
+			DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_WID,
+			DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_ENABLED };
+
 	private String[] numColumns = { DatabaseHelper.COLUMN_NUMBER_ID,
 			DatabaseHelper.COLUMN_NUMBER_WORD,
 			DatabaseHelper.COLUMN_NUMBER_SOUND };
@@ -249,6 +254,20 @@ public class Database {
 	 */
 	public void editWord(int itemIndex, int wordIndex, Word word) {
 		// TODO: Jasjot, implement this
+	}
+
+	// TODO
+	public void addDefaultWordMapping(int itemIndex, int wordIndex,
+			boolean enabled) {
+		ContentValues contentValues = new ContentValues();
+		contentValues
+				.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_LID, itemIndex);
+		contentValues
+				.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_WID, wordIndex);
+//		contentValues.put(DatabaseHelper.COLUMN_WORDS, word.getWord());
+
+		sqlDatabase.insert(DatabaseHelper.TABLE_DEFAULT_WORD_MAP, null,
+				contentValues);
 	}
 
 	/**

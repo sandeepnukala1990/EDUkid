@@ -86,7 +86,7 @@ public class AlphabetCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Word[] getItemWords(int itemIndex) {
+	public Word[] getSettingsItemWords(int itemIndex) {
 		List<Word> wordList = new ArrayList<Word>();
 
 		for (Word defaultWord : DatabaseDefaults
@@ -110,16 +110,39 @@ public class AlphabetCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Word getItemWord(int itemIndex, int wordIndex) {
-		return getItemWords(itemIndex)[wordIndex];
+	public Word getSettingsItemWord(int itemIndex, int wordIndex) {
+		return getSettingsItemWords(itemIndex)[wordIndex];
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int getItemWordCount(int itemIndex) {
-		return getItemWords(itemIndex).length;
+	public Word[] getLearnItemWords(int itemIndex) {
+		// TODO: for now, getting all the words. fix this.
+		List<Word> learnWords = new ArrayList<Word>();
+
+		for (Word settingsItemWord : getSettingsItemWords(itemIndex)) {
+			learnWords.add(settingsItemWord);
+		}
+
+		return learnWords.toArray(new Word[0]);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Word getLearnItemWord(int itemIndex, int wordIndex) {
+		return getLearnItemWords(itemIndex)[wordIndex];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getLearnItemWordCount(int itemIndex) {
+		return getSettingsItemWords(itemIndex).length;
 	}
 
 	/**
@@ -135,7 +158,7 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public void editItemWord(int itemIndex, int wordIndex, Word word) {
-		// TODO: Jasjot, implement this
+		Database.getInstance().editWord(itemIndex, wordIndex, word);
 	}
 
 	/**

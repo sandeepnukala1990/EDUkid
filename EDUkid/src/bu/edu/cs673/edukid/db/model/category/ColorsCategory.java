@@ -76,7 +76,7 @@ public class ColorsCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Word[] getItemWords(int itemIndex) {
+	public Word[] getSettingsItemWords(int itemIndex) {
 		// TODO
 		return DatabaseDefaults.getDefaultColorWords(itemIndex);
 	}
@@ -85,7 +85,7 @@ public class ColorsCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Word getItemWord(int itemIndex, int wordIndex) {
+	public Word getSettingsItemWord(int itemIndex, int wordIndex) {
 		// TODO
 		return DatabaseDefaults.getDefaultColorWords(itemIndex)[wordIndex];
 	}
@@ -94,7 +94,24 @@ public class ColorsCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int getItemWordCount(int itemIndex) {
+	public Word[] getLearnItemWords(int itemIndex) {
+		// TODO: for now, getting all the words. fix this.
+		return getSettingsItemWords(itemIndex);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Word getLearnItemWord(int itemIndex, int wordIndex) {
+		return getLearnItemWords(itemIndex)[wordIndex];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getLearnItemWordCount(int itemIndex) {
 		// TODO
 		return DatabaseDefaults.getDefaultColorWords(itemIndex).length;
 	}

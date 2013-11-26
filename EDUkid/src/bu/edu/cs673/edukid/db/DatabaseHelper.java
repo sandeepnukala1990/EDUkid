@@ -36,6 +36,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	protected static final String COLUMN_WORDS_IMAGE = "wordsimage";
 	protected static final String COLUMN_WORDS_CHECKED = "wordschecked";
 
+	protected static final String TABLE_DEFAULT_WORD_MAP = "defaultwordmap";
+	protected static final String COLUMN_DEFAULT_WORD_MAP_LID = "lid";
+	protected static final String COLUMN_DEFAULT_WORD_MAP_WID = "wid";
+	protected static final String COLUMN_DEFAULT_WORD_MAP_ENABLED = "defaultwordenabled";
+
 	protected static final String TABLE_NUMBER = "number";
 	protected static final String COLUMN_NUMBER_ID = "numberid";
 	protected static final String COLUMN_NUMBER_WORD = "num";
@@ -86,6 +91,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ COLUMN_WORDS_WORD_ID + " integer , " + COLUMN_WORDS_WORD
 			+ " text , " + COLUMN_WORDS_SOUND + " text, " + COLUMN_WORDS_IMAGE
 			+ " text , " + COLUMN_WORDS_CHECKED + " text );";
+
+	private static final String CREATE_DEFAUT_WORD_MAP_TABLE = "create table "
+			+ TABLE_DEFAULT_WORD_MAP + "(" + COLUMN_DEFAULT_WORD_MAP_LID
+			+ " integer, " + COLUMN_DEFAULT_WORD_MAP_WID + " integer , "
+			+ COLUMN_DEFAULT_WORD_MAP_ENABLED + " integer );";
 
 	private static final String CREATE_SHAPE_TABLE = "create table "
 			+ TABLE_SHAPE + "(" + COLUMN_SHAPE_ID
@@ -138,6 +148,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_USER_ACCOUNT_TABLE);
 		db.execSQL(CREATE_LETTERS_TABLE);
 		db.execSQL(CREATE_ALPHABET_TABLE);
+		db.execSQL(CREATE_DEFAUT_WORD_MAP_TABLE);
 		db.execSQL(CREATE_NUMBER_TABLE);
 		db.execSQL(CREATE_NUMTYPE_TABLE);
 		db.execSQL(CREATE_NUMBERS_TABLE);
@@ -154,6 +165,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(DROP_TABLE + TABLE_USER_ACCOUNT);
 		db.execSQL(DROP_TABLE + TABLE_LETTERS);
 		db.execSQL(DROP_TABLE + TABLE_WORDS);
+		db.execSQL(DROP_TABLE + TABLE_DEFAULT_WORD_MAP);
 		db.execSQL(DROP_TABLE + TABLE_NUMBER);
 		db.execSQL(DROP_TABLE + TABLE_NUM_TYPE);
 		db.execSQL(DROP_TABLE + TABLE_NUMBERS);
