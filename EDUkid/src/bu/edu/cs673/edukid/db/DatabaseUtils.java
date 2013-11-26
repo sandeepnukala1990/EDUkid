@@ -85,6 +85,8 @@ public class DatabaseUtils {
 		word.setWord(cursor.getString(2));
 		word.setWordSound(cursor.getString(3));
 		word.setWordImage(cursor.getBlob(4));
+		// TODO: add to new table
+		// word.setEnabled(cursor.getInt(5) == 1 ? true : false);
 		word.setDefaultWord(false);
 
 		return word;

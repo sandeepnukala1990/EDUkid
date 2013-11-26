@@ -42,7 +42,7 @@ public class WordView extends Activity {
 		itemIndex = extras.getInt(EDUkid.ITEM_INDEX);
 		wordIndex = extras.getInt(EDUkid.WORD_INDEX);
 
-		Word word = categoryType.getItemWord(itemIndex, wordIndex);
+		Word word = categoryType.getSettingsItemWord(itemIndex, wordIndex);
 
 		// Set word name
 		wordName = (TextView) findViewById(R.id.wordName);

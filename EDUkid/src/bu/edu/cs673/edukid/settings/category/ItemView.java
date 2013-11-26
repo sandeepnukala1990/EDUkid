@@ -121,7 +121,7 @@ public class ItemView extends ListActivity implements OnItemClickListener {
 	}
 
 	private void setupWordList() {
-		Word[] words = categoryType.getItemWords(itemIndex);
+		Word[] words = categoryType.getSettingsItemWords(itemIndex);
 
 		List<String> listItems = new ArrayList<String>();
 		List<Drawable> listDrawables = new ArrayList<Drawable>();

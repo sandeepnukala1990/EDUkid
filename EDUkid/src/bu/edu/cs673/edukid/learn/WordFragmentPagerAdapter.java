@@ -54,6 +54,6 @@ public class WordFragmentPagerAdapter extends FragmentPagerAdapter {
 	 */
 	@Override
 	public int getCount() {
-		return categoryType.getItemWordCount(itemIndex);
+		return categoryType.getLearnItemWordCount(itemIndex);
 	}
 }

@@ -62,13 +62,19 @@ public interface CategoryType extends Serializable {
 	String getItemPhoneticSound(int itemIndex);
 
 	/**
-	 * Gets the associated words for a given item.
+	 * Gets all of the associated words for a given item (enabled and disabled).
+	 * 
+	 * <p>
+	 * Note: this is meant for the settings to show all of the words regardless
+	 * if the user wants to use them or not.
+	 * </p>
 	 * 
 	 * @param itemIndex
 	 *            the item index.
-	 * @return the associated words for a given item.
+	 * @return all of the associated words for a given item (enabled and
+	 *         disabled).
 	 */
-	Word[] getItemWords(int itemIndex);
+	Word[] getSettingsItemWords(int itemIndex);
 
 	/**
 	 * Gets the specific word given an item index and word index.
@@ -79,7 +85,13 @@ public interface CategoryType extends Serializable {
 	 *            the word index.
 	 * @return the specific word given an item index and word index.
 	 */
-	Word getItemWord(int itemIndex, int wordIndex);
+	Word getSettingsItemWord(int itemIndex, int wordIndex);
+
+	// TODO
+	Word[] getLearnItemWords(int itemIndex);
+
+	// TODO
+	Word getLearnItemWord(int itemIndex, int wordIndex);
 
 	/**
 	 * Gets the item word count for this category type.
@@ -88,7 +100,7 @@ public interface CategoryType extends Serializable {
 	 *            the item index.
 	 * @return the item word count for this category type.
 	 */
-	int getItemWordCount(int itemIndex);
+	int getLearnItemWordCount(int itemIndex);
 
 	/**
 	 * Adds a word to the database.
