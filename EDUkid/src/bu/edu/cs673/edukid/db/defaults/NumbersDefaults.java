@@ -17,7 +17,7 @@ public class NumbersDefaults {
 	// TODO: replace the edukid icon with the real image
 	private static Word[] ONE_WORDS = new Word[] {
 			new Word("One", R.drawable.onepng),
-			new Word("One", R.drawable.butterflypng) };
+			new Word("One", R.drawable.countballone) };
 
 	// TODO: replace the edukid icon with the real image
 	private static Word[] TWO_WORDS = new Word[] {
