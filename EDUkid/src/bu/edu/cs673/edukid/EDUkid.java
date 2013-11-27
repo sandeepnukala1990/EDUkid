@@ -100,7 +100,10 @@ public class EDUkid extends Activity implements OnClickListener {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								// TODO: implement this
+								Intent intent = new Intent(EDUkid.this,
+										EDUkid.class);
+								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+								startActivity(intent);
 							}
 						});
 				alert.create();

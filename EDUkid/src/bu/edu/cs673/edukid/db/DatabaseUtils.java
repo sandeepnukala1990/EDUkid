@@ -8,6 +8,7 @@ import bu.edu.cs673.edukid.db.model.Num;
 import bu.edu.cs673.edukid.db.model.NumType;
 import bu.edu.cs673.edukid.db.model.Number;
 import bu.edu.cs673.edukid.db.model.Shape;
+import bu.edu.cs673.edukid.db.model.Timer;
 import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.db.model.Word;
 
@@ -187,5 +188,15 @@ public class DatabaseUtils {
 		shape.setShapeSound(cursor.getString(3));
 
 		return shape;
+	}
+
+	protected static Timer convertCursorToTimer(Cursor cursor) {
+		Timer timer = new Timer();
+		timer.setEnabled(cursor.getInt(0));
+		timer.setExpired(cursor.getInt(1));
+		timer.setTimeleft(cursor.getInt(2));
+		timer.setLeartime(cursor.getInt(3));
+
+		return timer;
 	}
 }

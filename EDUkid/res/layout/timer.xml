@@ -26,7 +26,7 @@
         android:background="@drawable/settingshomebutton" />
 
     <ToggleButton
-        android:id="@+id/toggleButton1"
+        android:id="@+id/toggleButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignRight="@+id/imageView1"
@@ -41,14 +41,14 @@
         android:layout_height="100dp"
         android:layout_alignBaseline="@+id/settingsHomeButton"
         android:layout_alignBottom="@+id/settingsHomeButton"
-        android:layout_alignLeft="@+id/toggleButton1"
+        android:layout_alignLeft="@+id/toggleButton"
         android:text="Reset" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/toggleButton1"
+        android:layout_alignBottom="@+id/toggleButton"
         android:layout_marginBottom="29dp"
         android:layout_marginRight="97dp"
         android:layout_toLeftOf="@+id/imageView1"
@@ -56,10 +56,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/playTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/toggleButton1"
+        android:layout_alignRight="@+id/toggleButton"
         android:layout_alignTop="@+id/textView2"
         android:ems="10"
         android:inputType="number" >
@@ -76,5 +76,13 @@
         android:layout_marginTop="36dp"
         android:text="Play time"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/createSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/savebutton" />
 
 </RelativeLayout>

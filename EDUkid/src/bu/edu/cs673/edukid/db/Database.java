@@ -17,6 +17,7 @@ import bu.edu.cs673.edukid.db.model.Num;
 import bu.edu.cs673.edukid.db.model.NumType;
 import bu.edu.cs673.edukid.db.model.Number;
 import bu.edu.cs673.edukid.db.model.Shape;
+import bu.edu.cs673.edukid.db.model.Timer;
 import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
@@ -81,6 +82,11 @@ public class Database {
 			DatabaseHelper.COLUMN_SHAPE_WORD,
 			DatabaseHelper.COLUMN_SHAPE_IMAGE,
 			DatabaseHelper.COLUMN_SHAPE_SOUND };
+
+	private String[] timerColumns = { DatabaseHelper.COLUMN_TIMER_LEFT,
+			DatabaseHelper.COLUMN_TIMER_EXPIRED,
+			DatabaseHelper.COLUMN_TIMER_EXPIRED,
+			DatabaseHelper.COLUMN_LEARN_TIME };
 
 	/**
 	 * Gets the database singleton instance.
@@ -578,4 +584,31 @@ public class Database {
 				contentValues);
 	}
 
+	public Timer getTimer() {
+		Timer timer = null;
+
+		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_TIMER,
+				timerColumns, null, null, null, null, null);
+		cursor.moveToFirst();
+
+		// There should only be 1 timer object
+		while (!cursor.isAfterLast()) {
+			timer = DatabaseUtils.convertCursorToTimer(cursor);
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+
+		return timer;
+	}
+
+	public void updateTimer(boolean enabled, boolean expired,
+			int learnTime) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_TIMER_ENABLED, enabled);
+		// TODO: put in the other 3 columns
+
+		sqlDatabase.update(DatabaseHelper.TABLE_TIMER, contentValues, null,
+				null);
+	}
 }

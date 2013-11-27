@@ -73,6 +73,10 @@ public class EDUsplash extends Activity {
 				database.addShape(shape, shape, null);
 			}
 		}
+
+		if (database.getTimer() == null) {
+			database.updateTimer(false, false, 30);
+		}
 	}
 
 	// TODO
