@@ -197,12 +197,11 @@ public class Database {
 	 * 
 	 * @return a list of the alphabets in the database.
 	 */
-	// TODO: pass some where statements in here for better efficiency.
-	public List<Word> getWords() {
+	public List<Word> getWords(String selection) {
 		List<Word> alpha = new ArrayList<Word>();
 
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_WORDS,
-				wordColumns, null, null, null, null, null);
+				wordColumns, selection, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
@@ -218,7 +217,7 @@ public class Database {
 	/**
 	 * Adds an alphabets to the database.
 	 * 
-	 * @param letterId
+	 * @param itemIndex
 	 *            the letter id.
 	 * @param themeId
 	 *            the the theme id.
@@ -229,18 +228,14 @@ public class Database {
 	 * @param alphabetImage
 	 *            the alphabet image.
 	 */
-	public void addWord(int letterId, Word word) {
-		int themeId = 0;
-
-		for (int i = 0; i < getWords().size(); i++) {
-			if (getWords().get(i).getItemId() == letterId) {
-				themeId++;
-			}
-		}
+	public void addWord(int itemIndex, Word word) {
+		List<Word> words = getWords(DatabaseHelper
+				.generateWordsSelection(itemIndex));
+		int wordIndex = words.size();
 
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(DatabaseHelper.COLUMN_WORDS_ITEM_ID, letterId);
-		contentValues.put(DatabaseHelper.COLUMN_WORDS_WORD_ID, themeId);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_ITEM_ID, itemIndex);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_WORD_ID, wordIndex);
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_WORD, word.getWord());
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND,
 				word.getWordSound());
@@ -257,7 +252,7 @@ public class Database {
 	}
 
 	/**
-	 * Edits a word in the database.
+	 * Updates a word in the database.
 	 * 
 	 * @param itemIndex
 	 *            the item index.
@@ -266,8 +261,25 @@ public class Database {
 	 * @param word
 	 *            the new word to replace with the existing one.
 	 */
-	public void editWord(int itemIndex, int wordIndex, Word word) {
-		// TODO: Jasjot, implement this
+	public void updateWord(int itemIndex, int wordIndex, Word word) {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_ITEM_ID, itemIndex);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_WORD_ID, wordIndex);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_WORD, word.getWord());
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND,
+				word.getWordSound());
+		// TODO: fix this
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
+				ImageUtils.drawableToByteArray(word.getWordDrawable()));
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE_ID,
+				R.drawable.abacus);
+		contentValues
+				.put(DatabaseHelper.COLUMN_WORDS_CHECKED, word.isChecked());
+
+		sqlDatabase.update(DatabaseHelper.TABLE_WORDS, contentValues,
+				DatabaseHelper.generateWordsSelection(itemIndex, wordIndex),
+				null);
 	}
 
 	// TODO

@@ -17,12 +17,12 @@ public class NumbersDefaults {
 	// TODO: replace the edukid icon with the real image
 	private static Word[] ONE_WORDS = new Word[] {
 			new Word("One", R.drawable.onepng),
-			new Word("One", R.drawable.butterflypng) };
+			new Word("One", R.drawable.countballone) };
 
 	// TODO: replace the edukid icon with the real image
 	private static Word[] TWO_WORDS = new Word[] {
 			new Word("Two", R.drawable.twopng),
-			new Word("Two", R.drawable.edukidicon) };
+			new Word("Two", R.drawable.countballtwo)};
 
 	// TODO: replace the edukid icon with the real image
 	private static Word[] THREE_WORDS = new Word[] {
@@ -37,32 +37,33 @@ public class NumbersDefaults {
 	// TODO: replace the edukid icon with the real image
 	private static Word[] FIVE_WORDS = new Word[] {
 			new Word("Five", R.drawable.fivepng),
-			new Word("Five", R.drawable.fiveflowers) };
+			new Word("Five", R.drawable.fiveflowers),
+			new Word("Two", R.drawable.countballfive)};
 
 	// TODO: replace the edukid icon with the real image
 	private static Word[] SIX_WORDS = new Word[] {
 			new Word("Six", R.drawable.sixpng),
-			new Word("Six", R.drawable.edukidicon) };
+			new Word("Six", R.drawable.countballsix) };
 
 	// TODO: replace the edukid icon with the real image
 	private static Word[] SEVEN_WORDS = new Word[] {
 			new Word("Seven", R.drawable.sevenpng),
-			new Word("Seven", R.drawable.edukidicon) };
+			new Word("Seven", R.drawable.countballseven) };
 
 	// TODO: replace the edukid icon with the real image
 	private static Word[] EIGHT_WORDS = new Word[] {
 			new Word("Eight", R.drawable.eightpng),
-			new Word("Eight", R.drawable.edukidicon) };
+			new Word("Eight", R.drawable.countballeight) };
 
 	// TODO: replace the edukid icon with the real image
 	private static Word[] NINE_WORDS = new Word[] {
 			new Word("Nine", R.drawable.ninepng),
-			new Word("Nine", R.drawable.edukidicon) };
+			new Word("Nine", R.drawable.countballnine) };
 
 	// TODO: replace the edukid icon with the real image
 	private static Word[] TEN_WORDS = new Word[] {
 			new Word("Ten", R.drawable.tenpng),
-			new Word("Ten", R.drawable.edukidicon) };
+			new Word("Ten", R.drawable.countballten) };
 
 	protected static Word[][] NUMBER_WORDS = new Word[][] { ZERO_WORDS,
 			ONE_WORDS, TWO_WORDS, THREE_WORDS, FOUR_WORDS, FIVE_WORDS,

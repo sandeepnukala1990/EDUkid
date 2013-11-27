@@ -3,19 +3,20 @@ package bu.edu.cs673.edukid.settings;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
+import bu.edu.cs673.edukid.db.DatabaseHelper;
+import bu.edu.cs673.edukid.db.model.DefaultWordMapping;
+import bu.edu.cs673.edukid.db.model.Word;
 
 public class SettingsAdapter extends ArrayAdapter<String> implements
 		OnCheckedChangeListener {
@@ -24,37 +25,60 @@ public class SettingsAdapter extends ArrayAdapter<String> implements
 
 	private int resource;
 
-	private List<String> listItems;
-
-	private List<Drawable> listDrawables;
-
-	private List<Boolean> listCheckBoxes;
+	private List<SettingsRow> settingsRows;
 
 	private int categoryIndex;
 
 	private int itemIndex;
 
+	/**
+	 * Constructor.
+	 * 
+	 * <p>
+	 * Used for the generic settings lists that don't require a check box.
+	 * </p>
+	 * 
+	 * @param context
+	 *            the context.
+	 * @param resource
+	 *            the list resource id.
+	 * @param settingsRows
+	 *            the settings row objects in the list.
+	 */
 	public SettingsAdapter(Context context, int resource,
-			List<String> listItems, List<Drawable> listDrawables) {
-		this(context, resource, listItems, listDrawables, null);
+			List<SettingsRow> settingsRows) {
+		this(context, resource, settingsRows, -1, -1);
 	}
 
+	/**
+	 * Constructor.
+	 * 
+	 * <p>
+	 * Used for the complex settings lists that do require a check box.
+	 * </p>
+	 * 
+	 * @param context
+	 *            the context.
+	 * @param resource
+	 *            the list resource id.
+	 * @param settingsRows
+	 *            the settings row objects in the list.
+	 * @param categoryIndex
+	 *            the category index.
+	 * @param itemIndex
+	 *            the item index.
+	 */
 	public SettingsAdapter(Context context, int resource,
-			List<String> listItems, List<Drawable> listDrawables,
-			List<Boolean> listCheckBoxes) {
-		this(context, resource, listItems, listDrawables, listCheckBoxes, -1,
-				-1);
-	}
+			List<SettingsRow> settingsRows, int categoryIndex, int itemIndex) {
+		super(context, resource);
 
-	public SettingsAdapter(Context context, int resource,
-			List<String> listItems, List<Drawable> listDrawables,
-			List<Boolean> listCheckBoxes, int categoryIndex, int itemIndex) {
-		super(context, resource, listItems);
+		for (SettingsRow settingsRow : settingsRows) {
+			add(settingsRow.getItem());
+		}
+
 		this.context = context;
 		this.resource = resource;
-		this.listItems = listItems;
-		this.listDrawables = listDrawables;
-		this.listCheckBoxes = listCheckBoxes;
+		this.settingsRows = settingsRows;
 		this.categoryIndex = categoryIndex;
 		this.itemIndex = itemIndex;
 	}
@@ -68,23 +92,31 @@ public class SettingsAdapter extends ArrayAdapter<String> implements
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View rowView = layoutInflater.inflate(resource, parent, false);
 
+		SettingsRow settingsRow = settingsRows.get(position);
+
 		// Set image
 		ImageView rowImage = (ImageView) rowView.findViewById(R.id.rowImage);
-		rowImage.setImageDrawable(listDrawables.get(position));
+		rowImage.setImageDrawable(settingsRow.getImage());
 
 		// Set text
 		TextView rowText = (TextView) rowView.findViewById(R.id.rowText);
-		rowText.setText(listItems.get(position));
+		rowText.setText(settingsRow.getItem());
 
 		CheckBox checkBox = (CheckBox) rowView.findViewById(R.id.rowCheckBox);
 
-		if (listCheckBoxes == null) {
+		switch (settingsRow.getCheckedState()) {
+		case YES:
+			checkBox.setChecked(true);
+			break;
+		case NO:
+			checkBox.setChecked(false);
+			break;
+		case HIDDEN:
+		default:
 			checkBox.setVisibility(View.INVISIBLE);
-		} else {
-			checkBox.setChecked(listCheckBoxes.get(position));
+			break;
 		}
 
-		// TODO: then set this based on the new default image database table
 		checkBox.setId(position);
 		checkBox.setOnCheckedChangeListener(this);
 
@@ -93,12 +125,32 @@ public class SettingsAdapter extends ArrayAdapter<String> implements
 
 	/**
 	 * {@inheritDoc}
+	 * 
+	 * <p>
+	 * Note: this will only get called if the complex constructor above is
+	 * called.
+	 * </p>
 	 */
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		// TODO: if it is a default word update the default mapping, else update
-		// the word table
-		Database.getInstance().updateDefaultWordMapping(categoryIndex,
-				itemIndex, buttonView.getId(), isChecked);
+		Database database = Database.getInstance();
+		int rowIndex = buttonView.getId();
+
+		if (settingsRows.get(rowIndex).isDefaultWord()) {
+			database.updateDefaultWordMapping(categoryIndex, itemIndex,
+					buttonView.getId(), isChecked);
+		} else {
+			List<DefaultWordMapping> defaultWordMappings = database
+					.getDefaultWordMapping(DatabaseHelper
+							.generateDefaultMappingSelection(categoryIndex,
+									itemIndex));
+			int databaseRowIndex = rowIndex - defaultWordMappings.size();
+
+			Word word = database.getWords(
+					DatabaseHelper.generateWordsSelection(itemIndex,
+							databaseRowIndex)).get(0);
+			word.setChecked(isChecked);
+			database.updateWord(itemIndex, databaseRowIndex, word);
+		}
 	}
 }

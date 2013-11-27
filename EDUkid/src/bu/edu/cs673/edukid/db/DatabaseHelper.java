@@ -184,6 +184,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	// TODO
+	public static String generateWordsSelection(int itemIndex) {
+		return COLUMN_WORDS_ITEM_ID + EQUALS + itemIndex;
+	}
+
+	// TODO
+	public static String generateWordsSelection(int itemIndex, int wordIndex) {
+		return generateWordsSelection(itemIndex) + AND + COLUMN_WORDS_WORD_ID
+				+ EQUALS + wordIndex;
+	}
+
+	// TODO
 	public static String generateDefaultMappingSelection(int categoryIndex,
 			int itemIndex) {
 		String categoryIdSelection = COLUMN_DEFAULT_WORD_MAP_CATEGORY_ID

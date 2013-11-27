@@ -112,15 +112,14 @@ public class AlphabetCategory implements CategoryType {
 			wordList.add(defaultWord);
 		}
 
-		List<Word> databaseWords = database.getWords();
+		List<Word> databaseWords = database.getWords(DatabaseHelper
+				.generateWordsSelection(itemIndex));
 
 		if (databaseWords.size() > 0) {
+			// TODO: add all? can only do this if dont need to set checkeds
 			for (Word databaseWord : databaseWords) {
-				// TODO: take this check out. put it in getWords()
-				if (databaseWord.getItemId() == itemIndex) {
-					// TODO: databaseWord.setChecked();
-					wordList.add(databaseWord);
-				}
+				// TODO: databaseWord.setChecked();
+				wordList.add(databaseWord);
 			}
 		}
 
@@ -180,7 +179,7 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public void editItemWord(int itemIndex, int wordIndex, Word word) {
-		Database.getInstance().editWord(itemIndex, wordIndex, word);
+		Database.getInstance().updateWord(itemIndex, wordIndex, word);
 	}
 
 	/**
@@ -194,17 +193,16 @@ public class AlphabetCategory implements CategoryType {
 			drawableList.add(defaultWord.getDrawableId());
 		}
 
-		List<Word> databaseWords = Database.getInstance().getWords();
+		List<Word> databaseWords = Database.getInstance().getWords(
+				DatabaseHelper.generateWordsSelection(itemIndex));
 
 		if (databaseWords.size() > 0) {
 			for (Word databaseWord : databaseWords) {
-				// TODO: take this check out. put it in getWords();
-				if (databaseWord.getItemId() == itemIndex) {
-					if (databaseWord.getDrawableId() == 0) {
-						drawableList.add(R.drawable.edukidicon);
-					} else {
-						drawableList.add(databaseWord.getDrawableId());
-					}
+				// TODO: fix this
+				if (databaseWord.getDrawableId() == 0) {
+					drawableList.add(R.drawable.edukidicon);
+				} else {
+					drawableList.add(databaseWord.getDrawableId());
 				}
 			}
 		}
