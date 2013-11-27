@@ -1,11 +1,11 @@
 package bu.edu.cs673.edukid.settings.category;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +19,7 @@ import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.settings.SettingsAdapter;
+import bu.edu.cs673.edukid.settings.SettingsRow;
 import bu.edu.cs673.edukid.settings.SettingsView;
 
 public class CategoryView extends ListActivity implements OnItemClickListener {
@@ -58,17 +59,20 @@ public class CategoryView extends ListActivity implements OnItemClickListener {
 				: View.INVISIBLE);
 
 		// Setup items adapter
-		List<String> listItems = Arrays.asList(categoryType.getItems());
-		List<Drawable> listDrawables = new ArrayList<Drawable>();
+		List<SettingsRow> settingsRows = new ArrayList<SettingsRow>();
+		String[] categoryItems = categoryType.getItems();
+		Resources resources = getResources();
 
-		for (int i = 0; i < listItems.size(); i++) {
+		for (int i = 0; i < categoryItems.length; i++) {
 			// Show the first image for each item
-			listDrawables.add(getResources().getDrawable(
-					categoryType.getSettingsItemDrawableId(i, 0)));
+			Drawable image = resources.getDrawable(categoryType
+					.getSettingsItemDrawableId(i, 0));
+
+			settingsRows.add(new SettingsRow(categoryItems[i], image));
 		}
 
 		itemsAdapter = new SettingsAdapter(this, R.layout.settings_row,
-				Arrays.asList(categoryType.getItems()), listDrawables);
+				settingsRows);
 		setListAdapter(itemsAdapter);
 		getListView().setOnItemClickListener(this);
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.settings.SettingsAdapter;
+import bu.edu.cs673.edukid.settings.SettingsRow;
 import bu.edu.cs673.edukid.settings.SettingsView;
 
 public class ItemView extends ListActivity implements OnItemClickListener {
@@ -121,24 +123,25 @@ public class ItemView extends ListActivity implements OnItemClickListener {
 	}
 
 	private void setupWordList() {
+		List<SettingsRow> settingsRows = new ArrayList<SettingsRow>();
 		Word[] words = categoryType.getSettingsItemWords(itemIndex);
-
-		List<String> listItems = new ArrayList<String>();
-		List<Drawable> listDrawables = new ArrayList<Drawable>();
-		List<Boolean> listCheckBoxes = new ArrayList<Boolean>();
+		Resources resources = getResources();
 
 		for (int i = 0; i < words.length; i++) {
 			Word word = words[i];
 
-			listItems.add(word.getWord());
-			listDrawables.add(getResources().getDrawable(
-					categoryType.getSettingsItemDrawableId(itemIndex, i)));
-			listCheckBoxes.add(word.isChecked());
+			String item = word.getWord();
+			Drawable image = resources.getDrawable(categoryType
+					.getSettingsItemDrawableId(itemIndex, i));
+			boolean checked = word.isChecked();
+			boolean defaultWord = word.isDefaultWord();
+
+			settingsRows
+					.add(new SettingsRow(item, image, checked, defaultWord));
 		}
 
 		wordsAdapter = new SettingsAdapter(this, R.layout.settings_row,
-				listItems, listDrawables, listCheckBoxes,
-				categoryType.getCategoryId(), itemIndex);
+				settingsRows, categoryType.getCategoryId(), itemIndex);
 		setListAdapter(wordsAdapter);
 		wordsAdapter.notifyDataSetChanged();
 	}
