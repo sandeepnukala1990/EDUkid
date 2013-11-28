@@ -139,8 +139,7 @@ public class ShapesCategory implements CategoryType {
 	 */
 	@Override
 	public int getLearnItemDrawableId(int itemIndex, int imageIndex) {
-		// TODO
-		return 0;
+		return getLearnItemWords(itemIndex)[imageIndex].getDrawableId();
 	}
 
 	/**
