@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,19 +16,57 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
         android:src="@drawable/gametitle" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/gamemodeAlphabet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imageView1"
-        android:layout_marginLeft="93dp"
-        android:layout_marginTop="110dp"
+        android:layout_alignBottom="@+id/gameImage3"
+        android:layout_marginBottom="22dp"
+        android:layout_marginRight="126dp"
+        android:layout_toLeftOf="@+id/gameImage3"
         android:text="A"
-        android:textSize="100dp"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="300dp" />
+
+    <ImageButton
+        android:id="@+id/gameImage1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gameImage3"
+        android:layout_marginRight="45dp"
+        android:layout_toLeftOf="@+id/gameImage2"
+        android:background="@color/transparent"
+        android:src="@drawable/abacus" />
+
+    <ImageButton
+        android:id="@+id/gameImage3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/gameImage1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:background="@color/transparent"
+        android:src="@drawable/duck" />
+
+    <ImageButton
+        android:id="@+id/gameImage4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/gameImage2"
+        android:layout_alignTop="@+id/gameImage3"
+        android:background="@color/transparent"
+        android:src="@drawable/owl" />
+
+    <ImageButton
+        android:id="@+id/gameImage2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/gameImage1"
+        android:layout_marginRight="57dp"
+        android:background="@color/transparent"
+        android:src="@drawable/cow" />
 
 </RelativeLayout>

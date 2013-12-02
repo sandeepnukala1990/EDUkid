@@ -60,6 +60,7 @@ public class EDUkid extends Activity implements OnClickListener {
 	 */
 	@Override
 	public void onClick(View view) {
+		
 		CategoryType categoryType = Database.getInstance(this).getCategories()[view
 				.getId()];
 		Intent intent;
@@ -223,7 +224,9 @@ public class EDUkid extends Activity implements OnClickListener {
 
 	public void onTempGameClick(View view) {
 		Intent intent = new Intent(this, TempGameView.class);
-
+		CategoryType categoryType = Database.getInstance(this).getCategories()[0];
+		intent.putExtra(CATEGORY_TYPE, categoryType);
 		startActivity(intent);
+
 	}
 }
