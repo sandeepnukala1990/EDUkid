@@ -12,9 +12,58 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="19dp"
+        android:layout_marginTop="14dp"
         android:onClick="onAddWordClick"
         android:text="Add Word" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="67dp"
+        android:layout_toLeftOf="@+id/button1"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editText1"
+        android:layout_alignLeft="@+id/editText1"
+        android:layout_marginBottom="18dp"
+        android:text="add Word:" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText1"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="24dp"
+        android:background="@null"
+        android:src="@drawable/camerabutton2" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/editText1"
+        android:layout_marginRight="197dp"
+        android:layout_toLeftOf="@+id/editText1"
+        android:src="@drawable/edukidicon" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageButton1"
+        android:layout_marginLeft="27dp"
+        android:layout_toRightOf="@+id/imageButton1"
+        android:background="@drawable/mikebutton"
+        android:src="@drawable/mikebutton" />
 
 </RelativeLayout>
