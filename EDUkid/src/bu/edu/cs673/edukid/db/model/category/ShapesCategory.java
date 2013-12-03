@@ -32,7 +32,7 @@ public class ShapesCategory implements CategoryType {
 	 */
 	@Override
 	public Drawable getCategoryImage(Context context) {
-		return context.getResources().getDrawable(R.drawable.shapesnew);
+		return context.getResources().getDrawable(R.drawable.shapes_selector);
 	}
 
 	/**

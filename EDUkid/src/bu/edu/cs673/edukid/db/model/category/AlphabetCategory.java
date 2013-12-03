@@ -37,7 +37,7 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public Drawable getCategoryImage(Context context) {
-		return context.getResources().getDrawable(R.drawable.tiletry);
+		return context.getResources().getDrawable(R.drawable.alphabet_selector);
 	}
 
 	/**

@@ -32,7 +32,7 @@ public class NumbersCategory implements CategoryType {
 	 */
 	@Override
 	public Drawable getCategoryImage(Context context) {
-		return context.getResources().getDrawable(R.drawable.numbersnew);
+		return context.getResources().getDrawable(R.drawable.numbers_selector);
 	}
 
 	/**

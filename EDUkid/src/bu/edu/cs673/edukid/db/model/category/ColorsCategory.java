@@ -32,7 +32,7 @@ public class ColorsCategory implements CategoryType {
 	 */
 	@Override
 	public Drawable getCategoryImage(Context context) {
-		return context.getResources().getDrawable(R.drawable.colorsnew);
+		return context.getResources().getDrawable(R.drawable.colors_selector);
 	}
 
 	/**
