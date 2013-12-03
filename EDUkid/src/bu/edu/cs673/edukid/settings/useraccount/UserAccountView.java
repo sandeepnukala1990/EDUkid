@@ -71,6 +71,9 @@ public class UserAccountView extends Activity implements OnClickListener {
 			// Set user image
 			userImage.setImageDrawable(ImageUtils
 					.byteArrayToDrawable(userAccount.getUserImage()));
+			userImage.setMaxHeight(400);
+			userImage.setMaxWidth(400);
+			userImage.setAdjustViewBounds(false);
 		}
 
 		// Add listeners
