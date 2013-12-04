@@ -45,7 +45,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 	private ImageView micImage;
 
 	private Database database = Database.getInstance(this);
-	
+
 	private RecordUtility vrecord = new RecordUtility();
 
 	public MediaRecorder recorder = new MediaRecorder();
@@ -103,9 +103,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 			break;
 		case R.id.accountCreationRecorderButton:
 			// TODO:have state of button switch between start and stop recording
-			micImage.setBackgroundResource(vrecord.recordVoice());
-//			onRecord(mStartRecording);
-//			mStartRecording = !mStartRecording;
+			micImage.setBackgroundResource(vrecord.recordVoice("childsName"));
 			break;
 		}
 	}
@@ -161,41 +159,6 @@ public class UserAccountView extends Activity implements OnClickListener {
 	private void startCamera() {
 		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 		startActivityForResult(intent, TAKE_PICTURE);
-	}
-
-	public void onRecord(boolean start) {
-		if (start) {
-			startRecording();
-
-		} else {
-			stopRecording();
-		}
-	}
-
-	private void startRecording() {
-		micImage.setBackgroundResource(R.drawable.recordmikebutton);
-		recorder = new MediaRecorder();
-		mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-		mFileName += "/audiorecordtest.3gp";
-		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-		recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-		recorder.setOutputFile(mFileName);
-		try {
-			recorder.prepare();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		recorder.start();
-	}
-
-	private void stopRecording() {
-		micImage.setBackgroundResource(R.drawable.mikebutton);
-		recorder.stop();
-		recorder.release();
-		recorder = null;
 	}
 
 }

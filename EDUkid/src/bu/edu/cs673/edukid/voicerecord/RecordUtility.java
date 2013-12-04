@@ -18,7 +18,8 @@ public class RecordUtility {
 		// micImage.setBackgroundResource(R.id.accountCreationRecorderButton);
 		recorder = new MediaRecorder();
 		mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-		mFileName += "/audiorecordtest.3gp";
+		mFileName += "/"+filename+".3gp";
+		System.out.println(mFileName);
 		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 		recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
@@ -54,6 +55,9 @@ public class RecordUtility {
 		stopRecording();
 		start=true;
 		return R.drawable.mikebutton;
+	}
+	public String getLastFilename(){
+		return mFileName;
 	}
 
 }
