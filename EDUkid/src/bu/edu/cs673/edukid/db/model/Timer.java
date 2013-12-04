@@ -2,43 +2,33 @@ package bu.edu.cs673.edukid.db.model;
 
 public class Timer {
 
-		private int expired;
-		
-		private int enabled;
-		
-		private long timeleft;
-		
-		private long leartime;
+	private int expired;
 
-		public int getExpired() {
-			return expired;
-		}
+	private int enabled;
 
-		public void setExpired(int expired) {
-			this.expired = expired;
-		}
+	private long learnTime;
 
-		public int getEnabled() {
-			return enabled;
-		}
+	public int getExpired() {
+		return expired;
+	}
 
-		public void setEnabled(int enabled) {
-			this.enabled = enabled;
-		}
+	public void setExpired(int expired) {
+		this.expired = expired;
+	}
 
-		public long getTimeleft() {
-			return timeleft;
-		}
+	public int getEnabled() {
+		return enabled;
+	}
 
-		public void setTimeleft(long timeleft) {
-			this.timeleft = timeleft;
-		}
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
+	}
 
-		public long getLeartime() {
-			return leartime;
-		}
+	public long getLearnTime() {
+		return learnTime;
+	}
 
-		public void setLeartime(long leartime) {
-			this.leartime = leartime;
-		}
+	public void setLearnTime(long learnTime) {
+		this.learnTime = learnTime;
+	}
 }

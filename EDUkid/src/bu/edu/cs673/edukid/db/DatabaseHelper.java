@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String EDUKID_DATABASE = "EDUkid.db";
-	private static final int EDUKID_DATABASE_VERSION = 50;
+	private static final int EDUKID_DATABASE_VERSION = 55;
 
 	private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
 
@@ -77,7 +77,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	protected static final String TABLE_TIMER = "timer";
 	protected static final String COLUMN_TIMER_EXPIRED = "expired";
 	protected static final String COLUMN_TIMER_ENABLED = "enabled";
-	protected static final String COLUMN_TIMER_LEFT = "timeleft";
 	protected static final String COLUMN_LEARN_TIME = "learntime";
 
 	private static final String CREATE_USER_ACCOUNT_TABLE = "create table "
@@ -134,8 +133,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String CREATE_TIMER_TABLE = " create table "
 			+ TABLE_TIMER + " ( " + COLUMN_TIMER_ENABLED + " integer,"
-			+ COLUMN_TIMER_EXPIRED + " integer," + COLUMN_TIMER_LEFT
-			+ " integer," + COLUMN_LEARN_TIME + " integer);";
+			+ COLUMN_TIMER_EXPIRED + " integer," + COLUMN_LEARN_TIME
+			+ " integer);";
 
 	/**
 	 * Constructor.
