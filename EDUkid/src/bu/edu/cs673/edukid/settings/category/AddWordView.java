@@ -33,13 +33,13 @@ public class AddWordView extends Activity implements OnClickListener {
 
 	private boolean mStartReco = true;
 
-	private static final long DATABASE_ERROR = -1;
-
-	private String word;
+	private String word = "";
 
 	private ImageView wordImage;
 
 	private ImageView micImage;
+	
+	private Boolean picture = false;
 
 	private Database database = Database.getInstance(this);
 
@@ -90,9 +90,13 @@ public class AddWordView extends Activity implements OnClickListener {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == TAKE_PICTURE && resultCode == RESULT_OK) {
 			Bitmap photo = (Bitmap) data.getExtras().get("data");
-
+			picture = true;
 			if (photo != null) {
+				
 				wordImage.setImageBitmap(photo);
+				wordImage.setMaxHeight(400);
+				wordImage.setMaxWidth(400);
+				wordImage.setAdjustViewBounds(false);
 			}
 		}
 	}
@@ -107,18 +111,24 @@ public class AddWordView extends Activity implements OnClickListener {
 					.getText().toString();
 			//long result = DATABASE_ERROR;
 			Word w=new Word();
-			w.setWord(word);
-			if(mFileName.equalsIgnoreCase(""))
-				w.setWordSound(word);
-			else
-				w.setWordSound(mFileName);
-			
-			w.setWordImage(ImageUtils.drawableToByteArray(wordImage
-					.getDrawable()));
-			categoryType.addItemWord(itemIndex, w);
-			
-			Toast.makeText(this, "Word saved successfully!",
-					Toast.LENGTH_LONG).show();
+			if(word.equalsIgnoreCase("") || picture == false){
+				Toast.makeText(this, "cannot save Word!",
+						Toast.LENGTH_LONG).show();
+			}
+			else{
+				w.setWord(word);
+				if(mFileName.equalsIgnoreCase(""))
+					w.setWordSound(word);
+				else
+					w.setWordSound(mFileName);
+
+				w.setWordImage(ImageUtils.drawableToByteArray(wordImage
+						.getDrawable()));
+				categoryType.addItemWord(itemIndex, w);
+
+				Toast.makeText(this, "Word saved successfully!",
+						Toast.LENGTH_LONG).show();
+			}
 			break;
 		
 		case R.id.imageButton1:
@@ -173,6 +183,7 @@ public class AddWordView extends Activity implements OnClickListener {
 
 	private void startCamera() {
 		// TODO Auto-generated method stub
+		picture = true;
 		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 		startActivityForResult(intent, TAKE_PICTURE);
 	}
