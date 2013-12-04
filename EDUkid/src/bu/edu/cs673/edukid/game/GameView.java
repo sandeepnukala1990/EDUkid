@@ -17,7 +17,7 @@ import bu.edu.cs673.edukid.db.model.category.CategoryType;
 
 
 
-public class TempGameView extends Activity{
+public class GameView extends Activity{
 	private CategoryType categoryType; 
 	
 	@Override
