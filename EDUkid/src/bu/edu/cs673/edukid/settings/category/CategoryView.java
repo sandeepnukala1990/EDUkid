@@ -14,7 +14,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
@@ -98,8 +97,9 @@ public class CategoryView extends ListActivity implements OnItemClickListener {
 	 *            the view.
 	 */
 	public void onAddItemClick(View view) {
-		Toast.makeText(this, "Add item coming soon...", Toast.LENGTH_SHORT)
-				.show();
+		Intent intent = new Intent(this, AddItemView.class);
+		intent.putExtra(EDUkid.CATEGORY_TYPE, categoryType);
+		startActivity(intent);
 	}
 
 	/**

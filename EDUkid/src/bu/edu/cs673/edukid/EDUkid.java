@@ -20,7 +20,6 @@ import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.model.Timer;
 import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
-import bu.edu.cs673.edukid.game.TempGameView;
 import bu.edu.cs673.edukid.learn.LearnContentView;
 import bu.edu.cs673.edukid.settings.SettingsView;
 import bu.edu.cs673.edukid.settings.utils.MathProblem;
@@ -62,23 +61,21 @@ public class EDUkid extends Activity implements OnClickListener {
 	 */
 	@Override
 	public void onClick(View view) {
+<<<<<<< HEAD
 		if(database.getTimer().getExpired()==1)
 		{
 			Toast.makeText(this,"Timer EXpired", Toast.LENGTH_SHORT).show();
 			return; 
 		}
+=======
+>>>>>>> 1591eacf6fc742edf343bcc648c5a333757b204f
 
 		CategoryType categoryType = Database.getInstance(this).getCategories()[view
 				.getId()];
 		Intent intent;
 
 		if (categoryType.hasGameMode()) {
-			// TODO: Sweekriti: when you are ready to add your game mode, this
-			// will only be called for the alphabet category type. Here you can
-			// present the user with a new view that gives 2 options (1. Learn
-			// Mode, 2. Game Mode). For now, things will be handled like they
-			// always have been.
-			intent = new Intent(this, LearnContentView.class);
+			intent = new Intent(this, ModeSelectionView.class);
 		} else {
 			intent = new Intent(this, LearnContentView.class);
 		}
@@ -205,13 +202,5 @@ public class EDUkid extends Activity implements OnClickListener {
 	private void showSettingsToast() {
 		Toast.makeText(this, "Incorrect answer. Please try again.",
 				Toast.LENGTH_LONG).show();
-	}
-
-	public void onTempGameClick(View view) {
-		Intent intent = new Intent(this, TempGameView.class);
-		CategoryType categoryType = Database.getInstance(this).getCategories()[0];
-		intent.putExtra(CATEGORY_TYPE, categoryType);
-		startActivity(intent);
-
 	}
 }

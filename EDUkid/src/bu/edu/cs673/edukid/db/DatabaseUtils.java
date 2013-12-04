@@ -87,7 +87,7 @@ public class DatabaseUtils {
 		word.setWord(cursor.getString(2));
 		word.setWordSound(cursor.getString(3));
 		word.setWordImage(cursor.getBlob(4));
-		word.setDrawableId(cursor.getInt(5));
+		word.setDrawableId(0);
 		word.setChecked(cursor.getInt(6) == 1 ? true : false);
 		word.setDefaultWord(false);
 

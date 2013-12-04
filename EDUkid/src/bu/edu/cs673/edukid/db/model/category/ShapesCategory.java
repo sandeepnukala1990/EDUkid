@@ -1,9 +1,13 @@
 package bu.edu.cs673.edukid.db.model.category;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
+import bu.edu.cs673.edukid.db.DatabaseHelper;
 import bu.edu.cs673.edukid.db.defaults.DatabaseDefaults;
 import bu.edu.cs673.edukid.db.model.Shape;
 import bu.edu.cs673.edukid.db.model.Word;
@@ -32,7 +36,15 @@ public class ShapesCategory implements CategoryType {
 	 */
 	@Override
 	public Drawable getCategoryImage(Context context) {
-		return context.getResources().getDrawable(R.drawable.shapesnew);
+		return context.getResources().getDrawable(R.drawable.shapes_selector);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void addItem(String item) {
+		// TODO
 	}
 
 	/**
@@ -138,8 +150,35 @@ public class ShapesCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Drawable getSettingsItemDrawable(int itemIndex, int imageIndex) {
+		List<Drawable> drawableList = new ArrayList<Drawable>();
+
+		List<Word> databaseWords = Database.getInstance().getWords(
+				DatabaseHelper.generateWordsSelection(itemIndex));
+
+		if (databaseWords.size() > 0) {
+			for (Word databaseWord : databaseWords) {
+				drawableList.add(databaseWord.getWordDrawable());
+			}
+		}
+
+		return drawableList.get(imageIndex);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public int getLearnItemDrawableId(int itemIndex, int imageIndex) {
 		return getLearnItemWords(itemIndex)[imageIndex].getDrawableId();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Drawable getLearnItemDrawable(int itemIndex, int imageIndex) {
+		return getLearnItemWords(itemIndex)[imageIndex].getWordDrawable();
 	}
 
 	/**
@@ -156,6 +195,14 @@ public class ShapesCategory implements CategoryType {
 	@Override
 	public void editItemWord(int itemIndex, int wordIndex, Word word) {
 		// TODO: Jasjot, implement this
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void deleteItemWord(int itemIndex, int wordIndex) {
+		// TODO
 	}
 
 	/**

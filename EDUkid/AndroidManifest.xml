@@ -40,11 +40,19 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
+            android:name="bu.edu.cs673.edukid.ModeSelectionView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
             android:name="bu.edu.cs673.edukid.learn.LearnContentView"
             android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="bu.edu.cs673.edukid.learn.grid.LearnContentGridView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="bu.edu.cs673.edukid.game.GameView"
             android:screenOrientation="landscape" >
         </activity>
         <activity
@@ -68,6 +76,10 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
+            android:name="bu.edu.cs673.edukid.settings.category.AddItemView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
             android:name="bu.edu.cs673.edukid.settings.category.AddWordView"
             android:screenOrientation="landscape" >
         </activity>
@@ -77,10 +89,6 @@
         </activity>
         <activity
             android:name="bu.edu.cs673.edukid.settings.timer.TimerView"
-            android:screenOrientation="landscape" >
-        </activity>
-        <activity
-            android:name="bu.edu.cs673.edukid.game.TempGameView"
             android:screenOrientation="landscape" >
         </activity>
     </application>

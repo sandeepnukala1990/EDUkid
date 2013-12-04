@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
@@ -33,19 +32,19 @@ public class AddWordView extends Activity implements OnClickListener {
 
 	private boolean mStartReco = true;
 
-	private static final long DATABASE_ERROR = -1;
-
-	private String word;
+	private String word = "";
 
 	private ImageView wordImage;
 
 	private ImageView micImage;
 
+	private Boolean picture = false;
+
 	private Database database = Database.getInstance(this);
 
 	public MediaRecorder recorder = new MediaRecorder();
 	private String mFileName = "";
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -62,69 +61,70 @@ public class AddWordView extends Activity implements OnClickListener {
 		categoryType = (CategoryType) extras
 				.getSerializable(EDUkid.CATEGORY_TYPE);
 		itemIndex = extras.getInt(EDUkid.ITEM_INDEX);
-			
+
 		Button createSaveButton = (Button) findViewById(R.id.button1);
 		createSaveButton.setOnClickListener(this);
 		ImageButton createUploadPhotoButton = (ImageButton) findViewById(R.id.imageButton1);
 		createUploadPhotoButton.setOnClickListener(this);
 		micImage.setOnClickListener(this);
-		//TextView balh = (TextView) findViewById(R.id.textView233);
+		// TextView balh = (TextView) findViewById(R.id.textView233);
 	}
 
 	// TODO: just temporary for now. Need to get input from the user and use
 	// that instead of hardcoding.
-	/*public void onAddWordClick(View view) {
-		// TODO: do this based on user entry
-		// TODO: hard coding these for now to add a new word.
-		Word word = new Word();
-		word.setWord("TestWord");
-		word.setWordSound("Coming soon");
-		word.setWordImage(ImageUtils.drawableToByteArray(getResources()
-				.getDrawable(R.drawable.boy)));
-
-		categoryType.addItemWord(itemIndex, word);
-
-		// TODO: refresh list
-	}*/
+	/*
+	 * public void onAddWordClick(View view) { // TODO: do this based on user
+	 * entry // TODO: hard coding these for now to add a new word. Word word =
+	 * new Word(); word.setWord("TestWord"); word.setWordSound("Coming soon");
+	 * word.setWordImage(ImageUtils.drawableToByteArray(getResources()
+	 * .getDrawable(R.drawable.boy)));
+	 * 
+	 * categoryType.addItemWord(itemIndex, word);
+	 * 
+	 * // TODO: refresh list }
+	 */
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == TAKE_PICTURE && resultCode == RESULT_OK) {
 			Bitmap photo = (Bitmap) data.getExtras().get("data");
-
+			picture = true;
 			if (photo != null) {
+
 				wordImage.setImageBitmap(photo);
+				wordImage.setMaxHeight(400);
+				wordImage.setMaxWidth(400);
+				wordImage.setAdjustViewBounds(false);
 			}
 		}
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		switch(v.getId())
-		{
+		switch (v.getId()) {
 		case R.id.button1:
-			word=((EditText) findViewById(R.id.editText1))
-					.getText().toString();
-			//long result = DATABASE_ERROR;
-			Word w=new Word();
+			word = ((EditText) findViewById(R.id.editText1)).getText()
+					.toString();
+			// long result = DATABASE_ERROR;
+			Word w = new Word();
 			w.setWord(word);
-			if(mFileName.equalsIgnoreCase(""))
+			if (mFileName.equalsIgnoreCase(""))
 				w.setWordSound(word);
 			else
 				w.setWordSound(mFileName);
-			
+
 			w.setWordImage(ImageUtils.drawableToByteArray(wordImage
 					.getDrawable()));
 			categoryType.addItemWord(itemIndex, w);
-			
-			Toast.makeText(this, "Word saved successfully!",
-					Toast.LENGTH_LONG).show();
+
+			Toast.makeText(this, "Word saved successfully!", Toast.LENGTH_LONG)
+					.show();
 			break;
-		
+
 		case R.id.imageButton1:
 			startCamera();
 			break;
-			
+
 		case R.id.imageButton2:
 			onRecord(mStartReco);
 			mStartReco = !mStartReco;
@@ -140,7 +140,7 @@ public class AddWordView extends Activity implements OnClickListener {
 		} else {
 			stopRecording();
 		}
-		
+
 	}
 
 	private void stopRecording() {
@@ -173,6 +173,7 @@ public class AddWordView extends Activity implements OnClickListener {
 
 	private void startCamera() {
 		// TODO Auto-generated method stub
+		picture = true;
 		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 		startActivityForResult(intent, TAKE_PICTURE);
 	}

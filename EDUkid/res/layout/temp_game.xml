@@ -38,7 +38,8 @@
         android:layout_marginRight="45dp"
         android:layout_toLeftOf="@+id/gameImage2"
         android:background="@color/transparent"
-        android:src="@drawable/abacus" />
+        android:src="@drawable/abacus"
+        android:onClick="onImageClick1" />
 
     <ImageButton
         android:id="@+id/gameImage3"
@@ -48,7 +49,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="15dp"
         android:background="@color/transparent"
-        android:src="@drawable/duck" />
+        android:src="@drawable/duck" 
+        android:onClick="onImageClick3" />
 
     <ImageButton
         android:id="@+id/gameImage4"
@@ -57,7 +59,8 @@
         android:layout_alignRight="@+id/gameImage2"
         android:layout_alignTop="@+id/gameImage3"
         android:background="@color/transparent"
-        android:src="@drawable/owl" />
+        android:src="@drawable/owl" 
+        android:onClick="onImageClick4" />
 
     <ImageButton
         android:id="@+id/gameImage2"
@@ -67,6 +70,62 @@
         android:layout_alignTop="@+id/gameImage1"
         android:layout_marginRight="57dp"
         android:background="@color/transparent"
-        android:src="@drawable/cow" />
+        android:src="@drawable/cow" 
+        android:onClick="onImageClick2" />
+
+    <Button
+        android:id="@+id/nextQButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/nextbutton" 
+        android:onClick="onRefreshClick"/>
+
+    <TextView
+        android:id="@+id/correctScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gameImage2"
+        android:layout_marginRight="48dp"
+        android:layout_toLeftOf="@+id/wrongScore"
+        android:text="0"
+        android:textColor="#008000"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="50dp" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/correctScore"
+        android:layout_alignTop="@+id/imageView1"
+        android:text="Correct"
+        android:textColor="#008000"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView1"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignLeft="@+id/wrongScore"
+        android:text="Wrong"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FF0000" />
+
+    <TextView
+        android:id="@+id/wrongScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/gameImage2"
+        android:layout_below="@+id/textView2"
+        android:layout_marginRight="21dp"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FF0000"
+        android:textSize="50dp" />
 
 </RelativeLayout>

@@ -241,8 +241,7 @@ public class Database {
 		// TODO: fix this
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
 				ImageUtils.drawableToByteArray(word.getWordDrawable()));
-		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE_ID,
-				R.drawable.abacus);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE_ID, 0);
 
 		// New words should be checked when created (1 = true).
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_CHECKED, 1);

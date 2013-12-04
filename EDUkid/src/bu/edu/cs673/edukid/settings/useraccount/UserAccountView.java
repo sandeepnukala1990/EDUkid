@@ -19,6 +19,7 @@ import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.UserAccount;
+import bu.edu.cs673.edukid.voicerecord.*;
 
 /**
  * The view which contains the user account information. The user account can be
@@ -33,8 +34,6 @@ public class UserAccountView extends Activity implements OnClickListener {
 
 	private static final int TAKE_PICTURE = 1888;
 
-	private boolean mStartRecording = true;
-
 	private static final long DATABASE_ERROR = -1;
 
 	private String userName;
@@ -45,8 +44,9 @@ public class UserAccountView extends Activity implements OnClickListener {
 
 	private Database database = Database.getInstance(this);
 
+	private RecordUtility vrecord = new RecordUtility();
+
 	public MediaRecorder recorder = new MediaRecorder();
-	private String mFileName = "";
 
 	/**
 	 * {@inheritDoc}
@@ -71,6 +71,9 @@ public class UserAccountView extends Activity implements OnClickListener {
 			// Set user image
 			userImage.setImageDrawable(ImageUtils
 					.byteArrayToDrawable(userAccount.getUserImage()));
+			userImage.setMaxHeight(400);
+			userImage.setMaxWidth(400);
+			userImage.setAdjustViewBounds(false);
 		}
 
 		// Add listeners
@@ -97,8 +100,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 			break;
 		case R.id.accountCreationRecorderButton:
 			// TODO:have state of button switch between start and stop recording
-			onRecord(mStartRecording);
-			mStartRecording = !mStartRecording;
+			micImage.setBackgroundResource(vrecord.recordVoice("childsName"));
 			break;
 		}
 	}
@@ -154,41 +156,6 @@ public class UserAccountView extends Activity implements OnClickListener {
 	private void startCamera() {
 		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 		startActivityForResult(intent, TAKE_PICTURE);
-	}
-
-	public void onRecord(boolean start) {
-		if (start) {
-			startRecording();
-
-		} else {
-			stopRecording();
-		}
-	}
-
-	private void startRecording() {
-		micImage.setBackgroundResource(R.drawable.abacus);
-		recorder = new MediaRecorder();
-		mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-		mFileName += "/audiorecordtest.3gp";
-		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-		recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-		recorder.setOutputFile(mFileName);
-		try {
-			recorder.prepare();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		recorder.start();
-	}
-
-	private void stopRecording() {
-		micImage.setBackgroundResource(R.drawable.mikebutton);
-		recorder.stop();
-		recorder.release();
-		recorder = null;
 	}
 
 }
