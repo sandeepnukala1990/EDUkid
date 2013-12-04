@@ -34,6 +34,14 @@ public class NumbersCategory implements CategoryType {
 	public Drawable getCategoryImage(Context context) {
 		return context.getResources().getDrawable(R.drawable.numbers_selector);
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void addItem(String item) {
+		// TODO
+	}
 
 	/**
 	 * {@inheritDoc}

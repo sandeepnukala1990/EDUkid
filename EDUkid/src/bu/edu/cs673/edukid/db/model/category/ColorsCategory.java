@@ -26,6 +26,14 @@ public class ColorsCategory implements CategoryType {
 	public int getCategoryId() {
 		return Category.COLORS.ordinal();
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void addItem(String item) {
+		// TODO
+	}
 
 	/**
 	 * {@inheritDoc}

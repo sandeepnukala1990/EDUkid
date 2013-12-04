@@ -44,6 +44,14 @@ public class AlphabetCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void addItem(String item) {
+		// NO-OP
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public String[] getItems() {
 
 		return DatabaseDefaults.getAlphabet();

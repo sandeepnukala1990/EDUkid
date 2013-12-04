@@ -35,6 +35,9 @@ public interface CategoryType extends Serializable {
 	 */
 	Drawable getCategoryImage(Context context);
 
+	// TODO
+	void addItem(String item);
+
 	/**
 	 * Gets the items from the database.
 	 * 

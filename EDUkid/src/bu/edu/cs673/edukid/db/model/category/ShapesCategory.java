@@ -39,6 +39,14 @@ public class ShapesCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void addItem(String item) {
+		// TODO
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public String[] getItems() {
 		// TODO: don't hardcode
 		return DatabaseDefaults.getShapes();
