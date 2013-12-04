@@ -2,6 +2,8 @@ package bu.edu.cs673.edukid.voicerecord;
 
 import java.io.IOException;
 
+import bu.edu.cs673.edukid.R;
+
 import android.media.MediaRecorder;
 import android.os.Environment;
 
@@ -9,12 +11,13 @@ public class RecordUtility {
 
 	MediaRecorder recorder;
 	String mFileName;
+	Boolean start=true;
+	
 
-	private void startRecording() {
+	private void startRecording(String filename) {
 		// micImage.setBackgroundResource(R.id.accountCreationRecorderButton);
 		recorder = new MediaRecorder();
-		//
-		mFileName = Environment.getDataDirectory().getAbsolutePath();
+		mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
 		mFileName += "/audiorecordtest.3gp";
 		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 		recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -36,13 +39,21 @@ public class RecordUtility {
 		recorder = null;
 
 	}
-	public void onRecord(boolean start) {
+	public int recordVoice(String filename) {
 		if (start) {
-			startRecording();
-
+			startRecording(filename);
+			start=false;
+			return R.drawable.recordmikebutton;
 		} else {
 			stopRecording();
+			start=true;
+			return R.drawable.mikebutton;
 		}
+	}
+	public int recordVoice(){
+		stopRecording();
+		start=true;
+		return R.drawable.mikebutton;
 	}
 
 }
