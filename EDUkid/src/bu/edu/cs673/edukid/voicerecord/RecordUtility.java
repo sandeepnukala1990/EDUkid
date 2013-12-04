@@ -51,11 +51,11 @@ public class RecordUtility {
 			return R.drawable.mikebutton;
 		}
 	}
-	public int recordVoice(){
-		stopRecording();
-		start=true;
-		return R.drawable.mikebutton;
-	}
+//	public int recordVoice(){
+//		stopRecording();
+//		start=true;
+//		return R.drawable.mikebutton;
+//	}
 	public String getLastFilename(){
 		return mFileName;
 	}
