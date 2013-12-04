@@ -43,6 +43,7 @@ public class AddWordView extends Activity implements OnClickListener {
 	private Database database = Database.getInstance(this);
 
 	public MediaRecorder recorder = new MediaRecorder();
+	
 	private String mFileName = "";
 
 	/**
@@ -107,6 +108,11 @@ public class AddWordView extends Activity implements OnClickListener {
 					.toString();
 			// long result = DATABASE_ERROR;
 			Word w = new Word();
+			if(word.equalsIgnoreCase("") || picture == false){
+				Toast.makeText(this, "cannot save Word!",
+						Toast.LENGTH_LONG).show();
+			}
+			else{
 			w.setWord(word);
 			if (mFileName.equalsIgnoreCase(""))
 				w.setWordSound(word);
@@ -119,6 +125,7 @@ public class AddWordView extends Activity implements OnClickListener {
 
 			Toast.makeText(this, "Word saved successfully!", Toast.LENGTH_LONG)
 					.show();
+			}
 			break;
 
 		case R.id.imageButton1:
