@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -17,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.model.Timer;
 import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.learn.LearnContentView;
@@ -61,14 +59,10 @@ public class EDUkid extends Activity implements OnClickListener {
 	 */
 	@Override
 	public void onClick(View view) {
-<<<<<<< HEAD
-		if(database.getTimer().getExpired()==1)
-		{
-			Toast.makeText(this,"Timer EXpired", Toast.LENGTH_SHORT).show();
-			return; 
+		if (database.getTimer().getExpired() == 1) {
+			Toast.makeText(this, "Timer EXpired", Toast.LENGTH_SHORT).show();
+			return;
 		}
-=======
->>>>>>> 1591eacf6fc742edf343bcc648c5a333757b204f
 
 		CategoryType categoryType = Database.getInstance(this).getCategories()[view
 				.getId()];
@@ -92,8 +86,6 @@ public class EDUkid extends Activity implements OnClickListener {
 		super.onResume();
 		welcomeUserBack(false);
 	}
-
-	
 
 	/**
 	 * Populates the 4 default category buttons along with any user added
