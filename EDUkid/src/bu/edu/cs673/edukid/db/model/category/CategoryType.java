@@ -138,6 +138,9 @@ public interface CategoryType extends Serializable {
 	 */
 	void editItemWord(int itemIndex, int wordIndex, Word word);
 
+	// TODO
+	void deleteItemWord(int itemIndex, int wordIndex);
+
 	/**
 	 * Gets the settings item image id.
 	 * 
@@ -149,6 +152,9 @@ public interface CategoryType extends Serializable {
 	 */
 	int getSettingsItemDrawableId(int itemIndex, int imageIndex);
 
+	// TODO
+	Drawable getSettingsItemDrawable(int itemIndex, int imageIndex);
+
 	/**
 	 * Gets the learn item image id.
 	 * 
@@ -159,6 +165,9 @@ public interface CategoryType extends Serializable {
 	 * @return the learn item image given the item index and image index.
 	 */
 	int getLearnItemDrawableId(int itemIndex, int imageIndex);
+
+	// TODO
+	Drawable getLearnItemDrawable(int itemIndex, int imageIndex);
 
 	/**
 	 * Gets the item text size that will be used when shown on the screen.

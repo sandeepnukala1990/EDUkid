@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 
 public class WordFragment extends Fragment implements OnClickListener,
@@ -54,18 +55,25 @@ public class WordFragment extends Fragment implements OnClickListener,
 		itemIndex = arguments.getInt(EDUkid.ITEM_INDEX);
 		wordIndex = arguments.getInt(EDUkid.WORD_INDEX);
 
+		Word word = categoryType.getLearnItemWord(itemIndex, wordIndex);
+
 		// Set content image
 		ImageButton learnContentImage = (ImageButton) view
 				.findViewById(R.id.learnContentImage);
 		learnContentImage.setOnClickListener(this);
-		learnContentImage.setImageDrawable(getResources().getDrawable(
-				categoryType.getLearnItemDrawableId(itemIndex, wordIndex)));
+
+		if (word.isDefaultWord()) {
+			learnContentImage.setImageDrawable(getResources().getDrawable(
+					categoryType.getLearnItemDrawableId(itemIndex, wordIndex)));
+		} else {
+			learnContentImage.setImageDrawable(categoryType
+					.getLearnItemDrawable(itemIndex, wordIndex));
+		}
 
 		// Set content word
 		TextView learnContentWord = (TextView) view
 				.findViewById(R.id.learnContentWord);
-		learnContentWord.setText(categoryType.getLearnItemWord(itemIndex,
-				wordIndex).getWord());
+		learnContentWord.setText(word.getWord());
 
 		learnContentWord.setOnClickListener(this);
 	}
