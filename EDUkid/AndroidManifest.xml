@@ -76,6 +76,10 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
+            android:name="bu.edu.cs673.edukid.settings.category.AddItemView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
             android:name="bu.edu.cs673.edukid.settings.category.AddWordView"
             android:screenOrientation="landscape" >
         </activity>
