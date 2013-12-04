@@ -194,25 +194,19 @@ public class AlphabetCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void deleteItemWord(int itemIndex, int wordIndex) {
+		// TODO
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public int getSettingsItemDrawableId(int itemIndex, int imageIndex) {
 		List<Integer> drawableList = new ArrayList<Integer>();
 
 		for (Word defaultWord : getSettingsItemWords(itemIndex)) {
 			drawableList.add(defaultWord.getDrawableId());
-		}
-
-		List<Word> databaseWords = Database.getInstance().getWords(
-				DatabaseHelper.generateWordsSelection(itemIndex));
-
-		if (databaseWords.size() > 0) {
-			for (Word databaseWord : databaseWords) {
-				// TODO: fix this
-				if (databaseWord.getDrawableId() == 0) {
-					drawableList.add(R.drawable.edukidicon);
-				} else {
-					drawableList.add(databaseWord.getDrawableId());
-				}
-			}
 		}
 
 		return drawableList.get(imageIndex);
@@ -222,8 +216,37 @@ public class AlphabetCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Drawable getSettingsItemDrawable(int itemIndex, int imageIndex) {
+		List<Drawable> drawableList = new ArrayList<Drawable>();
+
+		List<Word> databaseWords = Database.getInstance().getWords(
+				DatabaseHelper.generateWordsSelection(itemIndex));
+
+		if (databaseWords.size() > 0) {
+			for (Word databaseWord : databaseWords) {
+				drawableList.add(databaseWord.getWordDrawable());
+			}
+		}
+
+		int defaultWordCount = DatabaseDefaults.getDefaultAlphabetWords()[itemIndex].length;
+
+		return drawableList.get(imageIndex - defaultWordCount);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public int getLearnItemDrawableId(int itemIndex, int imageIndex) {
 		return getLearnItemWords(itemIndex)[imageIndex].getDrawableId();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Drawable getLearnItemDrawable(int itemIndex, int imageIndex) {
+		return getLearnItemWords(itemIndex)[imageIndex].getWordDrawable();
 	}
 
 	/**

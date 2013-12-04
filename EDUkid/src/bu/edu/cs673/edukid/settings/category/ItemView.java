@@ -131,8 +131,15 @@ public class ItemView extends ListActivity implements OnItemClickListener {
 			Word word = words[i];
 
 			String item = word.getWord();
-			Drawable image = resources.getDrawable(categoryType
-					.getSettingsItemDrawableId(itemIndex, i));
+			Drawable image;
+
+			if (word.isDefaultWord()) {
+				image = resources.getDrawable(categoryType
+						.getSettingsItemDrawableId(itemIndex, i));
+			} else {
+				image = categoryType.getSettingsItemDrawable(itemIndex, i);
+			}
+
 			boolean checked = word.isChecked();
 			boolean defaultWord = word.isDefaultWord();
 

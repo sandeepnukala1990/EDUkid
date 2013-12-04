@@ -50,8 +50,15 @@ public class WordView extends Activity {
 
 		// Set word image
 		wordImage = (ImageView) findViewById(R.id.wordImage);
-		wordImage.setImageDrawable(getResources().getDrawable(
-				categoryType.getSettingsItemDrawableId(itemIndex, wordIndex)));
+
+		if (word.isDefaultWord()) {
+			wordImage.setImageDrawable(getResources().getDrawable(
+					categoryType
+							.getSettingsItemDrawableId(itemIndex, wordIndex)));
+		} else {
+			wordImage.setImageDrawable(categoryType.getSettingsItemDrawable(
+					itemIndex, wordIndex));
+		}
 
 		// Show/hide delete word button
 		Button deleteWordButton = (Button) findViewById(R.id.deleteWordButton);

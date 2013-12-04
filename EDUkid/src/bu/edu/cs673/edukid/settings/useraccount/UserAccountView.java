@@ -34,8 +34,6 @@ public class UserAccountView extends Activity implements OnClickListener {
 
 	private static final int TAKE_PICTURE = 1888;
 
-	private boolean mStartRecording = true;
-
 	private static final long DATABASE_ERROR = -1;
 
 	private String userName;
@@ -49,7 +47,6 @@ public class UserAccountView extends Activity implements OnClickListener {
 	private RecordUtility vrecord = new RecordUtility();
 
 	public MediaRecorder recorder = new MediaRecorder();
-	private String mFileName = "";
 
 	/**
 	 * {@inheritDoc}

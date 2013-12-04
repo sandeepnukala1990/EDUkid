@@ -242,8 +242,7 @@ public class Database {
 		// TODO: fix this
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
 				ImageUtils.drawableToByteArray(word.getWordDrawable()));
-		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE_ID,
-				R.drawable.abacus);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE_ID, 0);
 
 		// New words should be checked when created (1 = true).
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_CHECKED, 1);
@@ -614,8 +613,7 @@ public class Database {
 		return timer;
 	}
 
-	public void updateTimer(boolean enabled, boolean expired,
-			int learnTime) {
+	public void updateTimer(boolean enabled, boolean expired, int learnTime) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_TIMER_ENABLED, enabled);
 		// TODO: put in the other 3 columns
