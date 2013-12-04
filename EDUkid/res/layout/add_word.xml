@@ -49,11 +49,13 @@
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="450dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/editText1"
         android:layout_marginRight="197dp"
         android:layout_toLeftOf="@+id/editText1"
+        android:maxHeight="500dp"
+        android:maxWidth="500dp"
         android:src="@drawable/edukidicon" />
 
     <ImageButton

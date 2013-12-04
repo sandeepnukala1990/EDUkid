@@ -19,6 +19,7 @@ import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.UserAccount;
+import bu.edu.cs673.edukid.voicerecord.*;
 
 /**
  * The view which contains the user account information. The user account can be
@@ -44,6 +45,8 @@ public class UserAccountView extends Activity implements OnClickListener {
 	private ImageView micImage;
 
 	private Database database = Database.getInstance(this);
+	
+	private RecordUtility vrecord = new RecordUtility();
 
 	public MediaRecorder recorder = new MediaRecorder();
 	private String mFileName = "";
@@ -100,8 +103,9 @@ public class UserAccountView extends Activity implements OnClickListener {
 			break;
 		case R.id.accountCreationRecorderButton:
 			// TODO:have state of button switch between start and stop recording
-			onRecord(mStartRecording);
-			mStartRecording = !mStartRecording;
+			micImage.setBackgroundResource(vrecord.recordVoice());
+//			onRecord(mStartRecording);
+//			mStartRecording = !mStartRecording;
 			break;
 		}
 	}
@@ -169,7 +173,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 	}
 
 	private void startRecording() {
-		micImage.setBackgroundResource(R.drawable.abacus);
+		micImage.setBackgroundResource(R.drawable.recordmikebutton);
 		recorder = new MediaRecorder();
 		mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
 		mFileName += "/audiorecordtest.3gp";
