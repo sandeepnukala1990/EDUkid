@@ -19,14 +19,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:background="@drawable/learmodetile"
+            android:background="@drawable/learn_mode_selector"
             android:onClick="onLearnModeClick" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/gamesmodetile"
+            android:background="@drawable/game_mode_selector"
             android:onClick="onGameModeClick" />
     </LinearLayout>
 
