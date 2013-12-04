@@ -75,7 +75,7 @@ public class EDUsplash extends Activity {
 		}
 
 		if (database.getTimer() == null) {
-			database.updateTimer(false, false, 30);
+			database.addTimer(false, false, 18000000);
 		}
 	}
 

@@ -83,8 +83,7 @@ public class Database {
 			DatabaseHelper.COLUMN_SHAPE_IMAGE,
 			DatabaseHelper.COLUMN_SHAPE_SOUND };
 
-	private String[] timerColumns = { DatabaseHelper.COLUMN_TIMER_LEFT,
-			DatabaseHelper.COLUMN_TIMER_EXPIRED,
+	private String[] timerColumns = { DatabaseHelper.COLUMN_TIMER_ENABLED,
 			DatabaseHelper.COLUMN_TIMER_EXPIRED,
 			DatabaseHelper.COLUMN_LEARN_TIME };
 
@@ -613,12 +612,24 @@ public class Database {
 		return timer;
 	}
 
-	public void updateTimer(boolean enabled, boolean expired, int learnTime) {
+	public void addTimer(boolean enabled, boolean expired, long learnTime) {
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(DatabaseHelper.COLUMN_TIMER_ENABLED, enabled);
-		// TODO: put in the other 3 columns
+		contentValues.put(DatabaseHelper.COLUMN_TIMER_ENABLED, enabled ? 1 : 0);
+		contentValues.put(DatabaseHelper.COLUMN_TIMER_EXPIRED, expired ? 1 : 0);
+		contentValues.put(DatabaseHelper.COLUMN_LEARN_TIME, learnTime);
 
-		sqlDatabase.update(DatabaseHelper.TABLE_TIMER, contentValues, null,
-				null);
+		sqlDatabase.insert(DatabaseHelper.TABLE_TIMER, null, contentValues);
+	}
+
+	public void updateTimer(boolean enabled, boolean expired, long learnTime) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_TIMER_ENABLED, enabled ? 1 : 0);
+		contentValues.put(DatabaseHelper.COLUMN_TIMER_EXPIRED, expired ? 1 : 0);
+		contentValues.put(DatabaseHelper.COLUMN_LEARN_TIME, learnTime);
+
+		int rows = sqlDatabase.update(DatabaseHelper.TABLE_TIMER,
+				contentValues, null, null);
+		System.out.println("*** number of rows: " + rows);
+		System.out.println("learn time :" + learnTime);
 	}
 }

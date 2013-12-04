@@ -77,7 +77,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	protected static final String TABLE_TIMER = "timer";
 	protected static final String COLUMN_TIMER_EXPIRED = "expired";
 	protected static final String COLUMN_TIMER_ENABLED = "enabled";
-	protected static final String COLUMN_TIMER_LEFT = "timeleft";
 	protected static final String COLUMN_LEARN_TIME = "learntime";
 
 	private static final String CREATE_USER_ACCOUNT_TABLE = "create table "
@@ -134,8 +133,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String CREATE_TIMER_TABLE = " create table "
 			+ TABLE_TIMER + " ( " + COLUMN_TIMER_ENABLED + " integer,"
-			+ COLUMN_TIMER_EXPIRED + " integer," + COLUMN_TIMER_LEFT
-			+ " integer," + COLUMN_LEARN_TIME + " integer);";
+			+ COLUMN_TIMER_EXPIRED + " integer," + COLUMN_LEARN_TIME
+			+ " integer);";
 
 	/**
 	 * Constructor.

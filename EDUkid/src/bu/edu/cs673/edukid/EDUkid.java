@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.db.Database;
+import bu.edu.cs673.edukid.db.model.Timer;
 import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.learn.LearnContentView;
@@ -41,6 +42,8 @@ public class EDUkid extends Activity implements OnClickListener {
 
 	public static final String WORD_INDEX = "WordIndex";
 
+	private Database database = Database.getInstance(this);
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -48,10 +51,9 @@ public class EDUkid extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edukid);
-
-		setupTimer();
 		setupCategoryButtons();
 		welcomeUserBack(true);
+
 	}
 
 	/**
@@ -59,6 +61,13 @@ public class EDUkid extends Activity implements OnClickListener {
 	 */
 	@Override
 	public void onClick(View view) {
+
+		if(database.getTimer().getExpired()==1)
+		{
+			Toast.makeText(this,"Timer EXpired", Toast.LENGTH_SHORT).show();
+			return; 
+		}
+
 
 		CategoryType categoryType = Database.getInstance(this).getCategories()[view
 				.getId()];
@@ -81,30 +90,6 @@ public class EDUkid extends Activity implements OnClickListener {
 	public void onResume() {
 		super.onResume();
 		welcomeUserBack(false);
-	}
-
-	private void setupTimer() {
-		final Handler handler = new Handler();
-		handler.postDelayed(new Runnable() {
-			public void run() {
-				AlertDialog.Builder alert = new AlertDialog.Builder(EDUkid.this);
-				alert.setTitle("Timed Out! Go to bed");
-				alert.setPositiveButton("Ok",
-						new DialogInterface.OnClickListener() {
-
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								Intent intent = new Intent(EDUkid.this,
-										EDUkid.class);
-								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-								startActivity(intent);
-							}
-						});
-				alert.create();
-				alert.show();
-			}
-		}, 180000);
 	}
 
 	/**

@@ -192,10 +192,16 @@ public class DatabaseUtils {
 
 	protected static Timer convertCursorToTimer(Cursor cursor) {
 		Timer timer = new Timer();
-		timer.setEnabled(cursor.getInt(0));
-		timer.setExpired(cursor.getInt(1));
-		timer.setTimeleft(cursor.getInt(2));
-		timer.setLeartime(cursor.getInt(3));
+		// timer.setEnabled(cursor.getInt(0));
+		// timer.setExpired(cursor.getInt(1));
+		// timer.setLearnTime(cursor.getInt(2));
+
+		int enabled = cursor.getInt(0);
+		int expired = cursor.getInt(1);
+		int time = cursor.getInt(2);
+		timer.setEnabled(enabled);
+		timer.setExpired(expired);
+		timer.setLearnTime(time);
 
 		return timer;
 	}
