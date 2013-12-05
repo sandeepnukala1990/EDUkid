@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String EDUKID_DATABASE = "EDUkid.db";
-	private static final int EDUKID_DATABASE_VERSION = 60;
+	private static final int EDUKID_DATABASE_VERSION = 101;
 
 	private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
 
@@ -142,8 +142,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 * @param context
 	 *            the context.
 	 */
-	public DatabaseHelper(Context context) {
+	protected DatabaseHelper(Context context) {
 		super(context, EDUKID_DATABASE, null, EDUKID_DATABASE_VERSION);
+	}
+
+	protected DatabaseHelper(Context context, int version) {
+		super(context, EDUKID_DATABASE, null, version);
 	}
 
 	/**

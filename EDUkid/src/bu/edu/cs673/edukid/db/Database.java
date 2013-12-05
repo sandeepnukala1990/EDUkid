@@ -129,9 +129,13 @@ public class Database {
 	 * @param context
 	 *            the context.
 	 */
-	private Database(Context context) {
+	protected Database(Context context) {
 		databaseHelper = new DatabaseHelper(context);
 		sqlDatabase = databaseHelper.getWritableDatabase();
+	}
+
+	protected void createNewDatabase() {
+		databaseHelper.onUpgrade(sqlDatabase, 0, 0);
 	}
 
 	/**
