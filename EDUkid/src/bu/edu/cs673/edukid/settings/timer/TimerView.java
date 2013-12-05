@@ -56,6 +56,15 @@ public class TimerView extends Activity {
 			}
 		});
 
+		btn1.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				database.updateTimer(true,false,database.getTimer().getLearnTime());
+				
+			}
+		});
 		
 		Button btn2 = (Button) findViewById(R.id.createSaveButton);
 		btn2.setOnClickListener(new View.OnClickListener() {
