@@ -38,6 +38,7 @@ public class TimerView extends Activity {
 		{
 			time.setEnabled(true);
 			btn1.setEnabled(true);
+			btn.setChecked(true);
 		}
 		btn.setOnClickListener(new View.OnClickListener() {
 
