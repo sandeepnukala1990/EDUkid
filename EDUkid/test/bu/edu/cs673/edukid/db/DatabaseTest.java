@@ -70,20 +70,24 @@ public class DatabaseTest extends AndroidTestCase {
 	}
 
 	public void testUpdateWord() {
+		List<Word> kWords = database.getWords(DatabaseHelper
+				.generateWordsSelection(11));
+
 		// Check update on K_word_1 to word_1
-		Word word = kwords.get(0);
+		Word word = kWords.get(0);
 		word.setWord("word_1");
 		database.updateWord(11, 0, word);
 		assertTrue(word.getWord().equals("word_1"));
-		
+
 	}
 
 	public void testDeleteWord() {
-		// check delete on 11,1 K_word_2
-		Word word = kword.get(1);
-		database.deleteWord(11, 1);
 		List<Word> kWords = database.getWords(DatabaseHelper
 				.generateWordsSelection(11));
+
+		// check delete on 11,1 K_word_2
+		database.deleteWord(11, 1);
+		kWords = database.getWords(DatabaseHelper.generateWordsSelection(11));
 		assertTrue(kWords.size() == 1);
 	}
 
