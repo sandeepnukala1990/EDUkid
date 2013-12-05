@@ -7,7 +7,15 @@ import android.media.MediaRecorder;
 import android.os.Environment;
 import android.widget.ImageView;
 import bu.edu.cs673.edukid.R;
-
+import bu.edu.cs673.edukid.db.model.category.CategoryType;
+/**
+ * The audio record and playback utilities.
+ * 
+ * @author Peter Trevino
+ * 
+ * @see RecordUtility
+ * 
+ */
 public class RecordUtility {
 
 	private static final String PATH = Environment

@@ -1,10 +1,14 @@
 package bu.edu.cs673.edukid.settings.useraccount;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +35,8 @@ import bu.edu.cs673.edukid.voicerecord.RecordUtility;
 public class UserAccountView extends Activity implements OnClickListener {
 
 	private static final int TAKE_PICTURE = 1888;
+	
+	private static final int SELECT_PHOTO = 100;
 
 	private static final long DATABASE_ERROR = -1;
 
@@ -41,6 +47,8 @@ public class UserAccountView extends Activity implements OnClickListener {
 	private ImageView micImage;
 
 	private ImageView playImage;
+	
+	private ImageView selectPhotoImage;
 
 	private Database database = Database.getInstance(this);
 
@@ -58,7 +66,9 @@ public class UserAccountView extends Activity implements OnClickListener {
 		userImage = (ImageView) findViewById(R.id.createUserImage);
 		micImage = (ImageView) findViewById(R.id.accountCreationRecorderButton);
 		playImage = (ImageView) findViewById(R.id.playAudioButton);
+		selectPhotoImage = (ImageView) findViewById(R.id.AddPhotoButton);
 		userName = (EditText) findViewById(R.id.createEditChildName);
+		
 
 		// Populate user account info from database (if any)
 		List<UserAccount> userAccounts = database.getUserAccounts();
@@ -94,6 +104,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 		createUploadPhotoButton.setOnClickListener(this);
 		micImage.setOnClickListener(this);
 		playImage.setOnClickListener(this);
+		selectPhotoImage.setOnClickListener(this);
 	}
 
 	/**
@@ -134,6 +145,8 @@ public class UserAccountView extends Activity implements OnClickListener {
 				RecordUtility.playbackRecording(savedFilePath);
 			}
 
+		case R.id.AddPhotoButton:
+			selectPhoto();
 		}
 	}
 
@@ -148,6 +161,17 @@ public class UserAccountView extends Activity implements OnClickListener {
 			if (photo != null) {
 				userImage.setImageBitmap(photo);
 			}
+		}
+		else if(requestCode == SELECT_PHOTO&&resultCode == RESULT_OK){
+			Uri selectedImage = data.getData();
+            InputStream imageStream = null;
+			try {
+				imageStream = getContentResolver().openInputStream(selectedImage);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+            Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
+            userImage.setImageBitmap(yourSelectedImage);
 		}
 	}
 
@@ -187,5 +211,10 @@ public class UserAccountView extends Activity implements OnClickListener {
 	private void startCamera() {
 		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 		startActivityForResult(intent, TAKE_PICTURE);
+	}
+	private void selectPhoto(){
+		Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+		photoPickerIntent.setType("image/*");
+		startActivityForResult(photoPickerIntent, SELECT_PHOTO);    
 	}
 }
