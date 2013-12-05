@@ -64,8 +64,13 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/playAudioButton"
         android:layout_marginLeft="27dp"
+<<<<<<< HEAD
         android:layout_toRightOf="@+id/playAudioButton"
         android:background="@drawable/mikebutton"
         android:src="@drawable/mikebutton" />
+=======
+        android:layout_toRightOf="@+id/imageButton1"
+        android:background="@drawable/mikebutton" />
+>>>>>>> 58762abb6e99ccb1f701af6f69dd9faf2900aabc
 
 </RelativeLayout>

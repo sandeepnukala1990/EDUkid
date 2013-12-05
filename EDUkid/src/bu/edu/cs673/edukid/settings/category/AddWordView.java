@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
-import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
@@ -40,10 +39,8 @@ public class AddWordView extends Activity implements OnClickListener {
 
 	private Boolean picture = false;
 
-	private Database database = Database.getInstance(this);
-
 	public MediaRecorder recorder = new MediaRecorder();
-	
+
 	private String mFileName = "";
 
 	/**
@@ -90,7 +87,9 @@ public class AddWordView extends Activity implements OnClickListener {
 			Bitmap photo = (Bitmap) data.getExtras().get("data");
 			picture = true;
 			if (photo != null) {
-
+				wordImage.setMaxHeight(400);
+				wordImage.setMaxWidth(400);
+				wordImage.setAdjustViewBounds(false);
 				wordImage.setImageBitmap(photo);
 			}
 		}
@@ -98,30 +97,33 @@ public class AddWordView extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.button1:
 			word = ((EditText) findViewById(R.id.editText1)).getText()
 					.toString();
 			// long result = DATABASE_ERROR;
 			Word w = new Word();
-			if(word.equalsIgnoreCase("") || picture == false){
-				Toast.makeText(this, "cannot save Word!",
+			if (word.equalsIgnoreCase("") || picture == false) {
+				Toast.makeText(this, "cannot save Word!", Toast.LENGTH_LONG)
+						.show();
+			} else {
+				w.setWord(word);
+				if (mFileName.equalsIgnoreCase(""))
+					w.setWordSound(word);
+				else
+					w.setWordSound(mFileName);
+
+				w.setWordImage(ImageUtils.drawableToByteArray(wordImage
+						.getDrawable()));
+				categoryType.addItemWord(itemIndex, w);
+
+				Toast.makeText(this, "Word saved successfully!",
 						Toast.LENGTH_LONG).show();
-			}
-			else{
-			w.setWord(word);
-			if (mFileName.equalsIgnoreCase(""))
-				w.setWordSound(word);
-			else
-				w.setWordSound(mFileName);
-
-			w.setWordImage(ImageUtils.drawableToByteArray(wordImage
-					.getDrawable()));
-			categoryType.addItemWord(itemIndex, w);
-
-			Toast.makeText(this, "Word saved successfully!", Toast.LENGTH_LONG)
-					.show();
+				Intent intent = new Intent(this, ItemView.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				intent.putExtra(EDUkid.CATEGORY_TYPE, categoryType);
+				intent.putExtra(EDUkid.ITEM_INDEX, itemIndex);
+				startActivity(intent);
 			}
 			break;
 

@@ -34,6 +34,12 @@ public class TimerView extends Activity {
 
 		time.setEnabled(false);
 		btn1.setEnabled(false);
+		if(database.getTimer().getEnabled()==1)
+		{
+			time.setEnabled(true);
+			btn1.setEnabled(true);
+			btn.setChecked(true);
+		}
 		btn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -45,10 +51,22 @@ public class TimerView extends Activity {
 				} else {
 					time.setEnabled(false);
 					btn1.setEnabled(false);
+					database.updateTimer(false, false, 18000000);
 				}
 			}
 		});
 
+		btn1.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				database.updateTimer(true,false,database.getTimer().getLearnTime());
+				Toast.makeText(TimerView.this, "Timer Reset! Go play !",
+						Toast.LENGTH_SHORT).show();
+				
+			}
+		});
 		
 		Button btn2 = (Button) findViewById(R.id.createSaveButton);
 		btn2.setOnClickListener(new View.OnClickListener() {
@@ -57,8 +75,6 @@ public class TimerView extends Activity {
 			public void onClick(View v) {
 				final int time2 = Integer.parseInt(time.getText().toString());
 				long time3 = convertToDatabase(time2);
-				System.out.println("Infamous time2: " + time2);
-				System.out.println("Infamous time3: " + time3);
 				database.updateTimer(true, false, time3);
 				Toast.makeText(TimerView.this, "Saved Successfully",
 						Toast.LENGTH_SHORT).show();

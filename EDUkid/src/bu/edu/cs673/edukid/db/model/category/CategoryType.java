@@ -75,6 +75,9 @@ public interface CategoryType extends Serializable {
 	 */
 	String getItemPhoneticSound(int itemIndex);
 
+	// TODO
+	int getDefaultWordCount(int itemIndex);
+
 	/**
 	 * Gets all of the associated words for a given item (enabled and disabled).
 	 * 

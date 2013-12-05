@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.settings.SettingsView;
@@ -85,13 +86,23 @@ public class WordView extends Activity {
 	 *            the view.
 	 */
 	public void onSaveWordClick(View view) {
-		// TODO: implement this
-		Toast.makeText(this, "Save word coming soon...", Toast.LENGTH_LONG)
-				.show();
-		// Word word = new Word();
-		// word.setWord(wordName.getText().toString());
-		//
-		// categoryType.addItemWord(itemIndex, wordIndex, new Word());
+		Word w = new Word();
+		String wordText = wordName.getText().toString();
+		if (wordText.equalsIgnoreCase("")) {
+			Toast.makeText(this, "nope!", Toast.LENGTH_LONG).show();
+		} else {
+			w.setWord(wordText);
+			w.setWordSound(wordText);
+
+			w.setWordImage(ImageUtils.drawableToByteArray(wordImage
+					.getDrawable()));
+			int databaseWordIndex = wordIndex
+					- categoryType.getDefaultWordCount(itemIndex);
+			categoryType.editItemWord(itemIndex, databaseWordIndex, w);
+
+			Toast.makeText(this, "Word saved successfully!", Toast.LENGTH_LONG)
+					.show();
+		}
 	}
 
 	/**
@@ -125,8 +136,18 @@ public class WordView extends Activity {
 	 *            the view.
 	 */
 	public void onDeleteWordClick(View view) {
-		// TODO: implement this
-		Toast.makeText(this, "Delete word coming soon...", Toast.LENGTH_LONG)
-				.show();
+		int databaseWordIndex = wordIndex
+				- categoryType.getDefaultWordCount(itemIndex);
+		categoryType.deleteItemWord(itemIndex, databaseWordIndex);
+
+		Toast.makeText(this,
+				"'" + wordName.getText().toString() + "' Successfully Deleted",
+				Toast.LENGTH_SHORT).show();
+
+		Intent intent = new Intent(this, ItemView.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.putExtra(EDUkid.CATEGORY_TYPE, categoryType);
+		intent.putExtra(EDUkid.ITEM_INDEX, itemIndex);
+		startActivity(intent);
 	}
 }

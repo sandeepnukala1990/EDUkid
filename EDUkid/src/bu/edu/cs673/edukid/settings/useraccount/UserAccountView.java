@@ -76,6 +76,8 @@ public class UserAccountView extends Activity implements OnClickListener {
 
 			userImage.setMaxHeight(400);
 			userImage.setMaxWidth(400);
+			userImage.setMinimumHeight(400);
+			userImage.setMinimumWidth(400);
 			userImage.setAdjustViewBounds(false);
 			//set user sound
 			savedFilePath=userAccount.getUserSound();

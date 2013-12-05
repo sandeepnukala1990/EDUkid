@@ -267,15 +267,29 @@ public class Database {
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_WORD, word.getWord());
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND,
 				word.getWordSound());
-		// TODO: fix this
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
 				ImageUtils.drawableToByteArray(word.getWordDrawable()));
+		// TODO: fix this
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE_ID,
 				R.drawable.abacus);
 		contentValues
 				.put(DatabaseHelper.COLUMN_WORDS_CHECKED, word.isChecked());
 
 		sqlDatabase.update(DatabaseHelper.TABLE_WORDS, contentValues,
+				DatabaseHelper.generateWordsSelection(itemIndex, wordIndex),
+				null);
+	}
+
+	/**
+	 * Delete a word in the database.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @param wordIndex
+	 *            the word index.
+	 */
+	public void deleteWord(int itemIndex, int wordIndex) {
+		sqlDatabase.delete(DatabaseHelper.TABLE_WORDS,
 				DatabaseHelper.generateWordsSelection(itemIndex, wordIndex),
 				null);
 	}

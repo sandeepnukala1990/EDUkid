@@ -96,6 +96,14 @@ public class ColorsCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public int getDefaultWordCount(int itemIndex) {
+		return DatabaseDefaults.getDefaultColorWords()[itemIndex].length;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Word[] getSettingsItemWords(int itemIndex) {
 		// TODO
 		return DatabaseDefaults.getDefaultColorWords()[itemIndex];
