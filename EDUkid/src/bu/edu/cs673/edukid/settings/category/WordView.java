@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.settings.SettingsView;
@@ -21,6 +23,10 @@ public class WordView extends Activity {
 	private int itemIndex;
 
 	private int wordIndex;
+
+	private String word = "";
+
+	private Boolean picture = false;
 
 	private TextView wordName;
 
@@ -86,8 +92,24 @@ public class WordView extends Activity {
 	 */
 	public void onSaveWordClick(View view) {
 		// TODO: implement this
-		Toast.makeText(this, "Save word coming soon...", Toast.LENGTH_LONG)
-				.show();
+
+	//	word = ((EditText) findViewById(R.id.wordName)).getText().toString();
+		Word w = new Word();
+		String wordText = wordName.getText().toString();
+		if (wordText.equalsIgnoreCase("")) {
+			Toast.makeText(this, "nope!", Toast.LENGTH_LONG).show();
+		} else {
+			w.setWord(wordText);
+			w.setWordSound(wordText);
+
+			w.setWordImage(ImageUtils.drawableToByteArray(wordImage
+					.getDrawable()));
+			categoryType.editItemWord(itemIndex, wordIndex, w);
+
+			Toast.makeText(this, "Word saved successfully!", Toast.LENGTH_LONG)
+					.show();
+
+		}
 		// Word word = new Word();
 		// word.setWord(wordName.getText().toString());
 		//
@@ -126,7 +148,7 @@ public class WordView extends Activity {
 	 */
 	public void onDeleteWordClick(View view) {
 		// TODO: implement this
-		Toast.makeText(this, "Delete word coming soon...", Toast.LENGTH_LONG)
-				.show();
+		categoryType.deleteItemWord(itemIndex, wordIndex);
+
 	}
 }

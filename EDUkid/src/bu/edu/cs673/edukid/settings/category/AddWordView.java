@@ -90,7 +90,9 @@ public class AddWordView extends Activity implements OnClickListener {
 			Bitmap photo = (Bitmap) data.getExtras().get("data");
 			picture = true;
 			if (photo != null) {
-
+				wordImage.setMaxHeight(400);
+				wordImage.setMaxWidth(400);
+				wordImage.setAdjustViewBounds(false);
 				wordImage.setImageBitmap(photo);
 			}
 		}

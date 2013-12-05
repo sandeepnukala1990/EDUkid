@@ -280,6 +280,20 @@ public class Database {
 				null);
 	}
 
+	/**
+	 * Delete a word in the database.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @param wordIndex
+	 *            the word index.
+	 */
+	public void deleteWord(int itemIndex, int wordIndex) {
+		int rows = sqlDatabase.delete(DatabaseHelper.TABLE_WORDS,
+				DatabaseHelper.generateWordsSelection(itemIndex, wordIndex),
+				null);
+	}
+
 	// TODO
 	public List<DefaultWordMapping> getDefaultWordMapping(String selection) {
 		List<DefaultWordMapping> defaultWordMappings = new ArrayList<DefaultWordMapping>();

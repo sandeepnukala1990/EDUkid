@@ -65,7 +65,6 @@
         android:layout_alignTop="@+id/imageButton1"
         android:layout_marginLeft="27dp"
         android:layout_toRightOf="@+id/imageButton1"
-        android:background="@drawable/mikebutton"
-        android:src="@drawable/mikebutton" />
+        android:background="@drawable/mikebutton" />
 
 </RelativeLayout>

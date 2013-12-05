@@ -196,6 +196,7 @@ public class AlphabetCategory implements CategoryType {
 	@Override
 	public void deleteItemWord(int itemIndex, int wordIndex) {
 		// TODO
+		Database.getInstance().deleteWord(itemIndex, wordIndex);
 	}
 
 	/**
