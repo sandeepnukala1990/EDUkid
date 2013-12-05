@@ -2,6 +2,7 @@ package bu.edu.cs673.edukid.voicerecord;
 
 import java.io.IOException;
 
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.widget.ImageView;
@@ -45,6 +46,14 @@ public class RecordUtility {
 	}
 
 	public static void playbackRecording(String path) {
-		// TODO
-	}
+		MediaPlayer mp = new MediaPlayer();
+
+	    try {
+	        mp.setDataSource(path);
+	        mp.prepare();
+	        mp.start();
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }	}
 }

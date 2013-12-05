@@ -34,11 +34,13 @@ public class UserAccountView extends Activity implements OnClickListener {
 
 	private static final long DATABASE_ERROR = -1;
 
-	private String userName;
+	private EditText userName;
 
 	private ImageView userImage;
 
 	private ImageView micImage;
+
+	private ImageView playImage;
 
 	private Database database = Database.getInstance(this);
 
@@ -55,6 +57,8 @@ public class UserAccountView extends Activity implements OnClickListener {
 		setContentView(R.layout.user_account);
 		userImage = (ImageView) findViewById(R.id.createUserImage);
 		micImage = (ImageView) findViewById(R.id.accountCreationRecorderButton);
+		playImage = (ImageView) findViewById(R.id.playAudioButton);
+		userName = (EditText) findViewById(R.id.createEditChildName);
 
 		// Populate user account info from database (if any)
 		List<UserAccount> userAccounts = database.getUserAccounts();
@@ -63,8 +67,8 @@ public class UserAccountView extends Activity implements OnClickListener {
 			UserAccount userAccount = userAccounts.get(0);
 
 			// Set user name
-			EditText userNameTextField = ((EditText) findViewById(R.id.createEditChildName));
-			userNameTextField.setText(userAccount.getUserName());
+			
+			userName.setText(userAccount.getUserName());
 
 			// Set user image
 			userImage.setImageDrawable(ImageUtils
@@ -73,14 +77,21 @@ public class UserAccountView extends Activity implements OnClickListener {
 			userImage.setMaxHeight(400);
 			userImage.setMaxWidth(400);
 			userImage.setAdjustViewBounds(false);
-		}
+			//set user sound
+			savedFilePath=userAccount.getUserSound();
 
+		}
+		if(savedFilePath==null||savedFilePath.isEmpty()){
+			playImage.setBackgroundResource(R.drawable.greyplaybutton);
+			playImage.setEnabled(false);
+		}
 		// Add listeners
 		Button createSaveButton = (Button) findViewById(R.id.createSaveButton);
 		createSaveButton.setOnClickListener(this);
 		ImageButton createUploadPhotoButton = (ImageButton) findViewById(R.id.createUploadPhotoButton);
 		createUploadPhotoButton.setOnClickListener(this);
 		micImage.setOnClickListener(this);
+		playImage.setOnClickListener(this);
 	}
 
 	/**
@@ -90,7 +101,11 @@ public class UserAccountView extends Activity implements OnClickListener {
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.createSaveButton:
-			saveUserAccount();
+			if(!userName.getText().toString().isEmpty())
+				saveUserAccount();
+			else
+				Toast.makeText(this, "Please enter a Child's Name to save!",
+						Toast.LENGTH_LONG).show();
 			break;
 		case R.id.createUploadPhotoButton:
 			// TODO: we should have other options other than the camera like
@@ -100,9 +115,8 @@ public class UserAccountView extends Activity implements OnClickListener {
 		case R.id.accountCreationRecorderButton:
 			if (recording) {
 				RecordUtility.stopRecording(micImage);
-				Toast.makeText(this, "path: " + savedFilePath,
-						Toast.LENGTH_SHORT).show();
-				// TODO: save to database
+				playImage.setBackgroundResource(R.drawable.playbutton);
+				playImage.setEnabled(true);
 			} else {
 				savedFilePath = RecordUtility.startRecording("UserAccount",
 						micImage);
@@ -110,6 +124,14 @@ public class UserAccountView extends Activity implements OnClickListener {
 
 			recording = !recording;
 			break;
+		case R.id.playAudioButton:
+			if(savedFilePath==null)
+				Toast.makeText(this, "No Audio Recorded for user, please use the record button to record the childs name",
+						Toast.LENGTH_LONG).show();
+			else{
+				RecordUtility.playbackRecording(savedFilePath);
+			}
+
 		}
 	}
 
@@ -131,20 +153,19 @@ public class UserAccountView extends Activity implements OnClickListener {
 	 * Saves the user account in the database.
 	 */
 	private void saveUserAccount() {
-		userName = ((EditText) findViewById(R.id.createEditChildName))
-				.getText().toString();
+		String stUserName= userName.getText().toString();
 		List<UserAccount> userAccounts = database.getUserAccounts();
 		long result = DATABASE_ERROR;
 
 		if (userAccounts.size() == 0) {
-			// TODO: Peter: replace "" with real user sound.
-			result = database.addUserAccount(userName, "",
+			result = database.addUserAccount(stUserName, savedFilePath,
 					userImage.getDrawable());
 		} else if (userAccounts.size() == 1) {
 			UserAccount userAccount = userAccounts.get(0);
-			userAccount.setUserName(userName);
+			userAccount.setUserName(stUserName);
 			userAccount.setUserImage(ImageUtils.drawableToByteArray(userImage
 					.getDrawable()));
+			userAccount.setUserSound(savedFilePath);
 			result = database.editUserAccount(userAccount);
 		} else {
 			// TODO: implement more than 1 user. Should not get here now.

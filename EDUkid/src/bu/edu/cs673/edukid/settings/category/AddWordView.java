@@ -65,7 +65,7 @@ public class AddWordView extends Activity implements OnClickListener {
 
 		Button createSaveButton = (Button) findViewById(R.id.button1);
 		createSaveButton.setOnClickListener(this);
-		ImageButton createUploadPhotoButton = (ImageButton) findViewById(R.id.imageButton1);
+		ImageButton createUploadPhotoButton = (ImageButton) findViewById(R.id.playAudioButton);
 		createUploadPhotoButton.setOnClickListener(this);
 		micImage.setOnClickListener(this);
 		// TextView balh = (TextView) findViewById(R.id.textView233);
@@ -125,7 +125,7 @@ public class AddWordView extends Activity implements OnClickListener {
 			}
 			break;
 
-		case R.id.imageButton1:
+		case R.id.playAudioButton:
 			startCamera();
 			break;
 

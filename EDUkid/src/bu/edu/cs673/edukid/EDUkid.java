@@ -1,13 +1,15 @@
 package bu.edu.cs673.edukid;
 
 import java.util.List;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -17,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.model.Timer;
 import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.learn.LearnContentView;
@@ -34,7 +35,7 @@ import bu.edu.cs673.edukid.settings.utils.MathProblemGenerator;
  * @see CategoryType
  * 
  */
-public class EDUkid extends Activity implements OnClickListener {
+public class EDUkid extends Activity implements OnClickListener, OnInitListener {
 
 	public static final String CATEGORY_TYPE = "CategoryType";
 
@@ -44,6 +45,8 @@ public class EDUkid extends Activity implements OnClickListener {
 
 	private Database database = Database.getInstance(this);
 
+	private TextToSpeech textToSpeech;
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -51,9 +54,18 @@ public class EDUkid extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edukid);
+		textToSpeech = new TextToSpeech(this, this);
 		setupCategoryButtons();
-		welcomeUserBack(true);
 
+		System.out.println("before sleep");
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("after sleep");
+
+		welcomeUserBack(true);
 	}
 
 	/**
@@ -62,12 +74,10 @@ public class EDUkid extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View view) {
 
-		if(database.getTimer().getExpired()==1)
-		{
-			Toast.makeText(this,"Timer EXpired", Toast.LENGTH_SHORT).show();
-			return; 
+		if (database.getTimer().getExpired() == 1) {
+			Toast.makeText(this, "Timer EXpired", Toast.LENGTH_SHORT).show();
+			return;
 		}
-
 
 		CategoryType categoryType = Database.getInstance(this).getCategories()[view
 				.getId()];
@@ -135,6 +145,20 @@ public class EDUkid extends Activity implements OnClickListener {
 
 			// Say hello
 			if (toast) {
+				String userSound = userAccount.getUserSound();
+				if (userSound != null && !userSound.isEmpty()) {
+					try {
+						textToSpeech.stop();
+						textToSpeech.speak("Welcome to EduKid, ",
+								TextToSpeech.QUEUE_FLUSH, null);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					System.out.println("Why");
+					// RecordUtility.playbackRecording(userAccount.getUserSound());
+				}
+
 				Toast.makeText(
 						this,
 						"Hello " + userAccount.getUserName()
@@ -200,4 +224,23 @@ public class EDUkid extends Activity implements OnClickListener {
 		Toast.makeText(this, "Incorrect answer. Please try again.",
 				Toast.LENGTH_LONG).show();
 	}
+
+	@Override
+	public void onInit(int status) {
+		textToSpeech.setLanguage(Locale.getDefault());
+	}
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+		if (textToSpeech != null) {
+
+			textToSpeech.stop();
+			textToSpeech.shutdown();
+		}
+	}
+
 }
