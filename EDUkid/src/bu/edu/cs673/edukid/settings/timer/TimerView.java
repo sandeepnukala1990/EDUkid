@@ -34,6 +34,11 @@ public class TimerView extends Activity {
 
 		time.setEnabled(false);
 		btn1.setEnabled(false);
+		if(database.getTimer().getEnabled()==1)
+		{
+			time.setEnabled(true);
+			btn1.setEnabled(true);
+		}
 		btn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -45,6 +50,7 @@ public class TimerView extends Activity {
 				} else {
 					time.setEnabled(false);
 					btn1.setEnabled(false);
+					database.updateTimer(false, false, 18000000);
 				}
 			}
 		});
