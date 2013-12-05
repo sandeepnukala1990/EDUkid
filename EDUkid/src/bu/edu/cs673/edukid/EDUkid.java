@@ -75,7 +75,7 @@ public class EDUkid extends Activity implements OnClickListener, OnInitListener 
 	public void onClick(View view) {
 
 		if (database.getTimer().getExpired() == 1) {
-			Toast.makeText(this, "Timer EXpired", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Timer EXpired! Go to settings to reset !", Toast.LENGTH_SHORT).show();
 			return;
 		}
 

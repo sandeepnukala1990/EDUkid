@@ -51,7 +51,7 @@ public class TimerView extends Activity {
 				} else {
 					time.setEnabled(false);
 					btn1.setEnabled(false);
-					database.updateTimer(false, false, 18000000);
+					database.updateTimer(false, false, database.getTimer().getLearnTime());
 				}
 			}
 		});
