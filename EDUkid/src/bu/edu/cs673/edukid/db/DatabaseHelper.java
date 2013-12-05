@@ -14,7 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String EDUKID_DATABASE = "EDUkid.db";
 
-	private static final int EDUKID_DATABASE_VERSION = 101;
+	private static final int EDUKID_DATABASE_VERSION = 103;
 
 	private static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
 

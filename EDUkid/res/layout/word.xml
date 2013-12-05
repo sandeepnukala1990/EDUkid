@@ -8,46 +8,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
 
-    <TextView
-        android:id="@+id/wordLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="147dp"
-        android:text="Word:" />
-
-    <TextView
-        android:id="@+id/wordImageLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/wordLabel"
-        android:layout_below="@+id/wordLabel"
-        android:layout_marginTop="42dp"
-        android:text="Image:" />
-
-    <ImageView
-        android:id="@+id/wordImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/wordImageLabel"
-        android:layout_marginLeft="48dp"
-        android:layout_toRightOf="@+id/wordImageLabel"
-        android:adjustViewBounds="true"
-        android:maxHeight="175dp"
-        android:maxWidth="200dp"
-        android:onClick="onWordImageClick" />
-
-    <EditText
-        android:id="@+id/wordName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/wordLabel"
-        android:layout_alignBottom="@+id/wordLabel"
-        android:layout_alignLeft="@+id/wordImage"
-        android:ems="10" />
-
     <Button
         android:id="@+id/saveWordButton"
         android:layout_width="wrap_content"
@@ -74,5 +34,80 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/settingshomebutton"
         android:onClick="onSettingsHomeClick" />
+
+    <ImageView
+        android:id="@+id/wordImage"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_above="@+id/deleteWordButton"
+        android:layout_marginLeft="31dp"
+        android:layout_toRightOf="@+id/deleteWordButton"
+        android:adjustViewBounds="true"
+        android:maxHeight="300dp"
+        android:maxWidth="300dp" />
+
+    <TextView
+        android:id="@+id/wordImageLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/deleteWordButton"
+        android:layout_alignTop="@+id/wordImage"
+        android:text="Image:"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/wordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/wordViewLinearLayout"
+        android:layout_below="@+id/wordImageLabel"
+        android:text="Word:"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/wordName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/wordLabel"
+        android:layout_below="@+id/wordLabel"
+        android:ems="10" />
+
+    <LinearLayout
+        android:id="@+id/wordViewLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wordName"
+        android:layout_marginTop="20dp"
+        android:layout_toLeftOf="@+id/settingsHomeButton"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/wordViewCameraButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:src="@drawable/camerabutton2" />
+
+        <ImageButton
+            android:id="@+id/wordViewGalleryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/gallerybutton" />
+
+        <ImageButton
+            android:id="@+id/wordViewMicButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/mikebutton" />
+
+        <ImageButton
+            android:id="@+id/wordViewPlayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/playbutton" />
+    </LinearLayout>
 
 </RelativeLayout>

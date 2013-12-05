@@ -35,7 +35,7 @@ import bu.edu.cs673.edukid.settings.utils.RecordUtility;
 public class UserAccountView extends Activity implements OnClickListener {
 
 	private static final int TAKE_PICTURE = 1888;
-	
+
 	private static final int SELECT_PHOTO = 100;
 
 	private static final long DATABASE_ERROR = -1;
@@ -47,7 +47,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 	private ImageView micImage;
 
 	private ImageView playImage;
-	
+
 	private ImageView selectPhotoImage;
 
 	private Database database = Database.getInstance(this);
@@ -68,7 +68,6 @@ public class UserAccountView extends Activity implements OnClickListener {
 		playImage = (ImageView) findViewById(R.id.takePictureButton);
 		selectPhotoImage = (ImageView) findViewById(R.id.AddPhotoButton);
 		userName = (EditText) findViewById(R.id.createEditChildName);
-		
 
 		// Populate user account info from database (if any)
 		List<UserAccount> userAccounts = database.getUserAccounts();
@@ -77,7 +76,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 			UserAccount userAccount = userAccounts.get(0);
 
 			// Set user name
-			
+
 			userName.setText(userAccount.getUserName());
 
 			// Set user image
@@ -88,11 +87,11 @@ public class UserAccountView extends Activity implements OnClickListener {
 			userImage.setMinimumHeight(400);
 			userImage.setMinimumWidth(400);
 			userImage.setAdjustViewBounds(false);
-			//set user sound
-			savedFilePath=userAccount.getUserSound();
+			// set user sound
+			savedFilePath = userAccount.getUserSound();
 
 		}
-		if(savedFilePath==null||savedFilePath.isEmpty()){
+		if (savedFilePath == null || savedFilePath.isEmpty()) {
 			playImage.setBackgroundResource(R.drawable.greyplaybutton);
 			playImage.setEnabled(false);
 		}
@@ -113,15 +112,13 @@ public class UserAccountView extends Activity implements OnClickListener {
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.createSaveButton:
-			if(!userName.getText().toString().isEmpty())
+			if (!userName.getText().toString().isEmpty())
 				saveUserAccount();
 			else
 				Toast.makeText(this, "Please enter a Child's Name to save!",
 						Toast.LENGTH_LONG).show();
 			break;
 		case R.id.createUploadPhotoButton:
-			// TODO: we should have other options other than the camera like
-			// picking from the camera roll
 			ImageUtilities.startCamera(this);
 			break;
 		case R.id.accountCreationRecorderButton:
@@ -137,10 +134,12 @@ public class UserAccountView extends Activity implements OnClickListener {
 			recording = !recording;
 			break;
 		case R.id.takePictureButton:
-			if(savedFilePath==null)
-				Toast.makeText(this, "No Audio Recorded for user, please use the record button to record the childs name",
+			if (savedFilePath == null)
+				Toast.makeText(
+						this,
+						"No Audio Recorded for user, please use the record button to record the childs name",
 						Toast.LENGTH_LONG).show();
-			else{
+			else {
 				RecordUtility.playbackRecording(savedFilePath);
 			}
 			break;
@@ -161,20 +160,19 @@ public class UserAccountView extends Activity implements OnClickListener {
 			if (photo != null) {
 				userImage.setImageBitmap(photo);
 			}
-		}
-		else if(requestCode == SELECT_PHOTO&&resultCode == RESULT_OK){
+		} else if (requestCode == SELECT_PHOTO && resultCode == RESULT_OK) {
 			Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getContentResolver().query(
-                               selectedImage, filePathColumn, null, null, null);
-            cursor.moveToFirst();
+			String[] filePathColumn = { MediaStore.Images.Media.DATA };
+			Cursor cursor = getContentResolver().query(selectedImage,
+					filePathColumn, null, null, null);
+			cursor.moveToFirst();
 
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            savedFilePath = cursor.getString(columnIndex);
-            cursor.close();
-            
-            Bitmap yourSelectedImage = BitmapFactory.decodeFile(savedFilePath);
-            userImage.setImageBitmap(yourSelectedImage);
+			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+			savedFilePath = cursor.getString(columnIndex);
+			cursor.close();
+
+			Bitmap yourSelectedImage = BitmapFactory.decodeFile(savedFilePath);
+			userImage.setImageBitmap(yourSelectedImage);
 		}
 	}
 
@@ -182,7 +180,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 	 * Saves the user account in the database.
 	 */
 	private void saveUserAccount() {
-		String stUserName= userName.getText().toString();
+		String stUserName = userName.getText().toString();
 		List<UserAccount> userAccounts = database.getUserAccounts();
 		long result = DATABASE_ERROR;
 
@@ -207,17 +205,4 @@ public class UserAccountView extends Activity implements OnClickListener {
 			// TODO: inform user of error
 		}
 	}
-
-	/**
-	 * Starts the front facing camera to take a picture.
-	 */
-//	private void startCamera() {
-//		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-//		startActivityForResult(intent, TAKE_PICTURE);
-//	}
-//	private void selectPhoto(){
-//		Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-//		photoPickerIntent.setType("image/*");
-//		startActivityForResult(photoPickerIntent, SELECT_PHOTO);    
-//	}
 }

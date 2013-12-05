@@ -16,6 +16,7 @@ import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
+import bu.edu.cs673.edukid.settings.utils.RecordUtility;
 
 public class WordFragment extends Fragment implements OnClickListener,
 		OnInitListener {
@@ -60,12 +61,15 @@ public class WordFragment extends Fragment implements OnClickListener,
 		// Set content image
 		ImageButton learnContentImage = (ImageButton) view
 				.findViewById(R.id.learnContentImage);
-		learnContentImage.setOnClickListener(this);
 
 		if (word.isDefaultWord()) {
 			learnContentImage.setImageDrawable(getResources().getDrawable(
 					categoryType.getLearnItemDrawableId(itemIndex, wordIndex)));
 		} else {
+			learnContentImage.setOnClickListener(this);
+			learnContentImage.setMaxHeight(300);
+			learnContentImage.setMaxWidth(300);
+			learnContentImage.setAdjustViewBounds(false);
 			learnContentImage.setImageDrawable(categoryType
 					.getLearnItemDrawable(itemIndex, wordIndex));
 		}
@@ -88,6 +92,17 @@ public class WordFragment extends Fragment implements OnClickListener,
 		switch (view.getId()) {
 		case R.id.learnContentImage:
 		case R.id.learnContentWord:
+			Word word = categoryType.getLearnItemWord(itemIndex, wordIndex);
+			String wordSound = word.getWordSound();
+			System.out.println("block");
+
+			if (wordSound != null && !wordSound.isEmpty()) {
+				System.out.println("if block");
+				RecordUtility.playbackRecording(wordSound);
+				System.out.println("after");
+				return;
+			}
+
 			text = categoryType.getLearnItemWord(itemIndex, wordIndex)
 					.getWord();
 			break;
@@ -117,11 +132,5 @@ public class WordFragment extends Fragment implements OnClickListener,
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-
-		if (textToSpeech != null) {
-
-			textToSpeech.stop();
-			textToSpeech.shutdown();
-		}
 	}
 }

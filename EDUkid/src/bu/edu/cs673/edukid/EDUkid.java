@@ -55,17 +55,11 @@ public class EDUkid extends Activity implements OnClickListener, OnInitListener 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edukid);
+
+		// TODO: fix this
 		textToSpeech = new TextToSpeech(this, this);
+
 		setupCategoryButtons();
-
-		System.out.println("before sleep");
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		System.out.println("after sleep");
-
 		welcomeUserBack(true);
 	}
 
@@ -76,7 +70,8 @@ public class EDUkid extends Activity implements OnClickListener, OnInitListener 
 	public void onClick(View view) {
 
 		if (database.getTimer().getExpired() == 1) {
-			Toast.makeText(this, "Timer EXpired! Go to settings to reset !", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Timer EXpired! Go to settings to reset !",
+					Toast.LENGTH_SHORT).show();
 			return;
 		}
 
@@ -231,6 +226,7 @@ public class EDUkid extends Activity implements OnClickListener, OnInitListener 
 	public void onInit(int status) {
 		textToSpeech.setLanguage(Locale.getDefault());
 	}
+
 	/**
 	 * {@inheritDoc}
 	 */

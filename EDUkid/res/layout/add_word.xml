@@ -8,26 +8,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
 
-    <Button
-        android:id="@+id/AddWordAddButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="19dp"
-        android:layout_marginTop="14dp"
-        android:onClick="onAddWordClick"
-        android:text="Add Word" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="67dp"
-        android:layout_toLeftOf="@+id/AddWordAddButton"
-        android:ems="10" />
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -35,45 +15,75 @@
         android:layout_above="@+id/editText1"
         android:layout_alignLeft="@+id/editText1"
         android:layout_marginBottom="18dp"
-        android:text="add Word:" />
+        android:text="Word:"
+        android:textSize="25sp" />
 
-    <ImageButton
-        android:id="@+id/takePictureButton"
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="149dp"
+        android:layout_toLeftOf="@+id/AddWordAddButton"
+        android:ems="10" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/AddWordAddButton"
+        android:layout_marginLeft="84dp"
+        android:layout_marginTop="60dp"
+        android:maxHeight="300dp"
+        android:maxWidth="300dp"
+        android:src="@drawable/edukidicon" />
+
+    <LinearLayout
+        android:id="@+id/wordViewLinearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/editText1"
         android:layout_below="@+id/editText1"
-        android:layout_marginTop="24dp"
-        android:background="@null"
-        android:src="@drawable/camerabutton2" />
+        android:layout_marginTop="21dp"
+        android:orientation="horizontal" >
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/editText1"
-        android:layout_marginRight="197dp"
-        android:layout_toLeftOf="@+id/editText1"
-        android:maxHeight="500dp"
-        android:maxWidth="500dp"
-        android:src="@drawable/edukidicon" />
+        <ImageButton
+            android:id="@+id/takePictureButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:src="@drawable/camerabutton2" />
+
+        <ImageButton
+            android:id="@+id/AddWordGalleryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/gallerybutton" />
+
+        <ImageButton
+            android:id="@+id/AddWordSoundButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/mikebutton" />
+
+        <ImageButton
+            android:id="@+id/addWordPlayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/playbutton" />
+    </LinearLayout>
 
     <ImageButton
-        android:id="@+id/AddWordSoundButton"
+        android:id="@+id/AddWordAddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/takePictureButton"
-        android:layout_marginLeft="27dp"
-        android:layout_toRightOf="@+id/takePictureButton"
-        android:background="@drawable/mikebutton"
-        android:src="@drawable/mikebutton" />
-
-    <ImageButton
-        android:id="@+id/AddWordGalleryButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/AddWordSoundButton"
-        android:layout_toLeftOf="@+id/AddWordAddButton"
-        android:background="@drawable/gallerybutton" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/addbutton"
+        android:onClick="onAddWordClick" />
 
 </RelativeLayout>
