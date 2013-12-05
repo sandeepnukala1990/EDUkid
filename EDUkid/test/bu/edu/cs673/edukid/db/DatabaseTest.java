@@ -3,6 +3,7 @@ package bu.edu.cs673.edukid.db;
 import java.util.List;
 
 import android.test.AndroidTestCase;
+import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 
@@ -69,11 +70,21 @@ public class DatabaseTest extends AndroidTestCase {
 	}
 
 	public void testUpdateWord() {
-		// TODO
+		// Check update on K_word_1 to word_1
+		Word word = kwords.get(0);
+		word.setWord("word_1");
+		database.updateWord(11, 0, word);
+		assertTrue(word.getWord().equals("word_1"));
+		
 	}
 
 	public void testDeleteWord() {
-		// TODO
+		// check delete on 11,1 K_word_2
+		Word word = kword.get(1);
+		database.deleteWord(11, 1);
+		List<Word> kWords = database.getWords(DatabaseHelper
+				.generateWordsSelection(11));
+		assertTrue(kWords.size() == 1);
 	}
 
 	public void testGetDefaultWordMapping() {
