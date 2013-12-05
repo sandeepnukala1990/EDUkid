@@ -1,12 +1,11 @@
 package bu.edu.cs673.edukid.settings.useraccount;
 
-import java.io.IOException;
 import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -14,12 +13,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.media.*;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.UserAccount;
-import bu.edu.cs673.edukid.voicerecord.*;
+import bu.edu.cs673.edukid.voicerecord.RecordUtility;
 
 /**
  * The view which contains the user account information. The user account can be
@@ -44,9 +42,9 @@ public class UserAccountView extends Activity implements OnClickListener {
 
 	private Database database = Database.getInstance(this);
 
-	private RecordUtility vrecord = new RecordUtility();
+	private boolean recording = false;
 
-	public MediaRecorder recorder = new MediaRecorder();
+	private String savedFilePath;
 
 	/**
 	 * {@inheritDoc}
@@ -71,7 +69,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 			// Set user image
 			userImage.setImageDrawable(ImageUtils
 					.byteArrayToDrawable(userAccount.getUserImage()));
-			
+
 			userImage.setMaxHeight(400);
 			userImage.setMaxWidth(400);
 			userImage.setAdjustViewBounds(false);
@@ -100,8 +98,17 @@ public class UserAccountView extends Activity implements OnClickListener {
 			startCamera();
 			break;
 		case R.id.accountCreationRecorderButton:
-			// TODO:have state of button switch between start and stop recording
-			micImage.setBackgroundResource(vrecord.recordVoice("childsName"));
+			if (recording) {
+				RecordUtility.stopRecording(micImage);
+				Toast.makeText(this, "path: " + savedFilePath,
+						Toast.LENGTH_SHORT).show();
+				// TODO: save to database
+			} else {
+				savedFilePath = RecordUtility.startRecording("UserAccount",
+						micImage);
+			}
+
+			recording = !recording;
 			break;
 		}
 	}
@@ -158,5 +165,4 @@ public class UserAccountView extends Activity implements OnClickListener {
 		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 		startActivityForResult(intent, TAKE_PICTURE);
 	}
-
 }

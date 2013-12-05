@@ -2,62 +2,49 @@ package bu.edu.cs673.edukid.voicerecord;
 
 import java.io.IOException;
 
-import bu.edu.cs673.edukid.R;
-
 import android.media.MediaRecorder;
 import android.os.Environment;
+import android.widget.ImageView;
+import bu.edu.cs673.edukid.R;
 
 public class RecordUtility {
 
-	MediaRecorder recorder;
-	String mFileName;
-	Boolean start=true;
-	
+	private static final String PATH = Environment
+			.getExternalStorageDirectory().getAbsolutePath();
 
-	private void startRecording(String filename) {
-		// micImage.setBackgroundResource(R.id.accountCreationRecorderButton);
+	private static MediaRecorder recorder;
+
+	public static String startRecording(String name, ImageView image) {
+		image.setBackgroundResource(R.drawable.recordmikebutton);
+
 		recorder = new MediaRecorder();
-		mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-		mFileName += "/"+filename+".3gp";
-		System.out.println(mFileName);
 		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 		recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-		recorder.setOutputFile(mFileName);
+
+		String savedFilePath = PATH + "/" + name + ".3gp";
+		System.out.println(savedFilePath);
+		recorder.setOutputFile(savedFilePath);
+
 		try {
 			recorder.prepare();
+			recorder.start();
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		recorder.start();
+		return savedFilePath;
 	}
 
-	private void stopRecording() {
+	public static void stopRecording(ImageView image) {
+		image.setBackgroundResource(R.drawable.mikebutton);
 		recorder.stop();
 		recorder.release();
 		recorder = null;
-
-	}
-	public int recordVoice(String filename) {
-		if (start) {
-			startRecording(filename);
-			start=false;
-			return R.drawable.recordmikebutton;
-		} else {
-			stopRecording();
-			start=true;
-			return R.drawable.mikebutton;
-		}
-	}
-//	public int recordVoice(){
-//		stopRecording();
-//		start=true;
-//		return R.drawable.mikebutton;
-//	}
-	public String getLastFilename(){
-		return mFileName;
 	}
 
+	public static void playbackRecording(String path) {
+		// TODO
+	}
 }
