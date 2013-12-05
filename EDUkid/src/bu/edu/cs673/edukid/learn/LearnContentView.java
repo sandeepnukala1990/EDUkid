@@ -56,7 +56,7 @@ public class LearnContentView extends FragmentActivity {
 			public void run() {
 				AlertDialog.Builder alert = new AlertDialog.Builder(LearnContentView.this);
 
-				alert.setTitle("Timed Out! Go to bed");
+				alert.setTitle("Timed Out!");
 				alert.setPositiveButton("Ok",
 						new DialogInterface.OnClickListener() {
 

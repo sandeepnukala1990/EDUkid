@@ -25,7 +25,7 @@ public class TimerView extends Activity {
 		setContentView(R.layout.timer);
 
 		final ToggleButton btn = (ToggleButton) findViewById(R.id.toggleButton);
-		final Button btn1 = (Button) findViewById(R.id.button1);
+		final Button btn1 = (Button) findViewById(R.id.AddWordAddButton);
 		final EditText time = (EditText) findViewById(R.id.playTime);
 
 		long databaseTime = database.getTimer().getLearnTime();
@@ -51,7 +51,7 @@ public class TimerView extends Activity {
 				} else {
 					time.setEnabled(false);
 					btn1.setEnabled(false);
-					database.updateTimer(false, false, 18000000);
+					database.updateTimer(false, false, database.getTimer().getLearnTime());
 				}
 			}
 		});

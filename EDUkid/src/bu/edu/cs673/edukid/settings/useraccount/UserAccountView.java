@@ -1,11 +1,14 @@
 package bu.edu.cs673.edukid.settings.useraccount;
 
 import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,7 +20,8 @@ import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.UserAccount;
-import bu.edu.cs673.edukid.voicerecord.RecordUtility;
+import bu.edu.cs673.edukid.settings.utils.ImageUtilities;
+import bu.edu.cs673.edukid.settings.utils.RecordUtility;
 
 /**
  * The view which contains the user account information. The user account can be
@@ -31,6 +35,8 @@ import bu.edu.cs673.edukid.voicerecord.RecordUtility;
 public class UserAccountView extends Activity implements OnClickListener {
 
 	private static final int TAKE_PICTURE = 1888;
+	
+	private static final int SELECT_PHOTO = 100;
 
 	private static final long DATABASE_ERROR = -1;
 
@@ -41,6 +47,8 @@ public class UserAccountView extends Activity implements OnClickListener {
 	private ImageView micImage;
 
 	private ImageView playImage;
+	
+	private ImageView selectPhotoImage;
 
 	private Database database = Database.getInstance(this);
 
@@ -58,7 +66,9 @@ public class UserAccountView extends Activity implements OnClickListener {
 		userImage = (ImageView) findViewById(R.id.createUserImage);
 		micImage = (ImageView) findViewById(R.id.accountCreationRecorderButton);
 		playImage = (ImageView) findViewById(R.id.playAudioButton);
+		selectPhotoImage = (ImageView) findViewById(R.id.AddPhotoButton);
 		userName = (EditText) findViewById(R.id.createEditChildName);
+		
 
 		// Populate user account info from database (if any)
 		List<UserAccount> userAccounts = database.getUserAccounts();
@@ -94,6 +104,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 		createUploadPhotoButton.setOnClickListener(this);
 		micImage.setOnClickListener(this);
 		playImage.setOnClickListener(this);
+		selectPhotoImage.setOnClickListener(this);
 	}
 
 	/**
@@ -112,7 +123,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 		case R.id.createUploadPhotoButton:
 			// TODO: we should have other options other than the camera like
 			// picking from the camera roll
-			startCamera();
+			ImageUtilities.startCamera(this);
 			break;
 		case R.id.accountCreationRecorderButton:
 			if (recording) {
@@ -134,6 +145,8 @@ public class UserAccountView extends Activity implements OnClickListener {
 				RecordUtility.playbackRecording(savedFilePath);
 			}
 
+		case R.id.AddPhotoButton:
+			ImageUtilities.selectPhoto(this);
 		}
 	}
 
@@ -148,6 +161,20 @@ public class UserAccountView extends Activity implements OnClickListener {
 			if (photo != null) {
 				userImage.setImageBitmap(photo);
 			}
+		}
+		else if(requestCode == SELECT_PHOTO&&resultCode == RESULT_OK){
+			Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getContentResolver().query(
+                               selectedImage, filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            savedFilePath = cursor.getString(columnIndex);
+            cursor.close();
+            
+            Bitmap yourSelectedImage = BitmapFactory.decodeFile(savedFilePath);
+            userImage.setImageBitmap(yourSelectedImage);
 		}
 	}
 
@@ -184,8 +211,13 @@ public class UserAccountView extends Activity implements OnClickListener {
 	/**
 	 * Starts the front facing camera to take a picture.
 	 */
-	private void startCamera() {
-		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-		startActivityForResult(intent, TAKE_PICTURE);
-	}
+//	private void startCamera() {
+//		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+//		startActivityForResult(intent, TAKE_PICTURE);
+//	}
+//	private void selectPhoto(){
+//		Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+//		photoPickerIntent.setType("image/*");
+//		startActivityForResult(photoPickerIntent, SELECT_PHOTO);    
+//	}
 }

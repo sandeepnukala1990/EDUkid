@@ -80,9 +80,16 @@
         android:id="@+id/playAudioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView2"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
+        android:layout_alignBottom="@+id/createEditChildName"
+        android:layout_alignLeft="@+id/createUploadPhotoButton"
         android:background="@drawable/playbutton" />
+
+    <ImageButton
+        android:id="@+id/AddPhotoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/accountCreationRecorderButton"
+        android:layout_alignTop="@+id/playAudioButton"
+        android:background="@drawable/gallerybutton" />
 
 </RelativeLayout>

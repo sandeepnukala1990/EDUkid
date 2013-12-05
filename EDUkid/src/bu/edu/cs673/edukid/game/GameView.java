@@ -3,8 +3,11 @@ package bu.edu.cs673.edukid.game;
 import java.util.Random;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +19,9 @@ import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.defaults.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.model.Timer;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
+import bu.edu.cs673.edukid.learn.LearnContentView;
 
 
 
@@ -29,6 +34,8 @@ public class GameView extends Activity{
 	int option;
 	int MainID; //to store Letter for the Question
 	int[] letterTracker={-1,-1,-1,-1}; //Array containing the letters for each button
+
+	private Database database = Database.getInstance(this);
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +44,7 @@ public class GameView extends Activity{
 		
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
-
+		setupTimer();
 		categoryType = (CategoryType) extras
 				.getSerializable(EDUkid.CATEGORY_TYPE);
 		
@@ -49,6 +56,35 @@ public class GameView extends Activity{
 		//this set the letter to C for MainID=2
 		
 		
+	}
+	
+	private void setupTimer() {
+		final Handler handler = new Handler();
+		Timer timer = database.getTimer();
+		long timerDuration = timer.getLearnTime();
+
+		handler.postDelayed(new Runnable() {
+			public void run() {
+				AlertDialog.Builder alert = new AlertDialog.Builder(GameView.this);
+
+				alert.setTitle("Timed Out!");
+				alert.setPositiveButton("Ok",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								database.updateTimer(true, true, database.getTimer().getLearnTime());
+								Intent intent = new Intent(GameView.this,
+										EDUkid.class);
+								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+								startActivity(intent);
+							}
+						});
+				alert.create();
+				alert.show();
+			}
+		}, timerDuration);
 	}
 	
 	public void setQuestions(){
