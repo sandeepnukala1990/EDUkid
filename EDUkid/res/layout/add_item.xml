@@ -38,7 +38,7 @@
         android:text="Add Item:" />
 
     <ImageButton
-        android:id="@+id/playAudioButton"
+        android:id="@+id/takePictureButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/editText1"
@@ -60,9 +60,9 @@
         android:id="@+id/AddWordSoundButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/playAudioButton"
+        android:layout_alignTop="@+id/takePictureButton"
         android:layout_marginLeft="27dp"
-        android:layout_toRightOf="@+id/playAudioButton"
+        android:layout_toRightOf="@+id/takePictureButton"
         android:background="@drawable/mikebutton"
         android:src="@drawable/mikebutton" />
 

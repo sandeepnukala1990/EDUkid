@@ -65,7 +65,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 		setContentView(R.layout.user_account);
 		userImage = (ImageView) findViewById(R.id.createUserImage);
 		micImage = (ImageView) findViewById(R.id.accountCreationRecorderButton);
-		playImage = (ImageView) findViewById(R.id.playAudioButton);
+		playImage = (ImageView) findViewById(R.id.takePictureButton);
 		selectPhotoImage = (ImageView) findViewById(R.id.AddPhotoButton);
 		userName = (EditText) findViewById(R.id.createEditChildName);
 		
@@ -83,7 +83,6 @@ public class UserAccountView extends Activity implements OnClickListener {
 			// Set user image
 			userImage.setImageDrawable(ImageUtils
 					.byteArrayToDrawable(userAccount.getUserImage()));
-
 			userImage.setMaxHeight(400);
 			userImage.setMaxWidth(400);
 			userImage.setMinimumHeight(400);
@@ -137,16 +136,17 @@ public class UserAccountView extends Activity implements OnClickListener {
 
 			recording = !recording;
 			break;
-		case R.id.playAudioButton:
+		case R.id.takePictureButton:
 			if(savedFilePath==null)
 				Toast.makeText(this, "No Audio Recorded for user, please use the record button to record the childs name",
 						Toast.LENGTH_LONG).show();
 			else{
 				RecordUtility.playbackRecording(savedFilePath);
 			}
-
+			break;
 		case R.id.AddPhotoButton:
 			ImageUtilities.selectPhoto(this);
+			break;
 		}
 	}
 

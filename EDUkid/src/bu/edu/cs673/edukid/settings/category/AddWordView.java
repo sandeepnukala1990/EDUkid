@@ -1,6 +1,7 @@
 package bu.edu.cs673.edukid.settings.category;
 
 import java.io.IOException;
+import java.util.Random;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,6 +26,7 @@ import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.settings.utils.ImageUtilities;
+import bu.edu.cs673.edukid.settings.utils.RecordUtility;
 
 public class AddWordView extends Activity implements OnClickListener {
 
@@ -32,25 +34,31 @@ public class AddWordView extends Activity implements OnClickListener {
 
 	private int itemIndex;
 
+	String fname;
+
+	private Random generator = new Random(19580427);
+
 	private static final int TAKE_PICTURE = 1888;
-	
+
 	private static final int SELECT_PHOTO = 100;
 
-	private boolean mStartReco = true;
+	private boolean recording = false;
 
 	private String word = "";
 
 	private ImageView wordImage;
 
 	private ImageView micImage;
-	
+
 	private ImageView galleryImage;
+
+	private EditText textBox;
 
 	private Boolean picture = false;
 
 	public MediaRecorder recorder = new MediaRecorder();
 
-	private String mFileName = "";
+	private String savedFilePath = "";
 
 	/**
 	 * {@inheritDoc}
@@ -62,6 +70,7 @@ public class AddWordView extends Activity implements OnClickListener {
 		wordImage = (ImageView) findViewById(R.id.imageView1);
 		micImage = (ImageView) findViewById(R.id.AddWordSoundButton);
 		galleryImage = (ImageView) findViewById(R.id.AddWordGalleryButton);
+		textBox = (EditText) findViewById(R.id.editText1);
 
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
@@ -72,11 +81,11 @@ public class AddWordView extends Activity implements OnClickListener {
 
 		Button createSaveButton = (Button) findViewById(R.id.AddWordAddButton);
 		createSaveButton.setOnClickListener(this);
-		ImageButton createUploadPhotoButton = (ImageButton) findViewById(R.id.playAudioButton);
+		ImageButton createUploadPhotoButton = (ImageButton) findViewById(R.id.takePictureButton);
 		createUploadPhotoButton.setOnClickListener(this);
 		micImage.setOnClickListener(this);
 		galleryImage.setOnClickListener(this);
-		
+
 		// TextView balh = (TextView) findViewById(R.id.textView233);
 	}
 
@@ -107,17 +116,17 @@ public class AddWordView extends Activity implements OnClickListener {
 		}
 		else if(requestCode == SELECT_PHOTO&&resultCode == RESULT_OK){
 			Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getContentResolver().query(
-                               selectedImage, filePathColumn, null, null, null);
-            cursor.moveToFirst();
+			String[] filePathColumn = {MediaStore.Images.Media.DATA};
+			Cursor cursor = getContentResolver().query(
+					selectedImage, filePathColumn, null, null, null);
+			cursor.moveToFirst();
 
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String savedFilePath = cursor.getString(columnIndex);
-            cursor.close();
-            picture=true;
-            Bitmap photo = BitmapFactory.decodeFile(savedFilePath);
-            if (photo != null) {
+			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+			String savedFilePath = cursor.getString(columnIndex);
+			cursor.close();
+			picture=true;
+			Bitmap photo = BitmapFactory.decodeFile(savedFilePath);
+			if (photo != null) {
 				wordImage.setMaxHeight(400);
 				wordImage.setMaxWidth(400);
 				wordImage.setAdjustViewBounds(false);
@@ -131,19 +140,19 @@ public class AddWordView extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.AddWordAddButton:
 			word = ((EditText) findViewById(R.id.editText1)).getText()
-					.toString();
+			.toString();
 			// long result = DATABASE_ERROR;
 			Word w = new Word();
-			
+
 			if (word.equalsIgnoreCase("") || picture == false) {
 				Toast.makeText(this, "cannot save Word!", Toast.LENGTH_LONG)
-						.show();
+				.show();
 			} else {
 				w.setWord(word);
-				if (mFileName.equalsIgnoreCase(""))
+				if (savedFilePath.equalsIgnoreCase(""))
 					w.setWordSound(word);
 				else
-					w.setWordSound(mFileName);
+					w.setWordSound(savedFilePath);
 
 				w.setWordImage(ImageUtils.drawableToByteArray(wordImage
 						.getDrawable()));
@@ -159,62 +168,74 @@ public class AddWordView extends Activity implements OnClickListener {
 			}
 			break;
 
-		case R.id.playAudioButton:
+		case R.id.takePictureButton:
 			ImageUtilities.startCamera(this);
 			break;
 
 		case R.id.AddWordSoundButton:
-			onRecord(mStartReco);
-			mStartReco = !mStartReco;
+			if(textBox.getText().toString().isEmpty())
+				fname="noName"+ generator.nextInt();
+			else
+				fname=textBox.getText().toString();
+			if (recording) {
+				RecordUtility.stopRecording(micImage);
+				micImage.setBackgroundResource(R.drawable.playbutton);
+				micImage.setEnabled(true);
+			} else {
+				savedFilePath = RecordUtility.startRecording(fname,
+						micImage);
+			}
+
+			recording = !recording;
 			break;
 		case R.id.AddWordGalleryButton:
 			ImageUtilities.selectPhoto(this);
 		}
 	}
 
-	private void onRecord(boolean start) {
-		// TODO Auto-generated method stub
-		if (start) {
-			startRecording();
+	//	private void onRecord(boolean start) {
+	//		// TODO Auto-generated method stub
+	//		if (start) {
+	//			startRecording();
+	//
+	//		} else {
+	//			stopRecording();
+	//		}
+	//
+	//	}
+	//
+	//	private void stopRecording() {
+	//		// TODO Auto-generated method stub
+	//		micImage.setBackgroundResource(R.drawable.mikebutton);
+	//		recorder.stop();
+	//		recorder.release();
+	//		recorder = null;
+	//	}
+	//
+	//	private void startRecording() {
+	//		// TODO Auto-generated method stub
+	//		micImage.setBackgroundResource(R.drawable.recordmikebutton);
+	//		recorder = new MediaRecorder();
+	//		mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
+	//		mFileName += "/audiorecordtest.3gp";
+	//		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+	//		recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+	//		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+	//		recorder.setOutputFile(mFileName);
+	//		try {
+	//			recorder.prepare();
+	//		} catch (IllegalStateException e) {
+	//			e.printStackTrace();
+	//		} catch (IOException e) {
+	//			e.printStackTrace();
+	//		}
+	//		recorder.start();
+	//	}
 
-		} else {
-			stopRecording();
-		}
-
-	}
-
-	private void stopRecording() {
-		// TODO Auto-generated method stub
-		micImage.setBackgroundResource(R.drawable.mikebutton);
-		recorder.stop();
-		recorder.release();
-		recorder = null;
-	}
-
-	private void startRecording() {
-		// TODO Auto-generated method stub
-		micImage.setBackgroundResource(R.drawable.recordmikebutton);
-		recorder = new MediaRecorder();
-		mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-		mFileName += "/audiorecordtest.3gp";
-		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-		recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-		recorder.setOutputFile(mFileName);
-		try {
-			recorder.prepare();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		recorder.start();
-	}
-
-//	private void startCamera() {
-//		// TODO Auto-generated method stub
-//		picture = true;
-//		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-//		startActivityForResult(intent, TAKE_PICTURE);
+	//	private void startCamera() {
+	//		// TODO Auto-generated method stub
+	//		picture = true;
+	//		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+	//		startActivityForResult(intent, TAKE_PICTURE);
 	//}
 }

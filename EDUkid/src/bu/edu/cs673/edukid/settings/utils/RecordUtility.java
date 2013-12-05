@@ -7,7 +7,6 @@ import android.media.MediaRecorder;
 import android.os.Environment;
 import android.widget.ImageView;
 import bu.edu.cs673.edukid.R;
-import bu.edu.cs673.edukid.db.model.category.CategoryType;
 /**
  * The audio record and playback utilities.
  * 
@@ -25,7 +24,6 @@ public class RecordUtility {
 
 	public static String startRecording(String name, ImageView image) {
 		image.setBackgroundResource(R.drawable.recordmikebutton);
-
 		recorder = new MediaRecorder();
 		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 		recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
