@@ -26,8 +26,10 @@ public class GameView extends Activity{
 	private TextView wrongScore;
 	private int correct=0;
 	private int wrong=0;
+	int option;
 	int MainID; //to store Letter for the Question
-	int[] letterTracker; //Array containing the letters for each button
+	int[] letterTracker={-1,-1,-1,-1}; //Array containing the letters for each button
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,7 +44,7 @@ public class GameView extends Activity{
 		Database.getInstance(this);
 		correctScore = (TextView) findViewById(R.id.correctScore);
 		wrongScore = (TextView) findViewById(R.id.wrongScore);
-		
+	
 		setQuestions();
 		//this set the letter to C for MainID=2
 		
@@ -59,16 +61,24 @@ public class GameView extends Activity{
 		ImageButton image3= (ImageButton) findViewById(R.id.gameImage3);
 		ImageButton image4= (ImageButton) findViewById(R.id.gameImage4);
 		
-	
-		letterTracker = new int[4];
+			
 		int imageID;
 		for(int i=0; i<4; i++){
 			
-			int option=rand.nextInt(26);
+			option=rand.nextInt(26);
 			//check for repeated letter after 1st letter is set
-			if((letterTracker[i]==option)){
-				option=rand.nextInt(26);
+			if(letterTracker[i]==option){
+				while(true){
+					if(letterCheck(letterTracker[i])){
+						option=rand.nextInt(25);
+					}
+					else
+					{
+					break;
+					}
+				}
 			}
+			
 			letterTracker[i]= option;
 			
 			
@@ -94,14 +104,20 @@ public class GameView extends Activity{
 				
 		}
 		
-
+		
 		MainID=letterTracker[rand.nextInt(3)];
 		String letter = DatabaseDefaults.getAlphabet()[MainID];
 		alphabet.setText(letter);
 	}
 	
 	
-	
+	boolean letterCheck(int letter){
+		if(letter!=option){
+			return false;
+		}
+		else
+			return true;
+	}
 	public void onImageClick1(View view) {
 		if(MainID==letterTracker[0]){	
 			correct++;

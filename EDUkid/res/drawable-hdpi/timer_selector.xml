@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/abacus" android:state_pressed="true"/>
-<<<<<<< HEAD
-    <item android:drawable="@drawable/shapesnew"/>
-=======
-    <item android:drawable="@drawable/timertile"/>
->>>>>>> af5d4ee0e98cb6c3eac137d9173fe6f65f577a2f
+  <item android:drawable="@drawable/timertilepressed" android:state_pressed="true"/>
+    <item android:drawable="@drawable/timertilenotpressed"/>
 
 </selector>

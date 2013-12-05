@@ -35,15 +35,6 @@
         android:layout_marginTop="54dp"
         android:text="ToggleButton" />
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignBaseline="@+id/settingsHomeButton"
-        android:layout_alignBottom="@+id/settingsHomeButton"
-        android:layout_alignLeft="@+id/toggleButton"
-        android:text="Reset" />
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -84,5 +75,13 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/savebutton" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignBottom="@+id/settingsHomeButton"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/resetbutton" />
 
 </RelativeLayout>
