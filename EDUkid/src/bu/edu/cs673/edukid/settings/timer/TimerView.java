@@ -62,6 +62,8 @@ public class TimerView extends Activity {
 			public void onClick(View v) {
 
 				database.updateTimer(true,false,database.getTimer().getLearnTime());
+				Toast.makeText(TimerView.this, "Timer Reset! Go play !",
+						Toast.LENGTH_SHORT).show();
 				
 			}
 		});
@@ -73,8 +75,6 @@ public class TimerView extends Activity {
 			public void onClick(View v) {
 				final int time2 = Integer.parseInt(time.getText().toString());
 				long time3 = convertToDatabase(time2);
-				System.out.println("Infamous time2: " + time2);
-				System.out.println("Infamous time3: " + time3);
 				database.updateTimer(true, false, time3);
 				Toast.makeText(TimerView.this, "Saved Successfully",
 						Toast.LENGTH_SHORT).show();
