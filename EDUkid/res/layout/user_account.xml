@@ -90,6 +90,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/accountCreationRecorderButton"
         android:layout_alignTop="@+id/playAudioButton"
-        android:background="@drawable/addbutton" />
+        android:background="@drawable/gallerybutton" />
 
 </RelativeLayout>

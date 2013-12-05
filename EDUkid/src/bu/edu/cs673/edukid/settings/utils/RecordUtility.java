@@ -1,4 +1,4 @@
-package bu.edu.cs673.edukid.voicerecord;
+package bu.edu.cs673.edukid.settings.utils;
 
 import java.io.IOException;
 

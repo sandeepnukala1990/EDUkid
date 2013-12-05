@@ -4,10 +4,14 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,6 +24,7 @@ import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
+import bu.edu.cs673.edukid.settings.utils.ImageUtilities;
 
 public class AddWordView extends Activity implements OnClickListener {
 
@@ -28,6 +33,8 @@ public class AddWordView extends Activity implements OnClickListener {
 	private int itemIndex;
 
 	private static final int TAKE_PICTURE = 1888;
+	
+	private static final int SELECT_PHOTO = 100;
 
 	private boolean mStartReco = true;
 
@@ -36,6 +43,8 @@ public class AddWordView extends Activity implements OnClickListener {
 	private ImageView wordImage;
 
 	private ImageView micImage;
+	
+	private ImageView galleryImage;
 
 	private Boolean picture = false;
 
@@ -51,7 +60,8 @@ public class AddWordView extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_word);
 		wordImage = (ImageView) findViewById(R.id.imageView1);
-		micImage = (ImageView) findViewById(R.id.imageButton2);
+		micImage = (ImageView) findViewById(R.id.AddWordSoundButton);
+		galleryImage = (ImageView) findViewById(R.id.AddWordGalleryButton);
 
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
@@ -60,11 +70,13 @@ public class AddWordView extends Activity implements OnClickListener {
 				.getSerializable(EDUkid.CATEGORY_TYPE);
 		itemIndex = extras.getInt(EDUkid.ITEM_INDEX);
 
-		Button createSaveButton = (Button) findViewById(R.id.button1);
+		Button createSaveButton = (Button) findViewById(R.id.AddWordAddButton);
 		createSaveButton.setOnClickListener(this);
 		ImageButton createUploadPhotoButton = (ImageButton) findViewById(R.id.playAudioButton);
 		createUploadPhotoButton.setOnClickListener(this);
 		micImage.setOnClickListener(this);
+		galleryImage.setOnClickListener(this);
+		
 		// TextView balh = (TextView) findViewById(R.id.textView233);
 	}
 
@@ -93,16 +105,36 @@ public class AddWordView extends Activity implements OnClickListener {
 				wordImage.setImageBitmap(photo);
 			}
 		}
+		else if(requestCode == SELECT_PHOTO&&resultCode == RESULT_OK){
+			Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getContentResolver().query(
+                               selectedImage, filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String savedFilePath = cursor.getString(columnIndex);
+            cursor.close();
+            picture=true;
+            Bitmap photo = BitmapFactory.decodeFile(savedFilePath);
+            if (photo != null) {
+				wordImage.setMaxHeight(400);
+				wordImage.setMaxWidth(400);
+				wordImage.setAdjustViewBounds(false);
+				wordImage.setImageBitmap(photo);
+			}
+		}
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.button1:
+		case R.id.AddWordAddButton:
 			word = ((EditText) findViewById(R.id.editText1)).getText()
 					.toString();
 			// long result = DATABASE_ERROR;
 			Word w = new Word();
+			
 			if (word.equalsIgnoreCase("") || picture == false) {
 				Toast.makeText(this, "cannot save Word!", Toast.LENGTH_LONG)
 						.show();
@@ -128,13 +160,15 @@ public class AddWordView extends Activity implements OnClickListener {
 			break;
 
 		case R.id.playAudioButton:
-			startCamera();
+			ImageUtilities.startCamera(this);
 			break;
 
-		case R.id.imageButton2:
+		case R.id.AddWordSoundButton:
 			onRecord(mStartReco);
 			mStartReco = !mStartReco;
 			break;
+		case R.id.AddWordGalleryButton:
+			ImageUtilities.selectPhoto(this);
 		}
 	}
 
@@ -177,10 +211,10 @@ public class AddWordView extends Activity implements OnClickListener {
 		recorder.start();
 	}
 
-	private void startCamera() {
-		// TODO Auto-generated method stub
-		picture = true;
-		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-		startActivityForResult(intent, TAKE_PICTURE);
-	}
+//	private void startCamera() {
+//		// TODO Auto-generated method stub
+//		picture = true;
+//		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+//		startActivityForResult(intent, TAKE_PICTURE);
+	//}
 }

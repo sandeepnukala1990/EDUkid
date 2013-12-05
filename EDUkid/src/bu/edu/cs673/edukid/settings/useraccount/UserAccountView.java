@@ -20,7 +20,8 @@ import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.UserAccount;
-import bu.edu.cs673.edukid.voicerecord.RecordUtility;
+import bu.edu.cs673.edukid.settings.utils.ImageUtilities;
+import bu.edu.cs673.edukid.settings.utils.RecordUtility;
 
 /**
  * The view which contains the user account information. The user account can be
@@ -122,7 +123,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 		case R.id.createUploadPhotoButton:
 			// TODO: we should have other options other than the camera like
 			// picking from the camera roll
-			startCamera();
+			ImageUtilities.startCamera(this);
 			break;
 		case R.id.accountCreationRecorderButton:
 			if (recording) {
@@ -145,7 +146,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 			}
 
 		case R.id.AddPhotoButton:
-			selectPhoto();
+			ImageUtilities.selectPhoto(this);
 		}
 	}
 
@@ -210,13 +211,13 @@ public class UserAccountView extends Activity implements OnClickListener {
 	/**
 	 * Starts the front facing camera to take a picture.
 	 */
-	private void startCamera() {
-		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-		startActivityForResult(intent, TAKE_PICTURE);
-	}
-	private void selectPhoto(){
-		Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-		photoPickerIntent.setType("image/*");
-		startActivityForResult(photoPickerIntent, SELECT_PHOTO);    
-	}
+//	private void startCamera() {
+//		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+//		startActivityForResult(intent, TAKE_PICTURE);
+//	}
+//	private void selectPhoto(){
+//		Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+//		photoPickerIntent.setType("image/*");
+//		startActivityForResult(photoPickerIntent, SELECT_PHOTO);    
+//	}
 }

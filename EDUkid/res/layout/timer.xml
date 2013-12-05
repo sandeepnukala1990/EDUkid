@@ -77,7 +77,7 @@
         android:background="@drawable/savebutton" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/AddWordAddButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignBottom="@+id/settingsHomeButton"

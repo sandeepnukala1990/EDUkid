@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/AddWordAddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginRight="67dp"
-        android:layout_toLeftOf="@+id/button1"
+        android:layout_toLeftOf="@+id/AddWordAddButton"
         android:ems="10" />
 
     <TextView
@@ -59,7 +59,7 @@
         android:src="@drawable/edukidicon" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/AddWordSoundButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/playAudioButton"
@@ -68,5 +68,12 @@
         android:background="@drawable/mikebutton"
         android:src="@drawable/mikebutton" />
 
+    <ImageButton
+        android:id="@+id/AddWordGalleryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/AddWordSoundButton"
+        android:layout_toLeftOf="@+id/AddWordAddButton"
+        android:background="@drawable/gallerybutton" />
 
 </RelativeLayout>
