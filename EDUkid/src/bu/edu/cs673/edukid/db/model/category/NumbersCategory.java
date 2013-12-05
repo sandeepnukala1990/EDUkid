@@ -95,6 +95,14 @@ public class NumbersCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public int getDefaultWordCount(int itemIndex) {
+		return DatabaseDefaults.getDefaultNumberWords()[itemIndex].length;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Word[] getSettingsItemWords(int itemIndex) {
 		// TODO
 		return DatabaseDefaults.getDefaultNumberWords()[itemIndex];

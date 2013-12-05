@@ -96,6 +96,14 @@ public class ShapesCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public int getDefaultWordCount(int itemIndex) {
+		return DatabaseDefaults.getDefaultShapeWords()[itemIndex].length;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Word[] getSettingsItemWords(int itemIndex) {
 		// TODO
 		return DatabaseDefaults.getDefaultShapeWords()[itemIndex];

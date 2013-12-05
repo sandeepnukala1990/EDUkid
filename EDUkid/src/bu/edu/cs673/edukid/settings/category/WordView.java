@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,10 +22,6 @@ public class WordView extends Activity {
 	private int itemIndex;
 
 	private int wordIndex;
-
-	private String word = "";
-
-	private Boolean picture = false;
 
 	private TextView wordName;
 
@@ -91,9 +86,6 @@ public class WordView extends Activity {
 	 *            the view.
 	 */
 	public void onSaveWordClick(View view) {
-		// TODO: implement this
-
-	//	word = ((EditText) findViewById(R.id.wordName)).getText().toString();
 		Word w = new Word();
 		String wordText = wordName.getText().toString();
 		if (wordText.equalsIgnoreCase("")) {
@@ -104,16 +96,13 @@ public class WordView extends Activity {
 
 			w.setWordImage(ImageUtils.drawableToByteArray(wordImage
 					.getDrawable()));
-			categoryType.editItemWord(itemIndex, wordIndex, w);
+			int databaseWordIndex = wordIndex
+					- categoryType.getDefaultWordCount(itemIndex);
+			categoryType.editItemWord(itemIndex, databaseWordIndex, w);
 
 			Toast.makeText(this, "Word saved successfully!", Toast.LENGTH_LONG)
 					.show();
-
 		}
-		// Word word = new Word();
-		// word.setWord(wordName.getText().toString());
-		//
-		// categoryType.addItemWord(itemIndex, wordIndex, new Word());
 	}
 
 	/**
@@ -147,8 +136,18 @@ public class WordView extends Activity {
 	 *            the view.
 	 */
 	public void onDeleteWordClick(View view) {
-		// TODO: implement this
-		categoryType.deleteItemWord(itemIndex, wordIndex);
+		int databaseWordIndex = wordIndex
+				- categoryType.getDefaultWordCount(itemIndex);
+		categoryType.deleteItemWord(itemIndex, databaseWordIndex);
 
+		Toast.makeText(this,
+				"'" + wordName.getText().toString() + "' Successfully Deleted",
+				Toast.LENGTH_SHORT).show();
+
+		Intent intent = new Intent(this, ItemView.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.putExtra(EDUkid.CATEGORY_TYPE, categoryType);
+		intent.putExtra(EDUkid.ITEM_INDEX, itemIndex);
+		startActivity(intent);
 	}
 }

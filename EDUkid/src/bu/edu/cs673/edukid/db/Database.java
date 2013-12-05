@@ -267,9 +267,9 @@ public class Database {
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_WORD, word.getWord());
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND,
 				word.getWordSound());
-		// TODO: fix this
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
 				ImageUtils.drawableToByteArray(word.getWordDrawable()));
+		// TODO: fix this
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE_ID,
 				R.drawable.abacus);
 		contentValues
@@ -289,7 +289,7 @@ public class Database {
 	 *            the word index.
 	 */
 	public void deleteWord(int itemIndex, int wordIndex) {
-		int rows = sqlDatabase.delete(DatabaseHelper.TABLE_WORDS,
+		sqlDatabase.delete(DatabaseHelper.TABLE_WORDS,
 				DatabaseHelper.generateWordsSelection(itemIndex, wordIndex),
 				null);
 	}

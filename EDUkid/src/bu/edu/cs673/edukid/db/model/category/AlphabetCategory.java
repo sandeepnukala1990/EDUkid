@@ -104,6 +104,14 @@ public class AlphabetCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public int getDefaultWordCount(int itemIndex) {
+		return DatabaseDefaults.getDefaultAlphabetWords()[itemIndex].length;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Word[] getSettingsItemWords(int itemIndex) {
 		Database database = Database.getInstance();
 		List<DefaultWordMapping> defaultWordMappings = database
