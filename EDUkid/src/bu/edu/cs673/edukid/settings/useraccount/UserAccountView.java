@@ -1,15 +1,14 @@
 package bu.edu.cs673.edukid.settings.useraccount;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -164,13 +163,16 @@ public class UserAccountView extends Activity implements OnClickListener {
 		}
 		else if(requestCode == SELECT_PHOTO&&resultCode == RESULT_OK){
 			Uri selectedImage = data.getData();
-            InputStream imageStream = null;
-			try {
-				imageStream = getContentResolver().openInputStream(selectedImage);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-            Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getContentResolver().query(
+                               selectedImage, filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            savedFilePath = cursor.getString(columnIndex);
+            cursor.close();
+            
+            Bitmap yourSelectedImage = BitmapFactory.decodeFile(savedFilePath);
             userImage.setImageBitmap(yourSelectedImage);
 		}
 	}
