@@ -44,6 +44,8 @@ public class EDUkid extends Activity implements OnClickListener, OnInitListener 
 
 	public static final String WORD_INDEX = "WordIndex";
 
+	private static final boolean DEBUG_MODE = false;
+
 	private Database database = Database.getInstance(this);
 
 	private TextToSpeech textToSpeech;
@@ -170,44 +172,48 @@ public class EDUkid extends Activity implements OnClickListener, OnInitListener 
 	 *            the view used in the callback.
 	 */
 	public void onSettingsClick(View view) {
+		if (DEBUG_MODE) {
+			startActivity(new Intent(EDUkid.this, SettingsView.class));
+		} else {
 
-		final MathProblem mathProblem = MathProblemGenerator
-				.generateMathProblem();
+			final MathProblem mathProblem = MathProblemGenerator
+					.generateMathProblem();
 
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		alert.setTitle("Please answer this question to access the settings:");
-		alert.setMessage(mathProblem.getQuestion());
+			AlertDialog.Builder alert = new AlertDialog.Builder(this);
+			alert.setTitle("Please answer this question to access the settings:");
+			alert.setMessage(mathProblem.getQuestion());
 
-		final EditText input = new EditText(this);
-		input.setInputType(InputType.TYPE_CLASS_NUMBER);
-		alert.setView(input);
+			final EditText input = new EditText(this);
+			input.setInputType(InputType.TYPE_CLASS_NUMBER);
+			alert.setView(input);
 
-		alert.setPositiveButton("Submit",
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						int userAnswer = Integer.MAX_VALUE;
+			alert.setPositiveButton("Submit",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							int userAnswer = Integer.MAX_VALUE;
 
-						try {
-							userAnswer = Integer.parseInt(input.getText()
-									.toString());
-						} catch (Exception e) {
-							showSettingsToast();
-							return;
+							try {
+								userAnswer = Integer.parseInt(input.getText()
+										.toString());
+							} catch (Exception e) {
+								showSettingsToast();
+								return;
+							}
+							if (userAnswer == mathProblem.getAnswer()) {
+								startActivity(new Intent(EDUkid.this,
+										SettingsView.class));
+							} else {
+								showSettingsToast();
+							}
 						}
-						if (userAnswer == mathProblem.getAnswer()) {
-							startActivity(new Intent(EDUkid.this,
-									SettingsView.class));
-						} else {
-							showSettingsToast();
-						}
-					}
-				});
+					});
 
-		alert.setNegativeButton("Cancel", null);
+			alert.setNegativeButton("Cancel", null);
 
-		alert.create();
-		alert.show();
+			alert.create();
+			alert.show();
+		}
 	}
 
 	/**

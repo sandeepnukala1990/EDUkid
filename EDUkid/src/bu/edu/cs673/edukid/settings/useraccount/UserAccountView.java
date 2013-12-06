@@ -54,7 +54,7 @@ public class UserAccountView extends Activity implements OnClickListener {
 
 	private boolean recording = false;
 
-	private String savedFilePath;
+	private String savedFilePath = "";
 
 	/**
 	 * {@inheritDoc}
