@@ -132,5 +132,11 @@ public class WordFragment extends Fragment implements OnClickListener,
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
+		
+		if (textToSpeech != null) {
+
+			textToSpeech.stop();
+			textToSpeech.shutdown();
+		}
 	}
 }
