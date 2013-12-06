@@ -1,12 +1,15 @@
 package bu.edu.cs673.edukid.db.model.category;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.DatabaseHelper;
+import bu.edu.cs673.edukid.db.defaults.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.model.DefaultWordMapping;
 import bu.edu.cs673.edukid.db.model.Letter;
 import bu.edu.cs673.edukid.db.model.Word;
 
@@ -25,8 +28,24 @@ public class AlphabetCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public int getCategoryId() {
+		return Category.ALPHABET.ordinal();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Drawable getCategoryImage(Context context) {
-		return context.getResources().getDrawable(R.drawable.tiletry);
+		return context.getResources().getDrawable(R.drawable.alphabet_selector);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void addItem(String item) {
+		// NO-OP
 	}
 
 	/**
@@ -34,6 +53,7 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public String[] getItems() {
+
 		return DatabaseDefaults.getAlphabet();
 	}
 
@@ -42,6 +62,11 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public String getItem(int itemIndex) {
+		if (Database.getInstance().getLetters().size() != 0) {
+
+			return Database.getInstance().getLetters().get(itemIndex)
+					.getLetter();
+		}
 		return DatabaseDefaults.getAlphabet()[itemIndex];
 	}
 
@@ -50,6 +75,10 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public int getItemCount() {
+		if (Database.getInstance().getLetters().size() != 0) {
+
+			return Database.getInstance().getLetters().size();
+		}
 		return DatabaseDefaults.getAlphabet().length;
 	}
 
@@ -68,63 +97,97 @@ public class AlphabetCategory implements CategoryType {
 			}
 		}
 
-		return DatabaseDefaults.getDefaultAlphabetPhoneticSounds(itemIndex);
+		return DatabaseDefaults.getDefaultAlphabetPhoneticSounds()[itemIndex];
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> getItemWords(int itemIndex) {
-		// TODO: need a database query first
-
-		return DatabaseDefaults.getDefaultAlphabetWords(itemIndex);
+	public int getDefaultWordCount(int itemIndex) {
+		return DatabaseDefaults.getDefaultAlphabetWords()[itemIndex].length;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getItemWord(int itemIndex, int wordIndex) {
-		// TODO: Jasjot: this is your code from Database.java. It now belongs
-		// here. Uncomment this and fix it please.
-		int listIndex = itemIndex;
+	public Word[] getSettingsItemWords(int itemIndex) {
+		Database database = Database.getInstance();
+		List<DefaultWordMapping> defaultWordMappings = database
+				.getDefaultWordMapping(DatabaseHelper
+						.generateDefaultMappingSelection(getCategoryId(),
+								itemIndex));
 
-		if (Database.getInstance().getAlphabets().size() != 0) {
-			Word alp = null;
-			do {
-				alp = Database.getInstance().getAlphabets().get(listIndex);
+		List<Word> wordList = new ArrayList<Word>();
+		Word[] defaultWords = DatabaseDefaults.getDefaultAlphabetWords()[itemIndex];
 
-				if (alp.getLid() == itemIndex) {
-					if (alp.getThemeId() == wordIndex) {
-						return alp.getWord();
-					} else
-						listIndex++;
-				} else
-					listIndex++;
-			} while (alp.getLid() <= itemIndex);
-			return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).get(
-					wordIndex);
-		} else
-			// return null;
-			return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).get(
-					wordIndex);
+		for (int i = 0; i < defaultWords.length; i++) {
+			Word defaultWord = defaultWords[i];
+			defaultWord.setChecked(defaultWordMappings.get(i).isChecked());
+			wordList.add(defaultWord);
+		}
+
+		List<Word> databaseWords = database.getWords(DatabaseHelper
+				.generateWordsSelection(itemIndex));
+
+		if (databaseWords.size() > 0) {
+			// TODO: add all? can only do this if dont need to set checkeds
+			for (Word databaseWord : databaseWords) {
+				// TODO: databaseWord.setChecked();
+				wordList.add(databaseWord);
+			}
+		}
+
+		return wordList.toArray(new Word[0]);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int getItemWordCount(int itemIndex) {
-		return DatabaseDefaults.getDefaultAlphabetWords(itemIndex).size();
+	public Word getSettingsItemWord(int itemIndex, int wordIndex) {
+		return getSettingsItemWords(itemIndex)[wordIndex];
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addItemWord(int itemIndex, int wordIndex, Word word) {
-		// TODO: Jasjot, implement this
+	public Word[] getLearnItemWords(int itemIndex) {
+		List<Word> learnWords = new ArrayList<Word>();
+
+		for (Word settingsItemWord : getSettingsItemWords(itemIndex)) {
+			if (settingsItemWord.isChecked()) {
+				learnWords.add(settingsItemWord);
+			}
+		}
+
+		return learnWords.toArray(new Word[0]);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Word getLearnItemWord(int itemIndex, int wordIndex) {
+		return getLearnItemWords(itemIndex)[wordIndex];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getLearnItemWordCount(int itemIndex) {
+		return getLearnItemWords(itemIndex).length;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void addItemWord(int itemIndex, Word word) {
+		Database.getInstance().addWord(itemIndex, word);
 	}
 
 	/**
@@ -132,23 +195,67 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public void editItemWord(int itemIndex, int wordIndex, Word word) {
-		// TODO: Jasjot, implement this
+		Database.getInstance().updateWord(itemIndex, wordIndex, word);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Integer> getItemImages(int itemIndex) {
-		return DatabaseDefaults.getDefaultAlphabetDrawableIds(itemIndex);
+	public void deleteItemWord(int itemIndex, int wordIndex) {
+		// TODO
+		Database.getInstance().deleteWord(itemIndex, wordIndex);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int getItemImage(int itemIndex, int imageIndex) {
-		return getItemImages(itemIndex).get(imageIndex);
+	public int getSettingsItemDrawableId(int itemIndex, int imageIndex) {
+		List<Integer> drawableList = new ArrayList<Integer>();
+
+		for (Word defaultWord : getSettingsItemWords(itemIndex)) {
+			drawableList.add(defaultWord.getDrawableId());
+		}
+
+		return drawableList.get(imageIndex);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Drawable getSettingsItemDrawable(int itemIndex, int imageIndex) {
+		List<Drawable> drawableList = new ArrayList<Drawable>();
+
+		List<Word> databaseWords = Database.getInstance().getWords(
+				DatabaseHelper.generateWordsSelection(itemIndex));
+
+		if (databaseWords.size() > 0) {
+			for (Word databaseWord : databaseWords) {
+				drawableList.add(databaseWord.getWordDrawable());
+			}
+		}
+
+		int defaultWordCount = DatabaseDefaults.getDefaultAlphabetWords()[itemIndex].length;
+
+		return drawableList.get(imageIndex - defaultWordCount);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getLearnItemDrawableId(int itemIndex, int imageIndex) {
+		return getLearnItemWords(itemIndex)[imageIndex].getDrawableId();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Drawable getLearnItemDrawable(int itemIndex, int imageIndex) {
+		return getLearnItemWords(itemIndex)[imageIndex].getWordDrawable();
 	}
 
 	/**
@@ -171,7 +278,7 @@ public class AlphabetCategory implements CategoryType {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean canDeleteCategory() {
-		return false;
+	public boolean hasGameMode() {
+		return true;
 	}
 }

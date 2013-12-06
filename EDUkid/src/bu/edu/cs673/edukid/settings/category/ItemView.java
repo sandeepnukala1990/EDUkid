@@ -16,14 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.settings.SettingsAdapter;
+import bu.edu.cs673.edukid.settings.SettingsRow;
+import bu.edu.cs673.edukid.settings.SettingsView;
 
-import com.terlici.dragndroplist.DragNDropListView;
-import com.terlici.dragndroplist.DragNDropListView.OnItemDragNDropListener;
-
-public class ItemView extends ListActivity implements OnItemClickListener,
-		OnItemDragNDropListener {
+public class ItemView extends ListActivity implements OnItemClickListener {
 
 	private CategoryType categoryType;
 
@@ -59,27 +58,18 @@ public class ItemView extends ListActivity implements OnItemClickListener,
 				.setVisibility(categoryType.canAddItems() ? View.VISIBLE
 						: View.INVISIBLE);
 
-		// Setup items adapter
-		Resources resources = getResources();
-		List<String> listItems = categoryType.getItemWords(itemIndex);
-		List<Drawable> listDrawables = new ArrayList<Drawable>();
+		// Setup adapter
+		setupWordList();
+		getListView().setOnItemClickListener(this);
+	}
 
-		for (int i = 0; i < listItems.size(); i++) {
-			int drawableId = categoryType.getItemImage(itemIndex, i);
-			listDrawables.add(resources.getDrawable(drawableId));
-		}
-
-		DragNDropListView wordList = (DragNDropListView) findViewById(android.R.id.list);
-		wordsAdapter = new SettingsAdapter(this, R.layout.settings_row,
-				categoryType.getItemWords(itemIndex), listDrawables);
-		setListAdapter(wordsAdapter);
-
-		wordList.setDragNDropAdapter(wordsAdapter);
-
-		wordList.setOnItemClickListener(this);
-		wordList.setOnItemDragNDropListener(this);
-
-		wordsAdapter.notifyDataSetChanged();
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onResume() {
+		super.onResume();
+		setupWordList();
 	}
 
 	/**
@@ -96,31 +86,15 @@ public class ItemView extends ListActivity implements OnItemClickListener,
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Settings home on click callback.
+	 * 
+	 * @param view
+	 *            the view.
 	 */
-	@Override
-	public void onItemDrag(DragNDropListView parent, View view, int position,
-			long id) {
-		// NO-OP
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void onItemDrop(DragNDropListView parent, View view,
-			int startPosition, int endPosition, long id) {
-		// TODO: change the order in database
-		System.out.println("-- id: " + id);
-		System.out.println("-- start: " + startPosition);
-		System.out.println("-- end: " + endPosition);
-		System.out.println("-------------------");
-
-		for (String listItem : wordsAdapter.getListItems()) {
-			System.out.println("\t** list item: " + listItem);
-		}
-
-		System.out.println("-------------------");
+	public void onSettingsHomeClick(View view) {
+		Intent intent = new Intent(this, SettingsView.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
 	}
 
 	/**
@@ -142,8 +116,40 @@ public class ItemView extends ListActivity implements OnItemClickListener,
 	 *            the view.
 	 */
 	public void onAddWordClick(View view) {
-		// TODO: implement this
-		Toast.makeText(this, "Add word coming soon...", Toast.LENGTH_LONG)
-				.show();
+		Intent intent = new Intent(this, AddWordView.class);
+		intent.putExtra(EDUkid.CATEGORY_TYPE, categoryType);
+		intent.putExtra(EDUkid.ITEM_INDEX, itemIndex);
+		startActivity(intent);
+	}
+
+	private void setupWordList() {
+		List<SettingsRow> settingsRows = new ArrayList<SettingsRow>();
+		Word[] words = categoryType.getSettingsItemWords(itemIndex);
+		Resources resources = getResources();
+
+		for (int i = 0; i < words.length; i++) {
+			Word word = words[i];
+
+			String item = word.getWord();
+			Drawable image;
+
+			if (word.isDefaultWord()) {
+				image = resources.getDrawable(categoryType
+						.getSettingsItemDrawableId(itemIndex, i));
+			} else {
+				image = categoryType.getSettingsItemDrawable(itemIndex, i);
+			}
+
+			boolean checked = word.isChecked();
+			boolean defaultWord = word.isDefaultWord();
+
+			settingsRows
+					.add(new SettingsRow(item, image, checked, defaultWord));
+		}
+
+		wordsAdapter = new SettingsAdapter(this, R.layout.settings_row,
+				settingsRows, categoryType.getCategoryId(), itemIndex);
+		setListAdapter(wordsAdapter);
+		wordsAdapter.notifyDataSetChanged();
 	}
 }

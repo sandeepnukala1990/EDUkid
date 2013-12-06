@@ -1,13 +1,16 @@
 package bu.edu.cs673.edukid.db.model.category;
 
 import java.io.Serializable;
-import java.util.List;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.db.model.Word;
 
 public interface CategoryType extends Serializable {
+
+	enum Category {
+		ALPHABET, NUMBERS, SHAPES, COLORS
+	};
 
 	/**
 	 * Gets the category name.
@@ -17,6 +20,13 @@ public interface CategoryType extends Serializable {
 	String getCategoryName();
 
 	/**
+	 * Gets the category id based on the {@link Category} enum;
+	 * 
+	 * @return the category id.
+	 */
+	int getCategoryId();
+
+	/**
 	 * Gets the category image.
 	 * 
 	 * @param context
@@ -24,6 +34,9 @@ public interface CategoryType extends Serializable {
 	 * @return the category image.
 	 */
 	Drawable getCategoryImage(Context context);
+
+	// TODO
+	void addItem(String item);
 
 	/**
 	 * Gets the items from the database.
@@ -62,14 +75,23 @@ public interface CategoryType extends Serializable {
 	 */
 	String getItemPhoneticSound(int itemIndex);
 
+	// TODO
+	int getDefaultWordCount(int itemIndex);
+
 	/**
-	 * Gets the associated words for a given item.
+	 * Gets all of the associated words for a given item (enabled and disabled).
+	 * 
+	 * <p>
+	 * Note: this is meant for the settings to show all of the words regardless
+	 * if the user wants to use them or not.
+	 * </p>
 	 * 
 	 * @param itemIndex
 	 *            the item index.
-	 * @return the associated words for a given item.
+	 * @return all of the associated words for a given item (enabled and
+	 *         disabled).
 	 */
-	List<String> getItemWords(int itemIndex);
+	Word[] getSettingsItemWords(int itemIndex);
 
 	/**
 	 * Gets the specific word given an item index and word index.
@@ -80,7 +102,13 @@ public interface CategoryType extends Serializable {
 	 *            the word index.
 	 * @return the specific word given an item index and word index.
 	 */
-	String getItemWord(int itemIndex, int wordIndex);
+	Word getSettingsItemWord(int itemIndex, int wordIndex);
+
+	// TODO
+	Word[] getLearnItemWords(int itemIndex);
+
+	// TODO
+	Word getLearnItemWord(int itemIndex, int wordIndex);
 
 	/**
 	 * Gets the item word count for this category type.
@@ -89,19 +117,17 @@ public interface CategoryType extends Serializable {
 	 *            the item index.
 	 * @return the item word count for this category type.
 	 */
-	int getItemWordCount(int itemIndex);
+	int getLearnItemWordCount(int itemIndex);
 
 	/**
 	 * Adds a word to the database.
 	 * 
 	 * @param itemIndex
 	 *            the item index.
-	 * @param wordIndex
-	 *            the word index.
 	 * @param word
 	 *            the word to add.
 	 */
-	void addItemWord(int itemIndex, int wordIndex, Word word);
+	void addItemWord(int itemIndex, Word word);
 
 	/**
 	 * Edits a word in the database.
@@ -115,25 +141,36 @@ public interface CategoryType extends Serializable {
 	 */
 	void editItemWord(int itemIndex, int wordIndex, Word word);
 
-	/**
-	 * Gets the item images given the item index.
-	 * 
-	 * @param itemIndex
-	 *            the item index.
-	 * @return the item images given the item index.
-	 */
-	List<Integer> getItemImages(int itemIndex);
+	// TODO
+	void deleteItemWord(int itemIndex, int wordIndex);
 
 	/**
-	 * Gets the item image given the item index and image index.
+	 * Gets the settings item image id.
 	 * 
 	 * @param itemIndex
 	 *            the item index.
 	 * @param imageIndex
 	 *            the image index.
-	 * @return the item image given the item index and image index.
+	 * @return the settings item image given the item index and image index.
 	 */
-	int getItemImage(int itemIndex, int imageIndex);
+	int getSettingsItemDrawableId(int itemIndex, int imageIndex);
+
+	// TODO
+	Drawable getSettingsItemDrawable(int itemIndex, int imageIndex);
+
+	/**
+	 * Gets the learn item image id.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @param imageIndex
+	 *            the image index.
+	 * @return the learn item image given the item index and image index.
+	 */
+	int getLearnItemDrawableId(int itemIndex, int imageIndex);
+
+	// TODO
+	Drawable getLearnItemDrawable(int itemIndex, int imageIndex);
 
 	/**
 	 * Gets the item text size that will be used when shown on the screen.
@@ -150,9 +187,9 @@ public interface CategoryType extends Serializable {
 	boolean canAddItems();
 
 	/**
-	 * Returns true if this category type can be deleted, false otherwise.
+	 * Returns true if this category type has a game mode, false otherwise.
 	 * 
-	 * @return true if this category type can be deleted, false otherwise.
+	 * @return true if this category type has a game mode, false otherwise.
 	 */
-	boolean canDeleteCategory();
+	boolean hasGameMode();
 }

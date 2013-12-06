@@ -1,7 +1,7 @@
 package bu.edu.cs673.edukid.db.model;
 
 public class Num {
-	
+
 	private long numberId;
 
 	private String number;

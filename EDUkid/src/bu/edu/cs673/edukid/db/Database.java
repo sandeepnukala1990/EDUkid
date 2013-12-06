@@ -8,16 +8,19 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
-import bu.edu.cs673.edukid.db.model.Word;
-import bu.edu.cs673.edukid.db.model.Colour;
+import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.defaults.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.model.Color;
+import bu.edu.cs673.edukid.db.model.DefaultWordMapping;
 import bu.edu.cs673.edukid.db.model.Letter;
-import bu.edu.cs673.edukid.db.model.Theme;
-import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.db.model.Num;
-import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.db.model.NumType;
 import bu.edu.cs673.edukid.db.model.Number;
 import bu.edu.cs673.edukid.db.model.Shape;
+import bu.edu.cs673.edukid.db.model.Timer;
+import bu.edu.cs673.edukid.db.model.UserAccount;
+import bu.edu.cs673.edukid.db.model.Word;
+import bu.edu.cs673.edukid.db.model.category.CategoryType;
 
 /**
  * The main database class which provides "access" to the database via accessor
@@ -36,10 +39,6 @@ public class Database {
 
 	private DatabaseHelper databaseHelper;
 
-	private String[] categoriesColumns = { DatabaseHelper.COLUMN_CATEGORY_ID,
-			DatabaseHelper.COLUMN_CATEGORY_NAME,
-			DatabaseHelper.COLUMN_CATEGORY_IMAGE };
-
 	private String[] userAccountColumns = { DatabaseHelper.COLUMN_USER_ID,
 			DatabaseHelper.COLUMN_USER_NAME, DatabaseHelper.COLUMN_USER_IMAGE,
 			DatabaseHelper.COLUMN_USER_SOUND };
@@ -48,14 +47,20 @@ public class Database {
 			DatabaseHelper.COLUMN_LETTERS_WORD,
 			DatabaseHelper.COLUMN_LETTERS_SOUND };
 
-	private String[] themesColumns = { DatabaseHelper.COLUMN_THEME_ID,
-			DatabaseHelper.COLUMN_THEME_NAME };
-
-	private String[] alphabetsColumns = { DatabaseHelper.COLUMN_LID,
-			DatabaseHelper.COLUMN_TID, DatabaseHelper.COLUMN_WORDS,
+	private String[] wordColumns = { DatabaseHelper.COLUMN_WORDS_ITEM_ID,
+			DatabaseHelper.COLUMN_WORDS_WORD_ID,
+			DatabaseHelper.COLUMN_WORDS_WORD,
 			DatabaseHelper.COLUMN_WORDS_SOUND,
-			DatabaseHelper.COLUMN_WORDS_IMAGE };
-	
+			DatabaseHelper.COLUMN_WORDS_IMAGE,
+			DatabaseHelper.COLUMN_WORDS_IMAGE_ID,
+			DatabaseHelper.COLUMN_WORDS_CHECKED };
+
+	private String[] defaultWordMapColumns = {
+			DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_CATEGORY_ID,
+			DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_ITEM_ID,
+			DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_WORD_ID,
+			DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_CHECKED };
+
 	private String[] numColumns = { DatabaseHelper.COLUMN_NUMBER_ID,
 			DatabaseHelper.COLUMN_NUMBER_WORD,
 			DatabaseHelper.COLUMN_NUMBER_SOUND };
@@ -67,14 +72,20 @@ public class Database {
 			DatabaseHelper.COLUMN_NTID, DatabaseHelper.COLUMN_NUMBERS,
 			DatabaseHelper.COLUMN_NUMBERS_SOUND,
 			DatabaseHelper.COLUMN_NUMBERS_IMAGE };
-	
+
 	private String[] colourColumns = { DatabaseHelper.COLUMN_COLOUR_ID,
-			DatabaseHelper.COLUMN_COLOUR_WORD, DatabaseHelper.COLUMN_COLOUR_IMAGE,
+			DatabaseHelper.COLUMN_COLOUR_WORD,
+			DatabaseHelper.COLUMN_COLOUR_IMAGE,
 			DatabaseHelper.COLUMN_COLOUR_SOUND };
-	
+
 	private String[] shapeColumns = { DatabaseHelper.COLUMN_SHAPE_ID,
-			DatabaseHelper.COLUMN_SHAPE_WORD, DatabaseHelper.COLUMN_SHAPE_IMAGE,
+			DatabaseHelper.COLUMN_SHAPE_WORD,
+			DatabaseHelper.COLUMN_SHAPE_IMAGE,
 			DatabaseHelper.COLUMN_SHAPE_SOUND };
+
+	private String[] timerColumns = { DatabaseHelper.COLUMN_TIMER_ENABLED,
+			DatabaseHelper.COLUMN_TIMER_EXPIRED,
+			DatabaseHelper.COLUMN_LEARN_TIME };
 
 	/**
 	 * Gets the database singleton instance.
@@ -118,57 +129,22 @@ public class Database {
 	 * @param context
 	 *            the context.
 	 */
-	private Database(Context context) {
+	protected Database(Context context) {
 		databaseHelper = new DatabaseHelper(context);
 		sqlDatabase = databaseHelper.getWritableDatabase();
 	}
 
-	/**
-	 * Gets a list of all the categories (the 4 main categories plus any
-	 * additional categories added by the user).
-	 * 
-	 * @return a list of all categories.
-	 */
-	public List<CategoryType> getCategories() {
-		List<CategoryType> categories = new ArrayList<CategoryType>();
-
-		// Add the default categories (these aren't in the database)
-		for (CategoryType defaultCategory : DatabaseDefaults
-				.getDefaultCategories()) {
-			categories.add(defaultCategory);
-		}
-
-		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_CATEGORIES,
-				categoriesColumns, null, null, null, null, null);
-		cursor.moveToFirst();
-
-		// Add the user-entered categories from the database
-		while (!cursor.isAfterLast()) {
-			categories.add(DatabaseUtils.convertCursorToCategory(cursor));
-			cursor.moveToNext();
-		}
-
-		cursor.close();
-
-		return categories;
+	protected void createNewDatabase() {
+		databaseHelper.onUpgrade(sqlDatabase, 0, 0);
 	}
 
 	/**
-	 * Adds a category to the database.
+	 * Gets a list of all the categories (Alphabets, Numbers, Colors, Shapes).
 	 * 
-	 * @param categoryType
-	 *            the category type
-	 * @param context
-	 *            the context.
+	 * @return a list of all categories.
 	 */
-	public void addCategory(CategoryType categoryType, Context context) {
-		ContentValues contentValues = new ContentValues();
-		contentValues.put(DatabaseHelper.COLUMN_CATEGORY_NAME,
-				categoryType.getCategoryName());
-		contentValues.put(DatabaseHelper.COLUMN_CATEGORY_IMAGE, ImageUtils
-				.drawableToByteArray(categoryType.getCategoryImage(context)));
-		sqlDatabase
-				.insert(DatabaseHelper.TABLE_CATEGORIES, null, contentValues);
+	public CategoryType[] getCategories() {
+		return DatabaseDefaults.getDefaultCategories();
 	}
 
 	/**
@@ -224,15 +200,15 @@ public class Database {
 	 * 
 	 * @return a list of the alphabets in the database.
 	 */
-	public List<Word> getAlphabets() {
+	public List<Word> getWords(String selection) {
 		List<Word> alpha = new ArrayList<Word>();
 
-		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_ALPHABET,
-				alphabetsColumns, null, null, null, null, null);
+		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_WORDS,
+				wordColumns, selection, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			alpha.add(DatabaseUtils.convertCursorToAlphabets(cursor));
+			alpha.add(DatabaseUtils.convertCursorToWord(cursor));
 			cursor.moveToNext();
 		}
 
@@ -244,7 +220,7 @@ public class Database {
 	/**
 	 * Adds an alphabets to the database.
 	 * 
-	 * @param letterId
+	 * @param itemIndex
 	 *            the letter id.
 	 * @param themeId
 	 *            the the theme id.
@@ -255,55 +231,126 @@ public class Database {
 	 * @param alphabetImage
 	 *            the alphabet image.
 	 */
-	public void addAlphabets(int letterId, int themeId, String alphabetWord,
-			String alphabetSound, Drawable alphabetImage) {
+	public void addWord(int itemIndex, Word word) {
+		List<Word> words = getWords(DatabaseHelper
+				.generateWordsSelection(itemIndex));
+		int wordIndex = words.size();
+
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(DatabaseHelper.COLUMN_LID, letterId);
-		contentValues.put(DatabaseHelper.COLUMN_TID, themeId);
-		contentValues.put(DatabaseHelper.COLUMN_WORDS, alphabetWord);
-		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND, alphabetSound);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_ITEM_ID, itemIndex);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_WORD_ID, wordIndex);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_WORD, word.getWord());
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND,
+				word.getWordSound());
+		// TODO: fix this
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
-				ImageUtils.drawableToByteArray(alphabetImage));
+				ImageUtils.drawableToByteArray(word.getWordDrawable()));
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE_ID, 0);
 
-		sqlDatabase.insert(DatabaseHelper.TABLE_ALPHABET, null, contentValues);
+		// New words should be checked when created (1 = true).
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_CHECKED, 1);
+
+		sqlDatabase.insert(DatabaseHelper.TABLE_WORDS, null, contentValues);
 	}
-	
-	public void editWord(int itemIndex, int wordIndex, Word word) {
-		// TODO: Jasjot, implement this
-	}
-	
+
 	/**
-	 * Gets a list of the themes in the database.
+	 * Updates a word in the database.
 	 * 
-	 * @return a list of the themes in the database.
+	 * @param itemIndex
+	 *            the item index.
+	 * @param wordIndex
+	 *            the word index.
+	 * @param word
+	 *            the new word to replace with the existing one.
 	 */
-	public List<Theme> getThemes() {
-		List<Theme> themes = new ArrayList<Theme>();
+	public void updateWord(int itemIndex, int wordIndex, Word word) {
 
-		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_THEME,
-				themesColumns, null, null, null, null, null);
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_ITEM_ID, itemIndex);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_WORD_ID, wordIndex);
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_WORD, word.getWord());
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND,
+				word.getWordSound());
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
+				ImageUtils.drawableToByteArray(word.getWordDrawable()));
+		// TODO: fix this
+		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE_ID,
+				R.drawable.abacus);
+		contentValues
+				.put(DatabaseHelper.COLUMN_WORDS_CHECKED, word.isChecked());
+
+		sqlDatabase.update(DatabaseHelper.TABLE_WORDS, contentValues,
+				DatabaseHelper.generateWordsSelection(itemIndex, wordIndex),
+				null);
+	}
+
+	/**
+	 * Delete a word in the database.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @param wordIndex
+	 *            the word index.
+	 */
+	public void deleteWord(int itemIndex, int wordIndex) {
+		sqlDatabase.delete(DatabaseHelper.TABLE_WORDS,
+				DatabaseHelper.generateWordsSelection(itemIndex, wordIndex),
+				null);
+	}
+
+	// TODO
+	public List<DefaultWordMapping> getDefaultWordMapping(String selection) {
+		List<DefaultWordMapping> defaultWordMappings = new ArrayList<DefaultWordMapping>();
+
+		Cursor cursor = sqlDatabase.query(
+				DatabaseHelper.TABLE_DEFAULT_WORD_MAP, defaultWordMapColumns,
+				selection, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			themes.add(DatabaseUtils.convertCursorToTheme(cursor));
+			defaultWordMappings.add(DatabaseUtils
+					.convertCursorToDefaultWordMapping(cursor));
 			cursor.moveToNext();
 		}
 
 		cursor.close();
 
-		return themes;
+		return defaultWordMappings;
 	}
 
-	/**
-	 * Adds a theme to the database.
-	 * 
-	 * @param theme
-	 *            the theme to add.
-	 */
-	public void addTheme(String theme) {
+	// TODO
+	public void addDefaultWordMapping(int categoryIndex, int itemIndex,
+			int wordIndex, boolean checked) {
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(DatabaseHelper.COLUMN_THEME_NAME, theme);
-		sqlDatabase.insert(DatabaseHelper.TABLE_THEME, null, contentValues);
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_CATEGORY_ID,
+				categoryIndex);
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_ITEM_ID,
+				itemIndex);
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_WORD_ID,
+				wordIndex);
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_CHECKED,
+				checked ? 1 : 0);
+
+		sqlDatabase.insert(DatabaseHelper.TABLE_DEFAULT_WORD_MAP, null,
+				contentValues);
+	}
+
+	// TODO
+	public void updateDefaultWordMapping(int categoryIndex, int itemIndex,
+			int wordIndex, boolean checked) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_CATEGORY_ID,
+				categoryIndex);
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_ITEM_ID,
+				itemIndex);
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_WORD_ID,
+				wordIndex);
+		contentValues.put(DatabaseHelper.COLUMN_DEFAULT_WORD_MAP_CHECKED,
+				checked ? 1 : 0);
+
+		sqlDatabase.update(DatabaseHelper.TABLE_DEFAULT_WORD_MAP,
+				contentValues, DatabaseHelper.generateDefaultMappingSelection(
+						categoryIndex, itemIndex, wordIndex), null);
 	}
 
 	/**
@@ -334,17 +381,20 @@ public class Database {
 	 * 
 	 * @param userName
 	 *            the user name.
+	 * @param userSound
+	 *            the user sound.
 	 * @param userImage
 	 *            the user image.
 	 * @return the row ID of the newly inserted row, or -1 if an error occurred
 	 */
-	public long addUserAccount(String userName, Drawable userImage) {
+	public long addUserAccount(String userName, String userSound,
+			Drawable userImage) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_USER_NAME, userName);
 		contentValues.put(DatabaseHelper.COLUMN_USER_IMAGE,
 				ImageUtils.drawableToByteArray(userImage));
-		// TODO: need to add the user sound here
-		contentValues.put(DatabaseHelper.COLUMN_USER_SOUND, userName);
+		contentValues.put(DatabaseHelper.COLUMN_USER_SOUND, userSound);
+
 		return sqlDatabase.insert(DatabaseHelper.TABLE_USER_ACCOUNT, null,
 				contentValues);
 	}
@@ -361,8 +411,10 @@ public class Database {
 				DatabaseHelper.COLUMN_USER_ID + " = ?",
 				new String[] { String.valueOf(userAccount.getId()) });
 		return addUserAccount(userAccount.getUserName(),
+				userAccount.getUserSound(),
 				ImageUtils.byteArrayToDrawable(userAccount.getUserImage()));
 	}
+
 	public List<Num> getNums() {
 		List<Num> num = new ArrayList<Num>();
 
@@ -371,7 +423,7 @@ public class Database {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			num.add(DatabaseUtils.convertCursorToNumber(cursor));
+			num.add(DatabaseUtils.convertCursorToNum(cursor));
 			cursor.moveToNext();
 		}
 
@@ -406,7 +458,7 @@ public class Database {
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			number.add(DatabaseUtils.convertCursorToNumbers(cursor));
+			number.add(DatabaseUtils.convertCursorToNumber(cursor));
 			cursor.moveToNext();
 		}
 
@@ -451,7 +503,7 @@ public class Database {
 		List<NumType> ntype = new ArrayList<NumType>();
 
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_NUM_TYPE,
-			   numTypeColumns, null, null, null, null, null);
+				numTypeColumns, null, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
@@ -475,20 +527,20 @@ public class Database {
 		contentValues.put(DatabaseHelper.COLUMN_TYPE_NAME, type);
 		sqlDatabase.insert(DatabaseHelper.TABLE_NUM_TYPE, null, contentValues);
 	}
-	
+
 	/**
-	 * Gets a list of the colours in the database.
+	 * Gets a list of the colors in the database.
 	 * 
-	 * @return a list of the colours in the database.
+	 * @return a list of the colors in the database.
 	 */
-	public List<Colour> getColours() {
-		List<Colour> colours = new ArrayList<Colour>();
+	public List<Color> getColors() {
+		List<Color> colours = new ArrayList<Color>();
 		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_COLOUR,
 				colourColumns, null, null, null, null, null);
 		cursor.moveToFirst();
 
 		while (!cursor.isAfterLast()) {
-			colours.add(DatabaseUtils.convertCursorToColour(cursor));
+			colours.add(DatabaseUtils.convertCursorToColor(cursor));
 			cursor.moveToNext();
 		}
 
@@ -498,25 +550,26 @@ public class Database {
 	}
 
 	/**
-	 * Adds a colours to the database.
+	 * Adds a color to the database.
 	 * 
-	 * @param col
-	 *            the colour name.
-	 * @param colImage
-	 *            the colour image.
+	 * @param color
+	 *            the color name.
+	 * @param colorSound
+	 *            the color sound.
+	 * @param colorImage
+	 *            the color image.
 	 * @return the row ID of the newly inserted row, or -1 if an error occurred
 	 */
-	public long addColour(String col, Drawable colImage) {
+	public long addColor(String color, String colorSound, Drawable colorImage) {
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(DatabaseHelper.COLUMN_COLOUR_WORD, col);
+		contentValues.put(DatabaseHelper.COLUMN_COLOUR_WORD, color);
 		contentValues.put(DatabaseHelper.COLUMN_COLOUR_IMAGE,
-				ImageUtils.drawableToByteArray(colImage));
-		// TODO: need to add the user sound here
-		contentValues.put(DatabaseHelper.COLUMN_COLOUR_SOUND, col);
+				ImageUtils.drawableToByteArray(colorImage));
+		contentValues.put(DatabaseHelper.COLUMN_COLOUR_SOUND, colorSound);
 		return sqlDatabase.insert(DatabaseHelper.TABLE_COLOUR, null,
 				contentValues);
 	}
-	
+
 	/**
 	 * Gets a list of the shapes in the database.
 	 * 
@@ -543,20 +596,58 @@ public class Database {
 	 * 
 	 * @param shape
 	 *            the shape name.
+	 * @param shapeSound
+	 *            the shape sound.
 	 * @param shapeImage
 	 *            the shape image.
 	 * @return the row ID of the newly inserted row, or -1 if an error occurred
 	 */
-	public long addShape(String shape, Drawable shapeImage) {
+	public long addShape(String shape, String shapeSound, Drawable shapeImage) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_SHAPE_WORD, shape);
 		contentValues.put(DatabaseHelper.COLUMN_SHAPE_IMAGE,
 				ImageUtils.drawableToByteArray(shapeImage));
-		// TODO: need to add the user sound here
-		contentValues.put(DatabaseHelper.COLUMN_SHAPE_SOUND, shape);
+		contentValues.put(DatabaseHelper.COLUMN_SHAPE_SOUND, shapeSound);
 		return sqlDatabase.insert(DatabaseHelper.TABLE_SHAPE, null,
 				contentValues);
 	}
 
-}
+	public Timer getTimer() {
+		Timer timer = null;
 
+		Cursor cursor = sqlDatabase.query(DatabaseHelper.TABLE_TIMER,
+				timerColumns, null, null, null, null, null);
+		cursor.moveToFirst();
+
+		// There should only be 1 timer object
+		while (!cursor.isAfterLast()) {
+			timer = DatabaseUtils.convertCursorToTimer(cursor);
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+
+		return timer;
+	}
+
+	public void addTimer(boolean enabled, boolean expired, long learnTime) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_TIMER_ENABLED, enabled ? 1 : 0);
+		contentValues.put(DatabaseHelper.COLUMN_TIMER_EXPIRED, expired ? 1 : 0);
+		contentValues.put(DatabaseHelper.COLUMN_LEARN_TIME, learnTime);
+
+		sqlDatabase.insert(DatabaseHelper.TABLE_TIMER, null, contentValues);
+	}
+
+	public void updateTimer(boolean enabled, boolean expired, long learnTime) {
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(DatabaseHelper.COLUMN_TIMER_ENABLED, enabled ? 1 : 0);
+		contentValues.put(DatabaseHelper.COLUMN_TIMER_EXPIRED, expired ? 1 : 0);
+		contentValues.put(DatabaseHelper.COLUMN_LEARN_TIME, learnTime);
+
+		int rows = sqlDatabase.update(DatabaseHelper.TABLE_TIMER,
+				contentValues, null, null);
+		System.out.println("*** number of rows: " + rows);
+		System.out.println("learn time :" + learnTime);
+	}
+}

@@ -11,7 +11,6 @@ public class UserAccount {
 
 	private Drawable userImage;
 
-	// TODO: sound file?
 	private String userSound;
 
 	public long getId() {

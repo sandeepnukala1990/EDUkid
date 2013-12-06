@@ -14,7 +14,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import bu.edu.cs673.edukid.EDUkid;
 import bu.edu.cs673.edukid.R;
+import bu.edu.cs673.edukid.db.model.Word;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
+import bu.edu.cs673.edukid.settings.utils.RecordUtility;
 
 public class WordFragment extends Fragment implements OnClickListener,
 		OnInitListener {
@@ -54,18 +56,28 @@ public class WordFragment extends Fragment implements OnClickListener,
 		itemIndex = arguments.getInt(EDUkid.ITEM_INDEX);
 		wordIndex = arguments.getInt(EDUkid.WORD_INDEX);
 
+		Word word = categoryType.getLearnItemWord(itemIndex, wordIndex);
+
 		// Set content image
 		ImageButton learnContentImage = (ImageButton) view
 				.findViewById(R.id.learnContentImage);
-		learnContentImage.setOnClickListener(this);
-		learnContentImage.setImageResource(categoryType.getItemImage(itemIndex,
-				wordIndex));
-		
+
+		if (word.isDefaultWord()) {
+			learnContentImage.setImageDrawable(getResources().getDrawable(
+					categoryType.getLearnItemDrawableId(itemIndex, wordIndex)));
+		} else {
+			learnContentImage.setOnClickListener(this);
+			learnContentImage.setMaxHeight(300);
+			learnContentImage.setMaxWidth(300);
+			learnContentImage.setAdjustViewBounds(false);
+			learnContentImage.setImageDrawable(categoryType
+					.getLearnItemDrawable(itemIndex, wordIndex));
+		}
+
 		// Set content word
 		TextView learnContentWord = (TextView) view
 				.findViewById(R.id.learnContentWord);
-		learnContentWord
-				.setText(categoryType.getItemWord(itemIndex, wordIndex));
+		learnContentWord.setText(word.getWord());
 
 		learnContentWord.setOnClickListener(this);
 	}
@@ -80,7 +92,19 @@ public class WordFragment extends Fragment implements OnClickListener,
 		switch (view.getId()) {
 		case R.id.learnContentImage:
 		case R.id.learnContentWord:
-			text = categoryType.getItemWord(itemIndex, wordIndex);
+			Word word = categoryType.getLearnItemWord(itemIndex, wordIndex);
+			String wordSound = word.getWordSound();
+			System.out.println("block");
+
+			if (wordSound != null && !wordSound.isEmpty()) {
+				System.out.println("if block");
+				RecordUtility.playbackRecording(wordSound);
+				System.out.println("after");
+				return;
+			}
+
+			text = categoryType.getLearnItemWord(itemIndex, wordIndex)
+					.getWord();
 			break;
 		default:
 			return;
@@ -108,11 +132,5 @@ public class WordFragment extends Fragment implements OnClickListener,
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-
-		if (textToSpeech != null) {
-
-			textToSpeech.stop();
-			textToSpeech.shutdown();
-		}
 	}
 }

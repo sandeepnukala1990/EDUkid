@@ -28,15 +28,6 @@
         android:text="Sound:" />
 
     <Button
-        android:id="@+id/deleteItemButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/itemSoundLabel"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="42dp"
-        android:text="Delete Item" />
-
-    <Button
         android:id="@+id/saveItemButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,11 +36,11 @@
         android:background="@drawable/savebutton"
         android:onClick="onSaveItemClick" />
 
-    <com.terlici.dragndroplist.DragNDropListView
+    <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/deleteItemButton"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="100dp"
         android:layout_toRightOf="@+id/itemName"
@@ -65,15 +56,6 @@
         android:layout_toLeftOf="@+id/saveItemButton"
         android:text="Words" />
 
-    <Button
-        android:id="@+id/addWordButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/saveItemButton"
-        android:layout_toLeftOf="@+id/saveItemButton"
-        android:background="@drawable/addbutton"
-        android:onClick="onAddWordClick" />
-
     <EditText
         android:id="@+id/itemName"
         android:layout_width="wrap_content"
@@ -81,9 +63,33 @@
         android:layout_alignBaseline="@+id/itemLabel"
         android:layout_alignBottom="@+id/itemLabel"
         android:layout_toRightOf="@+id/deleteItemButton"
-        android:ems="10" >
+        android:ems="10" />
 
-        <requestFocus />
-    </EditText>
+    <Button
+        android:id="@+id/addWordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/wordsText"
+        android:layout_marginRight="16dp"
+        android:layout_toLeftOf="@+id/saveItemButton"
+        android:background="@drawable/addbutton"
+        android:onClick="onAddWordClick" />
+
+    <Button
+        android:id="@+id/deleteItemButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/itemSoundLabel"
+        android:background="@drawable/deletebutton" />
+
+    <Button
+        android:id="@+id/settingsHomeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/deleteItemButton"
+        android:layout_alignRight="@android:id/list"
+        android:background="@drawable/settingshomebutton"
+        android:onClick="onSettingsHomeClick" />
 
 </RelativeLayout>

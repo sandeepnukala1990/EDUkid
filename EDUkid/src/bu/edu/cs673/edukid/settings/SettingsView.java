@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.settings.category.CategoriesView;
+import bu.edu.cs673.edukid.settings.timer.TimerView;
 import bu.edu.cs673.edukid.settings.useraccount.UserAccountView;
 
 public class SettingsView extends Activity implements OnItemClickListener {
@@ -51,26 +51,12 @@ public class SettingsView extends Activity implements OnItemClickListener {
 	}
 
 	/**
-	 * Tags on click callback.
-	 * 
-	 * @param view
-	 *            the view.
-	 */
-	public void onTagsClick(View view) {
-		// TODO: implement this
-		// startActivity(new Intent(this, TagsView.class));
-		Toast.makeText(this, "Tags view coming soon...", Toast.LENGTH_SHORT)
-				.show();
-	}
-
-	/**
 	 * Timer on click callback.
 	 * 
 	 * @param view
 	 *            the view.
 	 */
 	public void onTimerClick(View view) {
-		// TODO: implement this
-		Toast.makeText(this, "Timer coming soon...", Toast.LENGTH_SHORT).show();
+		startActivity(new Intent(this, TimerView.class));
 	}
 }

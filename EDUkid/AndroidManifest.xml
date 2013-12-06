@@ -8,15 +8,17 @@
         android:minSdkVersion="17"
         android:targetSdkVersion="18" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:targetPackage="bu.edu.cs673.edukid" />
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -24,6 +26,8 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <service android:name="net.frakbot.imageviewex.service.ImageViewExService" />
+
+        <uses-library android:name="android.test.runner" />
 
         <activity
             android:name="bu.edu.cs673.edukid.EDUsplash"
@@ -39,11 +43,19 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
+            android:name="bu.edu.cs673.edukid.ModeSelectionView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
             android:name="bu.edu.cs673.edukid.learn.LearnContentView"
             android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="bu.edu.cs673.edukid.learn.grid.LearnContentGridView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="bu.edu.cs673.edukid.game.GameView"
             android:screenOrientation="landscape" >
         </activity>
         <activity
@@ -67,7 +79,19 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
+            android:name="bu.edu.cs673.edukid.settings.category.AddItemView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="bu.edu.cs673.edukid.settings.category.AddWordView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
             android:name="bu.edu.cs673.edukid.settings.category.WordView"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="bu.edu.cs673.edukid.settings.timer.TimerView"
             android:screenOrientation="landscape" >
         </activity>
     </application>

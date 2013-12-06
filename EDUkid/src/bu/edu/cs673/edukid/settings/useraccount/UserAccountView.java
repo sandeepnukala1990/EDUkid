@@ -1,14 +1,15 @@
 package bu.edu.cs673.edukid.settings.useraccount;
 
-import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.media.MediaRecorder;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,6 +21,8 @@ import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
 import bu.edu.cs673.edukid.db.ImageUtils;
 import bu.edu.cs673.edukid.db.model.UserAccount;
+import bu.edu.cs673.edukid.settings.utils.ImageUtilities;
+import bu.edu.cs673.edukid.settings.utils.RecordUtility;
 
 /**
  * The view which contains the user account information. The user account can be
@@ -34,18 +37,25 @@ public class UserAccountView extends Activity implements OnClickListener {
 
 	private static final int TAKE_PICTURE = 1888;
 
-	private boolean mStartRecording = true;
+	private static final int SELECT_PHOTO = 100;
 
 	private static final long DATABASE_ERROR = -1;
 
-	private String userName;
+	private EditText userName;
 
 	private ImageView userImage;
 
+	private ImageView micImage;
+
+	private ImageView playImage;
+
+	private ImageView selectPhotoImage;
+
 	private Database database = Database.getInstance(this);
 
-	public MediaRecorder recorder = new MediaRecorder();
-	private String mFileName = "";
+	private boolean recording = false;
+
+	private String savedFilePath = "";
 
 	/**
 	 * {@inheritDoc}
@@ -55,6 +65,10 @@ public class UserAccountView extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_account);
 		userImage = (ImageView) findViewById(R.id.createUserImage);
+		micImage = (ImageView) findViewById(R.id.accountCreationRecorderButton);
+		playImage = (ImageView) findViewById(R.id.takePictureButton);
+		selectPhotoImage = (ImageView) findViewById(R.id.AddPhotoButton);
+		userName = (EditText) findViewById(R.id.createEditChildName);
 
 		// Populate user account info from database (if any)
 		List<UserAccount> userAccounts = database.getUserAccounts();
@@ -63,21 +77,33 @@ public class UserAccountView extends Activity implements OnClickListener {
 			UserAccount userAccount = userAccounts.get(0);
 
 			// Set user name
-			EditText userNameTextField = ((EditText) findViewById(R.id.createEditChildName));
-			userNameTextField.setText(userAccount.getUserName());
+
+			userName.setText(userAccount.getUserName());
 
 			// Set user image
 			userImage.setImageDrawable(ImageUtils
 					.byteArrayToDrawable(userAccount.getUserImage()));
-		}
+			userImage.setMaxHeight(400);
+			userImage.setMaxWidth(400);
+			userImage.setMinimumHeight(400);
+			userImage.setMinimumWidth(400);
+			userImage.setAdjustViewBounds(false);
+			// set user sound
+			savedFilePath = userAccount.getUserSound();
 
+		}
+		if (savedFilePath == null || savedFilePath.isEmpty()) {
+			playImage.setBackgroundResource(R.drawable.greyplaybutton);
+			playImage.setEnabled(false);
+		}
 		// Add listeners
 		Button createSaveButton = (Button) findViewById(R.id.createSaveButton);
 		createSaveButton.setOnClickListener(this);
 		ImageButton createUploadPhotoButton = (ImageButton) findViewById(R.id.createUploadPhotoButton);
 		createUploadPhotoButton.setOnClickListener(this);
-		Button createAudioButton = (Button) findViewById(R.id.accountCreationRecorderButton);
-		createAudioButton.setOnClickListener(this);
+		micImage.setOnClickListener(this);
+		playImage.setOnClickListener(this);
+		selectPhotoImage.setOnClickListener(this);
 	}
 
 	/**
@@ -87,21 +113,39 @@ public class UserAccountView extends Activity implements OnClickListener {
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.createSaveButton:
-			saveUserAccount();
+			if (!userName.getText().toString().isEmpty())
+				saveUserAccount();
+			else
+				Toast.makeText(this, "Please enter a Child's Name to save!",
+						Toast.LENGTH_LONG).show();
 			break;
 		case R.id.createUploadPhotoButton:
-			// TODO: we should have other options other than the camera like
-			// picking from the camera roll
-			startCamera();
+			ImageUtilities.startCamera(this);
 			break;
 		case R.id.accountCreationRecorderButton:
-			// TODO:have state of button switch between start and stop recording
-			onRecord(mStartRecording);
-			if (mStartRecording)
-				this.setTitle("test123");
-			else
-				this.setTitle("winning");
-			mStartRecording = !mStartRecording;
+			if (recording) {
+				RecordUtility.stopRecording(micImage);
+				playImage.setBackgroundResource(R.drawable.playbutton);
+				playImage.setEnabled(true);
+			} else {
+				savedFilePath = RecordUtility.startRecording("UserAccount",
+						micImage);
+			}
+
+			recording = !recording;
+			break;
+		case R.id.takePictureButton:
+			if (savedFilePath == null)
+				Toast.makeText(
+						this,
+						"No Audio Recorded for user, please use the record button to record the childs name",
+						Toast.LENGTH_LONG).show();
+			else {
+				RecordUtility.playbackRecording(savedFilePath);
+			}
+			break;
+		case R.id.AddPhotoButton:
+			ImageUtilities.selectPhoto(this);
 			break;
 		}
 	}
@@ -117,6 +161,19 @@ public class UserAccountView extends Activity implements OnClickListener {
 			if (photo != null) {
 				userImage.setImageBitmap(photo);
 			}
+		} else if (requestCode == SELECT_PHOTO && resultCode == RESULT_OK) {
+			Uri selectedImage = data.getData();
+			String[] filePathColumn = { MediaStore.Images.Media.DATA };
+			Cursor cursor = getContentResolver().query(selectedImage,
+					filePathColumn, null, null, null);
+			cursor.moveToFirst();
+
+			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+			savedFilePath = cursor.getString(columnIndex);
+			cursor.close();
+
+			Bitmap yourSelectedImage = BitmapFactory.decodeFile(savedFilePath);
+			userImage.setImageBitmap(yourSelectedImage);
 		}
 	}
 
@@ -124,18 +181,19 @@ public class UserAccountView extends Activity implements OnClickListener {
 	 * Saves the user account in the database.
 	 */
 	private void saveUserAccount() {
-		userName = ((EditText) findViewById(R.id.createEditChildName))
-				.getText().toString();
+		String stUserName = userName.getText().toString();
 		List<UserAccount> userAccounts = database.getUserAccounts();
 		long result = DATABASE_ERROR;
 
 		if (userAccounts.size() == 0) {
-			result = database.addUserAccount(userName, userImage.getDrawable());
+			result = database.addUserAccount(stUserName, savedFilePath,
+					userImage.getDrawable());
 		} else if (userAccounts.size() == 1) {
 			UserAccount userAccount = userAccounts.get(0);
-			userAccount.setUserName(userName);
+			userAccount.setUserName(stUserName);
 			userAccount.setUserImage(ImageUtils.drawableToByteArray(userImage
 					.getDrawable()));
+			userAccount.setUserSound(savedFilePath);
 			result = database.editUserAccount(userAccount);
 		} else {
 			// TODO: implement more than 1 user. Should not get here now.
@@ -148,47 +206,4 @@ public class UserAccountView extends Activity implements OnClickListener {
 			// TODO: inform user of error
 		}
 	}
-
-	/**
-	 * Starts the front facing camera to take a picture.
-	 */
-	private void startCamera() {
-		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-		startActivityForResult(intent, TAKE_PICTURE);
-	}
-
-	private void onRecord(boolean start) {
-		if (start) {
-			startRecording();
-
-		} else {
-			stopRecording();
-		}
-	}
-
-	public void startRecording() {
-
-		recorder = new MediaRecorder();
-		mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-		mFileName += "/audiorecordtest.3gp";
-		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-		recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-		recorder.setOutputFile(mFileName);
-		try {
-			recorder.prepare();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		recorder.start();
-	}
-
-	private void stopRecording() {
-		recorder.stop();
-		recorder.release();
-		recorder = null;
-	}
-
 }

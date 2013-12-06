@@ -63,7 +63,7 @@ public class LearnContentViewFragment extends Fragment implements
 		// Set the word circles
 		wordViewPagerCircles = (LinearLayout) view
 				.findViewById(R.id.wordViewPagerCircles);
-		numberOfCircles = categoryType.getItemWordCount(itemIndex);
+		numberOfCircles = categoryType.getLearnItemWordCount(itemIndex);
 		setCircleIndex(0);
 
 		return view;

@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.defaults.DatabaseDefaults;
+import bu.edu.cs673.edukid.db.model.Word;
 
 /**
  * The splash screen, and the entry point into the application.
@@ -40,6 +41,7 @@ public class EDUsplash extends Activity {
 
 		Timer.start();
 		setupDatabse();
+		setupDefaultWordMappings();
 	}
 
 	/**
@@ -50,7 +52,7 @@ public class EDUsplash extends Activity {
 
 		if (database.getLetters().size() == 0) {
 			for (String letter : DatabaseDefaults.getAlphabet()) {
-				database.addLetter(letter);
+				database.addLetter(letter.toString());
 			}
 		}
 
@@ -60,21 +62,45 @@ public class EDUsplash extends Activity {
 			}
 		}
 
-		if (database.getColours().size() == 0) {
-			for (String col : DatabaseDefaults.getColours()) {
-				database.addColour(col, null);
+		if (database.getColors().size() == 0) {
+			for (String color : DatabaseDefaults.getColors()) {
+				database.addColor(color, color, null);
 			}
 		}
 
 		if (database.getShapes().size() == 0) {
 			for (String shape : DatabaseDefaults.getShapes()) {
-				database.addShape(shape, null);
+				database.addShape(shape, shape, null);
 			}
 		}
 
-		if (database.getThemes().size() == 0) {
-			// TODO: implement this more
-			database.addTheme("ANIMALS");
+		if (database.getTimer() == null) {
+			database.addTimer(false, false, 18000000);
+		}
+	}
+
+	// TODO
+	private void setupDefaultWordMappings() {
+		if (Database.getInstance(this).getDefaultWordMapping(null).size() == 0) {
+			setupDefaultWordMapping(0,
+					DatabaseDefaults.getDefaultAlphabetWords());
+			setupDefaultWordMapping(1, DatabaseDefaults.getDefaultNumberWords());
+			setupDefaultWordMapping(2, DatabaseDefaults.getDefaultShapeWords());
+			setupDefaultWordMapping(3, DatabaseDefaults.getDefaultColorWords());
+		}
+	}
+
+	// TODO
+	private void setupDefaultWordMapping(int categoryIndex, Word[][] wordsArray) {
+		Database database = Database.getInstance(this);
+
+		for (int itemIndex = 0; itemIndex < wordsArray.length; itemIndex++) {
+			Word[] words = wordsArray[itemIndex];
+
+			for (int wordIndex = 0; wordIndex < words.length; wordIndex++) {
+				database.addDefaultWordMapping(categoryIndex, itemIndex,
+						wordIndex, true);
+			}
 		}
 	}
 }

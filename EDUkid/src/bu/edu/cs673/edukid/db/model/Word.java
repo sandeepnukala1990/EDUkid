@@ -5,31 +5,47 @@ import bu.edu.cs673.edukid.db.ImageUtils;
 
 public class Word {
 
-	private long letterId;
+	private long itemId;
 
-	// TODO: rename to wordId;
-	private long themeId;
+	private long wordId;
 
 	private String word;
 
 	private String wordSound;
 
+	private int drawableId;
+
 	private Drawable wordImage;
 
-	public long getLid() {
-		return letterId;
+	private boolean defaultWord;
+
+	private boolean checked;
+
+	public Word() {
+
 	}
 
-	public void setLetterId(long letterId) {
-		this.letterId = letterId;
+	public Word(String word, int drawableId) {
+		this.word = word;
+		this.drawableId = drawableId;
+		defaultWord = true;
+		checked = true;
 	}
 
-	public long getThemeId() {
-		return themeId;
+	public long getItemId() {
+		return itemId;
 	}
 
-	public void setThemeId(long themeId) {
-		this.themeId = themeId;
+	public void setItemId(long itemId) {
+		this.itemId = itemId;
+	}
+
+	public long getWordId() {
+		return wordId;
+	}
+
+	public void setWordId(long wordId) {
+		this.wordId = wordId;
 	}
 
 	public String getWord() {
@@ -52,7 +68,35 @@ public class Word {
 		return ImageUtils.drawableToByteArray(wordImage);
 	}
 
+	public int getDrawableId() {
+		return drawableId;
+	}
+
+	public void setDrawableId(int drawableId) {
+		this.drawableId = drawableId;
+	}
+
+	public Drawable getWordDrawable() {
+		return wordImage;
+	}
+
 	public void setWordImage(byte[] imageData) {
 		wordImage = ImageUtils.byteArrayToDrawable(imageData);
+	}
+
+	public void setDefaultWord(boolean defaultWord) {
+		this.defaultWord = defaultWord;
+	}
+
+	public boolean isDefaultWord() {
+		return defaultWord;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
+	public boolean isChecked() {
+		return checked;
 	}
 }

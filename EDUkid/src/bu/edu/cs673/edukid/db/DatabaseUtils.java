@@ -1,16 +1,18 @@
 package bu.edu.cs673.edukid.db;
 
 import android.database.Cursor;
-import bu.edu.cs673.edukid.db.model.Word;
-import bu.edu.cs673.edukid.db.model.Category;
+import bu.edu.cs673.edukid.db.model.Color;
+import bu.edu.cs673.edukid.db.model.DefaultWordMapping;
 import bu.edu.cs673.edukid.db.model.Letter;
-import bu.edu.cs673.edukid.db.model.Theme;
-import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.db.model.Num;
 import bu.edu.cs673.edukid.db.model.NumType;
 import bu.edu.cs673.edukid.db.model.Number;
-import bu.edu.cs673.edukid.db.model.Colour;
-import bu.edu.cs673.edukid.db.model.Shape;;
+import bu.edu.cs673.edukid.db.model.Shape;
+import bu.edu.cs673.edukid.db.model.Timer;
+import bu.edu.cs673.edukid.db.model.UserAccount;
+import bu.edu.cs673.edukid.db.model.Word;
+
+;
 
 /**
  * Database utility class. Provides static helper methods to convert database
@@ -19,8 +21,13 @@ import bu.edu.cs673.edukid.db.model.Shape;;
  * 
  * @author Kevin Graue
  * 
- * @see Category
  * @see UserAccount
+ * @see Letter
+ * @see Word
+ * @see Num
+ * @see Number
+ * @see Color
+ * @see Shape
  * 
  */
 public class DatabaseUtils {
@@ -33,29 +40,13 @@ public class DatabaseUtils {
 	}
 
 	/**
-	 * Converts a cursor object to a category object.
-	 * 
-	 * @param cursor
-	 *            the database cursor object.
-	 * @return a category object.
-	 */
-	public static Category convertCursorToCategory(Cursor cursor) {
-		Category category = new Category();
-		category.setId(cursor.getLong(0));
-		category.setCategoryName(cursor.getString(1));
-		category.setImageData(cursor.getBlob(2));
-
-		return category;
-	}
-
-	/**
 	 * Converts a cursor object to a user account object.
 	 * 
 	 * @param cursor
 	 *            the database cursor object.
 	 * @return a user account object.
 	 */
-	public static UserAccount convertCursorToUserAccount(Cursor cursor) {
+	protected static UserAccount convertCursorToUserAccount(Cursor cursor) {
 		UserAccount userAccount = new UserAccount();
 		userAccount.setId(cursor.getLong(0));
 		userAccount.setUserName(cursor.getString(1));
@@ -72,7 +63,7 @@ public class DatabaseUtils {
 	 *            the database cursor object.
 	 * @return a letter object.
 	 */
-	public static Letter convertCursorToLetter(Cursor cursor) {
+	protected static Letter convertCursorToLetter(Cursor cursor) {
 		Letter letter = new Letter();
 		letter.setLetterId(cursor.getLong(0));
 		letter.setLetter(cursor.getString(1));
@@ -83,52 +74,52 @@ public class DatabaseUtils {
 	}
 
 	/**
-	 * Converts a cursor object to a theme object.
+	 * Converts a cursor object to a Word object.
 	 * 
 	 * @param cursor
 	 *            the database cursor object.
-	 * @return a theme object.
+	 * @return a Word object.
 	 */
-	public static Theme convertCursorToTheme(Cursor cursor) {
-		Theme theme = new Theme();
-		theme.setThemeId(cursor.getLong(0));
-		theme.setTheme(cursor.getString(1));
+	protected static Word convertCursorToWord(Cursor cursor) {
+		Word word = new Word();
+		word.setItemId(cursor.getLong(0));
+		word.setWordId(cursor.getLong(1));
+		word.setWord(cursor.getString(2));
+		word.setWordSound(cursor.getString(3));
+		word.setWordImage(cursor.getBlob(4));
+		word.setDrawableId(0);
+		word.setChecked(cursor.getInt(6) == 1 ? true : false);
+		word.setDefaultWord(false);
 
-		return theme;
+		return word;
+	}
+
+	// TODO
+	protected static DefaultWordMapping convertCursorToDefaultWordMapping(
+			Cursor cursor) {
+		DefaultWordMapping defaultWordMapping = new DefaultWordMapping();
+		defaultWordMapping.setCategoryId(cursor.getLong(0));
+		defaultWordMapping.setItemId(cursor.getLong(1));
+		defaultWordMapping.setWordId(cursor.getLong(2));
+		defaultWordMapping.setChecked(cursor.getInt(3) == 1 ? true : false);
+
+		return defaultWordMapping;
 	}
 
 	/**
-	 * Converts a cursor object to an alphabets object.
+	 * Converts a cursor object to a Num object.
 	 * 
 	 * @param cursor
 	 *            the database cursor object.
-	 * @return an alphabets object.
+	 * @return a Num object.
 	 */
-	public static Word convertCursorToAlphabets(Cursor cursor) {
-		Word alphabets = new Word();
-		alphabets.setLetterId(cursor.getLong(0));
-		alphabets.setThemeId(cursor.getLong(1));
-		alphabets.setWord(cursor.getString(2));
-		alphabets.setWordSound(cursor.getString(3));
-		alphabets.setWordImage(cursor.getBlob(4));
+	protected static Num convertCursorToNum(Cursor cursor) {
+		Num num = new Num();
+		num.setNumberId(cursor.getLong(0));
+		num.setNumber(cursor.getString(1));
+		num.setNumberSound(cursor.getString(2));
 
-		return alphabets;
-	}
-	
-	/**
-	 * Converts a cursor object to a number object.
-	 * 
-	 * @param cursor
-	 *            the database cursor object.
-	 * @return a number object.
-	 */
-	public static Num convertCursorToNumber(Cursor cursor) {
-		Num number = new Num();
-		number.setNumberId(cursor.getLong(0));
-		number.setNumber(cursor.getString(1));
-		number.setNumberSound(cursor.getString(2));
-
-		return number;
+		return num;
 
 	}
 
@@ -137,51 +128,51 @@ public class DatabaseUtils {
 	 * 
 	 * @param cursor
 	 *            the database cursor object.
-	 * @return a ntype object.
+	 * @return a NumType object.
 	 */
-	public static NumType convertCursorToNumType(Cursor cursor) {
-		NumType ntype = new NumType();
-		ntype.setNumtypeId(cursor.getLong(0));
-		ntype.setNumtype(cursor.getString(1));
+	protected static NumType convertCursorToNumType(Cursor cursor) {
+		NumType numtype = new NumType();
+		numtype.setNumtypeId(cursor.getLong(0));
+		numtype.setNumtype(cursor.getString(1));
 
-		return ntype;
+		return numtype;
 	}
 
 	/**
-	 * Converts a cursor object to an Numbers object.
+	 * Converts a cursor object to an Number object.
 	 * 
 	 * @param cursor
 	 *            the database cursor object.
-	 * @return an num object.
+	 * @return a Number object.
 	 */
-	public static Number convertCursorToNumbers(Cursor cursor) {
-		Number num = new Number();
-		num.setnId(cursor.getLong(0));
-		num.setnTypeId(cursor.getLong(1));
-		num.setNumWord(cursor.getString(2));
-		num.setNumSound(cursor.getString(3));
-		num.setNumImage(cursor.getBlob(4));
+	protected static Number convertCursorToNumber(Cursor cursor) {
+		Number number = new Number();
+		number.setnId(cursor.getLong(0));
+		number.setnTypeId(cursor.getLong(1));
+		number.setNumWord(cursor.getString(2));
+		number.setNumSound(cursor.getString(3));
+		number.setNumImage(cursor.getBlob(4));
 
-		return num;
+		return number;
 	}
-	
+
 	/**
-	 * Converts a cursor object to a Colour object.
+	 * Converts a cursor object to a Color object.
 	 * 
 	 * @param cursor
 	 *            the database cursor object.
-	 * @return a Colour object.
+	 * @return a Color object.
 	 */
-	public static Colour convertCursorToColour(Cursor cursor) {
-		Colour col = new Colour();
-		col.setColourId(cursor.getLong(0));
-		col.setColour(cursor.getString(1));
-		col.setColourImage(cursor.getBlob(2));
-		col.setColourSound(cursor.getString(3));
+	protected static Color convertCursorToColor(Cursor cursor) {
+		Color color = new Color();
+		color.setColourId(cursor.getLong(0));
+		color.setColour(cursor.getString(1));
+		color.setColourImage(cursor.getBlob(2));
+		color.setColourSound(cursor.getString(3));
 
-		return col;
+		return color;
 	}
-	
+
 	/**
 	 * Converts a cursor object to a user shape object.
 	 * 
@@ -189,7 +180,7 @@ public class DatabaseUtils {
 	 *            the database shape object.
 	 * @return a shape object.
 	 */
-	public static Shape convertCursorToShape(Cursor cursor) {
+	protected static Shape convertCursorToShape(Cursor cursor) {
 		Shape shape = new Shape();
 		shape.setShapeId(cursor.getLong(0));
 		shape.setShape(cursor.getString(1));
@@ -198,5 +189,20 @@ public class DatabaseUtils {
 
 		return shape;
 	}
-	
+
+	protected static Timer convertCursorToTimer(Cursor cursor) {
+		Timer timer = new Timer();
+		// timer.setEnabled(cursor.getInt(0));
+		// timer.setExpired(cursor.getInt(1));
+		// timer.setLearnTime(cursor.getInt(2));
+
+		int enabled = cursor.getInt(0);
+		int expired = cursor.getInt(1);
+		int time = cursor.getInt(2);
+		timer.setEnabled(enabled);
+		timer.setExpired(expired);
+		timer.setLearnTime(time);
+
+		return timer;
+	}
 }

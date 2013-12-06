@@ -1,14 +1,16 @@
 package bu.edu.cs673.edukid;
 
 import java.util.List;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
+import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -18,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import bu.edu.cs673.edukid.db.Database;
-import bu.edu.cs673.edukid.db.model.Category;
 import bu.edu.cs673.edukid.db.model.UserAccount;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.learn.LearnContentView;
@@ -32,10 +33,10 @@ import bu.edu.cs673.edukid.settings.utils.MathProblemGenerator;
  * 
  * @author Kevin Graue
  * 
- * @see Category
+ * @see CategoryType
  * 
  */
-public class EDUkid extends Activity implements OnClickListener {
+public class EDUkid extends Activity implements OnClickListener, OnInitListener {
 
 	public static final String CATEGORY_TYPE = "CategoryType";
 
@@ -43,17 +44,11 @@ public class EDUkid extends Activity implements OnClickListener {
 
 	public static final String WORD_INDEX = "WordIndex";
 
-	private TextView timerValue;
+	private static final boolean DEBUG_MODE = false;
 
-	private long startTime = 0L;
+	private Database database = Database.getInstance(this);
 
-	private Handler customHandler = new Handler();
-
-	long timeInMilliseconds = 0L;
-
-	long timeSwapBuff = 0L;
-
-	long updatedTime = 0L;
+	private TextToSpeech textToSpeech;
 
 	/**
 	 * {@inheritDoc}
@@ -62,70 +57,36 @@ public class EDUkid extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edukid);
-		final Handler handler = new Handler();
-		handler.postDelayed(new Runnable() {
-			public void run() {
-				AlertDialog.Builder alert = new AlertDialog.Builder(EDUkid.this);
-				alert.setTitle("Timed OUT! Go to bed");
-				alert.setPositiveButton("Ok",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								// TODO
 
-							}
-						});
-				alert.create();
-				alert.show();
-			}
-		}, 180000);
-		timerValue = (TextView) findViewById(R.id.timerValue);
-
-		startTime = SystemClock.uptimeMillis();
-		updateTimerThread.run();
+		// TODO: fix this
+		textToSpeech = new TextToSpeech(this, this);
 
 		setupCategoryButtons();
 		welcomeUserBack(true);
 	}
-
-	private Runnable updateTimerThread = new Runnable() {
-
-		public void run() {
-
-			timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
-
-			updatedTime = timeSwapBuff + timeInMilliseconds;
-
-			int secs = (int) (updatedTime / 1000);
-
-			int mins = secs / 60;
-
-			secs = secs % 60;
-
-			int milliseconds = (int) (updatedTime % 1000);
-
-			timerValue.setText("" + mins + ":"
-
-			+ String.format("%02d", secs) + ":"
-
-			+ String.format("%03d", milliseconds));
-
-			customHandler.postDelayed(this, 0);
-
-		}
-
-	};
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void onClick(View view) {
-		CategoryType categoryType = Database.getInstance(this).getCategories()
-				.get(view.getId());
 
-		Intent intent = new Intent(this, LearnContentView.class);
+		if (database.getTimer().getExpired() == 1) {
+			Toast.makeText(this, "Timer EXpired! Go to settings to reset !",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		CategoryType categoryType = Database.getInstance(this).getCategories()[view
+				.getId()];
+		Intent intent;
+
+		if (categoryType.hasGameMode()) {
+			intent = new Intent(this, ModeSelectionView.class);
+		} else {
+			intent = new Intent(this, LearnContentView.class);
+		}
+
 		intent.putExtra(CATEGORY_TYPE, categoryType);
 		startActivity(intent);
 	}
@@ -155,15 +116,12 @@ public class EDUkid extends Activity implements OnClickListener {
 		layoutParams.bottomMargin = 10;
 		layoutParams.leftMargin = 10;
 
-		List<CategoryType> categories = Database.getInstance(this)
-				.getCategories();
-
-		for (int i = 0; i < categories.size(); i++) {
-			CategoryType category = categories.get(i);
+		for (CategoryType categoryType : Database.getInstance(this)
+				.getCategories()) {
 			ImageButton categoryButton = new ImageButton(this);
-			categoryButton.setId(i);
+			categoryButton.setId(categoryType.getCategoryId());
 			categoryButton.setLayoutParams(layoutParams);
-			categoryButton.setBackground(category.getCategoryImage(this));
+			categoryButton.setBackground(categoryType.getCategoryImage(this));
 			categoryButton.setOnClickListener(this);
 			categoryLayout.addView(categoryButton);
 		}
@@ -185,6 +143,20 @@ public class EDUkid extends Activity implements OnClickListener {
 
 			// Say hello
 			if (toast) {
+				String userSound = userAccount.getUserSound();
+				if (userSound != null && !userSound.isEmpty()) {
+					try {
+						textToSpeech.stop();
+						textToSpeech.speak("Welcome to EduKid, ",
+								TextToSpeech.QUEUE_FLUSH, null);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					System.out.println("Why");
+					// RecordUtility.playbackRecording(userAccount.getUserSound());
+				}
+
 				Toast.makeText(
 						this,
 						"Hello " + userAccount.getUserName()
@@ -200,43 +172,48 @@ public class EDUkid extends Activity implements OnClickListener {
 	 *            the view used in the callback.
 	 */
 	public void onSettingsClick(View view) {
+		if (DEBUG_MODE) {
+			startActivity(new Intent(EDUkid.this, SettingsView.class));
+		} else {
 
-		final MathProblem mathProblem = MathProblemGenerator
-				.generateMathProblem();
+			final MathProblem mathProblem = MathProblemGenerator
+					.generateMathProblem();
 
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		alert.setTitle("Please answer this question to access the settings:");
-		alert.setMessage(mathProblem.getQuestion());
+			AlertDialog.Builder alert = new AlertDialog.Builder(this);
+			alert.setTitle("Please answer this question to access the settings:");
+			alert.setMessage(mathProblem.getQuestion());
 
-		final EditText input = new EditText(this);
-		alert.setView(input);
+			final EditText input = new EditText(this);
+			input.setInputType(InputType.TYPE_CLASS_NUMBER);
+			alert.setView(input);
 
-		alert.setPositiveButton("Submit",
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						int userAnswer = Integer.MAX_VALUE;
+			alert.setPositiveButton("Submit",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							int userAnswer = Integer.MAX_VALUE;
 
-						try {
-							userAnswer = Integer.parseInt(input.getText()
-									.toString());
-						} catch (Exception e) {
-							showSettingsToast();
-							return;
+							try {
+								userAnswer = Integer.parseInt(input.getText()
+										.toString());
+							} catch (Exception e) {
+								showSettingsToast();
+								return;
+							}
+							if (userAnswer == mathProblem.getAnswer()) {
+								startActivity(new Intent(EDUkid.this,
+										SettingsView.class));
+							} else {
+								showSettingsToast();
+							}
 						}
-						if (userAnswer == mathProblem.getAnswer()) {
-							startActivity(new Intent(EDUkid.this,
-									SettingsView.class));
-						} else {
-							showSettingsToast();
-						}
-					}
-				});
+					});
 
-		alert.setNegativeButton("Cancel", null);
+			alert.setNegativeButton("Cancel", null);
 
-		alert.create();
-		alert.show();
+			alert.create();
+			alert.show();
+		}
 	}
 
 	/**
@@ -250,4 +227,24 @@ public class EDUkid extends Activity implements OnClickListener {
 		Toast.makeText(this, "Incorrect answer. Please try again.",
 				Toast.LENGTH_LONG).show();
 	}
+
+	@Override
+	public void onInit(int status) {
+		textToSpeech.setLanguage(Locale.getDefault());
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+		if (textToSpeech != null) {
+
+			textToSpeech.stop();
+			textToSpeech.shutdown();
+		}
+	}
+
 }
