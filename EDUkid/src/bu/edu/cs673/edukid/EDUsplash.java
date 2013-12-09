@@ -79,7 +79,10 @@ public class EDUsplash extends Activity {
 		}
 	}
 
-	// TODO
+	/**
+	 * Sets up the database with the default values for the default word
+	 * mappings.
+	 */
 	private void setupDefaultWordMappings() {
 		if (Database.getInstance(this).getDefaultWordMapping(null).size() == 0) {
 			setupDefaultWordMapping(0,
@@ -90,7 +93,10 @@ public class EDUsplash extends Activity {
 		}
 	}
 
-	// TODO
+	/**
+	 * Sets up the database with the default values for each default word
+	 * mapping.
+	 */
 	private void setupDefaultWordMapping(int categoryIndex, Word[][] wordsArray) {
 		Database database = Database.getInstance(this);
 

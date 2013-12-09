@@ -31,5 +31,4 @@ public class Num {
 	public void setNumberSound(String numberSound) {
 		this.numberSound = numberSound;
 	}
-
 }

@@ -192,7 +192,7 @@ public class Database {
 	 *            the letter to edit.
 	 */
 	public void editLetter(int letterIndex, Letter letter) {
-		// TODO: implement this
+
 	}
 
 	/**
@@ -242,7 +242,6 @@ public class Database {
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_WORD, word.getWord());
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_SOUND,
 				word.getWordSound());
-		// TODO: fix this
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
 				ImageUtils.drawableToByteArray(word.getWordDrawable()));
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE_ID, 0);
@@ -273,7 +272,6 @@ public class Database {
 				word.getWordSound());
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE,
 				ImageUtils.drawableToByteArray(word.getWordDrawable()));
-		// TODO: fix this
 		contentValues.put(DatabaseHelper.COLUMN_WORDS_IMAGE_ID,
 				R.drawable.abacus);
 		contentValues
@@ -298,7 +296,13 @@ public class Database {
 				null);
 	}
 
-	// TODO
+	/**
+	 * Gets the list of default word mappings from the database.
+	 * 
+	 * @param selection
+	 *            the where clause used in the query.
+	 * @return the list of default word mappings from the database.
+	 */
 	public List<DefaultWordMapping> getDefaultWordMapping(String selection) {
 		List<DefaultWordMapping> defaultWordMappings = new ArrayList<DefaultWordMapping>();
 
@@ -318,7 +322,18 @@ public class Database {
 		return defaultWordMappings;
 	}
 
-	// TODO
+	/**
+	 * Adds a default word mapping to the database.
+	 * 
+	 * @param categoryIndex
+	 *            the category index.
+	 * @param itemIndex
+	 *            the index index.
+	 * @param wordIndex
+	 *            the word index.
+	 * @param checked
+	 *            true if the item is checked.
+	 */
 	public void addDefaultWordMapping(int categoryIndex, int itemIndex,
 			int wordIndex, boolean checked) {
 		ContentValues contentValues = new ContentValues();
@@ -335,7 +350,18 @@ public class Database {
 				contentValues);
 	}
 
-	// TODO
+	/**
+	 * Updates a default word mapping in the database.
+	 * 
+	 * @param categoryIndex
+	 *            the category index.
+	 * @param itemIndex
+	 *            the item index.
+	 * @param wordIndex
+	 *            the word index.
+	 * @param checked
+	 *            true if the item is checked.
+	 */
 	public void updateDefaultWordMapping(int categoryIndex, int itemIndex,
 			int wordIndex, boolean checked) {
 		ContentValues contentValues = new ContentValues();
@@ -612,6 +638,11 @@ public class Database {
 				contentValues);
 	}
 
+	/**
+	 * Gets the timer instance from the database.
+	 * 
+	 * @return
+	 */
 	public Timer getTimer() {
 		Timer timer = null;
 
@@ -630,6 +661,16 @@ public class Database {
 		return timer;
 	}
 
+	/**
+	 * Adds a timer instance to the database.
+	 * 
+	 * @param enabled
+	 *            true if the timer is enabled.
+	 * @param expired
+	 *            true if the timer is expired.
+	 * @param learnTime
+	 *            the learn time remaining in the timer.
+	 */
 	public void addTimer(boolean enabled, boolean expired, long learnTime) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_TIMER_ENABLED, enabled ? 1 : 0);
@@ -639,15 +680,23 @@ public class Database {
 		sqlDatabase.insert(DatabaseHelper.TABLE_TIMER, null, contentValues);
 	}
 
+	/**
+	 * Updates the timer instance in the database.
+	 * 
+	 * @param enabled
+	 *            true if the timer is enabled.
+	 * @param expired
+	 *            true if the timer is expired.
+	 * @param learnTime
+	 *            the learn time remaining in the timer.
+	 */
 	public void updateTimer(boolean enabled, boolean expired, long learnTime) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(DatabaseHelper.COLUMN_TIMER_ENABLED, enabled ? 1 : 0);
 		contentValues.put(DatabaseHelper.COLUMN_TIMER_EXPIRED, expired ? 1 : 0);
 		contentValues.put(DatabaseHelper.COLUMN_LEARN_TIME, learnTime);
 
-		int rows = sqlDatabase.update(DatabaseHelper.TABLE_TIMER,
-				contentValues, null, null);
-		System.out.println("*** number of rows: " + rows);
-		System.out.println("learn time :" + learnTime);
+		sqlDatabase.update(DatabaseHelper.TABLE_TIMER, contentValues, null,
+				null);
 	}
 }

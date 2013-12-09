@@ -35,7 +35,12 @@ public interface CategoryType extends Serializable {
 	 */
 	Drawable getCategoryImage(Context context);
 
-	// TODO
+	/**
+	 * Adds an item to the database.
+	 * 
+	 * @param item
+	 *            the item to add.
+	 */
 	void addItem(String item);
 
 	/**
@@ -75,7 +80,13 @@ public interface CategoryType extends Serializable {
 	 */
 	String getItemPhoneticSound(int itemIndex);
 
-	// TODO
+	/**
+	 * Gets the default word count in the database for this category.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @return the default word count.
+	 */
 	int getDefaultWordCount(int itemIndex);
 
 	/**
@@ -104,10 +115,24 @@ public interface CategoryType extends Serializable {
 	 */
 	Word getSettingsItemWord(int itemIndex, int wordIndex);
 
-	// TODO
+	/**
+	 * Gets the learn item words given an item index.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @return the learn item words.
+	 */
 	Word[] getLearnItemWords(int itemIndex);
 
-	// TODO
+	/**
+	 * Gets the learn item word given an item index and a word index.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @param wordIndex
+	 *            the word index.
+	 * @return the learn item word.
+	 */
 	Word getLearnItemWord(int itemIndex, int wordIndex);
 
 	/**
@@ -141,7 +166,14 @@ public interface CategoryType extends Serializable {
 	 */
 	void editItemWord(int itemIndex, int wordIndex, Word word);
 
-	// TODO
+	/**
+	 * Deletes an item word from the database.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @param wordIndex
+	 *            the word index.
+	 */
 	void deleteItemWord(int itemIndex, int wordIndex);
 
 	/**
@@ -155,7 +187,15 @@ public interface CategoryType extends Serializable {
 	 */
 	int getSettingsItemDrawableId(int itemIndex, int imageIndex);
 
-	// TODO
+	/**
+	 * Gets the settings item drawable id.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @param imageIndex
+	 *            the image index.
+	 * @return the settings item drawable id.
+	 */
 	Drawable getSettingsItemDrawable(int itemIndex, int imageIndex);
 
 	/**
@@ -169,7 +209,15 @@ public interface CategoryType extends Serializable {
 	 */
 	int getLearnItemDrawableId(int itemIndex, int imageIndex);
 
-	// TODO
+	/**
+	 * Gets the learn item drawable object.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @param imageIndex
+	 *            the image index.
+	 * @return the learn item drawable.
+	 */
 	Drawable getLearnItemDrawable(int itemIndex, int imageIndex);
 
 	/**

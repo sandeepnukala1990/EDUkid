@@ -36,7 +36,6 @@ public class ColorsCategory implements CategoryType {
 	 */
 	@Override
 	public void addItem(String item) {
-		// TODO
 	}
 
 	/**
@@ -52,7 +51,6 @@ public class ColorsCategory implements CategoryType {
 	 */
 	@Override
 	public String[] getItems() {
-		// TODO: don't hardcode
 		return DatabaseDefaults.getColors();
 	}
 
@@ -61,7 +59,6 @@ public class ColorsCategory implements CategoryType {
 	 */
 	@Override
 	public String getItem(int itemIndex) {
-		// TODO
 		return DatabaseDefaults.getColors()[itemIndex];
 	}
 
@@ -78,7 +75,6 @@ public class ColorsCategory implements CategoryType {
 	 */
 	@Override
 	public String getItemPhoneticSound(int itemIndex) {
-		// TODO
 		Color col = Database.getInstance().getColors().get(itemIndex);
 
 		if (col != null) {
@@ -105,7 +101,6 @@ public class ColorsCategory implements CategoryType {
 	 */
 	@Override
 	public Word[] getSettingsItemWords(int itemIndex) {
-		// TODO
 		return DatabaseDefaults.getDefaultColorWords()[itemIndex];
 	}
 
@@ -114,7 +109,6 @@ public class ColorsCategory implements CategoryType {
 	 */
 	@Override
 	public Word getSettingsItemWord(int itemIndex, int wordIndex) {
-		// TODO
 		return DatabaseDefaults.getDefaultColorWords()[itemIndex][wordIndex];
 	}
 
@@ -123,7 +117,6 @@ public class ColorsCategory implements CategoryType {
 	 */
 	@Override
 	public Word[] getLearnItemWords(int itemIndex) {
-		// TODO: for now, getting all the words. fix this.
 		return getSettingsItemWords(itemIndex);
 	}
 
@@ -140,7 +133,6 @@ public class ColorsCategory implements CategoryType {
 	 */
 	@Override
 	public int getLearnItemWordCount(int itemIndex) {
-		// TODO
 		return DatabaseDefaults.getDefaultColorWords()[itemIndex].length;
 	}
 
@@ -149,7 +141,6 @@ public class ColorsCategory implements CategoryType {
 	 */
 	@Override
 	public void addItemWord(int itemIndex, Word word) {
-		// TODO: Jasjot, implement this
 	}
 
 	/**
@@ -157,7 +148,6 @@ public class ColorsCategory implements CategoryType {
 	 */
 	@Override
 	public void editItemWord(int itemIndex, int wordIndex, Word word) {
-		// TODO: Jasjot, implement this
 	}
 
 	/**
@@ -165,7 +155,6 @@ public class ColorsCategory implements CategoryType {
 	 */
 	@Override
 	public void deleteItemWord(int itemIndex, int wordIndex) {
-		// TODO
 	}
 
 	/**
@@ -173,7 +162,6 @@ public class ColorsCategory implements CategoryType {
 	 */
 	@Override
 	public int getSettingsItemDrawableId(int itemIndex, int imageIndex) {
-		// TODO
 		return DatabaseDefaults.getDefaultColorWords()[itemIndex][imageIndex]
 				.getDrawableId();
 	}

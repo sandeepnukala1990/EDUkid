@@ -94,7 +94,13 @@ public class DatabaseUtils {
 		return word;
 	}
 
-	// TODO
+	/**
+	 * Converts a cursor object to a DefaultWordMapping object.
+	 * 
+	 * @param cursor
+	 *            the database cursor object.
+	 * @return a DefaultWordMapping object.
+	 */
 	protected static DefaultWordMapping convertCursorToDefaultWordMapping(
 			Cursor cursor) {
 		DefaultWordMapping defaultWordMapping = new DefaultWordMapping();
@@ -190,18 +196,18 @@ public class DatabaseUtils {
 		return shape;
 	}
 
+	/**
+	 * Converts a cursor object to a Timer object.
+	 * 
+	 * @param cursor
+	 *            the database shape object.
+	 * @return a Timer object.
+	 */
 	protected static Timer convertCursorToTimer(Cursor cursor) {
 		Timer timer = new Timer();
-		// timer.setEnabled(cursor.getInt(0));
-		// timer.setExpired(cursor.getInt(1));
-		// timer.setLearnTime(cursor.getInt(2));
-
-		int enabled = cursor.getInt(0);
-		int expired = cursor.getInt(1);
-		int time = cursor.getInt(2);
-		timer.setEnabled(enabled);
-		timer.setExpired(expired);
-		timer.setLearnTime(time);
+		timer.setEnabled(cursor.getInt(0));
+		timer.setExpired(cursor.getInt(1));
+		timer.setLearnTime(cursor.getInt(2));
 
 		return timer;
 	}

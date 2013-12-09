@@ -3,7 +3,6 @@ package bu.edu.cs673.edukid.db.model;
 import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.db.ImageUtils;
 
-
 public class Shape {
 
 	private long shapeId;
@@ -11,10 +10,8 @@ public class Shape {
 	private String shape;
 
 	private String shapeSound;
-	
-	private Drawable shapeImage;
 
-	
+	private Drawable shapeImage;
 
 	public long getShapeId() {
 		return shapeId;
@@ -39,7 +36,7 @@ public class Shape {
 	public void setShapeSound(String shapeSound) {
 		this.shapeSound = shapeSound;
 	}
-	
+
 	public byte[] getShapeImage() {
 		return ImageUtils.drawableToByteArray(shapeImage);
 	}

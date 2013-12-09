@@ -4,15 +4,14 @@ import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.db.ImageUtils;
 
 public class Color {
-	
+
 	private long colourId;
 
 	private String colour;
 
 	private Drawable colourImage;
-	
+
 	private String colourSound;
-	
 
 	public long getColourId() {
 		return colourId;
@@ -37,7 +36,7 @@ public class Color {
 	public void setColourSound(String colourSound) {
 		this.colourSound = colourSound;
 	}
-	
+
 	public byte[] getColourImage() {
 		return ImageUtils.drawableToByteArray(colourImage);
 	}
@@ -45,6 +44,4 @@ public class Color {
 	public void setColourImage(byte[] imageData) {
 		this.colourImage = ImageUtils.byteArrayToDrawable(imageData);
 	}
-
-
 }
