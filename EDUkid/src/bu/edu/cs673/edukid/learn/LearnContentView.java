@@ -15,14 +15,12 @@ import bu.edu.cs673.edukid.db.model.Timer;
 import bu.edu.cs673.edukid.db.model.category.CategoryType;
 import bu.edu.cs673.edukid.learn.grid.LearnContentGridView;
 
-
-
 public class LearnContentView extends FragmentActivity {
 
 	private CategoryType categoryType;
 
 	private Database database = Database.getInstance(this);
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -54,7 +52,8 @@ public class LearnContentView extends FragmentActivity {
 
 		handler.postDelayed(new Runnable() {
 			public void run() {
-				AlertDialog.Builder alert = new AlertDialog.Builder(LearnContentView.this);
+				AlertDialog.Builder alert = new AlertDialog.Builder(
+						LearnContentView.this);
 
 				alert.setTitle("Timed Out!");
 				alert.setPositiveButton("Ok",
@@ -63,9 +62,10 @@ public class LearnContentView extends FragmentActivity {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								database.updateTimer(true, true, database.getTimer().getLearnTime());
-								Intent intent = new Intent(LearnContentView.this,
-										EDUkid.class);
+								database.updateTimer(true, true, database
+										.getTimer().getLearnTime());
+								Intent intent = new Intent(
+										LearnContentView.this, EDUkid.class);
 								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 								startActivity(intent);
 							}
@@ -75,6 +75,7 @@ public class LearnContentView extends FragmentActivity {
 			}
 		}, timerDuration);
 	}
+
 	/**
 	 * Show grid on click callback.
 	 * 

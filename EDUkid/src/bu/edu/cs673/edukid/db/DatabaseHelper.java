@@ -187,18 +187,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 
-	// TODO
+	/**
+	 * Generates word selection text based on the item index.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @return word selection text.
+	 */
 	public static String generateWordsSelection(int itemIndex) {
 		return COLUMN_WORDS_ITEM_ID + EQUALS + itemIndex;
 	}
 
-	// TODO
+	/**
+	 * Generates word selection text based on the item index and the word index.
+	 * 
+	 * @param itemIndex
+	 *            the item index.
+	 * @param wordIndex
+	 *            the word index.
+	 * @return word selection text.
+	 */
 	public static String generateWordsSelection(int itemIndex, int wordIndex) {
 		return generateWordsSelection(itemIndex) + AND + COLUMN_WORDS_WORD_ID
 				+ EQUALS + wordIndex;
 	}
 
-	// TODO
+	/**
+	 * Generates default word mapping selection text based on the category index
+	 * and the item index.
+	 * 
+	 * @param categoryIndex
+	 *            the category index.
+	 * @param itemIndex
+	 *            the item index.
+	 * @return default word mapping selection text.
+	 */
 	public static String generateDefaultMappingSelection(int categoryIndex,
 			int itemIndex) {
 		String categoryIdSelection = COLUMN_DEFAULT_WORD_MAP_CATEGORY_ID
@@ -209,7 +232,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return categoryIdSelection + AND + itemIdSelection;
 	}
 
-	// TODO
+	/**
+	 * Generates default word mapping selection text based on the category
+	 * index, item index, and word index.
+	 * 
+	 * @param categoryIndex
+	 *            the category index.
+	 * @param itemIndex
+	 *            the item index.
+	 * @param wordIndex
+	 *            the word index.
+	 * @return default word mapping selection text.
+	 */
 	public static String generateDefaultMappingSelection(int categoryIndex,
 			int itemIndex, int wordIndex) {
 		String wordIdSelection = COLUMN_DEFAULT_WORD_MAP_WORD_ID + EQUALS

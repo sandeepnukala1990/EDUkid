@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable;
 import bu.edu.cs673.edukid.db.ImageUtils;
 
 public class Number {
-	
+
 	private long nId;
 
 	private long nTypeId;

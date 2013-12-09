@@ -132,9 +132,7 @@ public class AlphabetCategory implements CategoryType {
 				.generateWordsSelection(itemIndex));
 
 		if (databaseWords.size() > 0) {
-			// TODO: add all? can only do this if dont need to set checkeds
 			for (Word databaseWord : databaseWords) {
-				// TODO: databaseWord.setChecked();
 				wordList.add(databaseWord);
 			}
 		}
@@ -203,7 +201,6 @@ public class AlphabetCategory implements CategoryType {
 	 */
 	@Override
 	public void deleteItemWord(int itemIndex, int wordIndex) {
-		// TODO
 		Database.getInstance().deleteWord(itemIndex, wordIndex);
 	}
 

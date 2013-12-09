@@ -10,6 +10,11 @@ import android.widget.ToggleButton;
 import bu.edu.cs673.edukid.R;
 import bu.edu.cs673.edukid.db.Database;
 
+/**
+ * 
+ * @author Rakshit Sachdev
+ * 
+ */
 public class TimerView extends Activity {
 
 	private Database database = Database.getInstance(this);
@@ -34,8 +39,7 @@ public class TimerView extends Activity {
 
 		time.setEnabled(false);
 		btn1.setEnabled(false);
-		if(database.getTimer().getEnabled()==1)
-		{
+		if (database.getTimer().getEnabled() == 1) {
 			time.setEnabled(true);
 			btn1.setEnabled(true);
 			btn.setChecked(true);
@@ -51,7 +55,8 @@ public class TimerView extends Activity {
 				} else {
 					time.setEnabled(false);
 					btn1.setEnabled(false);
-					database.updateTimer(false, false, database.getTimer().getLearnTime());
+					database.updateTimer(false, false, database.getTimer()
+							.getLearnTime());
 				}
 			}
 		});
@@ -61,13 +66,14 @@ public class TimerView extends Activity {
 			@Override
 			public void onClick(View v) {
 
-				database.updateTimer(true,false,database.getTimer().getLearnTime());
+				database.updateTimer(true, false, database.getTimer()
+						.getLearnTime());
 				Toast.makeText(TimerView.this, "Timer Reset! Go play !",
 						Toast.LENGTH_SHORT).show();
-				
+
 			}
 		});
-		
+
 		Button btn2 = (Button) findViewById(R.id.createSaveButton);
 		btn2.setOnClickListener(new View.OnClickListener() {
 
@@ -86,7 +92,6 @@ public class TimerView extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 
 			}
 		});

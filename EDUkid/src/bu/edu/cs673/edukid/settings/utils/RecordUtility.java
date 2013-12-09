@@ -7,6 +7,7 @@ import android.media.MediaRecorder;
 import android.os.Environment;
 import android.widget.ImageView;
 import bu.edu.cs673.edukid.R;
+
 /**
  * The audio record and playback utilities.
  * 
@@ -54,12 +55,13 @@ public class RecordUtility {
 	public static void playbackRecording(String path) {
 		MediaPlayer mp = new MediaPlayer();
 
-	    try {
-	        mp.setDataSource(path);
-	        mp.prepare();
-	        mp.start();
-	        
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }	}
+		try {
+			mp.setDataSource(path);
+			mp.prepare();
+			mp.start();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

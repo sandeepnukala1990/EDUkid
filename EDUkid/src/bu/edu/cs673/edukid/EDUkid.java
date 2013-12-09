@@ -26,6 +26,7 @@ import bu.edu.cs673.edukid.learn.LearnContentView;
 import bu.edu.cs673.edukid.settings.SettingsView;
 import bu.edu.cs673.edukid.settings.utils.MathProblem;
 import bu.edu.cs673.edukid.settings.utils.MathProblemGenerator;
+import bu.edu.cs673.edukid.settings.utils.RecordUtility;
 
 /**
  * The main view of the application. Contains the main buttons to get to the
@@ -58,7 +59,6 @@ public class EDUkid extends Activity implements OnClickListener, OnInitListener 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edukid);
 
-		// TODO: fix this
 		textToSpeech = new TextToSpeech(this, this);
 
 		setupCategoryButtons();
@@ -147,14 +147,19 @@ public class EDUkid extends Activity implements OnClickListener, OnInitListener 
 				if (userSound != null && !userSound.isEmpty()) {
 					try {
 						textToSpeech.stop();
-						textToSpeech.speak("Welcome to EduKid, ",
-								TextToSpeech.QUEUE_FLUSH, null);
+						textToSpeech.speak("Hi, ", TextToSpeech.QUEUE_FLUSH,
+								null);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 
-					System.out.println("Why");
-					// RecordUtility.playbackRecording(userAccount.getUserSound());
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+
+					RecordUtility.playbackRecording(userAccount.getUserSound());
 				}
 
 				Toast.makeText(
